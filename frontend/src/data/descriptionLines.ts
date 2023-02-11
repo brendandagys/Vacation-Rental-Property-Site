@@ -29,7 +29,7 @@ export const descriptionLines = [
   seaview`,
   'WASHING MACHINE AND DRYER are inside the apartment for your convenience',
   'FREE fast WI-FI',
-  'Flat SCREEN SMART television with NETFLIX &amp; 100&#39;s of channels',
+  'Flat SCREEN SMART television with NETFLIX and 100\'s of channels',
   `Private PARKING for your car in a covered garage belonging to the apartment
   with a lift 10 meters away to take you directly up to your apartment in
   minutes`,
