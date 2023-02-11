@@ -39,6 +39,7 @@ module.exports = {
     "no-undef": "off",
     "no-underscore-dangle": "off",
     "no-unused-vars": "off",
+    "object-curly-spacing": [ "warn", "always" ],
     quotes: [ "warn", "single", { allowTemplateLiterals: true } ],
     semi: [ "warn", "always" ],
     "space-unary-ops": [
