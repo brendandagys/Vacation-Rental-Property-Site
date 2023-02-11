@@ -19,13 +19,13 @@ function App() {
         <Col className="text-center">
           <Alert variant='primary'>
             <h1>
-            Welcome to Fuerte Calaceite FRONTLINE Vistamar!
+              Welcome to Fuerte Calaceite FRONTLINE Vistamar!
             </h1>
           </Alert>
           <h3 className="mt-4 text-muted">Luxury on the Sea!</h3>
         </Col>
       </Row>
-      <Row className="mt-2 mb-5">
+      <Row className="mt-2 mb-5 gy-2">
         <Col lg={6}>
           <InformationCard
             lines={introductionLines}
@@ -42,7 +42,7 @@ function App() {
         </Col>
       </Row>
 
-      <Row>
+      <Row className="px-3">
         <div className="rounded" style={{ backgroundColor: '#ddd3ee' }}>
           <Col className="m-auto" md={8}>
             <ImageCarousel images={images} />
