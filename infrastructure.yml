@@ -1,0 +1,386 @@
+AWSTemplateFormatVersion: 2010-09-09
+
+Conditions:
+  CreateDeployBucketAndPolicy: !Equals [!Ref ExistingDeployBucket, '']
+
+  CreateDnsRecordWww: !Equals [!Ref DnsRecordWwwFlag, 'true']
+
+Parameters:
+  MasterStackName:
+    Type: String
+    Default: my-site
+
+  DnsRecordWwwFlag:
+    Type: String
+    Default: false
+
+  ExistingDeployBucket:
+    Type: String
+
+  Repository:
+    Type: String
+  Branch:
+    Type: String
+    Default: main
+    Description: e.g. main or master
+
+  Domain:
+    Type: String
+
+  HostedZoneId:
+    Description: Route53 Hosted Zone ID
+    Type: String
+
+  CloudFrontHostedZoneId:
+    Type: String
+    Default: Z2FDTNDATAQYW2
+
+  DistributionHomePage:
+    Type: String
+    Default: /index.html
+
+Resources:
+  DeployBucket:
+    Type: AWS::S3::Bucket
+    Condition: CreateDeployBucketAndPolicy
+    DeletionPolicy: Retain
+    Properties:
+      BucketName: !Ref Domain
+      AccessControl: Private
+      PublicAccessBlockConfiguration:
+        BlockPublicAcls: false
+        BlockPublicPolicy: true
+        IgnorePublicAcls: false
+        RestrictPublicBuckets: true
+
+  DeployBucketPolicy:
+    Type: AWS::S3::BucketPolicy
+    Condition: CreateDeployBucketAndPolicy
+    DeletionPolicy: Retain
+    Properties:
+      Bucket:
+        !If [
+          CreateDeployBucketAndPolicy,
+          !Ref DeployBucket,
+          !Ref ExistingDeployBucket,
+        ]
+      PolicyDocument:
+        Id: MySiteDeployBucketPolicy
+        Version: 2012-10-17
+        Statement:
+          - Sid: PolicyForCloudFrontPrivateContent
+            Effect: Allow
+            Principal:
+              CanonicalUser: !GetAtt OriginAccessIdentity.S3CanonicalUserId
+            Action: 's3:GetObject'
+            Resource: !Join
+              - ''
+              - - 'arn:aws:s3:::'
+                - !If [
+                    CreateDeployBucketAndPolicy,
+                    !Ref DeployBucket,
+                    !Ref ExistingDeployBucket,
+                  ]
+                - /*
+
+  CodePipelineRole:
+    Type: AWS::IAM::Role
+    Properties:
+      AssumeRolePolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+          - Effect: Allow
+            Principal:
+              Service:
+                - codepipeline.amazonaws.com
+            Action:
+              - sts:AssumeRole
+      Policies:
+        - PolicyName: root
+          PolicyDocument:
+            Version: '2012-10-17'
+            Statement:
+              - Effect: Allow
+                Action:
+                  - codecommit:UploadArchive
+                  - codecommit:GetCommit
+                  - codecommit:GetUploadArchiveStatus
+                  - codecommit:GetBranch
+                  - codecommit:CancelUploadArchive
+                Resource: '*'
+              - Effect: Allow
+                Action:
+                  - codebuild:BatchGetBuilds
+                  - codebuild:StartBuild
+                Resource: '*'
+              - Effect: Allow
+                Action:
+                  - s3:GetObject
+                  - s3:GetObjectVersion
+                  - s3:GetBucketVersioning
+                  - s3:PutObject
+                Resource:
+                  - '*'
+
+  CodeBuildRole:
+    Type: AWS::IAM::Role
+    Properties:
+      AssumeRolePolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+          - Effect: Allow
+            Principal:
+              Service:
+                - codebuild.amazonaws.com
+            Action:
+              - sts:AssumeRole
+      Path: /service-role/
+      Policies:
+        - PolicyName: root
+          PolicyDocument:
+            Version: '2012-10-17'
+            Statement:
+              - Effect: Allow
+                Action:
+                  - s3:GetObject
+                  - s3:GetObjectVersion
+                  - s3:GetBucketVersioning
+                  - s3:PutObject
+                Resource:
+                  - !If [
+                      CreatePipelineBucket,
+                      !GetAtt PipelineBucket.Arn,
+                      !Ref ExistingPipelineBucket,
+                    ]
+                  - !Join [
+                      '',
+                      [
+                        !If [
+                          CreatePipelineBucket,
+                          !GetAtt PipelineBucket.Arn,
+                          !Ref ExistingPipelineBucket,
+                        ],
+                        '/*',
+                      ],
+                    ]
+              - Effect: Allow
+                Action:
+                  - s3:GetObject
+                  - s3:GetObjectVersion
+                  - s3:GetBucketVersioning
+                  - s3:PutObject
+                  - s3:PutObjectAcl
+                Resource:
+                  - 'arn:aws:s3:::*'
+              - Effect: Allow
+                Action:
+                  - logs:CreateLogGroup
+                  - logs:CreateLogStream
+                  - logs:PutLogEvents
+                  - cloudfront:CreateInvalidation
+                Resource:
+                  - '*'
+
+  CodePipeline:
+    Type: AWS::CodePipeline::Pipeline
+    Properties:
+      ArtifactStore:
+        Location: !Sub '${MasterStackName}-pipeline-artifacts'
+        Type: S3
+      RoleArn:
+        !Ref CodePipelineRole
+      Stages:
+        - Name: Source
+          Actions:
+            - Name: SourceAction
+              ActionTypeId:
+                Category: Source
+                Owner: AWS
+                Provider: CodeCommit
+                Version: 1
+              OutputArtifacts:
+                - Name: !Sub '${AWS::StackName}-code'
+              Configuration:
+                RepositoryName: !Ref Repository
+                BranchName: !Ref Branch
+        - Name: Approval
+          Actions:
+            - Name: ApprovalAction
+              ActionTypeId:
+                Category: Approval
+                Owner: AWS
+                Provider: Manual
+                Version: 1
+        - Name: Build
+          Actions:
+            - Name: BuildAction
+              ActionTypeId:
+                Category: Build
+                Owner: AWS
+                Provider: CodeBuild
+                Version: 1
+              InputArtifacts:
+                - Name: !Sub '${AWS::StackName}-code'
+              OutputArtifacts:
+                - Name: !Sub '${AWS::StackName}-build'
+              Configuration:
+                ProjectName: !Ref CodeBuild
+
+  CodeBuild:
+    Type: AWS::CodeBuild::Project
+    Properties:
+      Name: !Sub ${AWS::StackName}-codebuild
+      ServiceRole:
+        !Ref CodeBuildRole
+      Artifacts:
+        Type: CODEPIPELINE
+      Environment:
+        ComputeType: BUILD_GENERAL1_SMALL
+        Type: LINUX_CONTAINER
+        Image: aws/codebuild/standard:4.0
+      Source:
+        Type: CODEPIPELINE
+        BuildSpec: !Sub |
+          version: 0.2
+          env:
+            variables:
+              INLINE_RUNTIME_CHUNK: "false"
+          phases:
+            install:
+              commands:
+                - cd frontend
+                - npm install
+            build:
+              commands:
+                - npm run build
+                # - npm test
+                # - echo $CODEBUILD_SRC_DIR
+                - ls
+            post_build:
+              on-failure: ABORT #CONTINUE
+              commands:
+                - aws s3 cp --recursive --acl public-read ./build s3://${Domain}/
+                - aws s3 cp --acl public-read --cache-control="max-age=0, no-cache, no-store, must-revalidate" ./build/index.html s3://${Domain}/
+                - aws cloudfront create-invalidation --distribution-id ${Distribution} --paths "/*"
+
+          artifacts:
+            files:
+              - 'frontend/build/**/*'
+
+  Certificate:
+    Type: AWS::CertificateManager::Certificate
+    Properties: 
+      # CertificateAuthorityArn: String
+      CertificateTransparencyLoggingPreference: ENABLED
+      DomainName: !Ref Domain
+      # DomainValidationOptions: 
+      #   - DomainValidationOption
+      # SubjectAlternativeNames: 
+      #   - String
+      # Tags: 
+      #   - Tag
+      # ValidationMethod: String
+
+  Distribution:
+    Type: AWS::CloudFront::Distribution
+    Properties:
+      DistributionConfig:
+        Enabled: true
+        Comment: !Sub 'S3 SPA for ${AWS::StackName}'
+        Aliases:
+          - !Ref Domain
+          # - !Ref DomainWww
+        Origins:
+          - Id:
+              !If [
+                CreateDeployBucketAndPolicy,
+                !Ref DeployBucket,
+                !Ref ExistingDeployBucket,
+              ]
+            DomainName: !Sub '${Domain}.s3.amazonaws.com'
+            S3OriginConfig:
+              OriginAccessIdentity:
+                !Join [
+                  '',
+                  [
+                    'origin-access-identity/cloudfront/',
+                    !Ref OriginAccessIdentity,
+                  ],
+                ]
+        ViewerCertificate:
+          AcmCertificateArn:
+            !Ref Certificate
+          SslSupportMethod: sni-only
+          MinimumProtocolVersion: TLSv1.2_2021
+        CustomErrorResponses:
+          # - ErrorCode: 403
+          #   ResponseCode: 200
+          #   ResponsePagePath: !Ref DistributionHomePage
+          #   ErrorCachingMinTTL: 10
+          - ErrorCode: 404
+            ResponseCode: 200
+            ResponsePagePath: !Ref DistributionHomePage
+            ErrorCachingMinTTL: 10
+        DefaultRootObject: !Ref DistributionHomePage
+        PriceClass: PriceClass_100
+        HttpVersion: http2
+        IPV6Enabled: false
+        DefaultCacheBehavior:
+          TargetOriginId:
+            !If [
+              CreateDeployBucketAndPolicy,
+              !Ref DeployBucket,
+              !Ref ExistingDeployBucket,
+            ]
+          ViewerProtocolPolicy: redirect-to-https
+          CachePolicyId: 658327ea-f89d-4fab-a63d-7e88639e58f6
+          Compress: true
+          AllowedMethods:
+            - GET
+            - HEAD
+            - OPTIONS
+          CachedMethods:
+            - GET
+            - HEAD
+          # FunctionAssociations:
+          #   - EventType: viewer-request
+          #     FunctionARN:
+          #       !ImportValue {
+          #         'Fn::Sub': '${MasterStackName}-cloudfront-function-canonical-url',
+          #       }
+          #   - EventType: viewer-response
+          #     FunctionARN:
+          #       !ImportValue {
+          #         'Fn::Sub': '${MasterStackName}-cloudfront-function-security-headers',
+          #       }
+        Logging:
+          Bucket: !Sub '${MasterStackName}-cloudfront-distribution-logs.s3.amazonaws.com'
+          IncludeCookies: true
+          Prefix: !Sub '${AWS::StackName}-logs'
+
+  OriginAccessIdentity:
+    Type: AWS::CloudFront::CloudFrontOriginAccessIdentity
+    Properties:
+      CloudFrontOriginAccessIdentityConfig:
+        Comment: !Sub '${Domain} OAI'
+
+  DnsRecord:
+    Type: AWS::Route53::RecordSet
+    Properties:
+      HostedZoneId: !Ref HostedZoneId
+      Name: !Ref Domain
+      Type: A
+      AliasTarget:
+        HostedZoneId: !Ref CloudFrontHostedZoneId
+        DNSName: !GetAtt Distribution.DomainName
+
+  DnsRecordWww:
+    Condition: CreateDnsRecordWww
+    Type: AWS::Route53::RecordSet
+    Properties:
+      HostedZoneId: !Ref HostedZoneId
+      Name: !Join ['', ['www.', !Ref Domain]]
+      Type: A
+      AliasTarget:
+        HostedZoneId: !Ref CloudFrontHostedZoneId
+        DNSName: !GetAtt Distribution.DomainName
