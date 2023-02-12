@@ -2,23 +2,30 @@ AWSTemplateFormatVersion: 2010-09-09
 
 Conditions:
   CreateDeployBucketAndPolicy: !Equals [!Ref ExistingDeployBucket, '']
-
+  CreatePipelineBucket: !Equals [!Ref ExistingPipelineBucket, '']
+  CreateLoggingBucket: !Equals [!Ref ExistingLoggingBucket, '']
   CreateDnsRecordWww: !Equals [!Ref DnsRecordWwwFlag, 'true']
 
 Parameters:
-  MasterStackName:
-    Type: String
-    Default: my-site
-
   DnsRecordWwwFlag:
     Type: String
-    Default: false
+    Default: 'true'
 
   ExistingDeployBucket:
     Type: String
+    Default: spain.brendandagys.com
+
+  ExistingLoggingBucket:
+    Type: String
+    Default: arn:aws:s3:::business-site-cloudfront-logs
+  
+  ExistingPipelineBucket:
+    Type: String
+    Default: arn:aws:s3:::business-site-pipeline-artifacts
 
   Repository:
     Type: String
+    Default: business-site
   Branch:
     Type: String
     Default: main
@@ -26,10 +33,12 @@ Parameters:
 
   Domain:
     Type: String
+    Default: spain.brendandagys.com
 
   HostedZoneId:
-    Description: Route53 Hosted Zone ID
+    Description: Route 53 Hosted Zone ID
     Type: String
+    Default: Z1048063LC3J2IKH5GGI
 
   CloudFrontHostedZoneId:
     Type: String
@@ -46,7 +55,9 @@ Resources:
     DeletionPolicy: Retain
     Properties:
       BucketName: !Ref Domain
-      AccessControl: Private
+      OwnershipControls:
+        Rules:
+          - ObjectOwnership: BucketOwnerEnforced
       PublicAccessBlockConfiguration:
         BlockPublicAcls: false
         BlockPublicPolicy: true
@@ -71,8 +82,8 @@ Resources:
           - Sid: PolicyForCloudFrontPrivateContent
             Effect: Allow
             Principal:
-              CanonicalUser: !GetAtt OriginAccessIdentity.S3CanonicalUserId
-            Action: 's3:GetObject'
+              Service: cloudfront.amazonaws.com
+            Action: s3:GetObject
             Resource: !Join
               - ''
               - - 'arn:aws:s3:::'
@@ -82,6 +93,39 @@ Resources:
                     !Ref ExistingDeployBucket,
                   ]
                 - /*
+            Condition:
+              StringEquals:
+                AWS:SourceArn: !Sub 'arn:aws:cloudfront::${AWS::AccountId}:distribution/${Distribution}'
+
+  PipelineBucket:
+    Type: AWS::S3::Bucket
+    Condition: CreatePipelineBucket
+    DeletionPolicy: Retain
+    Properties:
+      BucketName: !Sub '${AWS::StackName}-pipeline-artifacts'
+      OwnershipControls:
+        Rules:
+          - ObjectOwnership: BucketOwnerEnforced
+      PublicAccessBlockConfiguration:
+        BlockPublicAcls: true
+        BlockPublicPolicy: true
+        IgnorePublicAcls: true
+        RestrictPublicBuckets: true
+  
+  LoggingBucket:
+    Type: AWS::S3::Bucket
+    Condition: CreateLoggingBucket
+    DeletionPolicy: Retain
+    Properties:
+      BucketName: !Sub '${AWS::StackName}-cloudfront-logs'
+      OwnershipControls:
+        Rules:
+          - ObjectOwnership: BucketOwnerEnforced
+      PublicAccessBlockConfiguration:
+        BlockPublicAcls: true
+        BlockPublicPolicy: true
+        IgnorePublicAcls: true
+        RestrictPublicBuckets: true
 
   CodePipelineRole:
     Type: AWS::IAM::Role
@@ -185,10 +229,10 @@ Resources:
     Type: AWS::CodePipeline::Pipeline
     Properties:
       ArtifactStore:
-        Location: !Sub '${MasterStackName}-pipeline-artifacts'
+        Location: !Sub '${AWS::StackName}-pipeline-artifacts'
         Type: S3
       RoleArn:
-        !Ref CodePipelineRole
+        !GetAtt CodePipelineRole.Arn
       Stages:
         - Name: Source
           Actions:
@@ -227,11 +271,12 @@ Resources:
                 ProjectName: !Ref CodeBuild
 
   CodeBuild:
+    DependsOn: CodeBuildRole
     Type: AWS::CodeBuild::Project
     Properties:
       Name: !Sub ${AWS::StackName}-codebuild
       ServiceRole:
-        !Ref CodeBuildRole
+        !GetAtt CodeBuildRole.Arn
       Artifacts:
         Type: CODEPIPELINE
       Environment:
@@ -270,16 +315,23 @@ Resources:
   Certificate:
     Type: AWS::CertificateManager::Certificate
     Properties: 
-      # CertificateAuthorityArn: String
       CertificateTransparencyLoggingPreference: ENABLED
       DomainName: !Ref Domain
-      # DomainValidationOptions: 
-      #   - DomainValidationOption
-      # SubjectAlternativeNames: 
-      #   - String
-      # Tags: 
-      #   - Tag
-      # ValidationMethod: String
+      DomainValidationOptions: 
+        - DomainName: !Ref Domain
+          HostedZoneId: !Ref HostedZoneId
+        - DomainName: !Join ['', ['*.', !Ref Domain]]
+          HostedZoneId: !Ref HostedZoneId
+      ValidationMethod: DNS
+
+  OriginAccessControl:
+    Type: AWS::CloudFront::OriginAccessControl
+    Properties:
+      OriginAccessControlConfig:
+        Name: !Ref AWS::StackName
+        OriginAccessControlOriginType: s3
+        SigningBehavior: always
+        SigningProtocol: sigv4
 
   Distribution:
     Type: AWS::CloudFront::Distribution
@@ -289,7 +341,11 @@ Resources:
         Comment: !Sub 'S3 SPA for ${AWS::StackName}'
         Aliases:
           - !Ref Domain
-          # - !Ref DomainWww
+          - !If [
+              CreateDnsRecordWww,
+              !Join ['', ['www.', !Ref Domain]],
+              !Ref AWS::NoValue,
+            ]
         Origins:
           - Id:
               !If [
@@ -299,24 +355,18 @@ Resources:
               ]
             DomainName: !Sub '${Domain}.s3.amazonaws.com'
             S3OriginConfig:
-              OriginAccessIdentity:
-                !Join [
-                  '',
-                  [
-                    'origin-access-identity/cloudfront/',
-                    !Ref OriginAccessIdentity,
-                  ],
-                ]
+              OriginAccessIdentity: ''
+            OriginAccessControlId: !GetAtt OriginAccessControl.Id
         ViewerCertificate:
           AcmCertificateArn:
             !Ref Certificate
           SslSupportMethod: sni-only
           MinimumProtocolVersion: TLSv1.2_2021
         CustomErrorResponses:
-          # - ErrorCode: 403
-          #   ResponseCode: 200
-          #   ResponsePagePath: !Ref DistributionHomePage
-          #   ErrorCachingMinTTL: 10
+          - ErrorCode: 403
+            ResponseCode: 200
+            ResponsePagePath: !Ref DistributionHomePage
+            ErrorCachingMinTTL: 10
           - ErrorCode: 404
             ResponseCode: 200
             ResponsePagePath: !Ref DistributionHomePage
@@ -354,15 +404,9 @@ Resources:
           #         'Fn::Sub': '${MasterStackName}-cloudfront-function-security-headers',
           #       }
         Logging:
-          Bucket: !Sub '${MasterStackName}-cloudfront-distribution-logs.s3.amazonaws.com'
+          Bucket: !Sub '${AWS::StackName}-cloudfront-logs.s3.amazonaws.com'
           IncludeCookies: true
           Prefix: !Sub '${AWS::StackName}-logs'
-
-  OriginAccessIdentity:
-    Type: AWS::CloudFront::CloudFrontOriginAccessIdentity
-    Properties:
-      CloudFrontOriginAccessIdentityConfig:
-        Comment: !Sub '${Domain} OAI'
 
   DnsRecord:
     Type: AWS::Route53::RecordSet
