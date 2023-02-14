@@ -2,7 +2,7 @@ AWSTemplateFormatVersion: 2010-09-09
 
 Conditions:
   CreateDeployBucketAndPolicy: !Equals [!Ref ExistingDeployBucket, '']
-  CreatePipelineBucket: !Equals [!Ref ExistingPipelineBucket, '']
+  # CreatePipelineBucket: !Equals [!Ref ExistingPipelineBucket, '']
   CreateLoggingBucket: !Equals [!Ref ExistingLoggingBucket, '']
   CreateDnsRecordWww: !Equals [!Ref DnsRecordWwwFlag, 'true']
 
@@ -19,9 +19,9 @@ Parameters:
     Type: String
     Default: arn:aws:s3:::business-site-cloudfront-logs
   
-  ExistingPipelineBucket:
-    Type: String
-    Default: arn:aws:s3:::business-site-pipeline-artifacts
+  # ExistingPipelineBucket:
+  #   Type: String
+  #   Default: arn:aws:s3:::business-site-pipeline-artifacts
 
   Repository:
     Type: String
@@ -97,75 +97,6 @@ Resources:
               StringEquals:
                 AWS:SourceArn: !Sub 'arn:aws:cloudfront::${AWS::AccountId}:distribution/${Distribution}'
 
-  PipelineBucket:
-    Type: AWS::S3::Bucket
-    Condition: CreatePipelineBucket
-    DeletionPolicy: Retain
-    Properties:
-      BucketName: !Sub '${AWS::StackName}-pipeline-artifacts'
-      OwnershipControls:
-        Rules:
-          - ObjectOwnership: BucketOwnerEnforced
-      PublicAccessBlockConfiguration:
-        BlockPublicAcls: true
-        BlockPublicPolicy: true
-        IgnorePublicAcls: true
-        RestrictPublicBuckets: true
-  
-  LoggingBucket:
-    Type: AWS::S3::Bucket
-    Condition: CreateLoggingBucket
-    DeletionPolicy: Retain
-    Properties:
-      BucketName: !Sub '${AWS::StackName}-cloudfront-logs'
-      OwnershipControls:
-        Rules:
-          - ObjectOwnership: BucketOwnerEnforced
-      PublicAccessBlockConfiguration:
-        BlockPublicAcls: true
-        BlockPublicPolicy: true
-        IgnorePublicAcls: true
-        RestrictPublicBuckets: true
-
-  CodePipelineRole:
-    Type: AWS::IAM::Role
-    Properties:
-      AssumeRolePolicyDocument:
-        Version: '2012-10-17'
-        Statement:
-          - Effect: Allow
-            Principal:
-              Service:
-                - codepipeline.amazonaws.com
-            Action:
-              - sts:AssumeRole
-      Policies:
-        - PolicyName: root
-          PolicyDocument:
-            Version: '2012-10-17'
-            Statement:
-              - Effect: Allow
-                Action:
-                  - codecommit:UploadArchive
-                  - codecommit:GetCommit
-                  - codecommit:GetUploadArchiveStatus
-                  - codecommit:GetBranch
-                  - codecommit:CancelUploadArchive
-                Resource: '*'
-              - Effect: Allow
-                Action:
-                  - codebuild:BatchGetBuilds
-                  - codebuild:StartBuild
-                Resource: '*'
-              - Effect: Allow
-                Action:
-                  - s3:GetObject
-                  - s3:GetObjectVersion
-                  - s3:GetBucketVersioning
-                  - s3:PutObject
-                Resource:
-                  - '*'
-
   CodeBuildRole:
     Type: AWS::IAM::Role
     Properties:
@@ -191,19 +122,21 @@ Resources:
                   - s3:GetBucketVersioning
                   - s3:PutObject
                 Resource:
-                  - !If [
-                      CreatePipelineBucket,
-                      !GetAtt PipelineBucket.Arn,
-                      !Ref ExistingPipelineBucket,
-                    ]
+                  - !ImportValue PipelineBucket
+                  # - !If [
+                  #     CreatePipelineBucket,
+                  #     !GetAtt PipelineBucket.Arn,
+                  #     !Ref ExistingPipelineBucket,
+                  #   ]
                   - !Join [
                       '',
                       [
-                        !If [
-                          CreatePipelineBucket,
-                          !GetAtt PipelineBucket.Arn,
-                          !Ref ExistingPipelineBucket,
-                        ],
+                        # !If [
+                        #   CreatePipelineBucket,
+                        #   !GetAtt PipelineBucket.Arn,
+                        #   !Ref ExistingPipelineBucket,
+                        # ],
+                        !ImportValue PipelineBucket,
                         '/*',
                       ],
                     ]
@@ -221,60 +154,19 @@ Resources:
                   - logs:CreateLogGroup
                   - logs:CreateLogStream
                   - logs:PutLogEvents
+                Resource:
+                  - '*'
+              - Effect: Allow
+                Action:
                   - cloudfront:CreateInvalidation
                 Resource:
                   - '*'
 
-  CodePipeline:
-    Type: AWS::CodePipeline::Pipeline
-    Properties:
-      ArtifactStore:
-        Location: !Sub '${AWS::StackName}-pipeline-artifacts'
-        Type: S3
-      RoleArn:
-        !GetAtt CodePipelineRole.Arn
-      Stages:
-        - Name: Source
-          Actions:
-            - Name: SourceAction
-              ActionTypeId:
-                Category: Source
-                Owner: AWS
-                Provider: CodeCommit
-                Version: 1
-              OutputArtifacts:
-                - Name: !Sub '${AWS::StackName}-code'
-              Configuration:
-                RepositoryName: !Ref Repository
-                BranchName: !Ref Branch
-        - Name: Approval
-          Actions:
-            - Name: ApprovalAction
-              ActionTypeId:
-                Category: Approval
-                Owner: AWS
-                Provider: Manual
-                Version: 1
-        - Name: Build
-          Actions:
-            - Name: BuildAction
-              ActionTypeId:
-                Category: Build
-                Owner: AWS
-                Provider: CodeBuild
-                Version: 1
-              InputArtifacts:
-                - Name: !Sub '${AWS::StackName}-code'
-              OutputArtifacts:
-                - Name: !Sub '${AWS::StackName}-build'
-              Configuration:
-                ProjectName: !Ref CodeBuild
-
-  CodeBuild:
-    DependsOn: CodeBuildRole
+  CodeBuildFrontend:
+    # DependsOn: CodeBuildRole
     Type: AWS::CodeBuild::Project
     Properties:
-      Name: !Sub ${AWS::StackName}-codebuild
+      Name: !Sub ${AWS::StackName}-frontend
       ServiceRole:
         !GetAtt CodeBuildRole.Arn
       Artifacts:
@@ -311,6 +203,90 @@ Resources:
           artifacts:
             files:
               - 'frontend/build/**/*'
+  
+  CodePipeline:
+    Type: AWS::CodePipeline::Pipeline
+    Properties:
+      ArtifactStore:
+        Location: !Sub ${AWS::StackName}-pipeline-artifacts
+        Type: S3
+      RoleArn:
+        !ImportValue PipelineRole
+      Stages:
+        - Name: Source
+          Actions:
+            - Name: SourceAction
+              ActionTypeId:
+                Category: Source
+                Owner: AWS
+                Provider: CodeCommit
+                Version: 1
+              OutputArtifacts:
+                - Name: !Sub '${AWS::StackName}-code'
+              Configuration:
+                RepositoryName: !Ref Repository
+                BranchName: !Ref Branch
+        - Name: Approval
+          Actions:
+            - Name: CloudFormation Infrastructure Creation
+              ActionTypeId:
+                Category: Approval
+                Owner: AWS
+                Provider: Manual
+                Version: 1
+              RunOrder: 1
+            - Name: SPA Deployment to CloudFront and S3
+              ActionTypeId:
+                Category: Approval
+                Owner: AWS
+                Provider: Manual
+                Version: 1
+              RunOrder: 1
+        - Name: Build
+          Actions:
+            - Name: SPA Deployment to S3
+              ActionTypeId:
+                Category: Build
+                Owner: AWS
+                Provider: CodeBuild
+                Version: 1
+              InputArtifacts:
+                - Name: !Sub ${AWS::StackName}-code
+              OutputArtifacts:
+                - Name: !Sub ${AWS::StackName}-frontend-build
+              Configuration:
+                ProjectName: !Ref CodeBuildFrontend
+        - Name: Deploy
+          Actions:
+            - Name: Deploy CloudFormation changeset
+              ActionTypeId: 
+                Category: Deploy
+                Owner: AWS
+                Provider: CloudFormation
+                Version: 1
+              InputArtifacts:
+                - Name: !Sub ${AWS::StackName}-code
+              OutputArtifacts:
+                - Name: !Sub ${AWS::StackName}-changeset
+              Configuration:
+                ActionMode: CREATE_UPDATE
+                StackName: !Sub ${AWS::StackName}-infrastructure
+                TemplatePath: !Sub ${AWS::StackName}-code::infrastructure/infrastructure.yml
+
+  LoggingBucket:
+    Type: AWS::S3::Bucket
+    Condition: CreateLoggingBucket
+    DeletionPolicy: Retain
+    Properties:
+      BucketName: !Sub '${AWS::StackName}-cloudfront-logs'
+      OwnershipControls:
+        Rules:
+          - ObjectOwnership: BucketOwnerEnforced
+      PublicAccessBlockConfiguration:
+        BlockPublicAcls: true
+        BlockPublicPolicy: true
+        IgnorePublicAcls: true
+        RestrictPublicBuckets: true
 
   Certificate:
     Type: AWS::CertificateManager::Certificate
