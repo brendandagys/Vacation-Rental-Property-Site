@@ -17,7 +17,7 @@ Parameters:
 
   ExistingLoggingBucket:
     Type: String
-    Default: arn:aws:s3:::business-site-cloudfront-logs
+    # Default: arn:aws:s3:::business-site-infrastructure-cloudfront-logs
   
   # ExistingPipelineBucket:
   #   Type: String
@@ -101,7 +101,7 @@ Resources:
     Type: AWS::IAM::Role
     Properties:
       AssumeRolePolicyDocument:
-        Version: '2012-10-17'
+        Version: 2012-10-17
         Statement:
           - Effect: Allow
             Principal:
@@ -113,7 +113,7 @@ Resources:
       Policies:
         - PolicyName: root
           PolicyDocument:
-            Version: '2012-10-17'
+            Version: 2012-10-17
             Statement:
               - Effect: Allow
                 Action:
