@@ -256,22 +256,22 @@ Resources:
                 - Name: !Sub ${AWS::StackName}-frontend-build
               Configuration:
                 ProjectName: !Ref CodeBuildFrontend
-        - Name: Deploy
-          Actions:
-            - Name: Deploy CloudFormation changeset
-              ActionTypeId: 
-                Category: Deploy
-                Owner: AWS
-                Provider: CloudFormation
-                Version: 1
-              InputArtifacts:
-                - Name: !Sub ${AWS::StackName}-code
-              OutputArtifacts:
-                - Name: !Sub ${AWS::StackName}-changeset
-              Configuration:
-                ActionMode: CREATE_UPDATE
-                StackName: !Sub ${AWS::StackName}-infrastructure
-                TemplatePath: !Sub ${AWS::StackName}-code::infrastructure/infrastructure.yml
+        # - Name: Deploy
+        #   Actions:
+        #     - Name: Deploy CloudFormation changeset
+        #       ActionTypeId: 
+        #         Category: Deploy
+        #         Owner: AWS
+        #         Provider: CloudFormation
+        #         Version: 1
+        #       InputArtifacts:
+        #         - Name: !Sub ${AWS::StackName}-code
+        #       OutputArtifacts:
+        #         - Name: !Sub ${AWS::StackName}-changeset
+        #       Configuration:
+        #         ActionMode: CREATE_UPDATE
+        #         StackName: !Sub ${AWS::StackName}-infrastructure
+        #         TemplatePath: !Sub ${AWS::StackName}-code::infrastructure/infrastructure.yml
 
   LoggingBucket:
     Type: AWS::S3::Bucket
