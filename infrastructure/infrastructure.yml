@@ -381,7 +381,7 @@ Resources:
           #         'Fn::Sub': '${MasterStackName}-cloudfront-function-security-headers',
           #       }
         Logging:
-          Bucket: !Sub ${AWS::AccountId}-cloudfront-logs
+          Bucket: !Sub ${AWS::AccountId}-cloudfront-logs.s3.amazonaws.com
           IncludeCookies: true
           Prefix: !Sub '${AWS::StackName}-logs'
 
