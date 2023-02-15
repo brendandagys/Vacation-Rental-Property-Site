@@ -17,8 +17,8 @@ Parameters:
 
   ExistingLoggingBucket:
     Type: String
-    Default: ''
-    # Default: arn:aws:s3:::business-site-infrastructure-cloudfront-logs
+    Default: arn:aws:s3:::708746137251-cloudfront-logs
+    # Default: ''
   
   # ExistingPipelineBucket:
   #   Type: String
@@ -315,7 +315,7 @@ Resources:
     Properties:
       DistributionConfig:
         Enabled: true
-        Comment: !Sub 'S3 SPA for ${AWS::StackName}'
+        Comment: !Sub S3 SPA for ${AWS::StackName}
         Aliases:
           - !Ref Domain
           - !If [
@@ -381,7 +381,12 @@ Resources:
           #         'Fn::Sub': '${MasterStackName}-cloudfront-function-security-headers',
           #       }
         Logging:
-          Bucket: !Sub '${AWS::AccountId}-cloudfront-logs.s3.amazonaws.com'
+          Bucket:
+            - !If [
+              CreateLoggingBucket,
+              !Sub '${AWS::AccountId}-cloudfront-logs.s3.amazonaws.com',
+              !Ref ExistingLoggingBucket
+            ]
           IncludeCookies: true
           Prefix: !Sub '${AWS::StackName}-logs'
 
