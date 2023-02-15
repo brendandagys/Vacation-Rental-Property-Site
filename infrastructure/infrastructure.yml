@@ -381,11 +381,12 @@ Resources:
           #         'Fn::Sub': '${MasterStackName}-cloudfront-function-security-headers',
           #       }
         Logging:
-          Bucket: !If [
-              CreateLoggingBucket,
-              !Sub '${AWS::AccountId}-cloudfront-logs.s3.amazonaws.com',
-              !Ref ExistingLoggingBucket
-            ]
+          Bucket: !Sub '${AWS::AccountId}-cloudfront-logs.s3.amazonaws.com'
+          # Bucket: !If [
+          #     CreateLoggingBucket,
+          #     !Sub '${AWS::AccountId}-cloudfront-logs.s3.amazonaws.com',
+          #     !Ref ExistingLoggingBucket
+          #   ]
           IncludeCookies: true
           Prefix: !Sub '${AWS::StackName}-logs'
 
