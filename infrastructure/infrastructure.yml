@@ -279,7 +279,7 @@ Resources:
     Condition: CreateLoggingBucket
     DeletionPolicy: Retain
     Properties:
-      BucketName: !Sub '${AWS::AccountId}-cloudfront-logs.s3.amazonaws.com'
+      BucketName: !Sub ${AWS::AccountId}-cloudfront-logs
       OwnershipControls:
         Rules:
           - ObjectOwnership: BucketOwnerEnforced
@@ -311,6 +311,7 @@ Resources:
         SigningProtocol: sigv4
 
   Distribution:
+  DependsOn: LoggingBucket
     Type: AWS::CloudFront::Distribution
     Properties:
       DistributionConfig:
@@ -381,7 +382,7 @@ Resources:
           #         'Fn::Sub': '${MasterStackName}-cloudfront-function-security-headers',
           #       }
         Logging:
-          Bucket: !Sub '${AWS::AccountId}-cloudfront-logs.s3.amazonaws.com'
+          Bucket: !Sub ${AWS::AccountId}-cloudfront-logs
           IncludeCookies: true
           Prefix: !Sub '${AWS::StackName}-logs'
 
