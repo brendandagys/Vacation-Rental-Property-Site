@@ -50,6 +50,21 @@ Parameters:
     Default: /index.html
 
 Resources:
+  LoggingBucket:
+    Type: AWS::S3::Bucket
+    Condition: CreateLoggingBucket
+    DeletionPolicy: Retain
+    Properties:
+      BucketName: !Sub '${AWS::AccountId}-cloudfront-logs'
+      # OwnershipControls:
+      #   Rules:
+      #     - ObjectOwnership: BucketOwnerEnforced
+      PublicAccessBlockConfiguration:
+        BlockPublicAcls: true
+        BlockPublicPolicy: true
+        IgnorePublicAcls: true
+        RestrictPublicBuckets: true
+
   DeployBucket:
     Type: AWS::S3::Bucket
     Condition: CreateDeployBucketAndPolicy
@@ -272,21 +287,6 @@ Resources:
         #         ActionMode: CREATE_UPDATE
         #         StackName: !Sub ${AWS::StackName}-infrastructure
         #         TemplatePath: !Sub ${AWS::StackName}-code::infrastructure/infrastructure.yml
-
-  LoggingBucket:
-    Type: AWS::S3::Bucket
-    Condition: CreateLoggingBucket
-    DeletionPolicy: Retain
-    Properties:
-      BucketName: !Sub '${AWS::AccountId}-cloudfront-logs'
-      OwnershipControls:
-        Rules:
-          - ObjectOwnership: BucketOwnerEnforced
-      PublicAccessBlockConfiguration:
-        BlockPublicAcls: true
-        BlockPublicPolicy: true
-        IgnorePublicAcls: true
-        RestrictPublicBuckets: true
 
   Certificate:
     Type: AWS::CertificateManager::Certificate
