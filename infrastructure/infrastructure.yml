@@ -17,8 +17,8 @@ Parameters:
 
   ExistingLoggingBucket:
     Type: String
-    Default: arn:aws:s3:::708746137251-cloudfront-logs
-    # Default: ''
+    # Default: arn:aws:s3:::708746137251-cloudfront-logs
+    Default: ''
   
   # ExistingPipelineBucket:
   #   Type: String
@@ -164,7 +164,6 @@ Resources:
                   - '*'
 
   CodeBuildFrontend:
-    # DependsOn: CodeBuildRole
     Type: AWS::CodeBuild::Project
     Properties:
       Name: !Sub ${AWS::StackName}-frontend
@@ -381,14 +380,21 @@ Resources:
           #         'Fn::Sub': '${MasterStackName}-cloudfront-function-security-headers',
           #       }
         Logging:
-          Bucket: !Sub '${AWS::AccountId}-cloudfront-logs.s3.amazonaws.com'
+          Bucket:
+            !If [
+              CreateLoggingBucket,
+              !GetAtt LoggingBucket.DomainName,
+              !Ref ExistingLoggingBucket
+            ]
+          IncludeCookies: true
+          Prefix: !Sub '${AWS::StackName}-logs'
+          # Bucket: !GetAtt LoggingBucket.DomainName
+          # Bucket: !Sub '${AWS::AccountId}-cloudfront-logs.s3.amazonaws.com'
           # Bucket: !If [
           #     CreateLoggingBucket,
           #     !Sub '${AWS::AccountId}-cloudfront-logs.s3.amazonaws.com',
           #     !Ref ExistingLoggingBucket
           #   ]
-          IncludeCookies: true
-          Prefix: !Sub '${AWS::StackName}-logs'
 
   DnsRecord:
     Type: AWS::Route53::RecordSet
