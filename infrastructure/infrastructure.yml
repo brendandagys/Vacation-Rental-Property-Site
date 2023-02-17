@@ -17,12 +17,8 @@ Parameters:
 
   ExistingLoggingBucket:
     Type: String
-    # Default: arn:aws:s3:::708746137251-cloudfront-logs
-    Default: ''
-  
-  # ExistingPipelineBucket:
-  #   Type: String
-  #   Default: arn:aws:s3:::business-site-pipeline-artifacts
+    Default: 708746137251-cloudfront-logs.s3.amazonaws.com
+    # Default: ''
 
   Repository:
     Type: String
