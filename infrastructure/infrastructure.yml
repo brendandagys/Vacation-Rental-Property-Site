@@ -9,7 +9,7 @@ Parameters:
     Type: String
     Default: 'false'
 
-  ExistingDeployBucket:
+  ExistingDeployBucketDomain:
     Type: String
     Default: ''
     # Default: spain.brendandagys.com.s3.amazonaws.com
@@ -64,7 +64,7 @@ Resources:
         !If [
           CreateDeployBucketAndPolicy,
           !Ref DeployBucket,
-          !Ref ExistingDeployBucket,
+          !Ref ExistingDeployBucketDomain,
         ]
       PolicyDocument:
         Id: '${AWS::StackName}-deploy-bucket-policy'
@@ -78,7 +78,7 @@ Resources:
             Resource: !If [
               CreateDeployBucketAndPolicy,
               !Sub '${DeployBucket.Arn}/*',
-              !GetAtt ExistingDeployBucket.Arn
+              !Sub 'arn:aws:s3::708746137251-${Domain}/*'
             ]
             Condition:
               StringEquals:
@@ -290,7 +290,7 @@ Resources:
               !If [
                 CreateDeployBucketAndPolicy,
                 !Ref DeployBucket,
-                !Ref ExistingDeployBucket,
+                !Ref ExistingDeployBucketDomain,
               ]
             DomainName: !Sub '${Domain}.s3.${AWS::Region}.amazonaws.com'
             S3OriginConfig:
@@ -319,7 +319,7 @@ Resources:
             !If [
               CreateDeployBucketAndPolicy,
               !Ref DeployBucket,
-              !Ref ExistingDeployBucket,
+              !Ref ExistingDeployBucketDomain,
             ]
           ViewerProtocolPolicy: redirect-to-https
           # OriginRequestPolicyId: 88a5eaf4-2fd4-4709-b370-b4c650ea3fcf
