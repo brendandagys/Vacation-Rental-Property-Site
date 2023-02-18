@@ -7,12 +7,12 @@ Conditions:
 Parameters:
   DnsRecordWwwFlag:
     Type: String
-    Default: 'false'
+    Default: 'true'
 
   ExistingDeployBucketDomain:
     Type: String
-    Default: ''
-    # Default: spain.brendandagys.com.s3.amazonaws.com
+    Default: spain.brendandagys.com.s3.amazonaws.com
+    # Default: ''
 
   Repository:
     Type: String
