@@ -1,0 +1,244 @@
+AWSTemplateFormatVersion: 2010-09-09
+
+Conditions:
+  CreatePipelineBucket: !Equals [!Ref ExistingPipelineBucketArn, '']
+  CreateLoggingBucketAndPolicy: !And
+    - !Equals [!Ref ExistingLoggingBucketDomain, '']
+    - !Equals [!Ref ExistingLoggingBucketArn, '']
+
+Parameters:
+  Repository:
+    Type: String
+    Default: business-site
+
+  Branch:
+    Type: String
+    Default: main
+
+  ExistingPipelineBucketArn:
+    Type: String
+    Default: arn:aws:s3:::708746137251-pipeline-artifacts
+    # Default: ''
+  
+  ExistingLoggingBucketArn:
+    Type: String
+    Default: arn:aws:s3:::708746137251-cloudfront-logs
+    # Default: ''
+
+  ExistingLoggingBucketDomain:
+    Type: String
+    Default: 708746137251-cloudfront-logs.s3.amazonaws.com
+    # Default: ''
+
+Resources:
+  CloudFormationRole:
+    Type: AWS::IAM::Role
+    Properties:
+      AssumeRolePolicyDocument:
+        Version: 2012-10-17
+        Statement:
+          - Effect: Allow
+            Principal:
+              Service: cloudformation.amazonaws.com
+            Action: sts:AssumeRole
+      ManagedPolicyArns:
+        - arn:aws:iam::aws:policy/AdministratorAccess
+
+  PassCloudFormationRolePolicy:
+    Type: AWS::IAM::Policy
+    Properties:
+      PolicyName: PassCloudFormationRole
+      PolicyDocument:
+        Version: 2012-10-17
+        Statement:
+          - Effect: Allow
+            Action:
+              iam:PassRole
+            Resource: !GetAtt CloudFormationRole.Arn
+      Users:
+        - brendandagys
+
+  PipelineBucket:
+    Type: AWS::S3::Bucket
+    Condition: CreatePipelineBucket
+    DeletionPolicy: Retain
+    Properties:
+      BucketName: !Sub ${AWS::AccountId}-pipeline-artifacts
+      OwnershipControls:
+        Rules:
+          - ObjectOwnership: BucketOwnerEnforced
+      PublicAccessBlockConfiguration:
+        BlockPublicAcls: true
+        BlockPublicPolicy: true
+        IgnorePublicAcls: true
+        RestrictPublicBuckets: true
+
+  LoggingBucket:
+    Type: AWS::S3::Bucket
+    Condition: CreateLoggingBucketAndPolicy
+    DeletionPolicy: Retain
+    Properties:
+      BucketName: !Sub '${AWS::AccountId}-cloudfront-logs'
+      PublicAccessBlockConfiguration:
+        BlockPublicAcls: true
+        BlockPublicPolicy: true
+        IgnorePublicAcls: true
+        RestrictPublicBuckets: true
+
+  LoggingBucketPolicy:
+    Type: AWS::S3::BucketPolicy
+    Condition: CreateLoggingBucketAndPolicy
+    DeletionPolicy: Retain
+    Properties:
+      Bucket:
+        !If [
+          CreateLoggingBucketAndPolicy,
+          !Ref LoggingBucket,
+          !Ref ExistingLoggingBucketDomain,
+        ]
+      PolicyDocument:
+        Id: !Sub '${AWS::StackName}-logging-bucket-policy'
+        Version: 2012-10-17
+        Statement:
+          - Sid: Policy-for-CloudFront-logging
+            Effect: Allow
+            Principal:
+              Service: cloudfront.amazonaws.com
+            Action:
+              - s3:GetBucketAcl
+              - s3:PutBucketAcl
+            Resource: !If [
+              CreateLoggingBucketAndPolicy,
+              !GetAtt LoggingBucket.Arn,
+              !Ref ExistingLoggingBucketArn
+            ]
+            Condition:
+              StringLike:
+                AWS:SourceArn: !Sub 'arn:aws:cloudfront::${AWS::AccountId}:distribution/*'
+
+  PipelineRole:
+    Type: AWS::IAM::Role
+    Properties:
+      AssumeRolePolicyDocument:
+        Version: 2012-10-17
+        Statement:
+          - Effect: Allow
+            Principal:
+              Service: codepipeline.amazonaws.com
+            Action: sts:AssumeRole
+      Policies:
+        - PolicyName: root
+          PolicyDocument:
+            Version: 2012-10-17
+            Statement:
+              - Effect: Allow
+                Action:
+                  - cloudformation:DescribeStacks
+                  - cloudformation:CreateStack
+                  - cloudformation:UpdateStack
+                  - iam:PassRole
+                Resource: '*'
+              - Effect: Allow
+                Action:
+                  - codecommit:UploadArchive
+                  - codecommit:GetCommit
+                  - codecommit:GetUploadArchiveStatus
+                  - codecommit:GetBranch
+                  - codecommit:CancelUploadArchive
+                Resource: !Sub arn:aws:codecommit:${AWS::Region}:${AWS::AccountId}:${Repository}
+              - Effect: Allow
+                Action:
+                  - s3:GetObject
+                  - s3:GetObjectVersion
+                  - s3:GetBucketVersioning
+                  - s3:PutObject
+                Resource:
+                  - !If [
+                      CreatePipelineBucket,
+                      !GetAtt PipelineBucket.Arn,
+                      !Ref ExistingPipelineBucketArn,
+                    ]
+                  - !Join [
+                      '',
+                      [
+                        !If [
+                          CreatePipelineBucket,
+                          !GetAtt PipelineBucket.Arn,
+                          !Ref ExistingPipelineBucketArn,
+                        ],
+                        '/*',
+                      ],
+                    ]
+              - Effect: Allow
+                Action:
+                  - codebuild:StartBuild
+                  - codebuild:BatchGetBuilds
+                Resource: '*'
+
+  Pipeline:
+    Type: AWS::CodePipeline::Pipeline
+    Properties:
+      ArtifactStore:
+        Location: !Sub ${AWS::AccountId}-pipeline-artifacts
+        Type: S3
+      RoleArn: !GetAtt PipelineRole.Arn
+      Stages:
+        - Name: Source
+          Actions:
+            - Name: SourceAction
+              ActionTypeId:
+                Category: Source
+                Owner: AWS
+                Provider: CodeCommit
+                Version: 1
+              OutputArtifacts:
+                - Name: !Sub ${AWS::StackName}-code
+              Configuration:
+                RepositoryName: !Ref Repository
+                BranchName: !Ref Branch
+        - Name: Approval
+          Actions:
+            - Name: ApprovalAction
+              ActionTypeId:
+                Category: Approval
+                Owner: AWS
+                Provider: Manual
+                Version: 1
+        - Name: Deploy
+          Actions:
+            - Name: DeployStackAction
+              ActionTypeId: 
+                Category: Deploy
+                Owner: AWS
+                Provider: CloudFormation
+                Version: 1
+              InputArtifacts:
+                - Name: !Sub ${AWS::StackName}-code
+              OutputArtifacts:
+                - Name: !Sub ${AWS::StackName}-changeset
+              Configuration:
+                ActionMode: CREATE_UPDATE
+                StackName: !Sub ${AWS::StackName}-infrastructure
+                TemplatePath: !Sub ${AWS::StackName}-code::infrastructure/infrastructure.yml
+                RoleArn: !GetAtt CloudFormationRole.Arn
+                Capabilities: CAPABILITY_IAM
+
+Outputs:
+  PipelineBucketArn:
+    Value: !If [CreatePipelineBucket, !GetAtt PipelineBucket.Arn, !Ref ExistingPipelineBucketArn]
+    Export:
+      Name: PipelineBucketArn
+  
+  PipelineRole:
+    Value: !GetAtt PipelineRole.Arn
+    Export:
+      Name: PipelineRole
+
+  LoggingBucketDomain:
+    Value: !If [
+      CreateLoggingBucketAndPolicy,
+      !GetAtt LoggingBucket.DomainName,
+      !Ref ExistingLoggingBucketDomain
+    ]
+    Export:
+      Name: LoggingBucketDomain

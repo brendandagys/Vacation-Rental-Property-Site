@@ -363,7 +363,7 @@ Resources:
     Type: AWS::Route53::RecordSet
     Properties:
       HostedZoneId: !Ref HostedZoneId
-      Name: !Join ['', ['www.', !Ref Domain]]
+      Name: !Sub 'www.${Domain}'
       Type: A
       AliasTarget:
         HostedZoneId: !Ref CloudFrontHostedZoneId
