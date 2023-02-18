@@ -2,24 +2,17 @@ AWSTemplateFormatVersion: 2010-09-09
 
 Conditions:
   CreateDeployBucketAndPolicy: !Equals [!Ref ExistingDeployBucket, '']
-  # CreatePipelineBucket: !Equals [!Ref ExistingPipelineBucket, '']
-  CreateLoggingBucket: !Equals [!Ref ExistingLoggingBucket, '']
   CreateDnsRecordWww: !Equals [!Ref DnsRecordWwwFlag, 'true']
 
 Parameters:
   DnsRecordWwwFlag:
     Type: String
-    Default: 'true'
+    Default: 'false'
 
   ExistingDeployBucket:
     Type: String
     Default: ''
-    # Default: spain.brendandagys.com
-
-  ExistingLoggingBucket:
-    Type: String
-    Default: 708746137251-cloudfront-logs.s3.amazonaws.com
-    # Default: ''
+    # Default: spain.brendandagys.com.s3.amazonaws.com
 
   Repository:
     Type: String
@@ -48,14 +41,14 @@ Parameters:
 
 Resources:
   DeployBucket:
-    Type: AWS::S3::Bucket
     Condition: CreateDeployBucketAndPolicy
+    Type: AWS::S3::Bucket
     DeletionPolicy: Retain
     Properties:
       BucketName: !Ref Domain
-      OwnershipControls:
-        Rules:
-          - ObjectOwnership: BucketOwnerEnforced
+      # OwnershipControls:
+      #   Rules:
+      #     - ObjectOwnership: BucketOwnerEnforced
       PublicAccessBlockConfiguration:
         BlockPublicAcls: false
         BlockPublicPolicy: true
@@ -82,55 +75,11 @@ Resources:
             Principal:
               Service: cloudfront.amazonaws.com
             Action: s3:GetObject
-            Resource: !Join
-              - ''
-              - - 'arn:aws:s3:::'
-                - !If [
-                    CreateDeployBucketAndPolicy,
-                    !Ref DeployBucket,
-                    !Ref ExistingDeployBucket,
-                  ]
-                - /*
-            Condition:
-              StringEquals:
-                AWS:SourceArn: !Sub 'arn:aws:cloudfront::${AWS::AccountId}:distribution/${Distribution}'
-
-  LoggingBucket:
-    Type: AWS::S3::Bucket
-    Condition: CreateLoggingBucket
-    DeletionPolicy: Retain
-    Properties:
-      BucketName: !Sub '${AWS::AccountId}-cloudfront-logs'
-      # OwnershipControls:
-      #   Rules:
-      #     - ObjectOwnership: BucketOwnerEnforced
-      PublicAccessBlockConfiguration:
-        BlockPublicAcls: true
-        BlockPublicPolicy: true
-        IgnorePublicAcls: true
-        RestrictPublicBuckets: true
-
-  LoggingBucketPolicy:
-    Type: AWS::S3::BucketPolicy
-    Condition: CreateLoggingBucket
-    DeletionPolicy: Retain
-    Properties:
-      Bucket:
-        !If [
-          CreateLoggingBucket,
-          !Ref LoggingBucket,
-          !Ref ExistingLoggingBucket,
-        ]
-      PolicyDocument:
-        Id: !Sub '${AWS::StackName}-logging-bucket-policy'
-        Version: 2012-10-17
-        Statement:
-          - Sid: PolicyForCloudFrontLogging
-            Effect: Allow
-            Principal:
-              Service: cloudfront.amazonaws.com
-            Action: s3:GetObject
-            Resource: !If [CreateLoggingBucket, !Sub ${LoggingBucket.Arn}/*, !Ref ExistingLoggingBucket]
+            Resource: !If [
+              CreateDeployBucketAndPolicy,
+              !Sub '${DeployBucket.Arn}/*',
+              !GetAtt ExistingDeployBucket.Arn
+            ]
             Condition:
               StringEquals:
                 AWS:SourceArn: !Sub 'arn:aws:cloudfront::${AWS::AccountId}:distribution/${Distribution}'
@@ -160,21 +109,11 @@ Resources:
                   - s3:GetBucketVersioning
                   - s3:PutObject
                 Resource:
-                  - !ImportValue PipelineBucket
-                  # - !If [
-                  #     CreatePipelineBucket,
-                  #     !GetAtt PipelineBucket.Arn,
-                  #     !Ref ExistingPipelineBucket,
-                  #   ]
+                  - !ImportValue PipelineBucketArn
                   - !Join [
                       '',
                       [
-                        # !If [
-                        #   CreatePipelineBucket,
-                        #   !GetAtt PipelineBucket.Arn,
-                        #   !Ref ExistingPipelineBucket,
-                        # ],
-                        !ImportValue PipelineBucket,
+                        !ImportValue PipelineBucketArn,
                         '/*',
                       ],
                     ]
@@ -245,14 +184,14 @@ Resources:
     Type: AWS::CodePipeline::Pipeline
     Properties:
       ArtifactStore:
-        Location: !Sub ${AWS::StackName}-pipeline-artifacts
+        Location: !Sub ${AWS::AccountId}-pipeline-artifacts
         Type: S3
       RoleArn:
         !ImportValue PipelineRole
       Stages:
         - Name: Source
           Actions:
-            - Name: SourceAction
+            - Name: Source-from-CodeCommit
               ActionTypeId:
                 Category: Source
                 Owner: AWS
@@ -265,23 +204,23 @@ Resources:
                 BranchName: !Ref Branch
         - Name: Approval
           Actions:
-            - Name: CloudFormation Infrastructure Creation
+            # - Name: CloudFormationInfrastructureCreation
+            #   ActionTypeId:
+            #     Category: Approval
+            #     Owner: AWS
+            #     Provider: Manual
+            #     Version: 1
+            #   RunOrder: 1
+            - Name: SPA-deployment-to-CloudFront-OAC-S3
               ActionTypeId:
                 Category: Approval
                 Owner: AWS
                 Provider: Manual
                 Version: 1
-              RunOrder: 1
-            - Name: SPA Deployment to CloudFront and S3
-              ActionTypeId:
-                Category: Approval
-                Owner: AWS
-                Provider: Manual
-                Version: 1
-              RunOrder: 1
+              # RunOrder: 1
         - Name: Build
           Actions:
-            - Name: SPA Deployment to S3
+            - Name: SPA-deployment-to-CloudFront-OAC-S3
               ActionTypeId:
                 Category: Build
                 Owner: AWS
@@ -314,11 +253,13 @@ Resources:
     Type: AWS::CertificateManager::Certificate
     Properties: 
       CertificateTransparencyLoggingPreference: ENABLED
+      # DomainName: brendandagys.com
       DomainName: !Ref Domain
       DomainValidationOptions: 
         - DomainName: !Ref Domain
           HostedZoneId: !Ref HostedZoneId
-        - DomainName: !Join ['', ['*.', !Ref Domain]]
+        - DomainName: !Sub '*.${Domain}'
+        # - DomainName: !Join ['', ['*.', !Ref Domain]]
           HostedZoneId: !Ref HostedZoneId
       ValidationMethod: DNS
 
@@ -341,7 +282,7 @@ Resources:
           - !Ref Domain
           - !If [
               CreateDnsRecordWww,
-              !Join ['', ['www.', !Ref Domain]],
+              !Sub 'www.${Domain}', # !Join ['', ['www.', !Ref Domain]],
               !Ref AWS::NoValue,
             ]
         Origins:
@@ -351,7 +292,7 @@ Resources:
                 !Ref DeployBucket,
                 !Ref ExistingDeployBucket,
               ]
-            DomainName: !Sub '${Domain}.s3.amazonaws.com'
+            DomainName: !Sub '${Domain}.s3.${AWS::Region}.amazonaws.com'
             S3OriginConfig:
               OriginAccessIdentity: ''
             OriginAccessControlId: !GetAtt OriginAccessControl.Id
@@ -403,21 +344,9 @@ Resources:
           #         'Fn::Sub': '${MasterStackName}-cloudfront-function-security-headers',
           #       }
         Logging:
-          Bucket:
-            !If [
-              CreateLoggingBucket,
-              !GetAtt LoggingBucket.DomainName,
-              !Ref ExistingLoggingBucket
-            ]
+          Bucket: !ImportValue LoggingBucketDomain
           IncludeCookies: true
           Prefix: !Sub '${AWS::StackName}-logs'
-          # Bucket: !GetAtt LoggingBucket.DomainName
-          # Bucket: !Sub '${AWS::AccountId}-cloudfront-logs.s3.amazonaws.com'
-          # Bucket: !If [
-          #     CreateLoggingBucket,
-          #     !Sub '${AWS::AccountId}-cloudfront-logs.s3.amazonaws.com',
-          #     !Ref ExistingLoggingBucket
-          #   ]
 
   DnsRecord:
     Type: AWS::Route53::RecordSet
