@@ -1,7 +1,7 @@
 AWSTemplateFormatVersion: 2010-09-09
 
 Conditions:
-  CreateDeployBucketAndPolicy: !Equals [!Ref ExistingDeployBucket, '']
+  CreateDeployBucketAndPolicy: !Equals [!Ref ExistingDeployBucketDomain, '']
   CreateDnsRecordWww: !Equals [!Ref DnsRecordWwwFlag, 'true']
 
 Parameters:
