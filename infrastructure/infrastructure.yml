@@ -254,7 +254,7 @@ Resources:
     Properties:
       CertificateTransparencyLoggingPreference: ENABLED
       DomainName: !Ref Domain
-      SubjectAlternativeName:
+      SubjectAlternativeNames:
         - !Sub 'www.${Domain}'
       DomainValidationOptions:
         - DomainName: !Ref Domain
