@@ -13,7 +13,8 @@ Parameters:
 
   ExistingDeployBucket:
     Type: String
-    Default: spain.brendandagys.com
+    Default: ''
+    # Default: spain.brendandagys.com
 
   ExistingLoggingBucket:
     Type: String
@@ -46,21 +47,6 @@ Parameters:
     Default: /index.html
 
 Resources:
-  LoggingBucket:
-    Type: AWS::S3::Bucket
-    Condition: CreateLoggingBucket
-    DeletionPolicy: Retain
-    Properties:
-      BucketName: !Sub '${AWS::AccountId}-cloudfront-logs'
-      # OwnershipControls:
-      #   Rules:
-      #     - ObjectOwnership: BucketOwnerEnforced
-      PublicAccessBlockConfiguration:
-        BlockPublicAcls: true
-        BlockPublicPolicy: true
-        IgnorePublicAcls: true
-        RestrictPublicBuckets: true
-
   DeployBucket:
     Type: AWS::S3::Bucket
     Condition: CreateDeployBucketAndPolicy
@@ -88,7 +74,7 @@ Resources:
           !Ref ExistingDeployBucket,
         ]
       PolicyDocument:
-        Id: MySiteDeployBucketPolicy
+        Id: '${AWS::StackName}-deploy-bucket-policy'
         Version: 2012-10-17
         Statement:
           - Sid: PolicyForCloudFrontPrivateContent
@@ -105,6 +91,46 @@ Resources:
                     !Ref ExistingDeployBucket,
                   ]
                 - /*
+            Condition:
+              StringEquals:
+                AWS:SourceArn: !Sub 'arn:aws:cloudfront::${AWS::AccountId}:distribution/${Distribution}'
+
+  LoggingBucket:
+    Type: AWS::S3::Bucket
+    Condition: CreateLoggingBucket
+    DeletionPolicy: Retain
+    Properties:
+      BucketName: !Sub '${AWS::AccountId}-cloudfront-logs'
+      # OwnershipControls:
+      #   Rules:
+      #     - ObjectOwnership: BucketOwnerEnforced
+      PublicAccessBlockConfiguration:
+        BlockPublicAcls: true
+        BlockPublicPolicy: true
+        IgnorePublicAcls: true
+        RestrictPublicBuckets: true
+
+  LoggingBucketPolicy:
+    Type: AWS::S3::BucketPolicy
+    Condition: CreateLoggingBucket
+    DeletionPolicy: Retain
+    Properties:
+      Bucket:
+        !If [
+          CreateLoggingBucket,
+          !Ref LoggingBucket,
+          !Ref ExistingLoggingBucket,
+        ]
+      PolicyDocument:
+        Id: !Sub '${AWS::StackName}-logging-bucket-policy'
+        Version: 2012-10-17
+        Statement:
+          - Sid: PolicyForCloudFrontLogging
+            Effect: Allow
+            Principal:
+              Service: cloudfront.amazonaws.com
+            Action: s3:GetObject
+            Resource: !If [CreateLoggingBucket, !Sub ${LoggingBucket.Arn}/*, !Ref ExistingLoggingBucket]
             Condition:
               StringEquals:
                 AWS:SourceArn: !Sub 'arn:aws:cloudfront::${AWS::AccountId}:distribution/${Distribution}'
@@ -355,7 +381,7 @@ Resources:
               !Ref ExistingDeployBucket,
             ]
           ViewerProtocolPolicy: redirect-to-https
-          OriginRequestPolicyId: 88a5eaf4-2fd4-4709-b370-b4c650ea3fcf
+          # OriginRequestPolicyId: 88a5eaf4-2fd4-4709-b370-b4c650ea3fcf
           CachePolicyId: 658327ea-f89d-4fab-a63d-7e88639e58f6
           Compress: true
           AllowedMethods:
