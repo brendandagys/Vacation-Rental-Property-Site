@@ -18,9 +18,9 @@ Parameters:
     Type: String
     Default: business-site
   Branch:
+    Description: e.g. main or master
     Type: String
     Default: main
-    Description: e.g. main or master
 
   Domain:
     Type: String
@@ -251,15 +251,15 @@ Resources:
 
   Certificate:
     Type: AWS::CertificateManager::Certificate
-    Properties: 
+    Properties:
       CertificateTransparencyLoggingPreference: ENABLED
-      # DomainName: brendandagys.com
       DomainName: !Ref Domain
-      DomainValidationOptions: 
+      SubjectAlternativeName:
+        - !Sub 'www.${Domain}'
+      DomainValidationOptions:
         - DomainName: !Ref Domain
           HostedZoneId: !Ref HostedZoneId
-        - DomainName: !Sub '*.${Domain}'
-        # - DomainName: !Join ['', ['*.', !Ref Domain]]
+        - DomainName: !Sub 'www.${Domain}'
           HostedZoneId: !Ref HostedZoneId
       ValidationMethod: DNS
 
