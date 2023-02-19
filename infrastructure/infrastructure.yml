@@ -11,7 +11,7 @@ Parameters:
 
   CreateDeployBucketAndPolicy:
     Type: String
-    Default: 'true'
+    Default: 'false'
 
   Repository:
     Type: String
