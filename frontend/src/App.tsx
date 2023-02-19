@@ -1,6 +1,7 @@
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
+import Button from 'react-bootstrap/Button';
 
 import { introductionLines } from './data/introductionLines';
 import { amenitiesLines } from './data/amenitiesLines';
@@ -11,11 +12,14 @@ import { ImageCarousel } from './components/Carousel';
 
 import { images } from './images';
 import { Alert } from 'react-bootstrap';
+import { useState } from 'react';
 
-function App() {
+export const App = () => {
+  const [ showContactInformation, setShowContactInformation ] = useState(false);
+
   return (
     <Container fluid="lg" className="pt-2">
-      <Row className="py-5">
+      <Row className="pt-5">
         <Col className="text-center">
           <Alert variant='primary'>
             <h1>
@@ -23,6 +27,34 @@ function App() {
             </h1>
           </Alert>
           <h3 className="mt-4 text-muted">Luxury on the Sea!</h3>
+          <Button
+            className="mt-4"
+            disabled={showContactInformation}
+            onClick={() => setShowContactInformation(true)}>
+            Contact/Quotes
+          </Button>
+        </Col>
+      </Row>
+
+      <Row className="justify-content-center text-center pt-3">
+        <Col xs={10} sm={8} md={5} xl={4}>
+          {
+            showContactInformation
+            && (
+              <div className="border border-success rounded p-4">
+                <p style={{ textAlign: 'left' }}>
+                  Please contact Dawn-Ava for pricing and more information:
+                </p>
+                <span style={{ color: 'slategray', fontSize: '0.8rem' }}>
+                  WhatsApp: <b>+1 (416) 779-6411</b>
+                </span>
+                <br />
+                <span style={{ color: 'slategray', fontSize: '0.8rem' }}>
+                  <b>calaceitefrontlinevistamar@gmail.com</b>
+                </span>
+              </div>
+            )
+          }
         </Col>
       </Row>
       <Row className="mt-2 mb-5 gy-2">
@@ -71,6 +103,6 @@ function App() {
       </Row>
     </Container>
   );
-}
+};
 
 export default App;
