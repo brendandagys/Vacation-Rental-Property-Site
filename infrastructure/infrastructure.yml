@@ -16,6 +16,7 @@ Parameters:
   Repository:
     Type: String
     Default: business-site
+
   Branch:
     Description: e.g. main or master
     Type: String
@@ -97,7 +98,7 @@ Resources:
                   - s3:PutObject
                 Resource:
                   - !ImportValue PipelineBucketArn
-                  - !Sub [${Arn}/*, !ImportValue PipelineBucketArn]
+                  - !Sub [${Arn}/*, Arn: !ImportValue PipelineBucketArn]
               - Effect: Allow
                 Action:
                   - s3:GetObject
