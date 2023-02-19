@@ -1,10 +1,8 @@
 AWSTemplateFormatVersion: 2010-09-09
 
 Conditions:
-  CreatePipelineBucket: !Equals [!Ref ExistingPipelineBucketArn, '']
-  CreateLoggingBucketAndPolicy: !And
-    - !Equals [!Ref ExistingLoggingBucketDomain, '']
-    - !Equals [!Ref ExistingLoggingBucketArn, '']
+  CreatePipelineBucket: !Equals [!Ref CreatePipelineBucket, 'true']
+  CreateLoggingBucketAndPolicy: !Equals [!Ref CreateLoggingBucketAndPolicy, 'true']
 
 Parameters:
   Repository:
@@ -14,21 +12,14 @@ Parameters:
   Branch:
     Type: String
     Default: main
-
-  ExistingPipelineBucketArn:
-    Type: String
-    Default: arn:aws:s3:::708746137251-pipeline-artifacts
-    # Default: ''
   
-  ExistingLoggingBucketArn:
+  CreatePipelineBucket:
     Type: String
-    Default: arn:aws:s3:::708746137251-cloudfront-logs
-    # Default: ''
-
-  ExistingLoggingBucketDomain:
+    Default: 'false'
+  
+  CreateLoggingBucketAndPolicy:
     Type: String
-    Default: 708746137251-cloudfront-logs.s3.amazonaws.com
-    # Default: ''
+    Default: 'false'
 
 Resources:
   CloudFormationRole:
@@ -52,11 +43,9 @@ Resources:
         Version: 2012-10-17
         Statement:
           - Effect: Allow
-            Action:
-              iam:PassRole
+            Action: iam:PassRole
             Resource: !GetAtt CloudFormationRole.Arn
-      Users:
-        - brendandagys
+      Users: [brendandagys]
 
   PipelineBucket:
     Type: AWS::S3::Bucket
@@ -78,7 +67,7 @@ Resources:
     Condition: CreateLoggingBucketAndPolicy
     DeletionPolicy: Retain
     Properties:
-      BucketName: !Sub '${AWS::AccountId}-cloudfront-logs'
+      BucketName: !Sub ${AWS::AccountId}-cloudfront-logs
       PublicAccessBlockConfiguration:
         BlockPublicAcls: true
         BlockPublicPolicy: true
@@ -90,31 +79,20 @@ Resources:
     Condition: CreateLoggingBucketAndPolicy
     DeletionPolicy: Retain
     Properties:
-      Bucket:
-        !If [
-          CreateLoggingBucketAndPolicy,
-          !Ref LoggingBucket,
-          !Ref ExistingLoggingBucketDomain,
-        ]
+      Bucket: !Sub ${AWS::AccountId}-cloudfront-logs
       PolicyDocument:
-        Id: !Sub '${AWS::StackName}-logging-bucket-policy'
+        Id: !Sub ${AWS::StackName}-logging-bucket-policy
         Version: 2012-10-17
         Statement:
           - Sid: Policy-for-CloudFront-logging
             Effect: Allow
             Principal:
               Service: cloudfront.amazonaws.com
-            Action:
-              - s3:GetBucketAcl
-              - s3:PutBucketAcl
-            Resource: !If [
-              CreateLoggingBucketAndPolicy,
-              !GetAtt LoggingBucket.Arn,
-              !Ref ExistingLoggingBucketArn
-            ]
+            Action: [s3:GetBucketAcl, s3:PutBucketAcl]
+            Resource: !Sub arn:aws:s3:::${AWS::AccountId}-cloudfront-logs
             Condition:
               StringLike:
-                AWS:SourceArn: !Sub 'arn:aws:cloudfront::${AWS::AccountId}:distribution/*'
+                AWS:SourceArn: !Sub arn:aws:cloudfront::${AWS::AccountId}:distribution/*
 
   PipelineRole:
     Type: AWS::IAM::Role
@@ -127,7 +105,7 @@ Resources:
               Service: codepipeline.amazonaws.com
             Action: sts:AssumeRole
       Policies:
-        - PolicyName: root
+        - PolicyName: pipeline-permissions
           PolicyDocument:
             Version: 2012-10-17
             Statement:
@@ -153,26 +131,10 @@ Resources:
                   - s3:GetBucketVersioning
                   - s3:PutObject
                 Resource:
-                  - !If [
-                      CreatePipelineBucket,
-                      !GetAtt PipelineBucket.Arn,
-                      !Ref ExistingPipelineBucketArn,
-                    ]
-                  - !Join [
-                      '',
-                      [
-                        !If [
-                          CreatePipelineBucket,
-                          !GetAtt PipelineBucket.Arn,
-                          !Ref ExistingPipelineBucketArn,
-                        ],
-                        '/*',
-                      ],
-                    ]
+                  - !Sub arn:aws:s3:::${AWS::AccountId}-pipeline-artifacts
+                  - !Sub arn:aws:s3:::${AWS::AccountId}-pipeline-artifacts/*
               - Effect: Allow
-                Action:
-                  - codebuild:StartBuild
-                  - codebuild:BatchGetBuilds
+                Action: [codebuild:StartBuild, codebuild:BatchGetBuilds]
                 Resource: '*'
 
   Pipeline:
@@ -185,7 +147,7 @@ Resources:
       Stages:
         - Name: Source
           Actions:
-            - Name: SourceAction
+            - Name: !Sub ${Repository}@${Branch}
               ActionTypeId:
                 Category: Source
                 Owner: AWS
@@ -198,7 +160,7 @@ Resources:
                 BranchName: !Ref Branch
         - Name: Approval
           Actions:
-            - Name: ApprovalAction
+            - Name: Create-infrastructure-pipeline
               ActionTypeId:
                 Category: Approval
                 Owner: AWS
@@ -206,7 +168,7 @@ Resources:
                 Version: 1
         - Name: Deploy
           Actions:
-            - Name: DeployStackAction
+            - Name: Create-CloudFormation-stack
               ActionTypeId: 
                 Category: Deploy
                 Owner: AWS
@@ -225,7 +187,7 @@ Resources:
 
 Outputs:
   PipelineBucketArn:
-    Value: !If [CreatePipelineBucket, !GetAtt PipelineBucket.Arn, !Ref ExistingPipelineBucketArn]
+    Value: !Sub arn:aws:s3:::${AWS::AccountId}-pipeline-artifacts
     Export:
       Name: PipelineBucketArn
   
@@ -235,10 +197,6 @@ Outputs:
       Name: PipelineRole
 
   LoggingBucketDomain:
-    Value: !If [
-      CreateLoggingBucketAndPolicy,
-      !GetAtt LoggingBucket.DomainName,
-      !Ref ExistingLoggingBucketDomain
-    ]
+    Value: !Sub ${AWS::AccountId}-cloudfront-logs.s3.amazonaws.com
     Export:
       Name: LoggingBucketDomain
