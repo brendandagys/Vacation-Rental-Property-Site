@@ -98,9 +98,7 @@ Resources:
                   - s3:PutObject
                 Resource:
                   - !ImportValue PipelineBucketArn
-                  - !Sub
-                    - '${Arn}/*'
-                    - Arn: !ImportValue PipelineBucketArn
+                  - !Sub ['${Arn}/*', Arn: !ImportValue PipelineBucketArn]
               - Effect: Allow
                 Action:
                   - s3:GetObject
@@ -143,9 +141,8 @@ Resources:
             build:
               commands:
                 - npm run build
-                # - npm test
-                # - echo $CODEBUILD_SRC_DIR
                 - ls
+                # - echo $CODEBUILD_SRC_DIR && npm test
             post_build:
               on-failure: ABORT #CONTINUE
               commands:
@@ -256,7 +253,7 @@ Resources:
         Comment: !Sub S3 SPA for ${AWS::StackName}
         Aliases:
           - !Ref Domain
-          - !If [CreateDnsRecordWww, !Sub www.${Domain}, !Ref AWS::NoValue]
+          - !If [CreateDnsRecordWww, !Sub 'www.${Domain}', !Ref AWS::NoValue]
         Origins:
           - Id: !Sub ${AWS::StackName}
             DomainName: !Sub ${Domain}.s3.${AWS::Region}.amazonaws.com
