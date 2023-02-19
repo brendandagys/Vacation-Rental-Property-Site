@@ -160,7 +160,7 @@ Resources:
                 BranchName: !Ref Branch
         - Name: Approval
           Actions:
-            - Name: Create-infrastructure-pipeline
+            - Name: Make-infrastructure-pipeline
               ActionTypeId:
                 Category: Approval
                 Owner: AWS
@@ -168,7 +168,7 @@ Resources:
                 Version: 1
         - Name: Deploy
           Actions:
-            - Name: Create-CloudFormation-stack
+            - Name: !Sub Make-${AWS::StackName}-infrastructure
               ActionTypeId: 
                 Category: Deploy
                 Owner: AWS
