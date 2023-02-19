@@ -1,7 +1,7 @@
 AWSTemplateFormatVersion: 2010-09-09
 
 Conditions:
-  CreateDeployBucketAndPolicy: !Equals [!Ref ExistingDeployBucketDomain, '']
+  CreateDeployBucketAndPolicy: !Equals [!Ref CreateDeployBucketAndPolicy, 'true']
   CreateDnsRecordWww: !Equals [!Ref DnsRecordWwwFlag, 'true']
 
 Parameters:
@@ -9,10 +9,9 @@ Parameters:
     Type: String
     Default: 'true'
 
-  ExistingDeployBucketDomain:
+  CreateDeployBucketAndPolicy:
     Type: String
-    Default: spain.brendandagys.com.s3.amazonaws.com
-    # Default: ''
+    Default: 'true'
 
   Repository:
     Type: String
@@ -46,9 +45,6 @@ Resources:
     DeletionPolicy: Retain
     Properties:
       BucketName: !Ref Domain
-      # OwnershipControls:
-      #   Rules:
-      #     - ObjectOwnership: BucketOwnerEnforced
       PublicAccessBlockConfiguration:
         BlockPublicAcls: false
         BlockPublicPolicy: true
@@ -60,29 +56,20 @@ Resources:
     Condition: CreateDeployBucketAndPolicy
     DeletionPolicy: Retain
     Properties:
-      Bucket:
-        !If [
-          CreateDeployBucketAndPolicy,
-          !Ref DeployBucket,
-          !Ref ExistingDeployBucketDomain,
-        ]
+      Bucket: !Ref Domain
       PolicyDocument:
-        Id: '${AWS::StackName}-deploy-bucket-policy'
+        Id: !Sub ${AWS::StackName}-deploy-bucket-policy
         Version: 2012-10-17
         Statement:
-          - Sid: PolicyForCloudFrontPrivateContent
+          - Sid: Policy-for-CloudFront-private-content
             Effect: Allow
             Principal:
               Service: cloudfront.amazonaws.com
             Action: s3:GetObject
-            Resource: !If [
-              CreateDeployBucketAndPolicy,
-              !Sub '${DeployBucket.Arn}/*',
-              !Sub 'arn:aws:s3::708746137251-${Domain}/*'
-            ]
+            Resource: !Sub arn:aws:s3:::${Domain}/*
             Condition:
               StringEquals:
-                AWS:SourceArn: !Sub 'arn:aws:cloudfront::${AWS::AccountId}:distribution/${Distribution}'
+                AWS:SourceArn: !Sub arn:aws:cloudfront::${AWS::AccountId}:distribution/${Distribution}
 
   CodeBuildRole:
     Type: AWS::IAM::Role
@@ -110,13 +97,7 @@ Resources:
                   - s3:PutObject
                 Resource:
                   - !ImportValue PipelineBucketArn
-                  - !Join [
-                      '',
-                      [
-                        !ImportValue PipelineBucketArn,
-                        '/*',
-                      ],
-                    ]
+                  - !Sub [${Arn}/*, !ImportValue PipelineBucketArn]
               - Effect: Allow
                 Action:
                   - s3:GetObject
@@ -124,18 +105,12 @@ Resources:
                   - s3:GetBucketVersioning
                   - s3:PutObject
                   - s3:PutObjectAcl
-                Resource:
-                  - 'arn:aws:s3:::*'
+                Resource: arn:aws:s3:::*
               - Effect: Allow
-                Action:
-                  - logs:CreateLogGroup
-                  - logs:CreateLogStream
-                  - logs:PutLogEvents
-                Resource:
-                  - '*'
+                Action: [logs:CreateLogGroup, logs:CreateLogStream, logs:PutLogEvents]
+                Resource: '*'
               - Effect: Allow
-                Action:
-                  - cloudfront:CreateInvalidation
+                Action: cloudfront:CreateInvalidation
                 Resource:
                   - '*'
 
@@ -143,8 +118,7 @@ Resources:
     Type: AWS::CodeBuild::Project
     Properties:
       Name: !Sub ${AWS::StackName}-frontend
-      ServiceRole:
-        !GetAtt CodeBuildRole.Arn
+      ServiceRole: !GetAtt CodeBuildRole.Arn
       Artifacts:
         Type: CODEPIPELINE
       Environment:
@@ -186,41 +160,32 @@ Resources:
       ArtifactStore:
         Location: !Sub ${AWS::AccountId}-pipeline-artifacts
         Type: S3
-      RoleArn:
-        !ImportValue PipelineRole
+      RoleArn: !ImportValue PipelineRole
       Stages:
         - Name: Source
           Actions:
-            - Name: Source-from-CodeCommit
+            - Name: !Sub ${Repository}@${Branch}
               ActionTypeId:
                 Category: Source
                 Owner: AWS
                 Provider: CodeCommit
                 Version: 1
               OutputArtifacts:
-                - Name: !Sub '${AWS::StackName}-code'
+                - Name: !Sub ${AWS::StackName}-code
               Configuration:
                 RepositoryName: !Ref Repository
                 BranchName: !Ref Branch
         - Name: Approval
           Actions:
-            # - Name: CloudFormationInfrastructureCreation
-            #   ActionTypeId:
-            #     Category: Approval
-            #     Owner: AWS
-            #     Provider: Manual
-            #     Version: 1
-            #   RunOrder: 1
             - Name: SPA-deployment-to-CloudFront-OAC-S3
               ActionTypeId:
                 Category: Approval
                 Owner: AWS
                 Provider: Manual
                 Version: 1
-              # RunOrder: 1
         - Name: Build
           Actions:
-            - Name: SPA-deployment-to-CloudFront-OAC-S3
+            - Name: SPA-build-and-deployment-to-CloudFront-OAC-S3
               ActionTypeId:
                 Category: Build
                 Owner: AWS
@@ -232,22 +197,6 @@ Resources:
                 - Name: !Sub ${AWS::StackName}-frontend-build
               Configuration:
                 ProjectName: !Ref CodeBuildFrontend
-        # - Name: Deploy
-        #   Actions:
-        #     - Name: Deploy CloudFormation changeset
-        #       ActionTypeId: 
-        #         Category: Deploy
-        #         Owner: AWS
-        #         Provider: CloudFormation
-        #         Version: 1
-        #       InputArtifacts:
-        #         - Name: !Sub ${AWS::StackName}-code
-        #       OutputArtifacts:
-        #         - Name: !Sub ${AWS::StackName}-changeset
-        #       Configuration:
-        #         ActionMode: CREATE_UPDATE
-        #         StackName: !Sub ${AWS::StackName}-infrastructure
-        #         TemplatePath: !Sub ${AWS::StackName}-code::infrastructure/infrastructure.yml
 
   Certificate:
     Type: AWS::CertificateManager::Certificate
@@ -255,11 +204,11 @@ Resources:
       CertificateTransparencyLoggingPreference: ENABLED
       DomainName: !Ref Domain
       SubjectAlternativeNames:
-        - !Sub 'www.${Domain}'
+        - !Sub www.${Domain}
       DomainValidationOptions:
         - DomainName: !Ref Domain
           HostedZoneId: !Ref HostedZoneId
-        - DomainName: !Sub 'www.${Domain}'
+        - DomainName: !Sub www.${Domain}
           HostedZoneId: !Ref HostedZoneId
       ValidationMethod: DNS
 
@@ -272,6 +221,31 @@ Resources:
         SigningBehavior: always
         SigningProtocol: sigv4
 
+  CloudFrontFunctionSecurityHeaders:
+    Type: AWS::CloudFront::Function
+    Properties:
+      Name: !Sub ${AWS::StackName}-viewer-response
+      FunctionConfig:
+        Comment: Adds HTTP security headers to the viewer response
+        Runtime: cloudfront-js-1.0
+      AutoPublish: true
+      FunctionCode: |
+        function handler(event) {
+            var response = event.response;
+            var headers = response.headers;
+
+            // Set HTTP security headers
+            headers['strict-transport-security'] = { value: 'max-age=63072000; includeSubdomains; preload'};
+            headers['content-security-policy'] = { value: "default-src 'none'; img-src 'self' data:; script-src 'self'; object-src 'none'; connect-src 'self' https://vocabulary.brendandagys.com; manifest-src 'self'; style-src https://*.brendandagys.com *.cloudflare.com 'unsafe-inline'; style-src-elem 'self' https://cdnjs.cloudflare.com https://fonts.googleapis.com 'unsafe-inline'; font-src https://fonts.gstatic.com https://*.cloudflare.com"};
+            headers['x-content-type-options'] = { value: 'nosniff'};
+            headers['x-frame-options'] = {value: 'DENY'};
+            headers['x-xss-protection'] = {value: '1; mode=block'};
+
+            delete headers['x-powered-by'];
+
+            return response;
+        }
+
   Distribution:
     Type: AWS::CloudFront::Distribution
     Properties:
@@ -280,25 +254,15 @@ Resources:
         Comment: !Sub S3 SPA for ${AWS::StackName}
         Aliases:
           - !Ref Domain
-          - !If [
-              CreateDnsRecordWww,
-              !Sub 'www.${Domain}', # !Join ['', ['www.', !Ref Domain]],
-              !Ref AWS::NoValue,
-            ]
+          - !If [CreateDnsRecordWww, !Sub www.${Domain}, !Ref AWS::NoValue]
         Origins:
-          - Id:
-              !If [
-                CreateDeployBucketAndPolicy,
-                !Ref DeployBucket,
-                !Ref ExistingDeployBucketDomain,
-              ]
-            DomainName: !Sub '${Domain}.s3.${AWS::Region}.amazonaws.com'
+          - Id: !Sub ${AWS::StackName}
+            DomainName: !Sub ${Domain}.s3.${AWS::Region}.amazonaws.com
             S3OriginConfig:
               OriginAccessIdentity: ''
             OriginAccessControlId: !GetAtt OriginAccessControl.Id
         ViewerCertificate:
-          AcmCertificateArn:
-            !Ref Certificate
+          AcmCertificateArn: !Ref Certificate
           SslSupportMethod: sni-only
           MinimumProtocolVersion: TLSv1.2_2021
         CustomErrorResponses:
@@ -315,12 +279,7 @@ Resources:
         HttpVersion: http2
         IPV6Enabled: false
         DefaultCacheBehavior:
-          TargetOriginId:
-            !If [
-              CreateDeployBucketAndPolicy,
-              !Ref DeployBucket,
-              !Ref ExistingDeployBucketDomain,
-            ]
+          TargetOriginId: !Sub ${AWS::StackName}
           ViewerProtocolPolicy: redirect-to-https
           # OriginRequestPolicyId: 88a5eaf4-2fd4-4709-b370-b4c650ea3fcf
           CachePolicyId: 658327ea-f89d-4fab-a63d-7e88639e58f6
@@ -332,21 +291,13 @@ Resources:
           CachedMethods:
             - GET
             - HEAD
-          # FunctionAssociations:
-          #   - EventType: viewer-request
-          #     FunctionARN:
-          #       !ImportValue {
-          #         'Fn::Sub': '${MasterStackName}-cloudfront-function-canonical-url',
-          #       }
-          #   - EventType: viewer-response
-          #     FunctionARN:
-          #       !ImportValue {
-          #         'Fn::Sub': '${MasterStackName}-cloudfront-function-security-headers',
-          #       }
+          FunctionAssociations:
+            - EventType: viewer-response
+              FunctionARN: !Ref CloudFrontFunctionSecurityHeaders
         Logging:
           Bucket: !ImportValue LoggingBucketDomain
           IncludeCookies: true
-          Prefix: !Sub '${AWS::StackName}-logs'
+          Prefix: !Sub ${AWS::StackName}-logs
 
   DnsRecord:
     Type: AWS::Route53::RecordSet
@@ -363,7 +314,7 @@ Resources:
     Type: AWS::Route53::RecordSet
     Properties:
       HostedZoneId: !Ref HostedZoneId
-      Name: !Sub 'www.${Domain}'
+      Name: !Sub www.${Domain}
       Type: A
       AliasTarget:
         HostedZoneId: !Ref CloudFrontHostedZoneId
