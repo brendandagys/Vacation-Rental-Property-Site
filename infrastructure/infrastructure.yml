@@ -98,7 +98,9 @@ Resources:
                   - s3:PutObject
                 Resource:
                   - !ImportValue PipelineBucketArn
-                  - !Sub [${Arn}/*, Arn: !ImportValue PipelineBucketArn]
+                  - !Sub
+                    - '${Arn}/*'
+                    - Arn: !ImportValue PipelineBucketArn
               - Effect: Allow
                 Action:
                   - s3:GetObject
@@ -152,8 +154,7 @@ Resources:
                 - aws cloudfront create-invalidation --distribution-id ${Distribution} --paths "/*"
 
           artifacts:
-            files:
-              - 'frontend/build/**/*'
+            files: [frontend/build/**/*]
   
   CodePipeline:
     Type: AWS::CodePipeline::Pipeline
