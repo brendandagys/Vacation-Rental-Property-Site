@@ -5,16 +5,18 @@ interface IInformationCardProps {
   lines: string[];
   title?: string;
   subtitle?: string;
-  variant?: string;
+  backgroundColor?: string;
+  color?: string;
 }
 
 export const InformationCard = ({
   lines,
   title,
   subtitle,
-  variant,
+  backgroundColor,
+  color = 'black',
 }: IInformationCardProps) => (
-  <Card>
+  <Card style={{ border: '2px solid #d3d3d3' }}>
     <Card.Body>
       { title && <Card.Title className="mb-4">{title}</Card.Title> }
       {
@@ -29,7 +31,8 @@ export const InformationCard = ({
         {
           lines.map((line, i) => (
             <ListGroup.Item
-              { ... (variant && i % 2 === 0) ? { variant } : {}} key={i}
+              className="my-list-group-item"
+              style={ { ...i % 2 === 0 ? { backgroundColor, color } : {} } }
             >
               {line}
             </ListGroup.Item>
