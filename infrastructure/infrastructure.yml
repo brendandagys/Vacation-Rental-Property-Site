@@ -104,14 +104,13 @@ Resources:
                   - s3:GetBucketVersioning
                   - s3:PutObject
                   - s3:PutObjectAcl
-                Resource: arn:aws:s3:::*
+                Resource: !Sub arn:aws:s3:::${Domain}
               - Effect: Allow
                 Action: [logs:CreateLogGroup, logs:CreateLogStream, logs:PutLogEvents]
-                Resource: '*'
+                Resource: !Sub arn:aws:logs:${AWS::Region}:${AWS::AccountId}:log-group:*
               - Effect: Allow
                 Action: cloudfront:CreateInvalidation
-                Resource:
-                  - '*'
+                Resource: !Sub arn:aws:cloudfront::${AWS::AccountId}:distribution/${Distribution}
 
   CodeBuildFrontend:
     Type: AWS::CodeBuild::Project

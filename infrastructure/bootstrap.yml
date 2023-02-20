@@ -21,6 +21,11 @@ Parameters:
     Type: String
     Default: 'false'
 
+  HostedZoneId:
+    Description: Route 53 Hosted Zone ID
+    Type: String
+    Default: Z00358393282BXBWKBN4
+
 Resources:
   CloudFormationRole:
     Type: AWS::IAM::Role
@@ -32,8 +37,79 @@ Resources:
             Principal:
               Service: cloudformation.amazonaws.com
             Action: sts:AssumeRole
-      ManagedPolicyArns:
-        - arn:aws:iam::aws:policy/AdministratorAccess
+      Policies:
+        - PolicyName: CloudFormation-permissions
+          PolicyDocument:
+            Version: 2012-10-17
+            Statement:
+              - Effect: Allow
+                Action:
+                  - iam:GetRole
+                  - iam:CreateRole
+                  - iam:DeleteRole
+                  - iam:GetRolePolicy
+                  - iam:PutRolePolicy
+                  - iam:DeleteRolePolicy
+                Resource: !Sub arn:aws:iam::${AWS::AccountId}:role/*
+              - Effect: Allow
+                Action: iam:PassRole
+                Resource:
+                  - !Sub arn:aws:iam::${AWS::AccountId}:role/service-role/*CodeBuildRole*
+                  - !Sub arn:aws:iam::${AWS::AccountId}:role/service-role/*PipelineRole*
+              - Effect: Allow
+                Action:
+                  - acm:RequestCertificate
+                  - acm:DescribeCertificate
+                  - acm:DeleteCertificate
+                Resource: !Sub arn:aws:acm:${AWS::Region}:${AWS::AccountId}:certificate/*
+              - Effect: Allow
+                Action:
+                  - cloudfront:CreateFunction
+                  - cloudfront:DescribeFunction
+                  - cloudfront:PublishFunction
+                  - cloudfront:DeleteFunction
+                Resource: !Sub arn:aws:cloudfront::${AWS::AccountId}:function/*
+              - Effect: Allow
+                Action:
+                  - cloudfront:GetOriginAccessControl
+                  - cloudfront:CreateOriginAccessControl
+                  - cloudfront:DeleteOriginAccessControl
+                Resource: !Sub arn:aws:cloudfront::${AWS::AccountId}:origin-access-control/*
+              - Effect: Allow
+                Action:
+                  - cloudfront:GetDistribution
+                  - cloudfront:TagDistribution
+                  - cloudfront:CreateDistribution
+                  - cloudfront:UpdateDistribution
+                  - cloudfront:DeleteDistribution
+                  - cloudfront:TagResource
+                Resource: !Sub arn:aws:cloudfront::${AWS::AccountId}:distribution/*
+              - Effect: Allow
+                Action:
+                  - codepipeline:GetPipeline
+                  - codepipeline:GetPipelineState
+                  - codepipeline:CreatePipeline
+                  - codepipeline:DeletePipeline
+                Resource: !Sub arn:aws:codepipeline:${AWS::Region}:${AWS::AccountId}:*CodePipeline*
+              - Effect: Allow
+                Action:
+                  - codebuild:CreateProject
+                  - codebuild:DeleteProject
+                Resource: !Sub arn:aws:codebuild:${AWS::Region}:${AWS::AccountId}:project/*
+              - Effect: Allow
+                Action:
+                  - route53:ListResourceRecordSets
+                  - route53:ChangeResourceRecordSets
+                  - route53:GetHostedZone
+                Resource: !Sub arn:aws:route53:::hostedzone/${HostedZoneId}
+              - Effect: Allow
+                Action: route53:GetChange
+                Resource: !Sub arn:aws:route53:::change/*
+              - Effect: Allow
+                Action:
+                  - s3:GetBucketAcl
+                  - s3:PutBucketAcl
+                Resource: !Sub arn:aws:s3:::${AWS::AccountId}-cloudfront-logs
 
   PassCloudFormationRolePolicy:
     Type: AWS::IAM::Policy
@@ -45,6 +121,11 @@ Resources:
           - Effect: Allow
             Action: iam:PassRole
             Resource: !GetAtt CloudFormationRole.Arn
+            Condition:
+              StringEquals:
+                iam:PassedToService: codepipeline.amazonaws.com
+              StringLike:
+                iam:AssociatedResourceARN: !Ref Pipeline
       Users: [brendandagys]
 
   PipelineBucket:
@@ -54,8 +135,7 @@ Resources:
     Properties:
       BucketName: !Sub ${AWS::AccountId}-pipeline-artifacts
       OwnershipControls:
-        Rules:
-          - ObjectOwnership: BucketOwnerEnforced
+        Rules: [ObjectOwnership: BucketOwnerEnforced]
       PublicAccessBlockConfiguration:
         BlockPublicAcls: true
         BlockPublicPolicy: true
@@ -104,6 +184,7 @@ Resources:
             Principal:
               Service: codepipeline.amazonaws.com
             Action: sts:AssumeRole
+      Path: /service-role/
       Policies:
         - PolicyName: pipeline-permissions
           PolicyDocument:
@@ -114,8 +195,10 @@ Resources:
                   - cloudformation:DescribeStacks
                   - cloudformation:CreateStack
                   - cloudformation:UpdateStack
-                  - iam:PassRole
-                Resource: '*'
+                Resource: !Sub arn:aws:cloudformation:${AWS::Region}:${AWS::AccountId}:stack/*
+              - Effect: Allow
+                Action: iam:PassRole
+                Resource: !Sub arn:aws:iam::${AWS::AccountId}:role/*CloudFormationRole*
               - Effect: Allow
                 Action:
                   - codecommit:UploadArchive
@@ -134,8 +217,10 @@ Resources:
                   - !Sub arn:aws:s3:::${AWS::AccountId}-pipeline-artifacts
                   - !Sub arn:aws:s3:::${AWS::AccountId}-pipeline-artifacts/*
               - Effect: Allow
-                Action: [codebuild:StartBuild, codebuild:BatchGetBuilds]
-                Resource: '*'
+                Action:
+                  - codebuild:StartBuild
+                  - codebuild:BatchGetBuilds
+                Resource: !Sub arn:aws:codebuild:${AWS::Region}:${AWS::AccountId}:project/*
 
   Pipeline:
     Type: AWS::CodePipeline::Pipeline
@@ -160,7 +245,7 @@ Resources:
                 BranchName: !Ref Branch
         - Name: Approval
           Actions:
-            - Name: Make-infrastructure-pipeline
+            - Name: Approve-infrastructure-creation
               ActionTypeId:
                 Category: Approval
                 Owner: AWS
