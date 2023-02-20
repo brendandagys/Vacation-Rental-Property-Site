@@ -24,12 +24,12 @@ Parameters:
 
   Domain:
     Type: String
-    Default: spain.brendandagys.com
+    Default: spainluxury.holiday
 
   HostedZoneId:
     Description: Route 53 Hosted Zone ID
     Type: String
-    Default: Z1048063LC3J2IKH5GGI
+    Default: Z00358393282BXBWKBN4
 
   CloudFrontHostedZoneId:
     Type: String
@@ -80,10 +80,8 @@ Resources:
         Statement:
           - Effect: Allow
             Principal:
-              Service:
-                - codebuild.amazonaws.com
-            Action:
-              - sts:AssumeRole
+              Service: codebuild.amazonaws.com
+            Action: sts:AssumeRole
       Path: /service-role/
       Policies:
         - PolicyName: root
