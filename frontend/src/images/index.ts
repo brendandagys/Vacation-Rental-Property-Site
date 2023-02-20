@@ -41,6 +41,8 @@ import i40 from './Table.jpg';
 import i41 from './vistamar.webp';
 import i42 from './zb.jpg';
 
+export const enjoyTheSun = i27;
+
 export const images = [
   i1,
   i2,
