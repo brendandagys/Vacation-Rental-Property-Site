@@ -8,8 +8,7 @@ export const ImageCarousel = ({ images }: IImageCarouselProps) => (
   <Carousel>
     {
       images.map((image) => (
-        
-        <Carousel.Item>
+        <Carousel.Item key={image}>
           <img
             height="500"
             width="auto"
