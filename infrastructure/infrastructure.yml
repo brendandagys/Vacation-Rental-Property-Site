@@ -96,7 +96,7 @@ Resources:
                   - s3:PutObject
                 Resource:
                   - !ImportValue PipelineBucketArn
-                  - !Sub ['${Arn}/*', Arn: !ImportValue PipelineBucketArn]
+                  - !Sub ['${Arn}/*', Arn: !GetAtt PipelineBucket.Arn] # Left for reference
               - Effect: Allow
                 Action:
                   - s3:GetBucketVersioning
@@ -154,13 +154,62 @@ Resources:
           artifacts:
             files: [frontend/build/**/*]
   
+  PipelineRole:
+    Type: AWS::IAM::Role
+    Properties:
+      AssumeRolePolicyDocument:
+        Version: 2012-10-17
+        Statement:
+          - Effect: Allow
+            Principal:
+              Service: codepipeline.amazonaws.com
+            Action: sts:AssumeRole
+      Path: /service-role/
+      Policies:
+        - PolicyName: pipeline-permissions
+          PolicyDocument:
+            Version: 2012-10-17
+            Statement:
+              # - Effect: Allow
+              #   Action:
+              #     - cloudformation:DescribeStacks
+              #     - cloudformation:CreateStack
+              #     - cloudformation:UpdateStack
+              #   Resource: !Sub arn:aws:cloudformation:${AWS::Region}:${AWS::AccountId}:stack/*
+              # - Effect: Allow
+              #   Action: iam:PassRole
+              #   Resource: !Sub arn:aws:iam::${AWS::AccountId}:role/*CloudFormationRole*
+              - Effect: Allow
+                Action:
+                  - codecommit:UploadArchive
+                  - codecommit:GetCommit
+                  - codecommit:GetUploadArchiveStatus
+                  - codecommit:GetBranch
+                  - codecommit:CancelUploadArchive
+                Resource: !Sub arn:aws:codecommit:${AWS::Region}:${AWS::AccountId}:${Repository}
+              - Effect: Allow
+                Action:
+                  - s3:GetObject
+                  - s3:GetObjectVersion
+                  - s3:GetBucketVersioning
+                  - s3:PutObject
+                Resource:
+                  - !Sub arn:aws:s3:::${AWS::AccountId}-pipeline-artifacts
+                  - !Sub arn:aws:s3:::${AWS::AccountId}-pipeline-artifacts/*
+              - Effect: Allow
+                Action:
+                  - codebuild:StartBuild
+                  - codebuild:BatchGetBuilds
+                Resource: !Sub arn:aws:codebuild:${AWS::Region}:${AWS::AccountId}:project/*
+
+  
   CodePipeline:
     Type: AWS::CodePipeline::Pipeline
     Properties:
       ArtifactStore:
         Location: !Sub ${AWS::AccountId}-pipeline-artifacts
         Type: S3
-      RoleArn: !ImportValue PipelineRole
+      RoleArn: !Ref PipelineRole
       Stages:
         - Name: Source
           Actions:

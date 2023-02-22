@@ -216,11 +216,11 @@ Resources:
                 Resource:
                   - !Sub arn:aws:s3:::${AWS::AccountId}-pipeline-artifacts
                   - !Sub arn:aws:s3:::${AWS::AccountId}-pipeline-artifacts/*
-              - Effect: Allow
-                Action:
-                  - codebuild:StartBuild
-                  - codebuild:BatchGetBuilds
-                Resource: !Sub arn:aws:codebuild:${AWS::Region}:${AWS::AccountId}:project/*
+              # - Effect: Allow
+              #   Action:
+              #     - codebuild:StartBuild
+              #     - codebuild:BatchGetBuilds
+              #   Resource: !Sub arn:aws:codebuild:${AWS::Region}:${AWS::AccountId}:project/*
 
   Pipeline:
     Type: AWS::CodePipeline::Pipeline
@@ -275,11 +275,6 @@ Outputs:
     Value: !Sub arn:aws:s3:::${AWS::AccountId}-pipeline-artifacts
     Export:
       Name: PipelineBucketArn
-  
-  PipelineRole:
-    Value: !GetAtt PipelineRole.Arn
-    Export:
-      Name: PipelineRole
 
   LoggingBucketDomain:
     Value: !Sub ${AWS::AccountId}-cloudfront-logs.s3.amazonaws.com
