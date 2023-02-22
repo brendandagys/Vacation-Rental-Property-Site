@@ -209,7 +209,7 @@ Resources:
       ArtifactStore:
         Location: !Sub ${AWS::AccountId}-pipeline-artifacts
         Type: S3
-      RoleArn: !Ref PipelineRole
+      RoleArn: !GetAtt PipelineRole.Arn
       Stages:
         - Name: Source
           Actions:
