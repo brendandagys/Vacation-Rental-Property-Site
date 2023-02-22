@@ -216,11 +216,6 @@ Resources:
                 Resource:
                   - !Sub arn:aws:s3:::${AWS::AccountId}-pipeline-artifacts
                   - !Sub arn:aws:s3:::${AWS::AccountId}-pipeline-artifacts/*
-              # - Effect: Allow
-              #   Action:
-              #     - codebuild:StartBuild
-              #     - codebuild:BatchGetBuilds
-              #   Resource: !Sub arn:aws:codebuild:${AWS::Region}:${AWS::AccountId}:project/*
 
   Pipeline:
     Type: AWS::CodePipeline::Pipeline

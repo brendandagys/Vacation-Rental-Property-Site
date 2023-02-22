@@ -170,15 +170,6 @@ Resources:
           PolicyDocument:
             Version: 2012-10-17
             Statement:
-              # - Effect: Allow
-              #   Action:
-              #     - cloudformation:DescribeStacks
-              #     - cloudformation:CreateStack
-              #     - cloudformation:UpdateStack
-              #   Resource: !Sub arn:aws:cloudformation:${AWS::Region}:${AWS::AccountId}:stack/*
-              # - Effect: Allow
-              #   Action: iam:PassRole
-              #   Resource: !Sub arn:aws:iam::${AWS::AccountId}:role/*CloudFormationRole*
               - Effect: Allow
                 Action:
                   - codecommit:UploadArchive
