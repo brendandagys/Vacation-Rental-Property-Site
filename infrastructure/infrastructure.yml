@@ -99,12 +99,16 @@ Resources:
                   - !Sub ['${Arn}/*', Arn: !ImportValue PipelineBucketArn]
               - Effect: Allow
                 Action:
+                  - s3:GetBucketVersioning
+                Resource: !Sub arn:aws:s3:::${Domain}
+              - Effect: Allow
+                Action:
                   - s3:GetObject
                   - s3:GetObjectVersion
                   - s3:GetBucketVersioning
                   - s3:PutObject
                   - s3:PutObjectAcl
-                Resource: !Sub arn:aws:s3:::${Domain}
+                Resource: !Sub arn:aws:s3:::${Domain}/*
               - Effect: Allow
                 Action: [logs:CreateLogGroup, logs:CreateLogStream, logs:PutLogEvents]
                 Resource: !Sub arn:aws:logs:${AWS::Region}:${AWS::AccountId}:log-group:*
