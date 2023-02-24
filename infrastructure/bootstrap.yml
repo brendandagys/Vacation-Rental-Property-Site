@@ -89,6 +89,7 @@ Resources:
                   - codepipeline:GetPipeline
                   - codepipeline:GetPipelineState
                   - codepipeline:CreatePipeline
+                  - codepipeline:UpdatePipeline
                   - codepipeline:DeletePipeline
                 Resource: !Sub arn:aws:codepipeline:${AWS::Region}:${AWS::AccountId}:*CodePipeline*
               - Effect: Allow
