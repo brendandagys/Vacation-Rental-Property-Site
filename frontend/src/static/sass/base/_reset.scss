@@ -1,0 +1,102 @@
+*,
+*::before,
+*::after {
+  box-sizing: inherit;
+}
+
+// 1. Prevent adjustments of font size after orientation changes in IE on Windows Phone (normalize don't make that)
+// 2. Setting @viewport causes scrollbars to overlap content in IE11 and Edge, so
+//    we force a non-overlapping, non-auto-hiding scrollbar to counteract.
+// 3. As pointed in the article (https://adamwathan.me/dont-use-em-for-media-queries/)
+//    Set a root font-size
+html {
+  -ms-text-size-adjust: 100%; // 1
+  -ms-overflow-style: scrollbar; // 2
+  font-size: $root-font-size; // 3
+}
+
+// IE10+ doesn't honor `<meta name="viewport">` in some cases.
+@at-root {
+  @-ms-viewport {
+    width: device-width;
+  }
+}
+
+// 1. Set an explicit initial text-align value so that we can later use the
+//    the `inherit` value on things like `<th>` elements.
+body {
+  box-sizing: border-box;
+  background: $color-blue-l;
+  // text-align: left; // 1
+}
+
+// Suppress the focus outline on elements that cannot be accessed via keyboard.
+// This prevents an unwanted focus outline from appearing around elements that
+// might still respond to pointer events.
+//
+// Credit: https://github.com/suitcss/base
+[tabindex="-1"]:focus {
+  outline: 0 !important;
+}
+
+a {
+  -webkit-text-decoration-skip: objects; // Remove gaps in links underline in iOS 8+ and Safari 8+.
+}
+
+img {
+  vertical-align: middle;
+}
+
+table {
+  border-collapse: collapse; // Prevent double borders
+}
+
+// th {
+//   // Matches default `<td>` alignment by inheriting from the `<body>`, or the
+//   // closest parent with a set `text-align`.
+//   text-align: inherit;
+// }
+
+label {
+  // Allow labels to use `margin` for spacing.
+  display: inline-block;
+}
+
+// Remove the default `border-radius` that macOS Chrome adds.
+//
+// Details at https://github.com/twbs/bootstrap/issues/24093
+// button {
+//   border-radius: 0;
+// }
+
+// Work around a Firefox/IE bug where the transparent `button` background
+// results in a loss of the default `button` focus styles.
+//
+// Credit: https://github.com/suitcss/base/
+// button:focus {
+//   outline: 0.1rem dotted;
+//   outline: 0.5rem auto -webkit-focus-ring-color;
+// }
+
+textarea {
+  // Textareas should really only resize vertically so they don't break their (horizontal) containers.
+  resize: vertical;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+ul,
+ol,
+p {
+  margin: 0;
+}
+
+// ul,
+// ol {
+//   padding: 0;
+//   list-style: none;
+// }

@@ -217,7 +217,7 @@ Resources:
                 BranchName: !Ref Branch
         - Name: Approval
           Actions:
-            - Name: SPA-deployment-to-CloudFront-OAC-S3
+            - Name: Deploy-application-to-CloudFront-edge-locations
               ActionTypeId:
                 Category: Approval
                 Owner: AWS

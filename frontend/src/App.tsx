@@ -2,22 +2,24 @@ import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 
-import { introductionLines } from './data/introductionLines';
-import { amenitiesLines } from './data/amenitiesLines';
-import { descriptionLines } from './data/descriptionLines';
-import { neighbourhoodLines } from './data/neighbourhoodLines';
+import { introductionLines } from './static/data/introductionLines';
+import { amenitiesLines } from './static/data/amenitiesLines';
+import { descriptionLines } from './static/data/descriptionLines';
+import { neighbourhoodLines } from './static/data/neighbourhoodLines';
 import { InformationCard } from './components/InformationCard';
 import { ImageCarousel } from './components/Carousel';
 
-import { images, enjoyTheSun } from './images';
+import { images, enjoyTheSun } from './static/images';
 import { Alert } from 'react-bootstrap';
 
+import './static/sass/app.scss';
+
 export const App = () => (
-  <Container fluid="lg">
-    <Row className="pt-4">
-      <Col className="text-center" xs={12}>
-        <Alert variant='primary' style={{ border: '3px solid white' }}>
-          <h1 style={{ fontSize: '3rem' }}>
+  <Container fluid='lg'>
+    <Row className='pt-4'>
+      <Col className='text-center' xs={12}>
+        <Alert variant='info' style={{ border: '3px solid white' }}>
+          <h1 className='welcome-header font-xs'>
             Welcome to Calaceite FRONTLINE Vistamar!
           </h1>
         </Alert>
@@ -33,15 +35,15 @@ export const App = () => (
           overflow: 'auto',
           borderRadius: '20px',
         }}>
-          <img src={enjoyTheSun} alt="Balcony view" />
+          <img src={enjoyTheSun} alt='Balcony view' />
         </div>
       </Col>
     </Row>
 
-    <Row className="mt-4">
-      <Col sm={8} md={7} lg={6} xl={4} className="mx-auto">
+    <Row className='mt-4'>
+      <Col sm={8} md={7} lg={6} xl={4} className='mx-auto'>
         <div
-          className="rounded p-4"
+          className='rounded p-4'
           style={{
             background: '#e3fbe3',
             border: '3px solid lightgreen',
@@ -62,7 +64,7 @@ export const App = () => (
       </Col>
     </Row>
 
-    <Row className="mt-2 mb-5 gy-2 px-3">
+    <Row className='mt-2 mb-5 gy-2'>
       <Col lg={6}>
         <InformationCard
           lines={introductionLines}
@@ -80,17 +82,17 @@ export const App = () => (
       </Col>
     </Row>
 
-    <Row className="px-3">
+    <Row className='px-3'>
       <div
-        className="rounded"
+        className='rounded'
         style={{ backgroundColor: '#af0d12' }}
       >
-        <Col className="m-auto" md={8}><ImageCarousel images={images} /></Col>
+        <Col className='m-auto' md={8}><ImageCarousel images={images} /></Col>
       </div>
     </Row>
 
-    <Row className="my-4 px-3">
-      <Col lg={6} className="mt-3">
+    <Row className='my-4 pb-5'>
+      <Col lg={6} className='mt-3'>
         <InformationCard
           lines={descriptionLines}
           title='Description'
@@ -98,7 +100,7 @@ export const App = () => (
           color='white'
         />
       </Col>
-      <Col lg={6} className="mt-3">
+      <Col lg={6} className='mt-3'>
         <InformationCard
           lines={neighbourhoodLines}
           title='Neighbourhood'
@@ -108,5 +110,3 @@ export const App = () => (
     </Row>
   </Container>
 );
-
-export default App;

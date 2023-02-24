@@ -1,0 +1,84 @@
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-size: 1.6rem;
+  line-height: $line-height-base;
+  color: $color-gray-dd;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;
+}
+
+a {
+  color: $color-link-blue;
+  text-decoration: none;
+  transition: color 0.2s ease;
+
+  &:hover {
+    color: $color-blue-dd;
+  }
+}
+
+// Font weight
+.weight-regular {
+  font-weight: $font-weight-regular;
+}
+.weight-medium {
+  font-weight: $font-weight-medium;
+}
+.semibold {
+  font-weight: $font-weight-semibold;
+}
+
+// Decoration
+.bold {
+  font-weight: $font-weight-bold;
+}
+.underline {
+  text-decoration: underline;
+}
+.no-select {
+  @include text-unselectable();
+}
+
+// Font size
+.font-xxs {
+  font-size: $font-size-xxs;
+}
+.font-xs {
+  font-size: $font-size-xs;
+}
+.font-sm {
+  font-size: $font-size-sm;
+}
+.font-base {
+  font-size: $font-size-base;
+}
+.font-lg {
+  font-size: $font-size-lg;
+}
+.font-xl {
+  font-size: $font-size-xl;
+}
+.font-2xl {
+  font-size: $font-size-2xl;
+}
+.font-3xl {
+  font-size: $font-size-3xl;
+}
+.font-4xl {
+  font-size: $font-size-4xl;
+}
+.font-5xl {
+  font-size: $font-size-5xl;
+}
+.font-6xl {
+  font-size: $font-size-6xl;
+}
+.font-7xl {
+  font-size: $font-size-7xl;
+}

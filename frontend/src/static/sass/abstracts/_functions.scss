@@ -1,0 +1,5 @@
+@function spacing($proportion) {
+  $result: $proportion * $spacer;
+
+  @return $result;
+}

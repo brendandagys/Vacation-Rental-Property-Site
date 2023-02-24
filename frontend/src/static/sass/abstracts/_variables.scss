@@ -1,0 +1,101 @@
+// Root font-size to define our global "rem"
+$root-font-size: 10px;
+
+$spacer: 0.5rem;
+
+// Colors
+$color-yellow-lllll: #feeab3;
+$color-yellow-llll: #fde6a4;
+$color-yellow-lll: #fde295;
+$color-yellow-ll: #fdde86;
+$color-yellow-l: #fdda77;
+$color-yellow: #fdd668;
+$color-yellow-d: #fcce4f;
+$color-yellow-dd: #fcc736;
+$color-yellow-ddd: #fcc01d;
+$color-yellow-dddd: #fbb904;
+$color-yellow-ddddd: #e2a703;
+
+$color-orange-ll: #ffba08;
+$color-orange-l: #faa307;
+$color-orange: #f48c06;
+$color-orange-d: #e85d04;
+$color-orange-dd: #dc2f02;
+
+$color-red-lll: #e26666;
+$color-red-ll: #de4c4c;
+$color-red-l: #d93232;
+$color-red: #d00000;
+$color-red-d: #9d0208;
+$color-red-dd: #6a040f;
+$color-red-ddd: #370617;
+
+$color-blue-lllll: #a7c6f0;
+$color-blue-llll: #9cbfee;
+$color-blue-lll: #92b8ed;
+$color-blue-ll: #7caae9;
+$color-blue-l: #669be6;
+$color-blue: #508de2;
+$color-blue-d: #3a7fde;
+$color-blue-dd: #2471db;
+$color-blue-ddd: #2165c5;
+$color-blue-dddd: #00005e;
+$color-blue-ddddd: #03071e;
+
+$color-link-blue: $color-blue-ddd;
+
+$color-gray-llll: #eaeeee;
+$color-gray-lll: #dbe1e3;
+$color-gray-ll: #cbd4d6;
+$color-gray-l: #b9c6c8;
+$color-gray: #a5b5b9;
+$color-gray-d: #8fa3a7;
+$color-gray-dd: #758d91;
+$color-gray-ddd: #5c6f73;
+$color-gray-dddd: #364143;
+
+$color-green-l: #90e5ca;
+$color-green: #3cd3a3;
+$color-green-d: #2fa781;
+
+$color-white: #fff;
+$color-black: #000;
+
+// Shadows
+$box-shadow-xs: 0 0.1rem 0.7rem rgba(0, 0, 0, 0.05);
+$box-shadow-xs-inverted: 0 -0.1rem 0.7rem rgba(0, 0, 0, 0.05);
+
+$text-shadow-sm: 2px 2px 4px rgba(0, 0, 0, 0.5);
+
+// Font Size
+$font-size-xxs: 1rem;
+$font-size-xs: 1.2rem;
+$font-size-sm: 1.4rem;
+$font-size-base: 1.6rem;
+$font-size-lg: 1.8rem;
+$font-size-xl: 2rem;
+$font-size-2xl: 2.2rem;
+$font-size-3xl: 2.4rem;
+$font-size-4xl: 3rem;
+$font-size-5xl: 4rem;
+$font-size-6xl: 5rem;
+$font-size-7xl: 6rem;
+
+// Font Weight
+$font-weight-regular: 400;
+$font-weight-medium: 500;
+$font-weight-semibold: 600;
+$font-weight-bold: 700;
+
+// Line Height
+$line-height-base: 1;
+$line-height-lg: 1.3;
+$line-height-xl: 1.5;
+$line-height-2xl: 1.7;
+
+// Radius
+$radius-xs: 0.4rem;
+$radius-sm: 0.9rem;
+$radius-lg: 1.7rem;
+$radius-full: 50%;
+$radius-full-px: 99rem;

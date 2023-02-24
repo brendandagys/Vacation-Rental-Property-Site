@@ -240,7 +240,7 @@ Resources:
                 BranchName: !Ref Branch
         - Name: Approval
           Actions:
-            - Name: Approve-infrastructure-creation
+            - Name: Make-infrastructure-pipeline
               ActionTypeId:
                 Category: Approval
                 Owner: AWS

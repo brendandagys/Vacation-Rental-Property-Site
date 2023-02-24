@@ -4,7 +4,10 @@ module.exports = {
     'plugin:@typescript-eslint/recommended',
     'plugin:@typescript-eslint/recommended-requiring-type-checking',
   ],
-  ignorePatterns: [ '.eslintrc.cjs', 'src/reportWebVitals.ts' ],
+  ignorePatterns: [
+    '.eslintrc.cjs',
+    'webpack.config.js'
+  ],
   parser: '@typescript-eslint/parser',
   parserOptions: {
     project: [ './tsconfig.json' ],
