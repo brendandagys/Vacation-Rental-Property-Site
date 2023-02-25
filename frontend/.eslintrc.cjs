@@ -34,7 +34,7 @@ module.exports = {
     "keyword-spacing": [ "warn", { before: true, after: true } ],
     "linebreak-style": [ "warn", "unix" ],
     "lines-between-class-members": "off",
-    "max-len": [ "warn", { ignoreComments: true, code: 81 } ],
+    "max-len": [ "warn", { ignoreComments: true, code: 110 } ],
     "no-console": [ "warn", { allow: [ "warn", "error", "info" ] } ],
     "no-multiple-empty-lines": [ "warn", { max: 1, maxEOF: 1 } ],
     "no-plusplus": "off",
