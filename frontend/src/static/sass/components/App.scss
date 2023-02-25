@@ -1,4 +1,48 @@
-.welcome-header {
-  color: $color-blue-dddd;
-  @extend .font-6xl;
+.app {
+  &__header {
+    border: 3px solid $color-white;
+    color: $color-blue-dddd;
+    
+    h1 {
+      @extend .font-6xl;
+      text-align: center;
+    }
+  }
+
+  &__image {
+    border-radius: $radius-lg;
+    display: flex;
+    flex-direction: column;
+    object-fit: contain;
+    overflow: auto;
+    width: 100%;
+  }
+
+  &__contact-information {
+    background: $color-green-ll;
+    border: 3px solid lightgreen;
+    border-radius: $radius-md;
+    text-align: center;
+
+    p {
+      font-size: $font-size-lg;
+      text-align: left;
+      margin-bottom: 2.5rem;
+    }
+    
+    span {
+      color: slategray;
+      display: block;
+      font-size: $font-size-sm;
+
+      &:last-child {
+        margin-top: 0.75rem;
+      }
+    }
+  }
+
+  &__image-carousel {
+    background: $color-blue-lll;
+    border-radius: $radius-md;
+  }
 }

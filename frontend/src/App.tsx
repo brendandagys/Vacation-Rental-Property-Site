@@ -15,96 +15,73 @@ import { Alert } from 'react-bootstrap';
 import './static/sass/app.scss';
 
 export const App = () => (
-  <Container fluid='lg'>
+  <Container fluid='md'>
     <Row className='pt-4'>
-      <Col className='text-center' xs={12}>
-        <Alert variant='info' style={{ border: '3px solid white' }}>
-          <h1 className='welcome-header font-xs'>
-            Welcome to Calaceite FRONTLINE Vistamar!
-          </h1>
+      <Col xs={12}>
+        <Alert variant='info' className="app__header">
+          <h1>Welcome to Calaceite FRONTLINE Vistamar!</h1>
         </Alert>
       </Col>
+
       <Col xs={12}>
-        <div style={{
-          width: '100%',
-          display: 'flex',
-          flexDirection: 'column',
-          // justifyContent: 'center',
-          // alignContent: 'center',
-          objectFit: 'contain',
-          overflow: 'auto',
-          borderRadius: '20px',
-        }}>
+        <div className="app__image">
           <img src={enjoyTheSun} alt='Balcony view' />
         </div>
       </Col>
     </Row>
 
-    <Row className='mt-4'>
+    <Row className='my-5'>
       <Col sm={8} md={7} lg={6} xl={4} className='mx-auto'>
-        <div
-          className='rounded p-4'
-          style={{
-            background: '#e3fbe3',
-            border: '3px solid lightgreen',
-            textAlign: 'center',
-          }}
-        >
-          <p style={{ textAlign: 'left' }}>
-            Please contact Dawn-Ava for pricing and more information:
-          </p>
-          <span style={{ color: 'slategray', fontSize: '0.8rem' }}>
-            WhatsApp: <b>+1 (416) 779-6411</b>
-          </span>
-          <br />
-          <span style={{ color: 'slategray', fontSize: '0.8rem' }}>
-            <b>calaceitefrontlinevistamar@gmail.com</b>
-          </span>
+        <div className='app__contact-information p-4'>
+          <p>Please contact Dawn-Ava for pricing and more information:</p>
+          <span>WhatsApp: <b>+1 (416) 779-6411</b></span>
+          <span><b>calaceitefrontlinevistamar@gmail.com</b></span>
         </div>
       </Col>
     </Row>
 
-    <Row className='mt-2 mb-5 gy-2'>
+    <Row className='gy-2 mb-5 mt-2'>
       <Col lg={6}>
         <InformationCard
-          lines={introductionLines}
-          title='Overview'
           backgroundColor='#af0d12'
           color='white'
+          lines={introductionLines}
+          title='Overview'
+          subtitle='Learn about the property and area'
         />
       </Col>
+
       <Col lg={6}>
         <InformationCard
+          backgroundColor='#fabe00'
           lines={amenitiesLines}
           title='Amenities'
-          backgroundColor='#fabe00'
         />
       </Col>
     </Row>
 
     <Row className='px-3'>
-      <div
-        className='rounded'
-        style={{ backgroundColor: '#af0d12' }}
-      >
-        <Col className='m-auto' md={8}><ImageCarousel images={images} /></Col>
+      <div className='app__image-carousel'>
+        <Col className='m-auto' md={8}>
+          <ImageCarousel images={images} />
+        </Col>
       </div>
     </Row>
 
     <Row className='my-4 pb-5'>
-      <Col lg={6} className='mt-3'>
+      <Col className='mt-3' lg={6}>
         <InformationCard
-          lines={descriptionLines}
-          title='Description'
           backgroundColor='#af0d12'
           color='white'
+          lines={descriptionLines}
+          title='Description'
         />
       </Col>
       <Col lg={6} className='mt-3'>
         <InformationCard
+          backgroundColor='#fabe00'
           lines={neighbourhoodLines}
           title='Neighbourhood'
-          backgroundColor='#fabe00'
         />
       </Col>
     </Row>

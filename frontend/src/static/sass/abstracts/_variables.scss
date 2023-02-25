@@ -16,6 +16,8 @@ $color-yellow-ddd: #fcc01d;
 $color-yellow-dddd: #fbb904;
 $color-yellow-ddddd: #e2a703;
 
+$color-spain-yellow: #fabe00;
+
 $color-orange-ll: #ffba08;
 $color-orange-l: #faa307;
 $color-orange: #f48c06;
@@ -29,6 +31,8 @@ $color-red: #d00000;
 $color-red-d: #9d0208;
 $color-red-dd: #6a040f;
 $color-red-ddd: #370617;
+
+$color-spain-red: #af0d12;
 
 $color-blue-lllll: #a7c6f0;
 $color-blue-llll: #9cbfee;
@@ -44,9 +48,10 @@ $color-blue-ddddd: #03071e;
 
 $color-link-blue: $color-blue-ddd;
 
-$color-gray-llll: #eaeeee;
-$color-gray-lll: #dbe1e3;
-$color-gray-ll: #cbd4d6;
+$color-gray-lllll: #eaeeee;
+$color-gray-llll: #dbe1e3;
+$color-gray-lll: #cbd4d6;
+$color-gray-ll: #d3d3d3;
 $color-gray-l: #b9c6c8;
 $color-gray: #a5b5b9;
 $color-gray-d: #8fa3a7;
@@ -54,6 +59,7 @@ $color-gray-dd: #758d91;
 $color-gray-ddd: #5c6f73;
 $color-gray-dddd: #364143;
 
+$color-green-ll: #e3fbe3;
 $color-green-l: #90e5ca;
 $color-green: #3cd3a3;
 $color-green-d: #2fa781;
@@ -96,6 +102,7 @@ $line-height-2xl: 1.7;
 // Radius
 $radius-xs: 0.4rem;
 $radius-sm: 0.9rem;
+$radius-md: 1.3rem;
 $radius-lg: 1.7rem;
 $radius-full: 50%;
 $radius-full-px: 99rem;

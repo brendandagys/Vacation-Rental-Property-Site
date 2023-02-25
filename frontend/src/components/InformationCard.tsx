@@ -16,13 +16,13 @@ export const InformationCard = ({
   subtitle,
   title,
 }: IInformationCardProps): JSX.Element => (
-  <Card style={{ border: '2px solid #d3d3d3' }}>
+  <Card className='information-card__container'>
     <Card.Body>
       { title && <Card.Title className='mb-4'>{title}</Card.Title> }
       {
         subtitle
         && (
-          <Card.Subtitle className='mt-2 mb-4 text-muted'>
+          <Card.Subtitle className='mt-2 mb-4'>
             {subtitle}
           </Card.Subtitle>
         )
