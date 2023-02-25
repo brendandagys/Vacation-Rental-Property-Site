@@ -4,6 +4,7 @@ import Col from 'react-bootstrap/Col';
 
 import { introductionLines } from './static/data/introductionLines';
 import { amenitiesLines } from './static/data/amenitiesLines';
+import { CalendarsContainer } from './components/calendar/CalendarsContainer';
 import { descriptionLines } from './static/data/descriptionLines';
 import { neighbourhoodLines } from './static/data/neighbourhoodLines';
 import { InformationCard } from './components/InformationCard';
@@ -40,6 +41,12 @@ export const App = () => (
       </Col>
     </Row>
 
+    <Row>
+      <Col xs={12}>
+        <CalendarsContainer />
+      </Col>
+    </Row>
+
     <Row className='gy-2 mb-5 mt-2'>
       <Col lg={6}>
         <InformationCard
@@ -47,7 +54,6 @@ export const App = () => (
           color='white'
           lines={introductionLines}
           title='Overview'
-          subtitle='Learn about the property and area'
         />
       </Col>
 

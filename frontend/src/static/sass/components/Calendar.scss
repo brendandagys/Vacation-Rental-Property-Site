@@ -1,0 +1,74 @@
+.calendar {
+  &__date-cell {
+    display: flex;
+    flex-direction: column;
+    font-size: $font-size-lg;
+    justify-content: center;
+
+    &--booked,
+    &--unavailable {
+      opacity: 0.4;
+      cursor: not-allowed;
+    }
+
+    &__price {
+      font-size: $font-size-3xs;
+      margin-top: 0.5rem;
+
+      &--green {
+        color: $color-green;
+      }
+      &--yellow {
+        color: $color-yellow-ddddd;
+      }
+      &--orange {
+        color: $color-orange-d;
+      }
+      &--red {
+        color: $color-red;
+      }
+    }
+  }
+
+  &__weekday-header {
+    background: $color-blue-dddd;
+    color: $color-white;
+    padding: 0.5rem 0;
+    text-align: center;
+  }
+
+  &__month-indicator {
+    background: $color-spain-red;
+    color: $color-black;
+    font-weight: $font-weight-semibold;
+    margin: 0 auto;
+    width: 280px;
+
+    h2 {
+      margin-left: 0.25rem;
+    }
+  }
+
+  &__table {
+    margin: 0 auto;
+
+    td {
+      background: $color-white;
+      height: 40px;
+      width: 40px;
+
+      &.empty {
+        background: $color-gray-llll;
+      }
+
+      &:not(.empty) {
+        div {
+          @include text-unselectable;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+        }
+      }
+    }
+  }
+}
