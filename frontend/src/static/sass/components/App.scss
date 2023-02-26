@@ -22,6 +22,8 @@
     background: $color-green-ll;
     border: 3px solid lightgreen;
     border-radius: $radius-md;
+    line-height: 25px;
+    padding: 1.25rem 2rem;
     text-align: center;
 
     p {
@@ -36,7 +38,7 @@
       font-size: $font-size-sm;
 
       &:last-child {
-        margin-top: 0.75rem;
+        margin-top: 0.15rem;
       }
     }
   }
