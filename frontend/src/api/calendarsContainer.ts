@@ -7,7 +7,7 @@ import {
   IYearMonth,
   ICalendarDate,
 } from '../types';
-import { makeYmd } from '../utils/helpers';
+import { makeYm, makeYmd } from '../utils/helpers';
 
 export const getYearMonthForDate = (date: Date): IYearMonth => {
   const year = date.getFullYear();
@@ -21,19 +21,24 @@ export const getMonthsForRequest = (yearMonth: IYearMonth, numberAhead = 0): TCa
   const months = [ yearMonth ];
 
   for (let i = 1; i <= numberAhead; i++) {
-    months.push(getYearMonthForDate(new Date(year, (month + i))));
+    months.push(getYearMonthForDate(new Date(year, (month - 1 + i))));
   }
-
   return months;
 };
 
 export const fetchCalendarMonths = async (
   months: TCalendarMonthsRequest
 ): Promise<TCalendarsData> => (
-  // api(months);
-  Promise.resolve(dateData)
+  Promise.resolve(
+    months
+      .reduce((acc, { year, month }) => {
+        const ym = makeYm(year, month);
+        return { ...acc, [ym]: dateData[ym] };
+      }, {})
+  )
 );
-
+  
+// api(months);
 export const sortCalendarDates = (a: ICalendarDate, b: ICalendarDate) => (
   (new Date(a.year, a.month - 1, a.date)) > (new Date(b.year, b.month - 1, b.date)) ? 1 : -1
 );

@@ -16,6 +16,7 @@ import {
 } from '../../types';
 import { makeYmd } from '../../utils/helpers';
 import { Calendar } from './Calendar';
+import downArrow from '../../static/icons/down-arrow.svg';
 
 export const CalendarsContainer = (): JSX.Element => {
   const [ calendarsData, setCalendarsData ] = useState<TCalendarsData>({});
@@ -197,6 +198,11 @@ export const CalendarsContainer = (): JSX.Element => {
               </Col>
             ))
         }
+      </Row>
+      <Row>
+        <Col xs={12} className='text-center my-5'>
+          <img src={downArrow} height='50' alt='down arrow' />
+        </Col>
       </Row>
     </Container>
   );
