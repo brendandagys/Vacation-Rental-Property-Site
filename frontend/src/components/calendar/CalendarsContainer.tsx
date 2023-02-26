@@ -29,6 +29,32 @@ export const CalendarsContainer = (): JSX.Element => {
   const [ selectedDates, setSelectedDates ] = useState<string[]>([]);
   const [ hoveredDate, setHoveredDate ] = useState<ICalendarDate | null>(null);
 
+  const [ currencySymbol ] = useState('€');
+
+  const dateRange = (
+    useMemo(
+      () => {
+        let from = null;
+        let to = null;
+
+        if (secondClick && firstClick) {
+          if (mapCalendarDateToDate(firstClick) < mapCalendarDateToDate(secondClick)) {
+            from = firstClick;
+            to = secondClick;
+          } else {
+            from = secondClick;
+            to = firstClick;
+          }
+        } else if (firstClick) {
+          from = firstClick;
+        }
+
+        return { from, to };
+      },
+      [ firstClick, secondClick ]
+    )
+  );
+
   const getCalendarDateForYmd = (ymd: string): ICalendarDate | null => {
     const [ year, month, date ] = ymd.split('-');
     return (
@@ -118,7 +144,7 @@ export const CalendarsContainer = (): JSX.Element => {
     fetchData(monthsToFetch).catch(console.error);
   }, [ currentYear, currentMonth ]);
 
-  const getClickString = (calendarDate: ICalendarDate) => {
+  const getCalendarDateYmd = (calendarDate: ICalendarDate) => {
     const { year, month, date } = calendarDate;
     if (year && month && date) {
       return makeYmd(year, month, date);
@@ -129,36 +155,23 @@ export const CalendarsContainer = (): JSX.Element => {
 
   return (
     <Container>
-      {/* <Row>
-        <Col>
-          <Alert variant='warning'>
-            <h4>Hovered date: {hoveredDate && mapCalendarDateToString(hoveredDate)}</h4>
-            <div style={{ height: '100px' }}>
-              <p>Selected: {selectedDates.map((date) => date.slice(5)).join(', ')}</p>
-            </div>
-            <div style={{ height: '100px' }}>
-              <h4>Hover range: {datesInHoverRange.map((date) => date.slice(5)).join(', ')}</h4>
-            </div>
-          </Alert>
-        </Col>
-      </Row> */}
-      <Row className='text-center'>
-        <Col className='mx-auto' xs={4}>
+      <Row>
+        <Col className='mx-auto' xs={8} sm={6} md={5} lg={4} xl={3}>
           <Alert className='border-white'>
-            <h5 className='calendars-container__subtotal'>Subtotal: ${subtotal}</h5>
+            <h5 className='calendars-container__subtotal'>Subtotal: {currencySymbol}{subtotal}</h5>
           </Alert>
         </Col>
       </Row>
-      <Row className='text-center'>
-        <Col>
+      <Row className='justify-content-center calendars-container__date-range'>
+        <Col xs={5} sm={4} lg={3} xl={2}>
           <Alert className='border-white'>
-            <h5>First: {firstClick && getClickString(firstClick)}</h5>
+            <h5>From: {dateRange.from ? getCalendarDateYmd(dateRange.from) : ''}</h5>
           </Alert>
         </Col>
-        <Col>
+        <Col xs={5} sm={4} lg={3} xl={2}>
           <Alert className='border-white'>
             <h5>
-              Second: {secondClick && getClickString(secondClick)}
+              To: {dateRange.to ? getCalendarDateYmd(dateRange.to) : ''}
             </h5>
           </Alert>
         </Col>
