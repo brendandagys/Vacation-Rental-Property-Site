@@ -65,7 +65,7 @@ export const getDatesInRange = (startDate: Date, endDate: Date): string[] => {
     start.setDate(start.getDate() + 1);
   }
 
-  console.log({ dates });
+  // console.log({ dates });
 
   return dates;
 };

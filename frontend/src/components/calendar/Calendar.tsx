@@ -54,6 +54,9 @@ export const Calendar = ({
       const { date, price, state: _state, priceColor: _priceColor } = calendarDate;
 
       const priceColor = _priceColor || getPriceColor(price);
+      
+      const isSelected = selected.includes(calendarDate);
+      const isHovered = inHoverRange.includes(calendarDate);
 
       const state = (
         (mapCalendarDateToDate(calendarDate) < (new Date()))
@@ -72,9 +75,9 @@ export const Calendar = ({
             `calendar__date-cell
             calendar__date-cell${state ? `--${state}` : ''}
             calendar__date-cell${
-        selected.includes(calendarDate)
+        isSelected
           ? '--selected'
-          : inHoverRange.includes(calendarDate)
+          : isHovered
             ? '--hovered'
             : ''}`
           }>

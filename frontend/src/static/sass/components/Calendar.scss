@@ -14,12 +14,17 @@
       cursor: not-allowed;
     }
 
+    border-radius: $radius-xs;
+
     &--selected:not(
       .calendar__date-cell--booked,
       .calendar__date-cell--unavailable
     ) {
       background: $color-green-l;
-      border-radius: $radius-xs;
+
+      p:last-child {
+        color: $color-black;
+      }
     }
 
     &--hovered:not(
@@ -27,7 +32,6 @@
       .calendar__date-cell--unavailable
     ) {
       background: $color-green-ll;
-      border-radius: $radius-xs;
     }
 
     &__price {
@@ -61,7 +65,7 @@
     color: $color-black;
     font-weight: $font-weight-semibold;
     margin: 0 auto;
-    width: 280px;
+    max-width: 280px;
 
     h2 {
       margin-left: 0.25rem;
