@@ -1,6 +1,7 @@
-import { Dispatch, SetStateAction } from 'react';
+import { Dispatch, SetStateAction, useState } from 'react';
+import { mapCalendarDateToDate } from '../../api/calendarsContainer';
 import { monthsEnglish, weekdayHeadersEnglish } from '../../static/data/date-data';
-import { ICalendarDate } from '../../types';
+import { ECalendarDateState, ICalendarDate } from '../../types';
 
 interface ICalendarProps {
   dateData: ICalendarDate[];
@@ -26,6 +27,8 @@ export const Calendar = ({
   const { year, month } = firstDayOfMonth;
   const firstWeekdayOfMonth = (new Date(year, month - 1, 1)).getDay(); // 0: Sunday
 
+  const [ currencySymbol ] = useState('€');
+
   const getBlankCalendarCell = (
     (key: number | string) => <td key={`B${key}`} className='empty' />
   );
@@ -33,7 +36,13 @@ export const Calendar = ({
   const blankCells = Array.from(Array(firstWeekdayOfMonth)).map((_, i) => getBlankCalendarCell(i));
   const dateCells = (
     dateData.map((calendarDate) => {
-      const { date, price, state, priceColor } = calendarDate;
+      const { date, price, state: _state, priceColor } = calendarDate;
+
+      const state = (
+        (mapCalendarDateToDate(calendarDate) < (new Date()))
+          ? ECalendarDateState.unavailable
+          : _state
+      );
 
       return (
         <td
@@ -54,7 +63,7 @@ export const Calendar = ({
           }>
             <p>{date}</p>
             <p className={`calendar__date-cell__price calendar__date-cell__price${
-              priceColor ? `--${priceColor}` : ''}`}>${price}</p>
+              priceColor ? `--${priceColor}` : ''}`}>{currencySymbol}{price}</p>
           </div>
         </td>
       );
