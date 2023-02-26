@@ -11,6 +11,13 @@ interface ICalendarProps {
   setHoveredDate: Dispatch<SetStateAction<ICalendarDate | null>>;
 }
 
+enum EPriceColor {
+  green = 'green',
+  yellow = 'yellow',
+  orange = 'orange',
+  red = 'red',
+}
+
 const weekdayHeaders = (
   weekdayHeadersEnglish
     .map((day) => <th key={day} className='calendar__weekday-header'>{day}</th>)
@@ -33,10 +40,20 @@ export const Calendar = ({
     (key: number | string) => <td key={`B${key}`} className='empty' />
   );
 
+  const getPriceColor = (price: number): EPriceColor => {
+    const color = (
+      price >= 200 ? 'red' : price >= 170 ? 'orange' : price >= 150 ? 'yellow' : 'green'
+    );
+
+    return EPriceColor[color];
+  };
+
   const blankCells = Array.from(Array(firstWeekdayOfMonth)).map((_, i) => getBlankCalendarCell(i));
   const dateCells = (
     dateData.map((calendarDate) => {
-      const { date, price, state: _state, priceColor } = calendarDate;
+      const { date, price, state: _state, priceColor: _priceColor } = calendarDate;
+
+      const priceColor = _priceColor || getPriceColor(price);
 
       const state = (
         (mapCalendarDateToDate(calendarDate) < (new Date()))
