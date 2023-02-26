@@ -2,11 +2,11 @@ import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 
-import { introductionLines } from './static/data/introductionLines';
-import { amenitiesLines } from './static/data/amenitiesLines';
+import { introductionLines } from './static/data/lines/introductionLines';
+import { amenitiesLines } from './static/data/lines/amenitiesLines';
 import { CalendarsContainer } from './components/calendar/CalendarsContainer';
-import { descriptionLines } from './static/data/descriptionLines';
-import { neighbourhoodLines } from './static/data/neighbourhoodLines';
+import { descriptionLines } from './static/data/lines/descriptionLines';
+import { neighbourhoodLines } from './static/data/lines/neighbourhoodLines';
 import { InformationCard } from './components/InformationCard';
 import { ImageCarousel } from './components/Carousel';
 

@@ -1,5 +1,5 @@
 // import { api } from '.';
-import { dateData } from '../static/data/dateData';
+import { dateData } from '../static/data/date-data';
 import {
   TCalendarMonthsRequest,
   TCalendarsData,

@@ -1,5 +1,5 @@
 import { Dispatch, SetStateAction } from 'react';
-import { monthsEnglish, weekdayHeadersEnglish } from '../../static/data/dateData';
+import { monthsEnglish, weekdayHeadersEnglish } from '../../static/data/date-data';
 import { ICalendarDate } from '../../types';
 
 interface ICalendarProps {
