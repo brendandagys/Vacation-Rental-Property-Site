@@ -1,0 +1,14 @@
+.calendars-container {
+  &__subtotal {
+    color: $color-black;
+    font-size: $font-size-4xl;
+    text-align: center;
+  }
+
+  &__date-range {
+    background: blue;
+    color: $color-black;
+    margin-bottom: 2rem;
+    text-align: center;
+  }
+}

@@ -1,14 +1,33 @@
 .calendar {
   &__date-cell {
+    cursor: pointer;
     display: flex;
     flex-direction: column;
     font-size: $font-size-lg;
     justify-content: center;
+    padding-bottom: 0.4rem;
+    padding-top: 0.25rem;
 
     &--booked,
     &--unavailable {
       opacity: 0.4;
       cursor: not-allowed;
+    }
+
+    &--selected:not(
+      .calendar__date-cell--booked,
+      .calendar__date-cell--unavailable
+    ) {
+      background: $color-green-l;
+      border-radius: $radius-xs;
+    }
+
+    &--hovered:not(
+      .calendar__date-cell--booked,
+      .calendar__date-cell--unavailable
+    ) {
+      background: $color-green-ll;
+      border-radius: $radius-xs;
     }
 
     &__price {
@@ -38,7 +57,7 @@
   }
 
   &__month-indicator {
-    background: $color-spain-red;
+    background: $color-spain-yellow;
     color: $color-black;
     font-weight: $font-weight-semibold;
     margin: 0 auto;

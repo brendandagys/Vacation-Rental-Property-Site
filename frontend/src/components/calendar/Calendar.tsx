@@ -1,8 +1,13 @@
+import { Dispatch, SetStateAction } from 'react';
 import { monthsEnglish, weekdayHeadersEnglish } from '../../static/data/dateData';
 import { ICalendarDate } from '../../types';
 
 interface ICalendarProps {
   dateData: ICalendarDate[];
+  inHoverRange: ICalendarDate[];
+  onDateClick: (calendarDate: ICalendarDate) => void;
+  selected: ICalendarDate[];
+  setHoveredDate: Dispatch<SetStateAction<ICalendarDate | null>>;
 }
 
 const weekdayHeaders = (
@@ -10,7 +15,13 @@ const weekdayHeaders = (
     .map((day) => <th key={day} className='calendar__weekday-header'>{day}</th>)
 );
 
-export const Calendar = ({ dateData }: ICalendarProps): JSX.Element => {
+export const Calendar = ({
+  dateData,
+  inHoverRange,
+  onDateClick,
+  selected,
+  setHoveredDate,
+}: ICalendarProps): JSX.Element => {
   const firstDayOfMonth = dateData[0];
   const { year, month } = firstDayOfMonth;
   const firstWeekdayOfMonth = (new Date(year, month - 1, 1)).getDay(); // 0: Sunday
@@ -21,15 +32,33 @@ export const Calendar = ({ dateData }: ICalendarProps): JSX.Element => {
 
   const blankCells = Array.from(Array(firstWeekdayOfMonth)).map((_, i) => getBlankCalendarCell(i));
   const dateCells = (
-    dateData.map(({ date, price, state, priceColor }) => (
-      <td key={`D${date}`}>
-        <div className={`calendar__date-cell calendar__date-cell${state ? `--${state}` : ''}`}>
-          <p>{date}</p>
-          <p className={`calendar__date-cell__price calendar__date-cell__price${
-            priceColor ? `--${priceColor}` : ''}`}>${price}</p>
-        </div>
-      </td>
-    ))
+    dateData.map((calendarDate) => {
+      const { date, price, state, priceColor } = calendarDate;
+
+      return (
+        <td
+          key={`D${date}`}
+          onClick={() => onDateClick(calendarDate)}
+          onMouseEnter={() => setHoveredDate(calendarDate)}
+          onMouseLeave={() => setHoveredDate(null)}
+        >
+          <div className={
+            `calendar__date-cell
+            calendar__date-cell${state ? `--${state}` : ''}
+            calendar__date-cell${
+        selected.includes(calendarDate)
+          ? '--selected'
+          : inHoverRange.includes(calendarDate)
+            ? '--hovered'
+            : ''}`
+          }>
+            <p>{date}</p>
+            <p className={`calendar__date-cell__price calendar__date-cell__price${
+              priceColor ? `--${priceColor}` : ''}`}>${price}</p>
+          </div>
+        </td>
+      );
+    })
   );
 
   const rows = (

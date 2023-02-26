@@ -17,8 +17,10 @@ export interface ICalendarDate {
   price: number;
 }
 
-export type TYearMonth = { year: number, month: TMonthNumber };
+export interface IYearMonth { year: number; month: TMonthNumber; }
 
-export type TCalendarMonthsRequest = TYearMonth[];
+export interface IYearMonthDate extends IYearMonth { date: TDateNumber; }
+
+export type TCalendarMonthsRequest = IYearMonth[];
 
 export type TCalendarsData = Record<string, ICalendarDate[]>;
