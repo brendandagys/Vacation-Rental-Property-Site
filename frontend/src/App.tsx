@@ -32,11 +32,11 @@ export const App = () => (
     </Row>
 
     <Row className='my-5'>
-      <Col sm={8} md={7} lg={6} xl={4} className='mx-auto'>
-        <div className='app__contact-information p-4'>
-          <p>Please contact Dawn-Ava for pricing and more information:</p>
+      <Col xs={11} sm={10} md={8} lg={6} xl={4} className='mx-auto'>
+        <div className='app__contact-information'>
+          <p>Please contact Dawn-Ava for more information about a Spanish luxury holiday!</p>
           <span>WhatsApp: <b>+1 (416) 779-6411</b></span>
-          <span><b>calaceitefrontlinevistamar@gmail.com</b></span>
+          <span><b>spainfrontline@gmail.com</b></span>
         </div>
       </Col>
     </Row>
