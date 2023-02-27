@@ -102,7 +102,8 @@ export const CalendarsContainer = (): JSX.Element => {
       );
 
       setCalendarsData((old) => ({ ...old, ...data }));
-    }, [ calendarsData ]
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []
   );
 
   const datesInHoverRange = (
