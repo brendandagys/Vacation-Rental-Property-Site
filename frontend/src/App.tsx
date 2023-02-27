@@ -47,7 +47,7 @@ export const App = () => (
       </Col>
     </Row>
 
-    <Row className='gy-2 mb-5 mt-2'>
+    <Row className='gy-2 mb-5 mt-5'>
       <Col lg={6}>
         <InformationCard
           backgroundColor='#af0d12'

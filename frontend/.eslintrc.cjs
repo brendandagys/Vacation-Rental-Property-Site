@@ -13,7 +13,7 @@ module.exports = {
     project: [ './tsconfig.json' ],
     tsconfigRootDir: __dirname,
   },
-  plugins: [ '@typescript-eslint' ],
+  plugins: [ '@typescript-eslint', 'react-hooks' ],
   root: true,
   rules: {
     "@typescript-eslint/indent": [ "warn", 2 ],
@@ -44,6 +44,7 @@ module.exports = {
     "no-unused-vars": "off",
     "object-curly-spacing": [ "warn", "always" ],
     quotes: [ "warn", "single", { allowTemplateLiterals: true } ],
+    "react-hooks/exhaustive-deps": "warn",
     semi: [ "warn", "always" ],
     "space-unary-ops": [
       2, {

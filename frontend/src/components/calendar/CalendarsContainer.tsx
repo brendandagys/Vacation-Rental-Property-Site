@@ -14,7 +14,7 @@ import {
   TCalendarsData,
   TMonthNumber,
 } from '../../types';
-import { makeYmd } from '../../utils/helpers';
+import { makeYm, makeYmd } from '../../utils/helpers';
 import { Calendar } from './Calendar';
 import downArrow from '../../static/icons/down-arrow.svg';
 
@@ -56,19 +56,27 @@ export const CalendarsContainer = (): JSX.Element => {
     )
   );
 
-  const getCalendarDateForYmd = (ymd: string): ICalendarDate | null => {
-    const [ year, month, date ] = ymd.split('-');
-    return (
-      calendarsData[`${year}-${month}`]
-        ?.find(({ date: foundDate }) => (
-          foundDate === parseInt(date)
-        ))
+  const getCalendarDateForYmd = (
+    useCallback(
+      (ymd: string): ICalendarDate | null => {
+        const [ year, month, date ] = ymd.split('-');
+        return (
+          calendarsData[`${year}-${month}`]
+            ?.find(({ date: foundDate }) => (
+              foundDate === parseInt(date)
+            ))
         ?? null
-    );
-  };
+        );
+      }, [ calendarsData ]
+    )
+  );
 
-  const isYmdAvailable = (ymd: string): boolean => (
-    getCalendarDateForYmd(ymd)?.state === ECalendarDateState.available
+  const isYmdAvailable = (
+    useCallback(
+      (ymd: string): boolean => (
+        getCalendarDateForYmd(ymd)?.state === ECalendarDateState.available
+      ), [ getCalendarDateForYmd ]
+    )
   );
 
   const subtotal = (
@@ -78,14 +86,23 @@ export const CalendarsContainer = (): JSX.Element => {
         .filter((calendarDate) => calendarDate?.state === ECalendarDateState.available)
         .map((x) => x!.price)
         .reduce((acc, dateAmount) => acc + dateAmount, 0)
-    ), [ selectedDates ])
+    ), [ getCalendarDateForYmd, selectedDates ])
   );
 
   const fetchData = useCallback(
     async (months: TCalendarMonthsRequest) => {
-      const data = await fetchCalendarMonths(months);
+      const data = (
+        await fetchCalendarMonths(
+          months.filter(
+            ({ year, month }) => {
+              return !Object.keys(calendarsData).includes(makeYm(year, month));
+            }
+          )
+        )
+      );
+
       setCalendarsData((old) => ({ ...old, ...data }));
-    }, []
+    }, [ calendarsData ]
   );
 
   const datesInHoverRange = (
@@ -101,7 +118,7 @@ export const CalendarsContainer = (): JSX.Element => {
         )
           .filter(isYmdAvailable)
       );
-    }, [ hoveredDate, firstClick, secondClick ])
+    }, [ firstClick, hoveredDate, isYmdAvailable, secondClick ])
   );
 
   const onDateClick = (calendarDate: ICalendarDate) => {
@@ -141,9 +158,9 @@ export const CalendarsContainer = (): JSX.Element => {
   };
 
   useEffect(() => {
-    const monthsToFetch = getMonthsForRequest({ year: currentYear, month: currentMonth }, 5);
+    const monthsToFetch = getMonthsForRequest({ year: currentYear, month: currentMonth }, 7);
     fetchData(monthsToFetch).catch(console.error);
-  }, [ currentYear, currentMonth ]);
+  }, [ currentYear, currentMonth, fetchData ]);
 
   const getCalendarDateYmd = (calendarDate: ICalendarDate) => {
     const { year, month, date } = calendarDate;
@@ -152,6 +169,11 @@ export const CalendarsContainer = (): JSX.Element => {
     }
 
     return '';
+  };
+
+  const onFetchMonths = () => {
+    const monthsToFetch = getMonthsForRequest({ year: currentYear, month: currentMonth }, 11);
+    fetchData(monthsToFetch).catch(console.error);
   };
 
   return (
@@ -177,7 +199,7 @@ export const CalendarsContainer = (): JSX.Element => {
           </Alert>
         </Col>
       </Row>
-      <Row className='justify-content-center'>
+      <Row className='justify-content-space-evenly'>
         {
           Object.keys(calendarsData)
             .map((yearMonthKey) => (
@@ -199,11 +221,20 @@ export const CalendarsContainer = (): JSX.Element => {
             ))
         }
       </Row>
-      <Row>
-        <Col xs={12} className='text-center my-5'>
-          <img src={downArrow} height='50' alt='down arrow' />
-        </Col>
-      </Row>
+      {
+        Object.keys(calendarsData).length < 12
+        && (
+          <Row>
+            <Col
+              xs={12}
+              className='text-center my-5 calendars-container__down-arrow'
+              onClick={onFetchMonths}
+            >
+              <img src={downArrow} height='50' alt='down arrow' />
+            </Col>
+          </Row>
+        )
+      }
     </Container>
   );
 };

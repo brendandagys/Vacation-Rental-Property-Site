@@ -10,4 +10,13 @@
       padding-left: 0.5rem;
     }
   }
+
+  &__down-arrow {
+    &:hover {
+      background: $color-gray-lllll;
+      border-radius: $radius-sm;
+      cursor: pointer;
+      outline: 2px solid $color-black;
+    }
+  }
 }
