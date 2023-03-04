@@ -1,0 +1,33 @@
+[package]
+name = "hello-world"
+version = "0.1.0"
+edition = "2021"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+aws-config = "0.52.0"
+aws-sdk-dynamodb = "0.22.0"
+aws-smithy-client = { version = "0.52.0", features = ["test-util"] }
+bcrypt = "0.14"
+lambda_http = "0.7.2"
+tokio = { version = "1.21.1", features = ["full"] }
+
+# From AWS documentation
+lambda_runtime = "0.6.0"
+serde = "1.0.136"
+tracing = { version = "0.1", features = ["log"] }
+tracing-subscriber = { version = "0.3", default-features = false, features = ["fmt"] }
+
+[dev-dependencies]
+aws-smithy-http = "0.52.0"
+aws-types = { version = "0.52.0", features = ["hardcoded-credentials"] }
+http = "0.2.8"
+
+[[bin]]
+name = "function_a"
+path = "src/function_a.rs"
+
+[[bin]]
+name = "function_b"
+path = "src/function_b.rs"

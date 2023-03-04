@@ -10,11 +10,13 @@ coverage/
 
 # Production
 build/
+target/
 
 # Miscellaneous
 .DS_Store
 .env*
 /extra
+.aws-sam/
 
 npm-debug.log*
 yarn-debug.log*
