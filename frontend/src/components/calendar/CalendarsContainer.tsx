@@ -29,6 +29,7 @@ export const CalendarsContainer = (): JSX.Element => {
 
   const [ selectedDates, setSelectedDates ] = useState<string[]>([]);
   const [ hoveredDate, setHoveredDate ] = useState<ICalendarDate | null>(null);
+  const [ calendarsExpanded, setCalendarsExpanded ] = useState(false);
 
   const [ currencySymbol ] = useState('€');
 
@@ -102,10 +103,9 @@ export const CalendarsContainer = (): JSX.Element => {
       );
 
       setCalendarsData((old) => ({ ...old, ...data }));
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, []
+    }, [] // eslint-disable-line react-hooks/exhaustive-deps
   );
-
+  
   const datesInHoverRange = (
     useMemo(() => {
       if (!hoveredDate || !firstClick || secondClick) {
@@ -123,39 +123,38 @@ export const CalendarsContainer = (): JSX.Element => {
   );
 
   const onDateClick = (calendarDate: ICalendarDate) => {
-    // Already chose a range
-    if (secondClick) {
+    if (secondClick) { // Already chose a range
       setFirstClick(null);
       setSecondClick(null);
       setSelectedDates([]);
       return;
     }
 
-    // Already chose one date
-    if (firstClick) {
-      if (firstClick === calendarDate) {
+    if (
+      calendarDate.state !== ECalendarDateState.available
+      || (mapCalendarDateToDate(calendarDate) < new Date())
+    ) {
+      return;
+    }
+
+    if (firstClick) { // Already chose one date
+      if (firstClick === calendarDate) { // Clicks same date
         setFirstClick(null);
         setSelectedDates([]);
         return;
       }
-      
-      if (calendarDate.state !== ECalendarDateState.available) {
-        return;
-      }
+
       setSecondClick(calendarDate);
       const [ startDate, endDate ] = [ firstClick, calendarDate ].map(mapCalendarDateToDate);
       setSelectedDates(
-        getDatesInRange(startDate, endDate)
-          .filter(isYmdAvailable)
+        getDatesInRange(startDate, endDate).filter(isYmdAvailable)
       );
       return;
     }
 
-    // Haven't chosen anything
-    if (calendarDate.state === ECalendarDateState.available) {
-      setFirstClick(calendarDate);
-      setSelectedDates([ mapCalendarDateToString(calendarDate) ]);
-    }
+    // Hasn't chosen anything
+    setFirstClick(calendarDate);
+    setSelectedDates([ mapCalendarDateToString(calendarDate) ]);
   };
 
   useEffect(() => {
@@ -173,33 +172,40 @@ export const CalendarsContainer = (): JSX.Element => {
   };
 
   const onFetchMonths = () => {
+    setCalendarsExpanded(true);
     const monthsToFetch = getMonthsForRequest({ year: currentYear, month: currentMonth }, 11);
     fetchData(monthsToFetch).catch(console.error);
   };
 
   return (
     <Container>
-      <Row>
-        <Col className='mx-auto' xs={8} sm={6} md={5} lg={4} xl={3}>
-          <Alert className='border-white'>
-            <h5 className='calendars-container__subtotal'>Subtotal: {currencySymbol}{subtotal}</h5>
-          </Alert>
-        </Col>
-      </Row>
-      <Row className='justify-content-center calendars-container__date-range'>
-        <Col xs={5} sm={4} lg={3} xl={2}>
-          <Alert className='border-white'>
-            <h5>From: {dateRange.from ? getCalendarDateYmd(dateRange.from) : ''}</h5>
-          </Alert>
-        </Col>
-        <Col xs={5} sm={4} lg={3} xl={2}>
-          <Alert className='border-white'>
-            <h5>
-              To: {dateRange.to ? getCalendarDateYmd(dateRange.to) : ''}
-            </h5>
-          </Alert>
-        </Col>
-      </Row>
+      {
+        dateRange.to &&
+        <Row>
+          <Col className='mx-auto' xs={8} sm={6} md={5} lg={3}>
+            <Alert className='border-white text-center'>
+              <h5 className='calendars-container__subtotal'>Subtotal: {currencySymbol}{subtotal}</h5>
+            </Alert>
+          </Col>
+        </Row>
+      }
+      {
+        dateRange.to &&
+        <Row className='justify-content-center'>
+          <Col xs={5} sm={4} lg={2}>
+            <Alert className='border-white text-center'>
+              <h5>From: {dateRange.from ? getCalendarDateYmd(dateRange.from) : ''}</h5>
+            </Alert>
+          </Col>
+          <Col xs={5} sm={4} lg={2}>
+            <Alert className='border-white text-center'>
+              <h5>
+                  To: {dateRange.to ? getCalendarDateYmd(dateRange.to) : ''}
+              </h5>
+            </Alert>
+          </Col>
+        </Row>
+      }
       <Row className='justify-content-space-evenly'>
         {
           Object.keys(calendarsData)
@@ -207,7 +213,8 @@ export const CalendarsContainer = (): JSX.Element => {
               <Col key={yearMonthKey} xs={12} sm={6} lg={4} xl={3} className='my-3'>
                 <Calendar
                   dateData={calendarsData[yearMonthKey]}
-                  inHoverRange={
+                  hoveredDate={hoveredDate}
+                  datesInHoverRange={
                     calendarsData[yearMonthKey]
                       .filter((date) => datesInHoverRange.includes(mapCalendarDateToString(date)))
                   }
@@ -223,7 +230,7 @@ export const CalendarsContainer = (): JSX.Element => {
         }
       </Row>
       {
-        Object.keys(calendarsData).length < 12
+        !calendarsExpanded
         && (
           <Row>
             <Col

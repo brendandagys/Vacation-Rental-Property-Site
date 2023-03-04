@@ -5,7 +5,8 @@ import { ECalendarDateState, ICalendarDate } from '../../types';
 
 interface ICalendarProps {
   dateData: ICalendarDate[];
-  inHoverRange: ICalendarDate[];
+  datesInHoverRange: ICalendarDate[];
+  hoveredDate: ICalendarDate | null;
   onDateClick: (calendarDate: ICalendarDate) => void;
   selected: ICalendarDate[];
   setHoveredDate: Dispatch<SetStateAction<ICalendarDate | null>>;
@@ -25,7 +26,8 @@ const weekdayHeaders = (
 
 export const Calendar = ({
   dateData,
-  inHoverRange,
+  datesInHoverRange,
+  hoveredDate,
   onDateClick,
   selected,
   setHoveredDate,
@@ -56,10 +58,10 @@ export const Calendar = ({
       const priceColor = _priceColor || getPriceColor(price);
       
       const isSelected = selected.includes(calendarDate);
-      const isHovered = inHoverRange.includes(calendarDate);
+      const isHovered = datesInHoverRange.includes(calendarDate);
 
       const state = (
-        (mapCalendarDateToDate(calendarDate) < (new Date()))
+        (mapCalendarDateToDate(calendarDate) < new Date())
           ? ECalendarDateState.unavailable
           : _state
       );
@@ -77,7 +79,7 @@ export const Calendar = ({
             calendar__date-cell${
         isSelected
           ? '--selected'
-          : isHovered
+          : (isHovered || hoveredDate === calendarDate)
             ? '--hovered'
             : ''}`
           }>

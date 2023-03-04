@@ -16,21 +16,15 @@
 
     border-radius: $radius-xs;
 
-    &--selected:not(
-      .calendar__date-cell--booked,
-      .calendar__date-cell--unavailable
-    ) {
+    &--selected {
       background: $color-green-l;
 
       p:last-child {
-        color: $color-black;
+        color: $color-gray-dd;
       }
     }
 
-    &--hovered:not(
-      .calendar__date-cell--booked,
-      .calendar__date-cell--unavailable
-    ) {
+    &--hovered {
       background: $color-green-ll;
     }
 
