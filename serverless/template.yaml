@@ -11,6 +11,9 @@ Globals:
     Timeout: 3
 
 Parameters:
+  JwtSecret:
+    Type: String
+    Default: myjwtsecret
   TableName:
     Type: String
     Default: business-site
@@ -71,9 +74,10 @@ Resources:
             Path: /one
             Method: post
             # Method: put
-      # Environment:
-      #   Variables:
-      #     TABLE_NAME: !Ref Table
+      Environment:
+        Variables:
+          JWT_SECRET: !Ref JwtSecret
+          TABLE_NAME: !Ref Table
       # Policies:
       # - DynamoDBWritePolicy:   # More info about SAM policy templates: https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/serverless-policy-templates.html
       #     TableName: !Ref Table

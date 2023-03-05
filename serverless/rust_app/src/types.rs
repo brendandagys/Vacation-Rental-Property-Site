@@ -21,8 +21,16 @@ pub struct LogInRequest {
     pub password: Option<String>,
 }
 
+#[derive(serde::Serialize)]
+pub struct JwtContent {
+    pub email: String,
+    pub last: String,
+    pub first: String,
+}
+
+#[derive(serde::Serialize)]
 pub struct LogInResponse {
-    jwt: String,
+    pub token: String,
 }
 
 struct Date {

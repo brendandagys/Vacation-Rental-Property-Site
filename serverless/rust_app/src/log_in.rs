@@ -22,45 +22,67 @@ async fn log_in(request: Request) -> Result<Response<Body>, Error> {
                     )?);
                 }
 
-                // println!("Password: {}", password);
-
-                // let hash = hash_with_salt(
-                //     &password,
-                //     4,
-                //     [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 0, 1, 2, 3, 4, 5],
-                // )?;
-                // let hash_text = hash.format_for_version(bcrypt::Version::TwoB);
-
+                // Get User...
                 let hash_text = "$2b$04$..CA.uOD/eaGAO./.eKC/O8aXLg5WXVlAFSpbcjnQfrwFIfoVoSI6";
 
-                match bcrypt::verify(password, &hash_text) {
-                    Ok(valid) => match valid {
-                        true => Ok(Response::builder().body(
-                            format!("Successfully logged in!! Hash: {}", hash_text).into(),
-                        )?),
-                        false => Ok(Response::builder()
-                            .status(StatusCode::BAD_REQUEST)
-                            .body("Invalid password".into())?),
+                let jwt_secret = std::env::var("JWT_SECRET").unwrap_or("".into());
+
+                if jwt_secret == "" {
+                    return Ok(Response::builder()
+                        .status(StatusCode::INTERNAL_SERVER_ERROR)
+                        .body("Token secret not set. Please try again later.".into())?);
+                }
+
+                let token_data = types::JwtContent {
+                    email,
+                    last: "LastName".into(),
+                    first: "FirstName".into(),
+                };
+
+                match jsonwebtoken::encode(
+                    &jsonwebtoken::Header::default(),
+                    &token_data,
+                    &jsonwebtoken::EncodingKey::from_secret(&jwt_secret.into_bytes()),
+                ) {
+                    Ok(token) => match bcrypt::verify(password, &hash_text) {
+                        Ok(valid) => match valid {
+                            true => match serde_json::to_string(&types::LogInResponse { token }) {
+                                Ok(string) => Ok(Response::builder().body(string.into())?),
+                                Err(error) => {
+                                    println!("Error: {:?}", error);
+                                    Ok(Response::builder()
+                                        .status(StatusCode::INTERNAL_SERVER_ERROR)
+                                        .body("Error".into())?)
+                                }
+                            },
+                            false => Ok(Response::builder()
+                                .status(StatusCode::UNAUTHORIZED)
+                                .body("Invalid password".into())?),
+                        },
+                        Err(error) => {
+                            println!("Error: {:?}", error);
+                            Ok(Response::builder()
+                                .status(StatusCode::INTERNAL_SERVER_ERROR)
+                                .body("Error validating password!".into())?)
+                        }
                     },
-                    Err(e) => {
-                        println!("Error: {:?}", e);
-                        return Ok(Response::builder()
-                            .status(401)
-                            .body("Incorrect password!".into())?);
+                    Err(error) => {
+                        println!("Error: {:?}", error);
+                        Ok(Response::builder()
+                            .status(StatusCode::INTERNAL_SERVER_ERROR)
+                            .body("Could not create token!".into())?)
                     }
                 }
             }
-            Err(e) => {
-                println!("ERROR: {:?}", e);
-                return Ok(Response::builder().status(StatusCode::BAD_REQUEST).body(
+            Err(error) => {
+                println!("Error: {:?}", error);
+                Ok(Response::builder().status(StatusCode::BAD_REQUEST).body(
                     "Please provide both necessary parameters: `email` and `password`.".into(),
-                )?);
+                )?)
             }
         },
-        _ => {
-            return Ok(Response::builder()
-                .status(StatusCode::BAD_REQUEST)
-                .body("Please provide a text body.".into())?);
-        }
+        _ => Ok(Response::builder()
+            .status(StatusCode::BAD_REQUEST)
+            .body("Please provide a text body.".into())?),
     }
 }
