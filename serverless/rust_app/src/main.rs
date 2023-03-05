@@ -1,4 +1,4 @@
-use aws_sdk_dynamodb::{model::AttributeValue, Client};
+use aws_sdk_dynamodb as dynamodb;
 use lambda_http::{service_fn, Body, Error, Request, RequestExt, Response};
 mod types;
 
@@ -6,9 +6,9 @@ mod types;
 #[tokio::main]
 async fn main() -> Result<(), Error> {
     // Initialize the AWS SDK for Rust
-    // let config = aws_config::load_from_env().await;
+    let config = aws_config::load_from_env().await;
     // let table_name = env::var("TABLE_NAME").expect("TABLE_NAME must be set");
-    // let dynamodb_client = Client::new(&config);
+    let client = dynamodb::Client::new(&config);
 
     // Register the Lambda handler
     //
@@ -58,8 +58,8 @@ async fn put_item(
     let res = client
         .put_item()
         .table_name(table_name)
-        .item("id", AttributeValue::S(id.to_string()))
-        .item("payload", AttributeValue::S(body))
+        .item("id", dynamodb::model::AttributeValue::S(id.to_string()))
+        .item("payload", dynamodb::model::AttributeValue::S(body))
         .send()
         .await;
 
