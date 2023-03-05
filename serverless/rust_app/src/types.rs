@@ -9,7 +9,8 @@ struct User {
     modified: Option<String>,
 }
 
-enum DateState {
+#[derive(Debug, serde::Serialize)]
+pub enum DateState {
     Available,
     Booked,
     Unavailable,
@@ -19,6 +20,16 @@ enum DateState {
 pub struct LogInRequest {
     pub email: Option<String>,
     pub password: Option<String>,
+}
+
+#[derive(Debug, serde::Deserialize)]
+pub struct GetCalendarDatesByDateRequest {
+    pub dates: Option<Vec<String>>,
+}
+
+#[derive(Debug, serde::Serialize)]
+pub struct GetCalendarDatesByDateResponse {
+    pub calendar_dates: Vec<CalendarDate>,
 }
 
 #[derive(serde::Serialize)]
@@ -33,16 +44,17 @@ pub struct LogInResponse {
     pub token: String,
 }
 
-struct Date {
-    ymd: String,
-    state: Option<DateState>,
-    price: Option<u16>,
-    year: Option<u16>,
-    month: Option<u8>,
-    date: Option<u8>,
-    cell_color: Option<String>,
-    created: Option<String>,
-    modified: Option<String>,
+#[derive(Debug, serde::Serialize)]
+pub struct CalendarDate {
+    pub ymd: String,
+    pub state: Option<DateState>,
+    pub price: Option<u16>,
+    pub year: Option<u16>,
+    pub month: Option<u8>,
+    pub date: Option<u8>,
+    pub cell_color: Option<String>,
+    pub created: Option<String>,
+    pub modified: Option<String>,
 }
 
 struct Request {
