@@ -15,6 +15,16 @@ enum DateState {
     Unavailable,
 }
 
+#[derive(Debug, serde::Deserialize)]
+pub struct LogInRequest {
+    pub email: Option<String>,
+    pub password: Option<String>,
+}
+
+pub struct LogInResponse {
+    jwt: String,
+}
+
 struct Date {
     ymd: String,
     state: Option<DateState>,
