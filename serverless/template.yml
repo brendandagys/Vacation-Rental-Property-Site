@@ -1,9 +1,7 @@
 AWSTemplateFormatVersion: '2010-09-09'
 Transform: AWS::Serverless-2016-10-31
 Description: >
-  hello-world
-
-  Sample SAM Template for hello-world
+  SAM template.
 
 # More info about Globals: https://github.com/awslabs/serverless-application-model/blob/master/docs/globals.rst
 Globals:
@@ -55,7 +53,7 @@ Resources:
   #       Name: id
   #       Type: String
 
-  RustLambdaFunction1:
+  LogInFunction:
     Type: AWS::Serverless::Function # More info about Function Resource: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#awsserverlessfunction
     Metadata:
       BuildMethod: rust-cargolambda # More info about Cargo Lambda: https://github.com/cargo-lambda/cargo-lambda
@@ -73,16 +71,15 @@ Resources:
           Properties:
             Path: /one
             Method: post
-            # Method: put
       Environment:
         Variables:
           JWT_SECRET: !Ref JwtSecret
-          TABLE_NAME: !Ref Table
+          TABLE_NAME: !Ref TableName
       # Policies:
       # - DynamoDBWritePolicy:   # More info about SAM policy templates: https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/serverless-policy-templates.html
       #     TableName: !Ref Table
   
-  RustLambdaFunction2:
+  GetCalendarDatesByDateFunction:
     Type: AWS::Serverless::Function # More info about Function Resource: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#awsserverlessfunction
     Metadata:
       BuildMethod: rust-cargolambda # More info about Cargo Lambda: https://github.com/cargo-lambda/cargo-lambda
@@ -100,13 +97,30 @@ Resources:
           Properties:
             Path: /two
             Method: get
-            # Method: put
-      # Environment:
-      #   Variables:
-      #     TABLE_NAME: !Ref Table
-      # Policies:
-      # - DynamoDBWritePolicy:   # More info about SAM policy templates: https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/serverless-policy-templates.html
-      #     TableName: !Ref Table
+  
+  PutItemFunction:
+    Type: AWS::Serverless::Function # More info about Function Resource: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#awsserverlessfunction
+    Metadata:
+      BuildMethod: rust-cargolambda # More info about Cargo Lambda: https://github.com/cargo-lambda/cargo-lambda
+      BuildProperties:
+        Binary: put_item
+    Properties:
+      CodeUri: ./rust_app   # Points to directory of Cargo.toml
+      Handler: bootstrap    # Do not change, as this is the default executable name produced by Cargo Lambda
+      Runtime: provided.al2
+      Architectures:
+      - arm64
+      Events:
+        HelloWorld:
+          Type: Api # More info about API Event Source: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#api
+          Properties:
+            Path: /three
+            Method: put
+      Environment:
+        Variables:
+          TABLE_NAME: !Ref TableName
+          AWS_PROFILE: localstack
+
 
   ApplicationResourceGroup:
     Type: AWS::ResourceGroups::Group
