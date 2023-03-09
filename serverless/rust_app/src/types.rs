@@ -9,7 +9,7 @@ struct User {
     modified: Option<String>,
 }
 
-#[derive(Debug, serde::Serialize)]
+#[derive(Clone, Debug, serde::Deserialize, serde::Serialize)]
 pub enum DateState {
     Available,
     Booked,
@@ -44,20 +44,22 @@ pub struct LogInResponse {
     pub token: String,
 }
 
-#[derive(Debug, serde::Serialize)]
+#[derive(Clone, Debug, serde::Deserialize, serde::Serialize)]
 pub struct CalendarDate {
+    pub primary_key: String,
+    pub sort_key: String,
     pub ymd: String,
     pub state: Option<DateState>,
     pub price: Option<u16>,
-    pub year: Option<u16>,
-    pub month: Option<u8>,
-    pub date: Option<u8>,
+    pub year: u16,
+    pub month: u8,
+    pub date: u8,
     pub cell_color: Option<String>,
     pub created: Option<String>,
     pub modified: Option<String>,
 }
 
-struct Request {
+struct BookingRequest {
     email: String,
     from_to_string: String,
     last: Option<String>,
