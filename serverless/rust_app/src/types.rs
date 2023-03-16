@@ -1,3 +1,5 @@
+use serde::{Deserialize, Serialize};
+
 struct User {
     email: String,
     last: Option<String>,
@@ -9,44 +11,46 @@ struct User {
     modified: Option<String>,
 }
 
-#[derive(Clone, Debug, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Deserialize, Serialize)]
 pub enum DateState {
     Available,
     Booked,
     Unavailable,
 }
 
-#[derive(Debug, serde::Deserialize)]
+#[derive(Debug, Deserialize)]
 pub struct LogInRequest {
     pub email: Option<String>,
     pub password: Option<String>,
 }
 
-#[derive(Debug, serde::Deserialize)]
+#[derive(Debug, Deserialize)]
 pub struct GetCalendarDatesByDateRequest {
     pub dates: Option<Vec<String>>,
 }
 
-#[derive(Debug, serde::Serialize)]
+#[derive(Debug, Serialize)]
 pub struct GetCalendarDatesByDateResponse {
     pub calendar_dates: Vec<CalendarDate>,
 }
 
-#[derive(serde::Serialize)]
+#[derive(Serialize)]
 pub struct JwtContent {
     pub email: String,
     pub last: String,
     pub first: String,
 }
 
-#[derive(serde::Serialize)]
+#[derive(Serialize)]
 pub struct LogInResponse {
     pub token: String,
 }
 
-#[derive(Clone, Debug, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Deserialize, Serialize)]
 pub struct CalendarDate {
+    #[serde(rename = "PK")]
     pub primary_key: String,
+    #[serde(rename = "SK")]
     pub sort_key: String,
     pub ymd: String,
     pub state: Option<DateState>,

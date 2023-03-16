@@ -1,5 +1,11 @@
+use aws_sdk_dynamodb as dynamodb;
+use dynamodb::model::{AttributeValue, KeysAndAttributes};
 use lambda_http::{http::StatusCode, service_fn, Body, Error, Request, RequestExt, Response};
+use serde_dynamo::from_items;
+use std::collections::HashMap;
+
 mod types;
+mod utils;
 
 #[tokio::main]
 async fn main() -> Result<(), Error> {
@@ -10,45 +16,57 @@ async fn main() -> Result<(), Error> {
 async fn get_calendar_dates_by_date(request: Request) -> Result<Response<Body>, Error> {
     let query_map = request.query_string_parameters();
     let dates = query_map.all("dates").unwrap_or(Vec::new());
-    println!("QS: {:?}", dates);
+    println!("QueryMap: {:?}", query_map);
+    println!("dates: {:?}", dates);
 
-    let date_1 = types::CalendarDate {
-        primary_key: "DATE".into(),
-        sort_key: "2023-04-01".into(),
-        ymd: "2023-04-01".into(),
-        state: Some(types::DateState::Booked),
-        price: Some(105),
-        year: 2023,
-        month: 4,
-        date: 1,
-        cell_color: None,
-        created: Some("2023-02-02T11:11:11".to_string()),
-        modified: None,
-    };
+    let client = utils::get_dynamo_db_client().await;
 
-    let date_2 = types::CalendarDate {
-        primary_key: "DATE".into(),
-        sort_key: "2023-04-02".into(),
-        ymd: "2023-04-02".into(),
-        state: Some(types::DateState::Booked),
-        price: Some(105),
-        year: 2023,
-        month: 4,
-        date: 2,
-        cell_color: None,
-        created: Some("2023-02-02T11:11:11".to_string()),
-        modified: None,
-    };
+    let mut keys_and_attributes_builder = KeysAndAttributes::builder();
 
-    let calendar_dates = vec![date_1, date_2];
+    for requested_date in dates {
+        keys_and_attributes_builder = keys_and_attributes_builder.keys(HashMap::from([
+            ("PK".into(), AttributeValue::S("DATE".into())),
+            ("SK".into(), AttributeValue::S(format!("{requested_date}"))),
+        ]))
+    }
 
-    match serde_json::to_string(&types::GetCalendarDatesByDateResponse { calendar_dates }) {
-        Ok(string) => Ok(Response::builder().body(string.into())?),
+    let keys_and_attributes = keys_and_attributes_builder.build();
+
+    let result = match client
+        .batch_get_item()
+        .request_items("business-site".to_string(), keys_and_attributes)
+        .send()
+        .await
+    {
+        Ok(result) => result,
         Err(error) => {
-            println!("Error: {:?}", error);
-            Ok(Response::builder()
-                .status(StatusCode::INTERNAL_SERVER_ERROR)
-                .body("Error".into())?)
+            return Ok(utils::build_http_response(
+                StatusCode::INTERNAL_SERVER_ERROR,
+                &error.to_string(),
+            ));
         }
+    };
+
+    // println!("1 - {:?}", result);
+
+    let calendar_date_ddb_items = result
+        .responses()
+        .unwrap()
+        .get("business-site")
+        .unwrap()
+        .clone();
+
+    // println!("2 - {:?}", calendar_date_ddb_items);
+
+    let calendar_dates: Vec<types::CalendarDate> = from_items(calendar_date_ddb_items)?;
+
+    // println!("3 - {:?}", calendar_dates);
+
+    match serde_json::to_string(&calendar_dates) {
+        Ok(string) => Ok(utils::build_http_response(StatusCode::OK, &string)),
+        Err(error) => Ok(utils::build_http_response(
+            StatusCode::INTERNAL_SERVER_ERROR,
+            &error.to_string(),
+        )),
     }
 }

@@ -13,7 +13,7 @@ async fn log_in(request: Request) -> Result<Response<Body>, Error> {
             Ok(body) => {
                 println!("Body: {:?}", body);
 
-                let email = body.email.unwrap_or("".into());
+                let email = body.email.unwrap_or("".into()).trim().to_string();
                 let password = body.password.unwrap_or("".into());
 
                 if email == "" || password == "" {

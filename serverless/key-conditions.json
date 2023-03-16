@@ -10,7 +10,7 @@
   "SK": {
     "AttributeValueList": [
       {
-        "S": "2025-04-01"
+        "S": "2026-01-01"
       }
     ],
     "ComparisonOperator": "GE"

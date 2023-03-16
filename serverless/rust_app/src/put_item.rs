@@ -1,10 +1,9 @@
-use std::sync::Arc;
-
 use aws_sdk_dynamodb as dynamodb;
 use dynamodb::model::AttributeValue;
 use lambda_http::{http::StatusCode, service_fn, Body, Error, Request, Response};
 
 mod types;
+mod utils;
 
 #[tokio::main]
 async fn main() -> Result<(), Error> {
@@ -30,11 +29,7 @@ async fn put_item(request: Request) -> Result<Response<Body>, Error> {
                     modified,
                 } = calendar_date.clone();
 
-                let config = aws_config::load_from_env().await;
-                let local_config = dynamodb::config::Builder::from(&config)
-                    .endpoint_url("http://docker.for.mac.localhost:8000")
-                    .build();
-                let client = dynamodb::Client::from_conf(local_config);
+                let client = utils::get_dynamo_db_client().await;
 
                 match client
                     .put_item()
@@ -56,20 +51,24 @@ async fn put_item(request: Request) -> Result<Response<Body>, Error> {
                     .send()
                     .await
                 {
-                    Err(error) => {
-                        println!("Error: {:?}", error);
-                    }
-                    _ => (),
+                    Ok(calendar_date) => Ok(utils::build_http_response(
+                        StatusCode::OK,
+                        &format!("PUT item: {:?}", calendar_date),
+                    )),
+                    Err(error) => Ok(utils::build_http_response(
+                        StatusCode::INTERNAL_SERVER_ERROR,
+                        &error.to_string(),
+                    )),
                 }
-
-                Ok(Response::builder().body(format!("PUT item: {:?}", calendar_date).into())?)
             }
-            Err(_) => Ok(Response::builder()
-                .status(StatusCode::BAD_REQUEST)
-                .body("Please provide a text body.".into())?),
+            Err(_) => Ok(utils::build_http_response(
+                StatusCode::BAD_REQUEST,
+                "Invalid `CalendarDate` provided.",
+            )),
         },
-        _ => Ok(Response::builder()
-            .status(StatusCode::BAD_REQUEST)
-            .body("Please provide a text body.".into())?),
+        _ => Ok(utils::build_http_response(
+            StatusCode::BAD_REQUEST,
+            "Please provide a text body.",
+        )),
     }
 }
