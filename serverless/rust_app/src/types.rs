@@ -1,5 +1,20 @@
 use serde::{Deserialize, Serialize};
 
+#[derive(Deserialize)]
+#[serde(untagged)]
+pub enum PutRequestEntities {
+    // BookingRequest(BookingRequest),
+    CalendarDateRequest(CalendarDate),
+    // TestimonialRequest(Testimonial),
+    // UserRequest(User),
+}
+
+#[derive(Deserialize)]
+struct PutRequest {
+    request: PutRequestEntities,
+}
+
+#[derive(Deserialize)]
 struct User {
     email: String,
     last: Option<String>,
@@ -63,6 +78,7 @@ pub struct CalendarDate {
     pub modified: Option<String>,
 }
 
+#[derive(Deserialize)]
 struct BookingRequest {
     email: String,
     from_to_string: String,
@@ -76,6 +92,7 @@ struct BookingRequest {
     modified: Option<String>,
 }
 
+#[derive(Deserialize)]
 struct Testimonial {
     email: String,
     stars: Option<String>,
