@@ -69,7 +69,7 @@ Resources:
         HelloWorld:
           Type: Api # More info about API Event Source: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#api
           Properties:
-            Path: /one
+            Path: /log-in
             Method: post
       Environment:
         Variables:
@@ -95,7 +95,7 @@ Resources:
         HelloWorld:
           Type: Api # More info about API Event Source: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#api
           Properties:
-            Path: /two
+            Path: /get-items
             Method: get
   
   PutItemFunction:
@@ -114,7 +114,7 @@ Resources:
         HelloWorld:
           Type: Api # More info about API Event Source: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#api
           Properties:
-            Path: /three
+            Path: /put-item
             Method: put
       Environment:
         Variables:
