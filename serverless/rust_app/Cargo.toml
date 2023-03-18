@@ -33,8 +33,8 @@ name = "log_in"
 path = "src/log_in.rs"
 
 [[bin]]
-name = "get_calendar_dates_by_date"
-path = "src/get_calendar_dates_by_date.rs"
+name = "get_items"
+path = "src/get_items.rs"
 
 [[bin]]
 name = "put_item"

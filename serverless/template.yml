@@ -9,6 +9,13 @@ Globals:
     Timeout: 3
 
 Parameters:
+  AuthorizationHashSalt:
+    Type: String
+    Default: 9281938493930257
+    Description: Secret salt for hashing passwords
+  DynamoDbEndpoint:
+    Type: String
+    Default: http://docker.for.mac.localhost:8000
   JwtSecret:
     Type: String
     Default: myjwtsecret
@@ -75,16 +82,18 @@ Resources:
         Variables:
           JWT_SECRET: !Ref JwtSecret
           TABLE_NAME: !Ref TableName
+          AUTHORIZATION_HASH_SALT: !Ref AuthorizationHashSalt
+          DYNAMODB_ENDPOINT: !Ref DynamoDbEndpoint
       # Policies:
       # - DynamoDBWritePolicy:   # More info about SAM policy templates: https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/serverless-policy-templates.html
       #     TableName: !Ref Table
   
-  GetCalendarDatesByDateFunction:
+  GetItemsFunction:
     Type: AWS::Serverless::Function # More info about Function Resource: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#awsserverlessfunction
     Metadata:
       BuildMethod: rust-cargolambda # More info about Cargo Lambda: https://github.com/cargo-lambda/cargo-lambda
       BuildProperties:
-        Binary: get_calendar_dates_by_date
+        Binary: get_items
     Properties:
       CodeUri: ./rust_app   # Points to dir of Cargo.toml
       Handler: bootstrap    # Do not change, as this is the default executable name produced by Cargo Lambda
@@ -97,6 +106,12 @@ Resources:
           Properties:
             Path: /get-items
             Method: get
+      Environment:
+        Variables:
+          JWT_SECRET: !Ref JwtSecret
+          TABLE_NAME: !Ref TableName
+          AUTHORIZATION_HASH_SALT: !Ref AuthorizationHashSalt
+          DYNAMODB_ENDPOINT: !Ref DynamoDbEndpoint
   
   PutItemFunction:
     Type: AWS::Serverless::Function # More info about Function Resource: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#awsserverlessfunction
@@ -118,8 +133,10 @@ Resources:
             Method: put
       Environment:
         Variables:
+          JWT_SECRET: !Ref JwtSecret
           TABLE_NAME: !Ref TableName
-          AWS_PROFILE: localstack
+          AUTHORIZATION_HASH_SALT: !Ref AuthorizationHashSalt
+          DYNAMODB_ENDPOINT: !Ref DynamoDbEndpoint
 
 
   ApplicationResourceGroup:
