@@ -58,7 +58,8 @@ async fn get_calendar_dates_by_date(request: Request) -> Result<Response<Body>, 
 
     // println!("2 - {:?}", calendar_date_ddb_items);
 
-    let calendar_dates: Vec<types::CalendarDate> = from_items(calendar_date_ddb_items)?;
+    let calendar_dates: Vec<types::calendar_date::CalendarDate> =
+        from_items(calendar_date_ddb_items)?;
 
     // println!("3 - {:?}", calendar_dates);
 

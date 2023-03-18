@@ -1,4 +1,6 @@
 use lambda_http::{http::StatusCode, service_fn, Body, Error, Request, Response};
+use std::env;
+
 mod types;
 
 #[tokio::main]
@@ -9,12 +11,12 @@ async fn main() -> Result<(), Error> {
 
 async fn log_in(request: Request) -> Result<Response<Body>, Error> {
     match request.body() {
-        Body::Text(body) => match serde_json::from_str::<types::LogInRequest>(body) {
+        Body::Text(body) => match serde_json::from_str::<types::log_in::LogInRequest>(body) {
             Ok(body) => {
                 println!("Body: {:?}", body);
 
-                let email = body.email.unwrap_or("".into()).trim().to_string();
-                let password = body.password.unwrap_or("".into());
+                let email = body.email.trim().to_string();
+                let password = body.password;
 
                 if email == "" || password == "" {
                     return Ok(Response::builder().status(StatusCode::BAD_REQUEST).body(
@@ -23,9 +25,9 @@ async fn log_in(request: Request) -> Result<Response<Body>, Error> {
                 }
 
                 // Get User...
-                let hash_text = "$2b$04$..CA.uOD/eaGAO./.eKC/O8aXLg5WXVlAFSpbcjnQfrwFIfoVoSI6";
+                let hash_text = "$2b$12$MRG2KRixMBO3KxixKBGzLuDpOEpY8DdwmyxKIft7C.TUwYrL2/tFW";
 
-                let jwt_secret = std::env::var("JWT_SECRET").unwrap_or("".into());
+                let jwt_secret = env::var("JWT_SECRET").unwrap_or("".into());
 
                 if jwt_secret == "" {
                     return Ok(Response::builder()
@@ -33,10 +35,10 @@ async fn log_in(request: Request) -> Result<Response<Body>, Error> {
                         .body("Token secret not set. Please try again later.".into())?);
                 }
 
-                let token_data = types::JwtContent {
+                let token_data = types::log_in::JwtContent {
                     email,
-                    last: "LastName".into(),
-                    first: "FirstName".into(),
+                    last: "Dagys".into(),
+                    first: "Brendan".into(),
                 };
 
                 match jsonwebtoken::encode(
@@ -46,15 +48,18 @@ async fn log_in(request: Request) -> Result<Response<Body>, Error> {
                 ) {
                     Ok(token) => match bcrypt::verify(password, &hash_text) {
                         Ok(valid) => match valid {
-                            true => match serde_json::to_string(&types::LogInResponse { token }) {
-                                Ok(string) => Ok(Response::builder().body(string.into())?),
-                                Err(error) => {
-                                    println!("Error: {:?}", error);
-                                    Ok(Response::builder()
-                                        .status(StatusCode::INTERNAL_SERVER_ERROR)
-                                        .body("Error".into())?)
+                            true => {
+                                match serde_json::to_string(&types::log_in::LogInResponse { token })
+                                {
+                                    Ok(string) => Ok(Response::builder().body(string.into())?),
+                                    Err(error) => {
+                                        println!("Error: {:?}", error);
+                                        Ok(Response::builder()
+                                            .status(StatusCode::INTERNAL_SERVER_ERROR)
+                                            .body("Error".into())?)
+                                    }
                                 }
-                            },
+                            }
                             false => Ok(Response::builder()
                                 .status(StatusCode::UNAUTHORIZED)
                                 .body("Invalid password".into())?),
