@@ -1,25 +1,17 @@
+use crate::{types, utils};
 use aws_sdk_dynamodb as dynamodb;
 use dynamodb::model::{AttributeValue, KeysAndAttributes};
-use lambda_http::{http::StatusCode, service_fn, Body, Error, Request, RequestExt, Response};
+use lambda_http::{http::StatusCode, Body, Error, Request, RequestExt, Response};
 use serde_dynamo::from_items;
 use std::collections::HashMap;
 
-mod types;
-mod utils;
-
-#[tokio::main]
-async fn main() -> Result<(), Error> {
-    lambda_http::run(service_fn(get_calendar_dates_by_date)).await?;
-    Ok(())
-}
-
-async fn get_calendar_dates_by_date(request: Request) -> Result<Response<Body>, Error> {
+pub async fn get_calendar_dates_by_date(request: Request) -> Result<Response<Body>, Error> {
     let query_map = request.query_string_parameters();
     let dates = query_map.all("dates").unwrap_or(Vec::new());
     println!("QueryMap: {:?}", query_map);
     println!("dates: {:?}", dates);
 
-    let client = utils::get_dynamo_db_client().await;
+    let client = utils::dynamo_db::get_dynamo_db_client().await;
 
     let mut keys_and_attributes_builder = KeysAndAttributes::builder();
 
@@ -40,7 +32,7 @@ async fn get_calendar_dates_by_date(request: Request) -> Result<Response<Body>, 
     {
         Ok(result) => result,
         Err(error) => {
-            return Ok(utils::build_http_response(
+            return Ok(utils::http::build_http_response(
                 StatusCode::INTERNAL_SERVER_ERROR,
                 &error.to_string(),
             ));
@@ -64,8 +56,8 @@ async fn get_calendar_dates_by_date(request: Request) -> Result<Response<Body>, 
     // println!("3 - {:?}", calendar_dates);
 
     match serde_json::to_string(&calendar_dates) {
-        Ok(string) => Ok(utils::build_http_response(StatusCode::OK, &string)),
-        Err(error) => Ok(utils::build_http_response(
+        Ok(string) => Ok(utils::http::build_http_response(StatusCode::OK, &string)),
+        Err(error) => Ok(utils::http::build_http_response(
             StatusCode::INTERNAL_SERVER_ERROR,
             &error.to_string(),
         )),

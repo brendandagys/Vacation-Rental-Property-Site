@@ -22,7 +22,7 @@ pub async fn put_booking_inquiry(
     } = booking_inquiry;
 
     if email.trim() == "" || message.trim() == "" {
-        return Ok(utils::build_http_response(
+        return Ok(utils::http::build_http_response(
             StatusCode::BAD_REQUEST,
             "Please provide all fields.",
         ));
@@ -39,14 +39,14 @@ pub async fn put_booking_inquiry(
         .item("GSI-SK", AttributeValue::S(email.clone()))
         .item("email", AttributeValue::S(email));
 
-    builder = utils::append_string_item_if_exists(builder, "from_to", from_to);
-    builder = utils::append_string_item_if_exists(builder, "last", last);
-    builder = utils::append_string_item_if_exists(builder, "first", first);
-    builder = utils::append_string_item_if_exists(builder, "phone", phone);
-    builder = utils::append_string_item_if_exists(builder, "subtotal", subtotal);
-    builder = utils::append_u8_item_if_exists(builder, "adult_count", adult_count);
-    builder = utils::append_u8_item_if_exists(builder, "child_count", child_count);
+    builder = utils::dynamo_db::append_string_item_if_exists(builder, "from_to", from_to);
+    builder = utils::dynamo_db::append_string_item_if_exists(builder, "last", last);
+    builder = utils::dynamo_db::append_string_item_if_exists(builder, "first", first);
+    builder = utils::dynamo_db::append_string_item_if_exists(builder, "phone", phone);
+    builder = utils::dynamo_db::append_string_item_if_exists(builder, "subtotal", subtotal);
+    builder = utils::dynamo_db::append_u8_item_if_exists(builder, "adult_count", adult_count);
+    builder = utils::dynamo_db::append_u8_item_if_exists(builder, "child_count", child_count);
     builder = builder.item("message", AttributeValue::S(message));
 
-    utils::send_and_handle_put_item_request(builder, now).await
+    utils::dynamo_db::send_and_handle_put_item_request(builder, now).await
 }

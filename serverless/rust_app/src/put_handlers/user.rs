@@ -21,7 +21,7 @@ pub async fn put_user(
 
     let no_whitespace_password = password.replace(" ", "");
     if no_whitespace_password.len() < 7 {
-        return Ok(utils::build_http_response(
+        return Ok(utils::http::build_http_response(
             StatusCode::BAD_REQUEST,
             "Password must be at least seven characters, with no whitespace.",
         ));
@@ -34,13 +34,13 @@ pub async fn put_user(
         || last.trim() == ""
         || phone.trim() == ""
     {
-        return Ok(utils::build_http_response(
+        return Ok(utils::http::build_http_response(
             StatusCode::BAD_REQUEST,
             "Please provide all fields.",
         ));
     }
 
-    let hash = utils::hash_password(no_whitespace_password)?;
+    let hash = utils::authorization::hash_password(no_whitespace_password)?;
 
     let now = Utc::now();
 
@@ -59,5 +59,5 @@ pub async fn put_user(
         .item("administrator", AttributeValue::Bool(administrator))
         .item("phone", AttributeValue::S(phone));
 
-    utils::send_and_handle_put_item_request(builder, now).await
+    utils::dynamo_db::send_and_handle_put_item_request(builder, now).await
 }

@@ -26,5 +26,5 @@ pub async fn put_default(
         )
         .item("value", AttributeValue::S(value));
 
-    utils::send_and_handle_put_item_request(builder, now).await
+    utils::dynamo_db::send_and_handle_put_item_request(builder, now).await
 }

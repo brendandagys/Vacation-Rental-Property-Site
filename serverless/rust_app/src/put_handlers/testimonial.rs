@@ -18,13 +18,13 @@ pub async fn put_testimonial(
     } = testimonial;
 
     if email.trim() == "" || title.trim() == "" || comment.trim() == "" {
-        return Ok(utils::build_http_response(
+        return Ok(utils::http::build_http_response(
             StatusCode::BAD_REQUEST,
             "Please provide all fields.",
         ));
     }
 
-    let stars_num = utils::get_stars_number(stars);
+    let stars_num = utils::miscellaneous::get_stars_number(stars);
 
     let now = Utc::now();
 
@@ -47,5 +47,5 @@ pub async fn put_testimonial(
         .item("comment", AttributeValue::S(comment))
         .item("active", AttributeValue::Bool(active));
 
-    utils::send_and_handle_put_item_request(builder, now).await
+    utils::dynamo_db::send_and_handle_put_item_request(builder, now).await
 }

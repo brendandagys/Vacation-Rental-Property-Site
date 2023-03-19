@@ -33,9 +33,9 @@ name = "log_in"
 path = "src/log_in.rs"
 
 [[bin]]
-name = "get_items"
-path = "src/get_items.rs"
+name = "fetch"
+path = "src/fetch.rs"
 
 [[bin]]
-name = "put_item"
-path = "src/put_item.rs"
+name = "put"
+path = "src/put.rs"

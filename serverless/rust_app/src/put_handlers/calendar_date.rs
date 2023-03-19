@@ -20,7 +20,7 @@ pub async fn put_calendar_date(
     } = calendar_date;
 
     if ymd.len() != 10 {
-        return Ok(utils::build_http_response(
+        return Ok(utils::http::build_http_response(
             StatusCode::BAD_REQUEST,
             "Please provide a valid YYYY-MM-DD string.",
         ));
@@ -44,7 +44,7 @@ pub async fn put_calendar_date(
         .item("month", AttributeValue::N(month.to_string()))
         .item("date", AttributeValue::N(date.to_string()));
 
-    builder = utils::append_string_item_if_exists(builder, "cell_color", cell_color);
+    builder = utils::dynamo_db::append_string_item_if_exists(builder, "cell_color", cell_color);
 
-    utils::send_and_handle_put_item_request(builder, now).await
+    utils::dynamo_db::send_and_handle_put_item_request(builder, now).await
 }

@@ -1,11 +1,11 @@
-use lambda_http::{http::StatusCode, service_fn, Body, Error, Request, Response};
+use lambda_http::{http::StatusCode, run, service_fn, Body, Error, Request, Response};
 use std::env;
 
 mod types;
 
 #[tokio::main]
 async fn main() -> Result<(), Error> {
-    lambda_http::run(service_fn(log_in)).await?;
+    run(service_fn(log_in)).await?;
     Ok(())
 }
 
