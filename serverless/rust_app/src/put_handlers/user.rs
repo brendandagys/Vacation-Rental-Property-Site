@@ -1,4 +1,5 @@
 use crate::{types, utils};
+
 use aws_sdk_dynamodb as dynamodb;
 use chrono::Utc;
 use dynamodb::model::AttributeValue;
@@ -57,7 +58,8 @@ pub async fn put_user(
         .item("first", AttributeValue::S(first))
         .item("last", AttributeValue::S(last))
         .item("administrator", AttributeValue::Bool(administrator))
-        .item("phone", AttributeValue::S(phone));
+        .item("phone", AttributeValue::S(phone))
+        .item("created", AttributeValue::S(now.to_string()));
 
     utils::dynamo_db::send_and_handle_put_item_request(builder, now).await
 }

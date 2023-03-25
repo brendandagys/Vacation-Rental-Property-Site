@@ -60,5 +60,6 @@ pub struct Content {
 pub struct ContentPutRequest {
     pub content_id: ContentId,
     pub version: u16,
+    #[serde(flatten)]
     pub content_data: ContentData,
 }

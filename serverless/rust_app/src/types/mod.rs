@@ -6,6 +6,12 @@ pub mod log_in;
 pub mod testimonial;
 pub mod user;
 
+use aws_sdk_dynamodb as dynamodb;
+use dynamodb::{
+    client::fluent_builders::PutItem,
+    model::{put_request::Builder, AttributeValue},
+};
+
 use serde::Deserialize;
 
 #[derive(Deserialize)]
@@ -21,4 +27,19 @@ pub enum PutRequestEntity {
     CalendarDatesRequest(Vec<calendar_date::CalendarDatePutRequest>),
     ContentsRequest(Vec<content::ContentPutRequest>),
     DefaultsRequest(Vec<default::DefaultPutRequest>),
+}
+
+pub trait Buildable {
+    fn item(self, k: impl Into<std::string::String>, v: AttributeValue) -> Self;
+}
+
+impl Buildable for Builder {
+    fn item(self, k: impl Into<std::string::String>, v: AttributeValue) -> Builder {
+        self.item(k, v)
+    }
+}
+impl Buildable for PutItem {
+    fn item(self, k: impl Into<std::string::String>, v: AttributeValue) -> Self {
+        self.item(k, v)
+    }
 }

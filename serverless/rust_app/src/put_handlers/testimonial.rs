@@ -1,4 +1,5 @@
 use crate::{types, utils};
+
 use aws_sdk_dynamodb as dynamodb;
 use chrono::Utc;
 use dynamodb::model::AttributeValue;
@@ -45,7 +46,8 @@ pub async fn put_testimonial(
         .item("stars", AttributeValue::N(stars_num.to_string()))
         .item("title", AttributeValue::S(title))
         .item("comment", AttributeValue::S(comment))
-        .item("active", AttributeValue::Bool(active));
+        .item("active", AttributeValue::Bool(active))
+        .item("created", AttributeValue::S(now.to_string()));
 
     utils::dynamo_db::send_and_handle_put_item_request(builder, now).await
 }

@@ -1,9 +1,10 @@
 use crate::utils;
+
 use aws_sdk_dynamodb as dynamodb;
 use chrono::{DateTime, Utc};
 use dynamodb::{
     client::fluent_builders::PutItem,
-    model::{AttributeValue, KeysAndAttributes},
+    model::{AttributeValue, KeysAndAttributes, WriteRequest},
 };
 use lambda_http::{http::StatusCode, Body, Error, Response};
 use serde::{Deserialize, Serialize};
@@ -53,11 +54,7 @@ pub async fn send_and_handle_put_item_request(
     builder: PutItem,
     now: DateTime<Utc>,
 ) -> Result<lambda_http::Response<Body>, Error> {
-    match builder
-        .item("created", AttributeValue::S(now.to_string()))
-        .send()
-        .await
-    {
+    match builder.send().await {
         Ok(result) => Ok(utils::http::build_http_response(
             StatusCode::OK,
             &format!("PUT result: {:?}", result),
@@ -278,6 +275,30 @@ pub async fn query<'a, T: Deserialize<'a> + Serialize + std::fmt::Debug>(
         Ok(string) => Ok(utils::http::build_http_response(StatusCode::OK, &string)),
         Err(error) => {
             println!("Error serializing to string: {:?}", entities);
+            Ok(utils::http::build_http_response(
+                StatusCode::INTERNAL_SERVER_ERROR,
+                &error.to_string(),
+            ))
+        }
+    }
+}
+
+pub async fn batch_write_item(
+    client: dynamodb::Client,
+    write_requests: Vec<WriteRequest>,
+) -> Result<lambda_http::Response<Body>, Error> {
+    match client
+        .batch_write_item()
+        .request_items(env::var("TABLE_NAME").unwrap().to_string(), write_requests)
+        .send()
+        .await
+    {
+        Ok(result) => Ok(utils::http::build_http_response(
+            StatusCode::OK,
+            &format!("{:?}", result),
+        )),
+        Err(error) => {
+            println!("Error performing batch write: {error}");
             Ok(utils::http::build_http_response(
                 StatusCode::INTERNAL_SERVER_ERROR,
                 &error.to_string(),

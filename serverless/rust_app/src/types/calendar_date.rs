@@ -1,13 +1,13 @@
 use serde::{Deserialize, Serialize};
 
-#[derive(Clone, Debug, Deserialize, Serialize)]
+#[derive(Debug, Deserialize, Serialize)]
 pub enum DateState {
     Available,
     Booked,
     Unavailable,
 }
 
-#[derive(Clone, Debug, Deserialize, Serialize)]
+#[derive(Debug, Deserialize, Serialize)]
 pub struct CalendarDate {
     #[serde(rename = "PK")]
     pub primary_key: String,
@@ -28,7 +28,7 @@ pub struct CalendarDate {
     pub modified: Option<String>,
 }
 
-#[derive(Clone, Deserialize)]
+#[derive(Deserialize)]
 pub struct CalendarDatePutRequest {
     pub ymd: String,
     pub state: Option<DateState>,

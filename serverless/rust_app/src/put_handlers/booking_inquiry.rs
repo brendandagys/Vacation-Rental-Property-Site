@@ -1,4 +1,5 @@
 use crate::{types, utils};
+
 use aws_sdk_dynamodb as dynamodb;
 use chrono::Utc;
 use dynamodb::model::AttributeValue;
@@ -51,6 +52,7 @@ pub async fn put_booking_inquiry(
     builder = utils::dynamo_db::append_u8_item_if_exists(builder, "adult_count", adult_count);
     builder = utils::dynamo_db::append_u8_item_if_exists(builder, "child_count", child_count);
     builder = builder.item("message", AttributeValue::S(message));
+    builder = builder.item("created", AttributeValue::S(now.to_string()));
 
     utils::dynamo_db::send_and_handle_put_item_request(builder, now).await
 }
