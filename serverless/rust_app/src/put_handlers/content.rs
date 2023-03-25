@@ -26,13 +26,14 @@ pub async fn put_content(
 
     match content_data {
         types::content::ContentData::Text(types::content::TextContent { language, value }) => {
-            builder = builder.item("GSI-SK", AttributeValue::S(format!("{:?}", language)));
+            builder = builder.item("GSI-SK", AttributeValue::S("TEXT".into()));
             builder = builder.item("content_id", AttributeValue::S(format!("{:?}", content_id)));
             builder = builder.item("version", AttributeValue::N(version.to_string()));
             builder = builder.item("language", AttributeValue::S(format!("{:?}", language)));
             builder = builder.item("value", AttributeValue::S(value));
         }
         types::content::ContentData::Image(types::content::ImageContent { url }) => {
+            builder = builder.item("GSI-SK", AttributeValue::S("IMAGE".into()));
             builder = builder.item("content_id", AttributeValue::S(format!("{:?}", content_id)));
             builder = builder.item("version", AttributeValue::N(version.to_string()));
             builder = builder.item("url", AttributeValue::S(url));
