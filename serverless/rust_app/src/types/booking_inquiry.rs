@@ -8,7 +8,7 @@ pub enum BookingInquiryState {
     Accepted,
 }
 
-#[derive(Clone, Deserialize, Serialize)]
+#[derive(Clone, Debug, Deserialize, Serialize)]
 pub struct BookingInquiry {
     #[serde(rename = "PK")]
     pub primary_key: String,

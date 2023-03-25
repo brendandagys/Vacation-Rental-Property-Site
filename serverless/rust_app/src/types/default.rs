@@ -16,7 +16,7 @@ pub enum DefaultFor {
     PriceDecember,
 }
 
-#[derive(Deserialize, Serialize)]
+#[derive(Debug, Deserialize, Serialize)]
 pub struct Default {
     #[serde(rename = "PK")]
     pub primary_key: String,

@@ -204,7 +204,7 @@ pub async fn batch_get_item<'a, T: Deserialize<'a> + Serialize>(
     }
 }
 
-pub async fn query<'a, T: Deserialize<'a> + Serialize>(
+pub async fn query<'a, T: Deserialize<'a> + Serialize + std::fmt::Debug>(
     client: dynamodb::Client,
     index_name: Option<String>,
     key_condition_expression: String,
@@ -276,9 +276,12 @@ pub async fn query<'a, T: Deserialize<'a> + Serialize>(
     // Serialize to string
     match serde_json::to_string(&entities) {
         Ok(string) => Ok(utils::http::build_http_response(StatusCode::OK, &string)),
-        Err(error) => Ok(utils::http::build_http_response(
-            StatusCode::INTERNAL_SERVER_ERROR,
-            &error.to_string(),
-        )),
+        Err(error) => {
+            println!("Error serializing to string: {:?}", entities);
+            Ok(utils::http::build_http_response(
+                StatusCode::INTERNAL_SERVER_ERROR,
+                &error.to_string(),
+            ))
+        }
     }
 }
