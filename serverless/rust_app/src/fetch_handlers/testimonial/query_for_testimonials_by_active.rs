@@ -9,7 +9,7 @@ pub async fn query_for_testimonials_by_active(
     active: bool,
     querymap: QueryMap,
 ) -> Result<Response<Body>, Error> {
-    utils::dynamo_db::query::<types::testimonial::Testimonial>(
+    utils::dynamo_db::query::<types::testimonial::TestimonialQueryResponse>(
         client,
         None,
         "#field = :value".to_string(),

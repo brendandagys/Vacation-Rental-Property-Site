@@ -30,8 +30,6 @@ pub async fn query_for_testimonials_in_stars_range(
         }
     };
 
-    println!("{from} -> {to}");
-
     let valid_stars: [u8; 11] = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 
     if !valid_stars.contains(&((from * 2.0) as u8)) | !valid_stars.contains(&((to * 2.0) as u8)) {
@@ -41,13 +39,13 @@ pub async fn query_for_testimonials_in_stars_range(
         ));
     }
 
-    utils::dynamo_db::query::<types::testimonial::Testimonial>(
+    utils::dynamo_db::query::<types::testimonial::TestimonialQueryResponse>(
         client,
-        None,
+        Some("GSI-1".into()),
         "#key1 = :value1 AND #key2 BETWEEN :value2 AND :value3".to_string(),
-        &[("#key1", "PK"), ("#key2", "SK")],
+        &[("#key1", "GSI-PK"), ("#key2", "GSI-SK")],
         vec![
-            (":value1", AttributeValue::S("INQUIRY".into())),
+            (":value1", AttributeValue::S("TESTIMONIAL".into())),
             (":value2", AttributeValue::S(format!("{from}"))),
             (":value3", AttributeValue::S(format!("{to}"))),
         ],
