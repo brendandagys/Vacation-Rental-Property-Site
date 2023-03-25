@@ -1,3 +1,6 @@
-pub mod batch_get_item;
-pub mod get_item;
-pub mod query;
+pub mod booking_inquiry;
+pub mod calendar_date;
+pub mod content;
+pub mod default;
+pub mod testimonial;
+pub mod user;
