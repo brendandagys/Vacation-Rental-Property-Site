@@ -1,6 +1,6 @@
-use serde::Deserialize;
+use serde::{Deserialize, Serialize};
 
-#[derive(Clone, Deserialize)]
+#[derive(Clone, Deserialize, Serialize)]
 pub enum Stars {
     Zero,
     Half,
@@ -15,7 +15,7 @@ pub enum Stars {
     Five,
 }
 
-#[derive(Clone, Deserialize)]
+#[derive(Clone, Deserialize, Serialize)]
 pub struct Testimonial {
     #[serde(rename = "PK")]
     pub primary_key: String,

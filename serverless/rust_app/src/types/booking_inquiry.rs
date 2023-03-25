@@ -1,6 +1,14 @@
-use serde::Deserialize;
+use serde::{Deserialize, Serialize};
 
-#[derive(Clone, Deserialize)]
+#[derive(Clone, Debug, Deserialize, Serialize)]
+pub enum BookingInquiryState {
+    New,
+    InProgress,
+    Rejected,
+    Accepted,
+}
+
+#[derive(Clone, Deserialize, Serialize)]
 pub struct BookingInquiry {
     #[serde(rename = "PK")]
     pub primary_key: String,
@@ -10,6 +18,7 @@ pub struct BookingInquiry {
     pub gsi_primary_key: String,
     #[serde(rename = "GSI-SK")]
     pub gsi_sort_key: String,
+    pub state: Option<BookingInquiryState>,
     pub email: String,
     pub from_to: Option<String>,
     pub last: Option<String>,
@@ -25,6 +34,7 @@ pub struct BookingInquiry {
 
 #[derive(Clone, Deserialize)]
 pub struct BookingInquiryPutRequest {
+    pub state: Option<BookingInquiryState>,
     pub email: String,
     pub from_to: Option<String>,
     pub last: Option<String>,

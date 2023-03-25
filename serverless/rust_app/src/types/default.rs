@@ -1,22 +1,22 @@
-use serde::Deserialize;
+use serde::{Deserialize, Serialize};
 
-#[derive(Deserialize, Debug)]
+#[derive(Deserialize, Debug, Serialize)]
 pub enum DefaultFor {
-    JanuaryPrice,
-    FebruaryPrice,
-    MarchPrice,
-    AprilPrice,
-    MayPrice,
-    JunePrice,
-    JulyPrice,
-    AugustPrice,
-    SeptemberPrice,
-    OctoberPrice,
-    NovemberPrice,
-    DecemberPrice,
+    PriceJanuary,
+    PriceFebruary,
+    PriceMarch,
+    PriceApril,
+    PriceMay,
+    PriceJune,
+    PriceJuly,
+    PriceAugust,
+    PriceSeptember,
+    PriceOctober,
+    PriceNovember,
+    PriceDecember,
 }
 
-#[derive(Deserialize)]
+#[derive(Deserialize, Serialize)]
 pub struct Default {
     #[serde(rename = "PK")]
     pub primary_key: String,

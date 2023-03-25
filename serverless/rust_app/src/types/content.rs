@@ -1,14 +1,15 @@
-use serde::Deserialize;
+use serde::{Deserialize, Serialize};
 
-#[derive(Deserialize, Debug)]
+#[derive(Deserialize, Debug, Serialize)]
 pub enum ContentId {
     Header,
+    HeroImage,
     Subheader,
     Description,
     Footer,
 }
 
-#[derive(Deserialize, Debug)]
+#[derive(Deserialize, Debug, Serialize)]
 pub enum Language {
     Danish,
     Dutch,
@@ -19,24 +20,25 @@ pub enum Language {
     Swedish,
 }
 
-#[derive(Deserialize)]
+#[derive(Deserialize, Serialize)]
 pub struct TextContent {
     pub language: Language,
     pub value: String,
 }
 
-#[derive(Deserialize)]
+#[derive(Deserialize, Serialize)]
 pub struct ImageContent {
     pub url: String,
 }
 
-#[derive(Deserialize)]
+#[derive(Deserialize, Serialize)]
+#[serde(untagged)]
 pub enum ContentData {
     Text(TextContent),
     Image(ImageContent),
 }
 
-#[derive(Deserialize)]
+#[derive(Deserialize, Serialize)]
 pub struct Content {
     #[serde(rename = "PK")]
     pub primary_key: String,
