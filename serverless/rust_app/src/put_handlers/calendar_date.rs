@@ -48,3 +48,10 @@ pub async fn put_calendar_date(
 
     utils::dynamo_db::send_and_handle_put_item_request(builder, now).await
 }
+
+// pub async fn put_calendar_dates(
+//     calendar_dates: Vec<types::calendar_date::CalendarDatePutRequest>,
+//     client: dynamodb::Client,
+// ) -> Result<lambda_http::Response<Body>, Error> {
+//     Err("Not implemented".into())
+// }

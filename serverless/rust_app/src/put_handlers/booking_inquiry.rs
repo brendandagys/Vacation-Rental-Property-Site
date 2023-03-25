@@ -10,6 +10,7 @@ pub async fn put_booking_inquiry(
     client: dynamodb::Client,
 ) -> Result<lambda_http::Response<Body>, Error> {
     let types::booking_inquiry::BookingInquiryPutRequest {
+        state,
         email,
         from_to,
         last,
@@ -28,6 +29,8 @@ pub async fn put_booking_inquiry(
         ));
     }
 
+    let ensure_state = state.unwrap_or(types::booking_inquiry::BookingInquiryState::New);
+
     let now = Utc::now();
 
     let mut builder = client
@@ -36,7 +39,8 @@ pub async fn put_booking_inquiry(
         .item("PK", AttributeValue::S("INQUIRY".into()))
         .item("SK", AttributeValue::S(now.to_string()))
         .item("GSI-PK", AttributeValue::S("INQUIRY".into()))
-        .item("GSI-SK", AttributeValue::S(email.clone()))
+        .item("GSI-SK", AttributeValue::S(format!("{:?}", ensure_state)))
+        .item("state", AttributeValue::S(format!("{:?}", ensure_state)))
         .item("email", AttributeValue::S(email));
 
     builder = utils::dynamo_db::append_string_item_if_exists(builder, "from_to", from_to);

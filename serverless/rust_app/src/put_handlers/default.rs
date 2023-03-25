@@ -28,3 +28,10 @@ pub async fn put_default(
 
     utils::dynamo_db::send_and_handle_put_item_request(builder, now).await
 }
+
+// pub async fn put_defaults(
+//     defaults: Vec<types::default::DefaultPutRequest>,
+//     client: dynamodb::Client,
+// ) -> Result<lambda_http::Response<Body>, Error> {
+//     Err("Not implemented".into())
+// }

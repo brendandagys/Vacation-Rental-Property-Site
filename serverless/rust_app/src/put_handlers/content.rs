@@ -41,3 +41,10 @@ pub async fn put_content(
 
     utils::dynamo_db::send_and_handle_put_item_request(builder, now).await
 }
+
+// pub async fn put_contents(
+//     contents: Vec<types::content::ContentPutRequest>,
+//     client: dynamodb::Client,
+// ) -> Result<lambda_http::Response<Body>, Error> {
+//     Err("Not implemented".into())
+// }
