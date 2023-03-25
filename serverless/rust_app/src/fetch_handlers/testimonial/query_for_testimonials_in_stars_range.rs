@@ -39,7 +39,7 @@ pub async fn query_for_testimonials_in_stars_range(
         ));
     }
 
-    utils::dynamo_db::query::<types::testimonial::TestimonialQueryResponse>(
+    utils::dynamo_db::query::<types::testimonial::Testimonial>(
         client,
         Some("GSI-1".into()),
         "#key1 = :value1 AND #key2 BETWEEN :value2 AND :value3".to_string(),
