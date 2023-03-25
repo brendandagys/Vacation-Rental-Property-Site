@@ -6,34 +6,44 @@ mod utils;
 
 #[tokio::main]
 async fn main() -> Result<(), Error> {
-    run(service_fn(put_item)).await?;
+    run(service_fn(put)).await?;
     Ok(())
 }
 
-async fn put_item(request: Request) -> Result<Response<Body>, Error> {
+async fn put(request: Request) -> Result<Response<Body>, Error> {
     let client = utils::dynamo_db::get_dynamo_db_client().await;
 
     match request.body() {
-        Body::Text(body) => match serde_json::from_str::<types::PutRequestEntities>(body) {
-            Ok(put_request_body) => match put_request_body {
-                types::PutRequestEntities::BookingInquiry(booking_inquiry) => {
+        Body::Text(body) => match serde_json::from_str::<types::PutRequestEntity>(body) {
+            Ok(put_request_entity) => match put_request_entity {
+                types::PutRequestEntity::BookingInquiryRequest(booking_inquiry) => {
                     put_handlers::booking_inquiry::put_booking_inquiry(booking_inquiry, client)
                         .await
                 }
-                types::PutRequestEntities::CalendarDateRequest(calendar_date) => {
+                types::PutRequestEntity::CalendarDateRequest(calendar_date) => {
                     put_handlers::calendar_date::put_calendar_date(calendar_date, client).await
                 }
-                types::PutRequestEntities::ContentRequest(content) => {
+                types::PutRequestEntity::ContentRequest(content) => {
                     put_handlers::content::put_content(content, client).await
                 }
-                types::PutRequestEntities::DefaultRequest(default) => {
+                types::PutRequestEntity::DefaultRequest(default) => {
                     put_handlers::default::put_default(default, client).await
                 }
-                types::PutRequestEntities::TestimonialRequest(testimonial) => {
+                types::PutRequestEntity::TestimonialRequest(testimonial) => {
                     put_handlers::testimonial::put_testimonial(testimonial, client).await
                 }
-                types::PutRequestEntities::UserRequest(user) => {
+                types::PutRequestEntity::UserRequest(user) => {
                     put_handlers::user::put_user(user, client).await
+                }
+
+                types::PutRequestEntity::CalendarDatesRequest(calendar_dates) => {
+                    put_handlers::calendar_date::put_calendar_dates(calendar_dates, client).await
+                }
+                types::PutRequestEntity::ContentsRequest(contents) => {
+                    put_handlers::content::put_contents(contents, client).await
+                }
+                types::PutRequestEntity::DefaultsRequest(defaults) => {
+                    put_handlers::default::put_defaults(defaults, client).await
                 }
             },
             Err(error) => Ok(utils::http::build_http_response(

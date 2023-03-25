@@ -104,7 +104,7 @@ Resources:
         HelloWorld:
           Type: Api # More info about API Event Source: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#api
           Properties:
-            Path: /get-items
+            Path: /fetch
             Method: get
       Environment:
         Variables:
@@ -129,7 +129,7 @@ Resources:
         HelloWorld:
           Type: Api # More info about API Event Source: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#api
           Properties:
-            Path: /put-item
+            Path: /put
             Method: put
       Environment:
         Variables:
