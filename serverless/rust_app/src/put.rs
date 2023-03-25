@@ -17,33 +17,33 @@ async fn put(request: Request) -> Result<Response<Body>, Error> {
         Body::Text(body) => match serde_json::from_str::<types::PutRequestEntity>(body) {
             Ok(put_request_entity) => match put_request_entity {
                 types::PutRequestEntity::BookingInquiryRequest(booking_inquiry) => {
-                    put_handlers::booking_inquiry::put_booking_inquiry(booking_inquiry, client)
+                    put_handlers::booking_inquiry::put_booking_inquiry(client, booking_inquiry)
                         .await
                 }
                 types::PutRequestEntity::CalendarDateRequest(calendar_date) => {
-                    put_handlers::calendar_date::put_calendar_date(calendar_date, client).await
+                    put_handlers::calendar_date::put_calendar_date(client, calendar_date).await
                 }
                 types::PutRequestEntity::ContentRequest(content) => {
-                    put_handlers::content::put_content(content, client).await
+                    put_handlers::content::put_content(client, content).await
                 }
                 types::PutRequestEntity::DefaultRequest(default) => {
-                    put_handlers::default::put_default(default, client).await
+                    put_handlers::default::put_default(client, default).await
                 }
                 types::PutRequestEntity::TestimonialRequest(testimonial) => {
-                    put_handlers::testimonial::put_testimonial(testimonial, client).await
+                    put_handlers::testimonial::put_testimonial(client, testimonial).await
                 }
                 types::PutRequestEntity::UserRequest(user) => {
-                    put_handlers::user::put_user(user, client).await
+                    put_handlers::user::put_user(client, user).await
                 }
 
                 types::PutRequestEntity::CalendarDatesRequest(calendar_dates) => {
-                    put_handlers::calendar_date::put_calendar_dates(calendar_dates, client).await
+                    put_handlers::calendar_date::put_calendar_dates(client, calendar_dates).await
                 }
                 types::PutRequestEntity::ContentsRequest(contents) => {
-                    put_handlers::content::put_contents(contents, client).await
+                    put_handlers::content::put_contents(client, contents).await
                 }
                 types::PutRequestEntity::DefaultsRequest(defaults) => {
-                    put_handlers::default::put_defaults(defaults, client).await
+                    put_handlers::default::put_defaults(client, defaults).await
                 }
             },
             Err(error) => Ok(utils::http::build_http_response(

@@ -6,8 +6,8 @@ use lambda_http::{Body, Error};
 use std::env;
 
 pub async fn put_default(
-    default: types::default::DefaultPutRequest,
     client: dynamodb::Client,
+    default: types::default::DefaultPutRequest,
 ) -> Result<lambda_http::Response<Body>, Error> {
     let types::default::DefaultPutRequest { default_for, value } = default;
 
@@ -30,8 +30,8 @@ pub async fn put_default(
 }
 
 pub async fn put_defaults(
-    defaults: Vec<types::default::DefaultPutRequest>,
     client: dynamodb::Client,
+    defaults: Vec<types::default::DefaultPutRequest>,
 ) -> Result<lambda_http::Response<Body>, Error> {
     Err("Not implemented".into())
 }

@@ -6,8 +6,8 @@ use lambda_http::{http::StatusCode, Body, Error};
 use std::env;
 
 pub async fn put_testimonial(
-    testimonial: types::testimonial::TestimonialPutRequest,
     client: dynamodb::Client,
+    testimonial: types::testimonial::TestimonialPutRequest,
 ) -> Result<lambda_http::Response<Body>, Error> {
     let types::testimonial::TestimonialPutRequest {
         email,

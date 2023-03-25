@@ -6,8 +6,8 @@ use lambda_http::{http::StatusCode, Body, Error};
 use std::env;
 
 pub async fn put_calendar_date(
-    calendar_date: types::calendar_date::CalendarDatePutRequest,
     client: dynamodb::Client,
+    calendar_date: types::calendar_date::CalendarDatePutRequest,
 ) -> Result<lambda_http::Response<Body>, Error> {
     let types::calendar_date::CalendarDatePutRequest {
         ymd,
@@ -50,8 +50,8 @@ pub async fn put_calendar_date(
 }
 
 pub async fn put_calendar_dates(
-    calendar_dates: Vec<types::calendar_date::CalendarDatePutRequest>,
     client: dynamodb::Client,
+    calendar_dates: Vec<types::calendar_date::CalendarDatePutRequest>,
 ) -> Result<lambda_http::Response<Body>, Error> {
     Err("Not implemented".into())
 }

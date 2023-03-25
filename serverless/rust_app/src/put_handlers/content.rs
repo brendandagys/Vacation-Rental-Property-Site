@@ -6,8 +6,8 @@ use lambda_http::{Body, Error};
 use std::env;
 
 pub async fn put_content(
-    content: types::content::ContentPutRequest,
     client: dynamodb::Client,
+    content: types::content::ContentPutRequest,
 ) -> Result<lambda_http::Response<Body>, Error> {
     let types::content::ContentPutRequest {
         content_id,
@@ -44,8 +44,8 @@ pub async fn put_content(
 }
 
 pub async fn put_contents(
-    contents: Vec<types::content::ContentPutRequest>,
     client: dynamodb::Client,
+    contents: Vec<types::content::ContentPutRequest>,
 ) -> Result<lambda_http::Response<Body>, Error> {
     Err("Not implemented".into())
 }
