@@ -1,9 +1,6 @@
 use aws_sdk_dynamodb as dynamodb;
 use dynamodb::model::AttributeValue;
-use lambda_http::{
-    aws_lambda_events::query_map::QueryMap, http::StatusCode, run, service_fn, Body, Error,
-    Request, RequestExt, Response,
-};
+use lambda_http::{http::StatusCode, run, service_fn, Body, Error, Request, Response};
 use std::env;
 
 mod types;
@@ -15,15 +12,9 @@ async fn main() -> Result<(), Error> {
     Ok(())
 }
 
-// use crate::{types, utils};
-
-// use dynamodb::model::AttributeValue;
-// use lambda_http::{aws_lambda_events::query_map::QueryMap, Body, Error, Response};
-
 async fn get_user_by_username(
     client: dynamodb::Client,
     username: &str,
-    querymap: QueryMap,
 ) -> Result<types::user::User, (StatusCode, String)> {
     utils::dynamo_db::get_item::<types::user::User>(
         client,
@@ -48,17 +39,13 @@ async fn log_in(request: Request) -> Result<Response<Body>, Error> {
 
                 // Get User...
                 let client = utils::dynamo_db::get_dynamo_db_client().await;
-                let querymap = request.query_string_parameters();
 
-                let user = match get_user_by_username(client, &username, querymap).await {
+                let user = match get_user_by_username(client, &username).await {
                     Ok(user) => user,
                     Err((status_code, message)) => {
                         return Ok(utils::http::build_http_response(status_code, &message))
                     }
                 };
-
-                let hash_text = user.hash;
-                // let hash_text = "$2b$12$MRG2KRixMBO3KxixKBGzLuDpOEpY8DdwmyxKIft7C.TUwYrL2/tFW";
 
                 let jwt_secret = env::var("JWT_SECRET").unwrap_or("".into());
 
@@ -79,7 +66,7 @@ async fn log_in(request: Request) -> Result<Response<Body>, Error> {
                     &token_data,
                     &jsonwebtoken::EncodingKey::from_secret(&jwt_secret.into_bytes()),
                 ) {
-                    Ok(token) => match bcrypt::verify(password, &hash_text) {
+                    Ok(token) => match bcrypt::verify(password, &user.hash) {
                         Ok(valid) => match valid {
                             true => {
                                 match serde_json::to_string(&types::log_in::LogInResponse { token })
