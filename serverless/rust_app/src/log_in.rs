@@ -1,4 +1,5 @@
 use aws_sdk_dynamodb as dynamodb;
+use chrono::Utc;
 use dynamodb::model::AttributeValue;
 use lambda_http::{http::StatusCode, run, service_fn, Body, Error, Request, Response};
 use std::env;
@@ -37,7 +38,6 @@ async fn log_in(request: Request) -> Result<Response<Body>, Error> {
                     )?);
                 }
 
-                // Get User...
                 let client = utils::dynamo_db::get_dynamo_db_client().await;
 
                 let user = match get_user_by_username(client, &username).await {
@@ -55,15 +55,19 @@ async fn log_in(request: Request) -> Result<Response<Body>, Error> {
                         .body("Token secret not set. Please try again later.".into())?);
                 }
 
-                let token_data = types::log_in::JwtContent {
+                let token_claims = types::log_in::JwtClaims {
                     username,
                     last: "Dagys".into(),
                     first: "Brendan".into(),
+                    exp: Utc::now()
+                        .checked_add_signed(chrono::Duration::days(1))
+                        .unwrap()
+                        .timestamp(),
                 };
 
                 match jsonwebtoken::encode(
                     &jsonwebtoken::Header::default(),
-                    &token_data,
+                    &token_claims,
                     &jsonwebtoken::EncodingKey::from_secret(&jwt_secret.into_bytes()),
                 ) {
                     Ok(token) => match bcrypt::verify(password, &user.hash) {

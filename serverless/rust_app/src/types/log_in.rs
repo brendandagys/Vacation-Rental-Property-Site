@@ -1,10 +1,11 @@
 use serde::{Deserialize, Serialize};
 
-#[derive(Serialize)]
-pub struct JwtContent {
+#[derive(Deserialize, Serialize)]
+pub struct JwtClaims {
     pub username: String,
     pub last: String,
     pub first: String,
+    pub exp: i64,
 }
 
 #[derive(Debug, Deserialize)]

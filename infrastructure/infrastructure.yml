@@ -276,7 +276,9 @@ Resources:
 
             // Set HTTP security headers
             headers['strict-transport-security'] = { value: 'max-age=63072000; includeSubdomains; preload'};
-            headers['content-security-policy'] = { value: "default-src 'none'; img-src 'self' data:; script-src 'self'; object-src 'none'; connect-src 'self' https://vocabulary.brendandagys.com; manifest-src 'self'; style-src https://*.brendandagys.com *.cloudflare.com 'unsafe-inline'; style-src-elem 'self' https://cdnjs.cloudflare.com https://fonts.googleapis.com 'unsafe-inline'; font-src https://fonts.gstatic.com https://*.cloudflare.com"};
+            headers['content-security-policy'] = {
+              value: "default-src 'none'; img-src 'self' data:; script-src 'self'; object-src 'none'; connect-src 'self'; manifest-src 'self'; style-src 'self'; style-src-elem 'self' 'unsafe-inline'; font-src 'self'"
+            };
             headers['x-content-type-options'] = { value: 'nosniff'};
             headers['x-frame-options'] = {value: 'DENY'};
             headers['x-xss-protection'] = {value: '1; mode=block'};

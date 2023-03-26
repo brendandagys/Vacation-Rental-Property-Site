@@ -1,4 +1,6 @@
 use bcrypt::{BcryptResult, DEFAULT_COST};
+use jsonwebtoken::{DecodingKey, Validation};
+use serde::Deserialize;
 use std::env;
 
 pub fn hash_password(password: String) -> BcryptResult<String> {
@@ -17,6 +19,21 @@ pub fn hash_password(password: String) -> BcryptResult<String> {
 
     match bcrypt::hash_with_salt(password, DEFAULT_COST, default_array) {
         Ok(hash) => Ok(hash.format_for_version(bcrypt::Version::TwoB)),
+        Err(error) => Err(error),
+    }
+}
+
+pub fn validate_token<'a, T: for<'de> Deserialize<'de>>(
+    token: &str,
+) -> Result<T, jsonwebtoken::errors::Error> {
+    let jwt_secret = env::var("JWT_SECRET").unwrap();
+
+    match jsonwebtoken::decode::<T>(
+        token,
+        &DecodingKey::from_secret(&jwt_secret.as_ref()),
+        &Validation::default(), // &Validation::new(Algorithm::HS256)
+    ) {
+        Ok(token_data) => Ok(token_data.claims),
         Err(error) => Err(error),
     }
 }

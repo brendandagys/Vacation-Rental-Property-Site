@@ -13,6 +13,28 @@ async fn main() -> Result<(), Error> {
 async fn put(request: Request) -> Result<Response<Body>, Error> {
     let client = utils::dynamo_db::get_dynamo_db_client().await;
 
+    let token = match request.headers().get("Authorization") {
+        Some(token) => token,
+        None => {
+            return Ok(utils::http::build_http_response(
+                StatusCode::UNAUTHORIZED,
+                "No `Authorization` header provided.",
+            ))
+        }
+    };
+
+    match utils::authorization::validate_token::<types::log_in::JwtClaims>(token.to_str().unwrap())
+    {
+        Ok(_) => {}
+        Err(error) => {
+            println!("Error validating token: {error}");
+            return Ok(utils::http::build_http_response(
+                StatusCode::UNAUTHORIZED,
+                "Invalid token.",
+            ));
+        }
+    };
+
     match request.body() {
         Body::Text(body) => match serde_json::from_str::<types::PutRequestEntity>(body) {
             Ok(put_request_entity) => match put_request_entity {
