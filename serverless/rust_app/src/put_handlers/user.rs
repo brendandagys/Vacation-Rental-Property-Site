@@ -61,5 +61,5 @@ pub async fn put_user(
         .item("phone", AttributeValue::S(phone))
         .item("created", AttributeValue::S(now.to_string()));
 
-    utils::dynamo_db::send_and_handle_put_item_request(builder, now).await
+    utils::dynamo_db::send_put_item_request(builder).await
 }

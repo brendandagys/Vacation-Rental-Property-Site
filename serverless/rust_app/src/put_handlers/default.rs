@@ -40,7 +40,7 @@ pub async fn put_default(
     let now = Utc::now();
     builder = build_default_item(builder, default, now);
 
-    utils::dynamo_db::send_and_handle_put_item_request(builder, now).await
+    utils::dynamo_db::send_put_item_request(builder).await
 }
 
 pub async fn put_defaults(

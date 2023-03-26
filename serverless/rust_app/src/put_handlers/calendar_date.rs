@@ -63,7 +63,7 @@ pub async fn put_calendar_date(
     let now = Utc::now();
     builder = build_calendar_date_item(builder, calendar_date, now);
 
-    utils::dynamo_db::send_and_handle_put_item_request(builder, now).await
+    utils::dynamo_db::send_put_item_request(builder).await
 }
 
 pub async fn put_calendar_dates(

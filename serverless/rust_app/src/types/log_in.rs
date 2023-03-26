@@ -2,14 +2,14 @@ use serde::{Deserialize, Serialize};
 
 #[derive(Serialize)]
 pub struct JwtContent {
-    pub email: String,
+    pub username: String,
     pub last: String,
     pub first: String,
 }
 
 #[derive(Debug, Deserialize)]
 pub struct LogInRequest {
-    pub email: String,
+    pub username: String,
     pub password: String,
 }
 

@@ -1,12 +1,35 @@
-use lambda_http::{http::StatusCode, run, service_fn, Body, Error, Request, Response};
+use aws_sdk_dynamodb as dynamodb;
+use dynamodb::model::AttributeValue;
+use lambda_http::{
+    aws_lambda_events::query_map::QueryMap, http::StatusCode, run, service_fn, Body, Error,
+    Request, Response,
+};
 use std::env;
 
 mod types;
+mod utils;
 
 #[tokio::main]
 async fn main() -> Result<(), Error> {
     run(service_fn(log_in)).await?;
     Ok(())
+}
+
+// use crate::{types, utils};
+
+// use dynamodb::model::AttributeValue;
+// use lambda_http::{aws_lambda_events::query_map::QueryMap, Body, Error, Response};
+
+async fn get_user_by_username(
+    client: dynamodb::Client,
+    username: &str,
+) -> Result<Response<Body>, Error> {
+    utils::dynamo_db::get_item::<types::user::User>(
+        client,
+        AttributeValue::S(format!("USER-{username}")),
+        AttributeValue::S("USER-INFO".into()),
+    )
+    .await
 }
 
 async fn log_in(request: Request) -> Result<Response<Body>, Error> {
@@ -15,16 +38,32 @@ async fn log_in(request: Request) -> Result<Response<Body>, Error> {
             Ok(body) => {
                 println!("Body: {:?}", body);
 
-                let email = body.email.trim().to_string();
+                let username = body.username.trim().to_string();
                 let password = body.password;
 
-                if email == "" || password == "" {
+                if username == "" || password == "" {
                     return Ok(Response::builder().status(StatusCode::BAD_REQUEST).body(
                         "Please provide both necessary parameters: `email` and `password`.".into(),
                     )?);
                 }
 
                 // Get User...
+                // let client = utils::dynamo_db::get_dynamo_db_client().await;
+
+                // let user = match get_user_by_username(client, &username).await {
+                //     Ok(user) => match user {
+                //       Response
+                //     },
+                //     Err(error) => {
+                //         println!("Error getting user with username `{username}`: {error}");
+
+                //         return Ok(utils::http::build_http_response(
+                //             StatusCode::BAD_REQUEST,
+                //             &error.to_string(),
+                //         ));
+                //     }
+                // };
+
                 let hash_text = "$2b$12$MRG2KRixMBO3KxixKBGzLuDpOEpY8DdwmyxKIft7C.TUwYrL2/tFW";
 
                 let jwt_secret = env::var("JWT_SECRET").unwrap_or("".into());
@@ -36,7 +75,7 @@ async fn log_in(request: Request) -> Result<Response<Body>, Error> {
                 }
 
                 let token_data = types::log_in::JwtContent {
-                    email,
+                    username,
                     last: "Dagys".into(),
                     first: "Brendan".into(),
                 };

@@ -54,5 +54,5 @@ pub async fn put_booking_inquiry(
     builder = builder.item("message", AttributeValue::S(message));
     builder = builder.item("created", AttributeValue::S(now.to_string()));
 
-    utils::dynamo_db::send_and_handle_put_item_request(builder, now).await
+    utils::dynamo_db::send_put_item_request(builder).await
 }
