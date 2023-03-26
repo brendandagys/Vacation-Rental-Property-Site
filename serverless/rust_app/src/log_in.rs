@@ -2,7 +2,7 @@ use aws_sdk_dynamodb as dynamodb;
 use dynamodb::model::AttributeValue;
 use lambda_http::{
     aws_lambda_events::query_map::QueryMap, http::StatusCode, run, service_fn, Body, Error,
-    Request, Response,
+    Request, RequestExt, Response,
 };
 use std::env;
 
@@ -23,7 +23,8 @@ async fn main() -> Result<(), Error> {
 async fn get_user_by_username(
     client: dynamodb::Client,
     username: &str,
-) -> Result<Response<Body>, Error> {
+    querymap: QueryMap,
+) -> Result<types::user::User, (StatusCode, String)> {
     utils::dynamo_db::get_item::<types::user::User>(
         client,
         AttributeValue::S(format!("USER-{username}")),
@@ -36,8 +37,6 @@ async fn log_in(request: Request) -> Result<Response<Body>, Error> {
     match request.body() {
         Body::Text(body) => match serde_json::from_str::<types::log_in::LogInRequest>(body) {
             Ok(body) => {
-                println!("Body: {:?}", body);
-
                 let username = body.username.trim().to_string();
                 let password = body.password;
 
@@ -48,23 +47,18 @@ async fn log_in(request: Request) -> Result<Response<Body>, Error> {
                 }
 
                 // Get User...
-                // let client = utils::dynamo_db::get_dynamo_db_client().await;
+                let client = utils::dynamo_db::get_dynamo_db_client().await;
+                let querymap = request.query_string_parameters();
 
-                // let user = match get_user_by_username(client, &username).await {
-                //     Ok(user) => match user {
-                //       Response
-                //     },
-                //     Err(error) => {
-                //         println!("Error getting user with username `{username}`: {error}");
+                let user = match get_user_by_username(client, &username, querymap).await {
+                    Ok(user) => user,
+                    Err((status_code, message)) => {
+                        return Ok(utils::http::build_http_response(status_code, &message))
+                    }
+                };
 
-                //         return Ok(utils::http::build_http_response(
-                //             StatusCode::BAD_REQUEST,
-                //             &error.to_string(),
-                //         ));
-                //     }
-                // };
-
-                let hash_text = "$2b$12$MRG2KRixMBO3KxixKBGzLuDpOEpY8DdwmyxKIft7C.TUwYrL2/tFW";
+                let hash_text = user.hash;
+                // let hash_text = "$2b$12$MRG2KRixMBO3KxixKBGzLuDpOEpY8DdwmyxKIft7C.TUwYrL2/tFW";
 
                 let jwt_secret = env::var("JWT_SECRET").unwrap_or("".into());
 

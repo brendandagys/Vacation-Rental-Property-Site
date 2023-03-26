@@ -46,7 +46,7 @@ pub async fn batch_get_item<'a, T: Deserialize<'a> + Serialize>(
         Some(items) => items,
         None => {
             return Ok(utils::http::build_http_response(
-                StatusCode::OK,
+                StatusCode::NOT_FOUND,
                 &serde_json::json!([]).to_string(),
             ))
         }
@@ -65,7 +65,10 @@ pub async fn batch_get_item<'a, T: Deserialize<'a> + Serialize>(
     let entities: Vec<T> = match from_items(items.clone()) {
         Ok(entities) => entities,
         Err(error) => {
-            println!("Error converting items: {:?}.", items);
+            println!(
+                "Error converting DynamoDB items: {:?} into known type.",
+                items
+            );
             return Ok(utils::http::build_http_response(
                 StatusCode::INTERNAL_SERVER_ERROR,
                 &error.to_string(),

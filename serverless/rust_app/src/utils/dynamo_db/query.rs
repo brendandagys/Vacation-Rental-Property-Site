@@ -49,7 +49,7 @@ pub async fn query<'a, T: Deserialize<'a> + Serialize + std::fmt::Debug>(
         Some(items) => items,
         None => {
             return Ok(utils::http::build_http_response(
-                StatusCode::OK,
+                StatusCode::NOT_FOUND,
                 &serde_json::json!(format!(
                     "{}",
                     if key_condition_expression.contains(" = :") {
@@ -69,7 +69,10 @@ pub async fn query<'a, T: Deserialize<'a> + Serialize + std::fmt::Debug>(
     let entities: Vec<T> = match from_items(items.clone()) {
         Ok(entities) => entities,
         Err(error) => {
-            println!("Error converting items: {:?}.", items);
+            println!(
+                "Error converting DynamoDB items: {:?} into known type.",
+                items
+            );
             return Ok(utils::http::build_http_response(
                 StatusCode::INTERNAL_SERVER_ERROR,
                 &error.to_string(),

@@ -5,7 +5,7 @@ mod batch_write_item;
 pub use batch_write_item::batch_write_item;
 
 mod get_item;
-pub use get_item::get_item;
+pub use get_item::{get_item, get_item_http};
 
 mod query;
 pub use query::query;
