@@ -45,7 +45,7 @@ pub fn build_content_item<T: Buildable>(
 }
 
 pub async fn put_content(
-    client: dynamodb::Client,
+    client: &dynamodb::Client,
     content: types::content::ContentPutRequest,
 ) -> Result<lambda_http::Response<Body>, Error> {
     let mut builder = client
@@ -59,7 +59,7 @@ pub async fn put_content(
 }
 
 pub async fn put_contents(
-    client: dynamodb::Client,
+    client: &dynamodb::Client,
     contents: Vec<types::content::ContentPutRequest>,
 ) -> Result<lambda_http::Response<Body>, Error> {
     let now = Utc::now();

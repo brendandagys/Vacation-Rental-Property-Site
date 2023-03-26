@@ -1,22 +1,25 @@
-use lambda_http::{http::StatusCode, run, service_fn, Body, Error, Request, RequestExt, Response};
-
 mod fetch_handlers;
 mod types;
 mod utils;
 
+use aws_sdk_dynamodb as dynamodb;
+use lambda_http::{http::StatusCode, run, service_fn, Body, Error, Request, RequestExt, Response};
+
 #[tokio::main]
-async fn main() -> Result<(), lambda_http::Error> {
-    run(service_fn(fetch)).await?;
+async fn main() -> Result<(), Error> {
+    let client = utils::dynamo_db::get_dynamo_db_client().await;
+
+    run(service_fn(|request| async {
+        fetch(request, &client).await
+    }))
+    .await?;
+
     Ok(())
 }
 
-fn stub() -> Result<Response<Body>, Error> {
-    Ok(utils::http::build_http_response(StatusCode::OK, "STUB."))
-}
-
-async fn fetch(request: Request) -> Result<Response<Body>, Error> {
-    let client = utils::dynamo_db::get_dynamo_db_client().await;
+async fn fetch(request: Request, client: &dynamodb::Client) -> Result<Response<Body>, Error> {
     let querymap = request.query_string_parameters();
+
     match querymap.first("entity") {
         Some(entity) => match entity {
             "BookingInquiry" => fetch_handlers::booking_inquiry::get(client, querymap).await,

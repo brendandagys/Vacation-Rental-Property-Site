@@ -46,7 +46,7 @@ pub fn build_calendar_date_item<T: Buildable>(
 }
 
 pub async fn put_calendar_date(
-    client: dynamodb::Client,
+    client: &dynamodb::Client,
     calendar_date: types::calendar_date::CalendarDatePutRequest,
 ) -> Result<lambda_http::Response<Body>, Error> {
     if calendar_date.ymd.len() != 10 {
@@ -67,7 +67,7 @@ pub async fn put_calendar_date(
 }
 
 pub async fn put_calendar_dates(
-    client: dynamodb::Client,
+    client: &dynamodb::Client,
     calendar_dates: Vec<types::calendar_date::CalendarDatePutRequest>,
 ) -> Result<lambda_http::Response<Body>, Error> {
     let now = Utc::now();

@@ -6,7 +6,7 @@ use lambda_http::{http::StatusCode, Body, Error};
 use std::env;
 
 pub async fn batch_write_item(
-    client: dynamodb::Client,
+    client: &dynamodb::Client,
     write_requests: Vec<WriteRequest>,
 ) -> Result<lambda_http::Response<Body>, Error> {
     match client

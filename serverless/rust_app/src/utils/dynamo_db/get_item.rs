@@ -9,7 +9,7 @@ use serde_dynamo::from_item;
 use std::env;
 
 pub async fn get_item<'a, T: Deserialize<'a> + Serialize>(
-    client: dynamodb::Client,
+    client: &dynamodb::Client,
     primary_key: AttributeValue,
     sort_key: AttributeValue,
 ) -> Result<T, (StatusCode, String)> {
@@ -49,7 +49,7 @@ pub async fn get_item<'a, T: Deserialize<'a> + Serialize>(
 }
 
 pub async fn get_item_http<'a, T: Deserialize<'a> + Serialize>(
-    client: dynamodb::Client,
+    client: &dynamodb::Client,
     primary_key: AttributeValue,
     sort_key: AttributeValue,
 ) -> Result<lambda_http::Response<Body>, Error> {

@@ -17,7 +17,7 @@ use lambda_http::{
 
 use crate::utils;
 
-pub async fn get(client: dynamodb::Client, querymap: QueryMap) -> Result<Response<Body>, Error> {
+pub async fn get(client: &dynamodb::Client, querymap: QueryMap) -> Result<Response<Body>, Error> {
     let active = querymap.first("active");
 
     let start_date = querymap.first("start_date");

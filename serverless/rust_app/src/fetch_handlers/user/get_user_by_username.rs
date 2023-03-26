@@ -5,12 +5,12 @@ use dynamodb::model::AttributeValue;
 use lambda_http::{aws_lambda_events::query_map::QueryMap, Body, Error, Response};
 
 pub async fn get_user_by_username(
-    client: dynamodb::Client,
+    client: &dynamodb::Client,
     username: &str,
     querymap: QueryMap,
 ) -> Result<Response<Body>, Error> {
     utils::dynamo_db::get_item_http::<types::user::User>(
-        client,
+        &client,
         AttributeValue::S(format!("USER-{username}")),
         AttributeValue::S("USER-INFO".into()),
     )

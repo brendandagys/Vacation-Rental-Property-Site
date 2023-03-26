@@ -7,7 +7,7 @@ use lambda_http::{http::StatusCode, Body, Error};
 use std::env;
 
 pub async fn put_booking_inquiry(
-    client: dynamodb::Client,
+    client: &dynamodb::Client,
     booking_inquiry: types::booking_inquiry::BookingInquiryPutRequest,
 ) -> Result<lambda_http::Response<Body>, Error> {
     let types::booking_inquiry::BookingInquiryPutRequest {

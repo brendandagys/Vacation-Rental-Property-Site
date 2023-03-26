@@ -9,7 +9,7 @@ use serde_dynamo::from_items;
 use std::env;
 
 pub async fn query<'a, T: Deserialize<'a> + Serialize + std::fmt::Debug>(
-    client: dynamodb::Client,
+    client: &dynamodb::Client,
     index_name: Option<String>,
     key_condition_expression: String,
     expression_attribute_names: &[(&str, &str)],

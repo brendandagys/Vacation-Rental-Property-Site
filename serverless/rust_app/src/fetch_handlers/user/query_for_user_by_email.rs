@@ -5,7 +5,7 @@ use dynamodb::model::AttributeValue;
 use lambda_http::{aws_lambda_events::query_map::QueryMap, Body, Error, Response};
 
 pub async fn query_for_user_by_email(
-    client: dynamodb::Client,
+    client: &dynamodb::Client,
     email: &str,
     querymap: QueryMap,
 ) -> Result<Response<Body>, Error> {

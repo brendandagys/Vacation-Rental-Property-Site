@@ -1,7 +1,9 @@
 use aws_sdk_dynamodb as dynamodb;
 use chrono::Utc;
 use dynamodb::model::AttributeValue;
-use lambda_http::{http::StatusCode, run, service_fn, Body, Error, Request, Response};
+use lambda_http::{
+    http::StatusCode, run, service_fn, Body, Error, IntoResponse, Request, Response,
+};
 use std::env;
 
 mod types;
@@ -9,12 +11,18 @@ mod utils;
 
 #[tokio::main]
 async fn main() -> Result<(), Error> {
-    run(service_fn(log_in)).await?;
+    let client = utils::dynamo_db::get_dynamo_db_client().await;
+
+    run(service_fn(|request| async {
+        log_in(request, &client).await
+    }))
+    .await?;
+
     Ok(())
 }
 
 async fn get_user_by_username(
-    client: dynamodb::Client,
+    client: &dynamodb::Client,
     username: &str,
 ) -> Result<types::user::User, (StatusCode, String)> {
     utils::dynamo_db::get_item::<types::user::User>(
@@ -25,7 +33,7 @@ async fn get_user_by_username(
     .await
 }
 
-async fn log_in(request: Request) -> Result<Response<Body>, Error> {
+async fn log_in(request: Request, client: &dynamodb::Client) -> Result<impl IntoResponse, Error> {
     match request.body() {
         Body::Text(body) => match serde_json::from_str::<types::log_in::LogInRequest>(body) {
             Ok(body) => {
@@ -37,8 +45,6 @@ async fn log_in(request: Request) -> Result<Response<Body>, Error> {
                         "Please provide both necessary parameters: `email` and `password`.".into(),
                     )?);
                 }
-
-                let client = utils::dynamo_db::get_dynamo_db_client().await;
 
                 let user = match get_user_by_username(client, &username).await {
                     Ok(user) => user,

@@ -5,7 +5,7 @@ use dynamodb::model::AttributeValue;
 use lambda_http::{aws_lambda_events::query_map::QueryMap, Body, Error, Response};
 
 pub async fn query_for_testimonials_by_active(
-    client: dynamodb::Client,
+    client: &dynamodb::Client,
     active: bool,
     querymap: QueryMap,
 ) -> Result<Response<Body>, Error> {

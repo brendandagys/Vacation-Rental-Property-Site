@@ -5,7 +5,7 @@ use dynamodb::model::AttributeValue;
 use lambda_http::{aws_lambda_events::query_map::QueryMap, Body, Error, Response};
 
 pub async fn batch_get_calendar_dates(
-    client: dynamodb::Client,
+    client: &dynamodb::Client,
     dates: Vec<&str>,
     querymap: QueryMap,
 ) -> Result<Response<Body>, Error> {

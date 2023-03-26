@@ -10,7 +10,7 @@ use query_for_all_booking_inquiries::query_for_all_booking_inquiries;
 use aws_sdk_dynamodb as dynamodb;
 use lambda_http::{aws_lambda_events::query_map::QueryMap, Body, Error, Response};
 
-pub async fn get(client: dynamodb::Client, querymap: QueryMap) -> Result<Response<Body>, Error> {
+pub async fn get(client: &dynamodb::Client, querymap: QueryMap) -> Result<Response<Body>, Error> {
     if let Some(state) = querymap.first("state") {
         return query_for_booking_inquiries_by_state(client, state, querymap.clone()).await;
     }

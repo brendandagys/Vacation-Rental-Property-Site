@@ -14,7 +14,7 @@ use lambda_http::{
     aws_lambda_events::query_map::QueryMap, http::StatusCode, Body, Error, Response,
 };
 
-pub async fn get(client: dynamodb::Client, querymap: QueryMap) -> Result<Response<Body>, Error> {
+pub async fn get(client: &dynamodb::Client, querymap: QueryMap) -> Result<Response<Body>, Error> {
     if let Some(dates) = querymap.all("dates") {
         return batch_get_calendar_dates(client, dates, querymap.clone()).await;
     }

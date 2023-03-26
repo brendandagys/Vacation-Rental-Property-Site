@@ -5,7 +5,7 @@ use dynamodb::model::AttributeValue;
 use lambda_http::{aws_lambda_events::query_map::QueryMap, Body, Error, Response};
 
 pub async fn query_for_testimonials_by_active_and_date_range(
-    client: dynamodb::Client,
+    client: &dynamodb::Client,
     active: bool,
     (start_date, end_date): (&str, &str),
     querymap: QueryMap,

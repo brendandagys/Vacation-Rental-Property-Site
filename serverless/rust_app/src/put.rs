@@ -1,3 +1,4 @@
+use aws_sdk_dynamodb as dynamodb;
 use lambda_http::{http::StatusCode, run, service_fn, Body, Error, Request, Response};
 
 mod put_handlers;
@@ -6,13 +7,14 @@ mod utils;
 
 #[tokio::main]
 async fn main() -> Result<(), Error> {
-    run(service_fn(put)).await?;
+    let client = utils::dynamo_db::get_dynamo_db_client().await;
+
+    run(service_fn(|request| async { put(request, &client).await })).await?;
+
     Ok(())
 }
 
-async fn put(request: Request) -> Result<Response<Body>, Error> {
-    let client = utils::dynamo_db::get_dynamo_db_client().await;
-
+async fn put(request: Request, client: &dynamodb::Client) -> Result<Response<Body>, Error> {
     let token = match request.headers().get("Authorization") {
         Some(token) => token,
         None => {

@@ -10,7 +10,7 @@ use serde_dynamo::from_items;
 use std::{collections::HashMap, env};
 
 pub async fn batch_get_item<'a, T: Deserialize<'a> + Serialize>(
-    client: dynamodb::Client,
+    client: &dynamodb::Client,
     item_keys: Vec<(AttributeValue, AttributeValue)>,
 ) -> Result<lambda_http::Response<Body>, Error> {
     let mut keys_and_attributes_builder = KeysAndAttributes::builder();

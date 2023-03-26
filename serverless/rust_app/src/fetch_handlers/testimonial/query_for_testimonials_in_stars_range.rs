@@ -6,7 +6,7 @@ use lambda_http::aws_lambda_events::query_map::QueryMap;
 use lambda_http::{http::StatusCode, Body, Error, Response};
 
 pub async fn query_for_testimonials_in_stars_range(
-    client: dynamodb::Client,
+    client: &dynamodb::Client,
     (inclusive_lower, inclusive_upper): (&str, &str),
     querymap: QueryMap,
 ) -> Result<Response<Body>, Error> {

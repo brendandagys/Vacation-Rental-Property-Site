@@ -5,7 +5,7 @@ use dynamodb::model::AttributeValue;
 use lambda_http::{aws_lambda_events::query_map::QueryMap, Body, Error, Response};
 
 pub async fn query_for_calendar_dates_in_date_range(
-    client: dynamodb::Client,
+    client: &dynamodb::Client,
     (start_date, end_date): (&str, &str),
     querymap: QueryMap,
 ) -> Result<Response<Body>, Error> {

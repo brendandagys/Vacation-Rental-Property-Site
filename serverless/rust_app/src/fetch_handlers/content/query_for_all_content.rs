@@ -5,7 +5,7 @@ use dynamodb::model::AttributeValue;
 use lambda_http::{aws_lambda_events::query_map::QueryMap, Body, Error, Response};
 
 pub async fn query_for_all_content(
-    client: dynamodb::Client,
+    client: &dynamodb::Client,
     querymap: QueryMap,
 ) -> Result<Response<Body>, Error> {
     utils::dynamo_db::query::<types::content::Content>(

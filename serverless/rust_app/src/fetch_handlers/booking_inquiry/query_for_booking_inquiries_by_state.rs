@@ -5,7 +5,7 @@ use dynamodb::model::AttributeValue;
 use lambda_http::{aws_lambda_events::query_map::QueryMap, Body, Error, Response};
 
 pub async fn query_for_booking_inquiries_by_state(
-    client: dynamodb::Client,
+    client: &dynamodb::Client,
     state: &str,
     querymap: QueryMap,
 ) -> Result<Response<Body>, Error> {

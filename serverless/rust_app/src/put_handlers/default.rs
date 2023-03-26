@@ -30,7 +30,7 @@ pub fn build_default_item<T: Buildable>(
 }
 
 pub async fn put_default(
-    client: dynamodb::Client,
+    client: &dynamodb::Client,
     default: types::default::DefaultPutRequest,
 ) -> Result<lambda_http::Response<Body>, Error> {
     let mut builder = client
@@ -44,7 +44,7 @@ pub async fn put_default(
 }
 
 pub async fn put_defaults(
-    client: dynamodb::Client,
+    client: &dynamodb::Client,
     defaults: Vec<types::default::DefaultPutRequest>,
 ) -> Result<lambda_http::Response<Body>, Error> {
     let now = Utc::now();

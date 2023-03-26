@@ -7,7 +7,7 @@ use lambda_http::{http::StatusCode, Body, Error};
 use std::env;
 
 pub async fn put_user(
-    client: dynamodb::Client,
+    client: &dynamodb::Client,
     user: types::user::UserPutRequest,
 ) -> Result<lambda_http::Response<Body>, Error> {
     let types::user::UserPutRequest {
