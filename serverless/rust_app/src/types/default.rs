@@ -26,6 +26,7 @@ pub struct Default {
     pub gsi_primary_key: String,
     #[serde(rename = "GSI-SK")]
     pub gsi_sort_key: String,
+    #[serde(rename = "defaultFor")]
     pub default_for: DefaultFor,
     pub value: String,
     pub created: String,
@@ -34,6 +35,7 @@ pub struct Default {
 
 #[derive(Deserialize)]
 pub struct DefaultPutRequest {
+    #[serde(rename = "defaultFor")]
     pub default_for: DefaultFor,
     pub value: String,
 }

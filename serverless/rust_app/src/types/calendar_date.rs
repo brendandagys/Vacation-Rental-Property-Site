@@ -18,11 +18,12 @@ pub struct CalendarDate {
     #[serde(rename = "GSI-SK")]
     pub gsi_sort_key: String,
     pub ymd: String,
-    pub state: Option<DateState>,
+    pub state: DateState,
     pub price: u16,
     pub year: u16,
     pub month: u8,
     pub date: u8,
+    #[serde(rename = "cellColor")]
     pub cell_color: Option<String>,
     pub created: String,
     pub modified: Option<String>,
@@ -36,5 +37,6 @@ pub struct CalendarDatePutRequest {
     pub year: u16,
     pub month: u8,
     pub date: u8,
+    #[serde(rename = "cellColor")]
     pub cell_color: Option<String>,
 }

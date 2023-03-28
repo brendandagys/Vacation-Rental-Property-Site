@@ -24,3 +24,14 @@ export interface IYearMonthDate extends IYearMonth { date: TDateNumber; }
 export type TCalendarMonthsRequest = IYearMonth[];
 
 export type TCalendarsData = Record<string, ICalendarDate[]>;
+
+export type Nullable<T> = T | null;
+
+export interface IMandatoryDynamodbFields {
+  PK: string;
+  SK: string;
+  ['GSI-PK']: string;
+  ['GSI-SK']: string;
+  created: string;
+  modified?: string;
+}

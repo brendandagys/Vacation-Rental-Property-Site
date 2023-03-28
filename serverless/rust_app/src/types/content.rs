@@ -48,6 +48,7 @@ pub struct Content {
     pub gsi_primary_key: String,
     #[serde(rename = "GSI-SK")]
     pub gsi_sort_key: String,
+    #[serde(rename = "contentId")]
     pub content_id: ContentId,
     pub version: u16,
     #[serde(flatten)]
@@ -58,6 +59,7 @@ pub struct Content {
 
 #[derive(Deserialize)]
 pub struct ContentPutRequest {
+    #[serde(rename = "contentId")]
     pub content_id: ContentId,
     pub version: u16,
     #[serde(flatten)]
