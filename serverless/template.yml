@@ -1,29 +1,71 @@
 AWSTemplateFormatVersion: '2010-09-09'
 Transform: AWS::Serverless-2016-10-31
 Description: >
-  hello-world
-
-  Sample SAM Template for hello-world
+  SAM template.
 
 # More info about Globals: https://github.com/awslabs/serverless-application-model/blob/master/docs/globals.rst
 Globals:
   Function:
     Timeout: 3
 
+Parameters:
+  AuthorizationHashSalt:
+    Type: String
+    Default: 9281938493930257
+    Description: Secret salt for hashing passwords
+  DynamoDbEndpoint:
+    Type: String
+    Default: http://docker.for.mac.localhost:8000
+  JwtSecret:
+    Type: String
+    Default: myjwtsecret
+  TableName:
+    Type: String
+    Default: business-site
+    Description: Name of the DynamoDB table
+
 Resources:
   Table:
-    Type: AWS::Serverless::SimpleTable # More info about SimpleTable Resource: https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/sam-resource-simpletable.html
+    Type: AWS::DynamoDB::Table
     Properties:
-      PrimaryKey:
-        Name: id
-        Type: String
+      KeySchema:
+        - AttributeName: PK
+          KeyType: HASH
+        - AttributeName: SK
+          KeyType: RANGE
+      AttributeDefinitions:
+        - AttributeName: PK
+          AttributeType: S
+        - AttributeName: SK
+          AttributeType: S
+        - AttributeName: GSI-PK
+          AttributeType: S
+        - AttributeName: GSI-SK
+          AttributeType: S
+      GlobalSecondaryIndexes:
+        - IndexName: GSI-1
+          KeySchema:
+            - AttributeName: GSI-PK
+              KeyType: HASH
+            - AttributeName: GSI-SK
+              KeyType: RANGE
+          Projection:
+            ProjectionType: ALL
+      BillingMode: PAY_PER_REQUEST
+      TableName: !Ref TableName
+  # Table:
+  #   Type: AWS::Serverless::SimpleTable # More info about SimpleTable Resource: https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/sam-resource-simpletable.html
+  #   Properties:
+  #     PrimaryKey:
+  #       Name: id
+  #       Type: String
 
-  Function1:
+  LogInFunction:
     Type: AWS::Serverless::Function # More info about Function Resource: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#awsserverlessfunction
     Metadata:
       BuildMethod: rust-cargolambda # More info about Cargo Lambda: https://github.com/cargo-lambda/cargo-lambda
       BuildProperties:
-        Binary: function_a
+        Binary: log_in
     Properties:
       CodeUri: ./rust_app   # Points to dir of Cargo.toml
       Handler: bootstrap    # Do not change, as this is the default executable name produced by Cargo Lambda
@@ -34,22 +76,24 @@ Resources:
         HelloWorld:
           Type: Api # More info about API Event Source: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#api
           Properties:
-            Path: /one
-            Method: get
-            # Method: put
-      # Environment:
-      #   Variables:
-      #     TABLE_NAME: !Ref Table
+            Path: /log-in
+            Method: post
+      Environment:
+        Variables:
+          JWT_SECRET: !Ref JwtSecret
+          TABLE_NAME: !Ref TableName
+          AUTHORIZATION_HASH_SALT: !Ref AuthorizationHashSalt
+          DYNAMODB_ENDPOINT: !Ref DynamoDbEndpoint
       # Policies:
       # - DynamoDBWritePolicy:   # More info about SAM policy templates: https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/serverless-policy-templates.html
       #     TableName: !Ref Table
   
-  Function2:
+  GetItemsFunction:
     Type: AWS::Serverless::Function # More info about Function Resource: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#awsserverlessfunction
     Metadata:
       BuildMethod: rust-cargolambda # More info about Cargo Lambda: https://github.com/cargo-lambda/cargo-lambda
       BuildProperties:
-        Binary: function_b
+        Binary: fetch
     Properties:
       CodeUri: ./rust_app   # Points to dir of Cargo.toml
       Handler: bootstrap    # Do not change, as this is the default executable name produced by Cargo Lambda
@@ -60,15 +104,40 @@ Resources:
         HelloWorld:
           Type: Api # More info about API Event Source: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#api
           Properties:
-            Path: /two
+            Path: /fetch
             Method: get
-            # Method: put
-      # Environment:
-      #   Variables:
-      #     TABLE_NAME: !Ref Table
-      # Policies:
-      # - DynamoDBWritePolicy:   # More info about SAM policy templates: https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/serverless-policy-templates.html
-      #     TableName: !Ref Table
+      Environment:
+        Variables:
+          JWT_SECRET: !Ref JwtSecret
+          TABLE_NAME: !Ref TableName
+          AUTHORIZATION_HASH_SALT: !Ref AuthorizationHashSalt
+          DYNAMODB_ENDPOINT: !Ref DynamoDbEndpoint
+  
+  PutItemFunction:
+    Type: AWS::Serverless::Function # More info about Function Resource: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#awsserverlessfunction
+    Metadata:
+      BuildMethod: rust-cargolambda # More info about Cargo Lambda: https://github.com/cargo-lambda/cargo-lambda
+      BuildProperties:
+        Binary: put
+    Properties:
+      CodeUri: ./rust_app   # Points to directory of Cargo.toml
+      Handler: bootstrap    # Do not change, as this is the default executable name produced by Cargo Lambda
+      Runtime: provided.al2
+      Architectures:
+      - arm64
+      Events:
+        HelloWorld:
+          Type: Api # More info about API Event Source: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#api
+          Properties:
+            Path: /put
+            Method: put
+      Environment:
+        Variables:
+          JWT_SECRET: !Ref JwtSecret
+          TABLE_NAME: !Ref TableName
+          AUTHORIZATION_HASH_SALT: !Ref AuthorizationHashSalt
+          DYNAMODB_ENDPOINT: !Ref DynamoDbEndpoint
+
 
   ApplicationResourceGroup:
     Type: AWS::ResourceGroups::Group

@@ -15,6 +15,7 @@ target/
 # Miscellaneous
 .DS_Store
 .env*
+env.*
 /extra
 .aws-sam/
 

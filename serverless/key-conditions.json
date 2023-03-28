@@ -1,0 +1,18 @@
+{
+  "PK": {
+    "AttributeValueList": [
+      {
+        "S": "DATE"
+      }
+    ],
+    "ComparisonOperator": "EQ"
+  },
+  "SK": {
+    "AttributeValueList": [
+      {
+        "S": "2026-01-01"
+      }
+    ],
+    "ComparisonOperator": "GE"
+  }
+}
