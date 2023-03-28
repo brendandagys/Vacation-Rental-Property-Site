@@ -16,7 +16,9 @@ module.exports = {
   plugins: [ '@typescript-eslint', 'react-hooks' ],
   root: true,
   rules: {
+    "@typescript-eslint/comma-dangle": [ "warn", "always-multiline" ],
     "@typescript-eslint/indent": [ "warn", 2 ],
+    "@typescript-eslint/member-delimiter-style": "warn",
     "@typescript-eslint/no-explicit-any": [ "warn", { ignoreRestArgs: true } ],
     "@typescript-eslint/no-unused-vars": "warn",
     "@typescript-eslint/semi": "warn",
