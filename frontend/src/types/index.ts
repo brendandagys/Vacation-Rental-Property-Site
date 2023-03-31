@@ -17,9 +17,9 @@ export interface ICalendarDate {
   price: number;
 }
 
-export interface IYearMonth { year: number; month: TMonthNumber; }
+export interface IYearMonth { year: number; month: TMonthNumber }
 
-export interface IYearMonthDate extends IYearMonth { date: TDateNumber; }
+export interface IYearMonthDate extends IYearMonth { date: TDateNumber }
 
 export type TCalendarMonthsRequest = IYearMonth[];
 
