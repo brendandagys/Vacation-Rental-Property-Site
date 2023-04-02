@@ -25,7 +25,7 @@ async fn fetch(request: Request, client: &dynamodb::Client) -> Result<Response<B
             "BookingInquiry" => fetch_handlers::booking_inquiry::get(client, querymap).await,
             "CalendarDate" => fetch_handlers::calendar_date::get(client, querymap).await,
             "Content" => fetch_handlers::content::query_for_all_content(client, querymap).await,
-            "Default" => fetch_handlers::default::query_for_all_defaults(client, querymap).await,
+            "Default" => fetch_handlers::default::get(client, querymap).await,
             "Testimonial" => fetch_handlers::testimonial::get(client, querymap).await,
             "User" => fetch_handlers::user::get(client, querymap).await,
             &_ => Ok(utils::http::build_http_response(StatusCode::OK, "Please specify one of the following entity types: `BookingInquiry`, `CalendarDate`, `Content`, `Default`, `Testimonial`, `User`.")),

@@ -55,7 +55,7 @@ pub async fn get_item_http<'a, T: Deserialize<'a> + Serialize>(
     primary_key: AttributeValue,
     sort_key: AttributeValue,
 ) -> Result<lambda_http::Response<Body>, Error> {
-    match get_item::<types::user::User>(client, primary_key, sort_key).await {
+    match get_item::<T>(client, primary_key, sort_key).await {
         Ok(typed_entity) => serialize_fetch_response(typed_entity),
         Err((status_code, message)) => Ok(utils::http::build_http_response(status_code, &message)),
     }
