@@ -9,7 +9,7 @@ pub async fn query_for_calendar_dates_by_state(
     state: &str,
     querymap: QueryMap,
 ) -> Result<Response<Body>, Error> {
-    utils::dynamo_db::query::<types::calendar_date::CalendarDate>(
+    utils::dynamo_db::query_http::<types::calendar_date::CalendarDate>(
         client,
         Some("GSI-1".into()),
         "#key1 = :value1 AND #key2 = :value2".to_string(),

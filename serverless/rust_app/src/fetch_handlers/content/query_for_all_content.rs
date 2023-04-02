@@ -8,7 +8,7 @@ pub async fn query_for_all_content(
     client: &dynamodb::Client,
     querymap: QueryMap,
 ) -> Result<Response<Body>, Error> {
-    utils::dynamo_db::query::<types::content::Content>(
+    utils::dynamo_db::query_http::<types::content::Content>(
         client,
         Some("GSI-1".to_string()),
         "#field = :value".to_string(),

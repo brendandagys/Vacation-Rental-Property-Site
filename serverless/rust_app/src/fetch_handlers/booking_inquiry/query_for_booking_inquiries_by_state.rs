@@ -9,7 +9,7 @@ pub async fn query_for_booking_inquiries_by_state(
     state: &str,
     querymap: QueryMap,
 ) -> Result<Response<Body>, Error> {
-    utils::dynamo_db::query::<types::booking_inquiry::BookingInquiry>(
+    utils::dynamo_db::query_http::<types::booking_inquiry::BookingInquiry>(
         client,
         Some("GSI-1".into()),
         "#key1 = :value1 AND #key2 = :value2".to_string(),

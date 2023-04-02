@@ -8,7 +8,7 @@ pub async fn query_for_all_defaults(
     client: &dynamodb::Client,
     querymap: QueryMap,
 ) -> Result<Response<Body>, Error> {
-    utils::dynamo_db::query::<types::default::Default>(
+    utils::dynamo_db::query_http::<types::default::Default>(
         client,
         None,
         "#field = :value".to_string(),

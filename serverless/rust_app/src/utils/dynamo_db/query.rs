@@ -15,7 +15,7 @@ pub async fn query<'a, T: Deserialize<'a> + Serialize + std::fmt::Debug>(
     key_condition_expression: String,
     expression_attribute_names: &[(&str, &str)],
     expression_attribute_values: Vec<(&str, AttributeValue)>,
-) -> Result<Response<Body>, Error> {
+) -> Result<Vec<T>, (StatusCode, String)> {
     let mut builder = client
         .query()
         .table_name(env::var("TABLE_NAME").unwrap().to_string());
@@ -42,10 +42,7 @@ pub async fn query<'a, T: Deserialize<'a> + Serialize + std::fmt::Debug>(
     {
         Ok(result) => result,
         Err(error) => {
-            return Ok(utils::http::build_http_response(
-                StatusCode::INTERNAL_SERVER_ERROR,
-                &error.to_string(),
-            ));
+            return Err((StatusCode::INTERNAL_SERVER_ERROR, error.to_string()));
         }
     };
 
@@ -53,9 +50,9 @@ pub async fn query<'a, T: Deserialize<'a> + Serialize + std::fmt::Debug>(
     let items = match result.items() {
         Some(items) => items,
         None => {
-            return Ok(utils::http::build_http_response(
+            return Err((
                 StatusCode::NOT_FOUND,
-                &serde_json::json!(format!(
+                serde_json::json!(format!(
                     "{}",
                     if key_condition_expression.contains(" = :") {
                         "null"
@@ -78,12 +75,30 @@ pub async fn query<'a, T: Deserialize<'a> + Serialize + std::fmt::Debug>(
                 "Error converting DynamoDB items: {:?} into known type.",
                 items
             );
-            return Ok(utils::http::build_http_response(
-                StatusCode::INTERNAL_SERVER_ERROR,
-                &error.to_string(),
-            ));
+            return Err((StatusCode::INTERNAL_SERVER_ERROR, error.to_string()));
         }
     };
 
-    serialize_fetch_response(entities)
+    Ok(entities)
+}
+
+pub async fn query_http<'a, T: Deserialize<'a> + Serialize + std::fmt::Debug>(
+    client: &dynamodb::Client,
+    index_name: Option<String>,
+    key_condition_expression: String,
+    expression_attribute_names: &[(&str, &str)],
+    expression_attribute_values: Vec<(&str, AttributeValue)>,
+) -> Result<Response<Body>, Error> {
+    match query::<T>(
+        client,
+        index_name,
+        key_condition_expression,
+        expression_attribute_names,
+        expression_attribute_values,
+    )
+    .await
+    {
+        Ok(typed_entities) => serialize_fetch_response(typed_entities),
+        Err((status_code, message)) => Ok(utils::http::build_http_response(status_code, &message)),
+    }
 }

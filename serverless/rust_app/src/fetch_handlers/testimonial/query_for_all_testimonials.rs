@@ -8,7 +8,7 @@ pub async fn query_for_all_testimonials(
     client: &dynamodb::Client,
     querymap: QueryMap,
 ) -> Result<Response<Body>, Error> {
-    utils::dynamo_db::query::<types::testimonial::Testimonial>(
+    utils::dynamo_db::query_http::<types::testimonial::Testimonial>(
         client,
         Some("GSI-1".to_string()),
         "#field = :value".to_string(),

@@ -8,7 +8,7 @@ pub async fn query_for_all_users(
     client: &dynamodb::Client,
     querymap: QueryMap,
 ) -> Result<Response<Body>, Error> {
-    utils::dynamo_db::query::<types::user::User>(
+    utils::dynamo_db::query_http::<types::user::User>(
         client,
         Some("GSI-1".to_string()),
         "#field = :value".to_string(),

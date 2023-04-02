@@ -9,7 +9,7 @@ pub async fn query_for_booking_inquiries_in_date_range(
     (start_date, end_date): (&str, &str),
     querymap: QueryMap,
 ) -> Result<Response<Body>, Error> {
-    utils::dynamo_db::query::<types::booking_inquiry::BookingInquiry>(
+    utils::dynamo_db::query_http::<types::booking_inquiry::BookingInquiry>(
         client,
         None,
         "#key1 = :value1 AND #key2 BETWEEN :value2 AND :value3".to_string(),

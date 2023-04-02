@@ -8,7 +8,7 @@ pub async fn query_for_all_booking_inquiries(
     client: &dynamodb::Client,
     querymap: QueryMap,
 ) -> Result<Response<Body>, Error> {
-    utils::dynamo_db::query::<types::booking_inquiry::BookingInquiry>(
+    utils::dynamo_db::query_http::<types::booking_inquiry::BookingInquiry>(
         client,
         None,
         "#field = :value".to_string(),

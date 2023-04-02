@@ -9,7 +9,7 @@ pub async fn query_for_calendar_dates_in_date_range(
     (start_date, end_date): (&str, &str),
     querymap: QueryMap,
 ) -> Result<Response<Body>, Error> {
-    utils::dynamo_db::query::<types::calendar_date::CalendarDate>(
+    utils::dynamo_db::query_http::<types::calendar_date::CalendarDate>(
         client,
         None,
         "#key1 = :value1 AND #key2 BETWEEN :value2 AND :value3".to_string(),
