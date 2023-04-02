@@ -7,16 +7,16 @@ pub use batch_write_item::batch_write_item;
 mod get_item;
 pub use get_item::{get_item, get_item_http};
 
+mod put_item;
+pub use put_item::{put_item, put_item_http};
+
 mod query;
 pub use query::{query, query_http};
 
 use crate::utils;
 
 use aws_sdk_dynamodb as dynamodb;
-use dynamodb::{
-    client::fluent_builders::PutItem,
-    model::{AttributeValue, ReturnConsumedCapacity},
-};
+use dynamodb::{client::fluent_builders::PutItem, model::AttributeValue};
 use lambda_http::{http::StatusCode, Body, Error, Response};
 use std::env;
 
@@ -56,23 +56,6 @@ pub fn append_u8_item_if_exists(
             updated_builder
         }
         None => builder,
-    }
-}
-
-pub async fn send_put_item_request(builder: PutItem) -> Result<lambda_http::Response<Body>, Error> {
-    match builder
-        .return_consumed_capacity(ReturnConsumedCapacity::Indexes)
-        .send()
-        .await
-    {
-        Ok(result) => Ok(utils::http::build_http_response(
-            StatusCode::OK,
-            &format!("PUT result: {:?}", result),
-        )),
-        Err(error) => Ok(utils::http::build_http_response(
-            StatusCode::INTERNAL_SERVER_ERROR,
-            &error.to_string(),
-        )),
     }
 }
 

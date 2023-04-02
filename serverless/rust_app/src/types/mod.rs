@@ -7,6 +7,7 @@ pub mod testimonial;
 pub mod user;
 
 use aws_sdk_dynamodb as dynamodb;
+use chrono::{DateTime, Utc};
 use dynamodb::{
     client::fluent_builders::PutItem,
     model::{put_request::Builder, AttributeValue},
@@ -42,4 +43,8 @@ impl Buildable for PutItem {
     fn item(self, k: impl Into<std::string::String>, v: AttributeValue) -> Self {
         self.item(k, v)
     }
+}
+
+pub trait BuildFunction<T: Buildable, U> {
+    fn build_item(&self, builder: T, item: U, now: DateTime<Utc>) -> T;
 }
