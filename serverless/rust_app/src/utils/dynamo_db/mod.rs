@@ -1,5 +1,5 @@
 mod batch_get_item;
-pub use batch_get_item::batch_get_item;
+pub use batch_get_item::{batch_get_item, batch_get_item_http};
 
 mod batch_write_item;
 pub use batch_write_item::batch_write_item;

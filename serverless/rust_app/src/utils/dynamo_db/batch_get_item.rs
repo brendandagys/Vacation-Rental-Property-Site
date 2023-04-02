@@ -12,7 +12,7 @@ use std::{collections::HashMap, env};
 pub async fn batch_get_item<'a, T: Deserialize<'a> + Serialize>(
     client: &dynamodb::Client,
     item_keys: Vec<(AttributeValue, AttributeValue)>,
-) -> Result<lambda_http::Response<Body>, Error> {
+) -> Result<Vec<T>, (StatusCode, String)> {
     let mut keys_and_attributes_builder = KeysAndAttributes::builder();
 
     for (primary_key, sort_key) in item_keys {
@@ -36,31 +36,18 @@ pub async fn batch_get_item<'a, T: Deserialize<'a> + Serialize>(
     {
         Ok(result) => result,
         Err(error) => {
-            return Ok(utils::http::build_http_response(
-                StatusCode::INTERNAL_SERVER_ERROR,
-                &error.to_string(),
-            ));
+            return Err((StatusCode::INTERNAL_SERVER_ERROR, error.to_string()));
         }
     };
 
     let tables_and_items = match result.responses() {
         Some(items) => items,
-        None => {
-            return Ok(utils::http::build_http_response(
-                StatusCode::NOT_FOUND,
-                &serde_json::json!([]).to_string(),
-            ))
-        }
+        None => return Err((StatusCode::NOT_FOUND, serde_json::json!([]).to_string())),
     };
 
     let items = match tables_and_items.get(&env::var("TABLE_NAME").unwrap()) {
         Some(items) => items,
-        None => {
-            return Ok(utils::http::build_http_response(
-                StatusCode::OK,
-                &serde_json::json!([]).to_string(),
-            ))
-        }
+        None => return Err((StatusCode::OK, serde_json::json!([]).to_string())),
     };
 
     let entities: Vec<T> = match from_items(items.clone()) {
@@ -70,12 +57,19 @@ pub async fn batch_get_item<'a, T: Deserialize<'a> + Serialize>(
                 "Error converting DynamoDB items: {:?} into known type.",
                 items
             );
-            return Ok(utils::http::build_http_response(
-                StatusCode::INTERNAL_SERVER_ERROR,
-                &error.to_string(),
-            ));
+            return Err((StatusCode::INTERNAL_SERVER_ERROR, error.to_string()));
         }
     };
 
-    serialize_fetch_response(entities)
+    Ok(entities)
+}
+
+pub async fn batch_get_item_http<'a, T: Deserialize<'a> + Serialize>(
+    client: &dynamodb::Client,
+    item_keys: Vec<(AttributeValue, AttributeValue)>,
+) -> Result<lambda_http::Response<Body>, Error> {
+    match batch_get_item::<T>(client, item_keys).await {
+        Ok(typed_entities) => serialize_fetch_response(typed_entities),
+        Err((status_code, message)) => Ok(utils::http::build_http_response(status_code, &message)),
+    }
 }

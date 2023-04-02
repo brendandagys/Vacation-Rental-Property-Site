@@ -9,7 +9,7 @@ pub async fn batch_get_calendar_dates(
     dates: Vec<&str>,
     querymap: QueryMap,
 ) -> Result<Response<Body>, Error> {
-    utils::dynamo_db::batch_get_item::<types::calendar_date::CalendarDate>(
+    utils::dynamo_db::batch_get_item_http::<types::calendar_date::CalendarDate>(
         client,
         Vec::from(
             dates
