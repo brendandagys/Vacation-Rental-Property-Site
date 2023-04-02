@@ -1,13 +1,15 @@
 use crate::{
-    types::{self, Buildable},
+    types::{self, BuildFunction, Buildable},
     utils::{self, dynamo_db::batch_write_item},
 };
 
 use aws_sdk_dynamodb as dynamodb;
 use chrono::{DateTime, Utc};
-use dynamodb::model::{AttributeValue, PutRequest, WriteRequest};
+use dynamodb::{
+    client::fluent_builders::PutItem,
+    model::{AttributeValue, PutRequest, WriteRequest},
+};
 use lambda_http::{Body, Error};
-use std::env;
 
 pub fn build_content_item<T: Buildable>(
     mut builder: T,
@@ -44,18 +46,31 @@ pub fn build_content_item<T: Buildable>(
     builder.item("created", AttributeValue::S(now.to_string()))
 }
 
+struct BuildContent {}
+
+impl BuildFunction<PutItem, types::content::ContentPutRequest> for BuildContent {
+    fn build_item(
+        &self,
+        builder: PutItem,
+        content_put_request: types::content::ContentPutRequest,
+        now: DateTime<Utc>,
+    ) -> PutItem {
+        build_content_item(builder, content_put_request, now)
+    }
+}
+
 pub async fn put_content(
     client: &dynamodb::Client,
     content: types::content::ContentPutRequest,
 ) -> Result<lambda_http::Response<Body>, Error> {
-    let mut builder = client
-        .put_item()
-        .table_name(env::var("TABLE_NAME").unwrap().to_string());
+    let content_builder = BuildContent {};
 
-    let now = Utc::now();
-    builder = build_content_item(builder, content, now);
-
-    utils::dynamo_db::send_put_item_request(builder).await
+    utils::dynamo_db::put_item_http::<types::content::ContentPutRequest>(
+        client,
+        content_builder,
+        content,
+    )
+    .await
 }
 
 pub async fn put_contents(

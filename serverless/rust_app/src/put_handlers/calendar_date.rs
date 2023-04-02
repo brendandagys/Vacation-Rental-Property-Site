@@ -1,13 +1,15 @@
 use crate::{
-    types::{self, Buildable},
+    types::{self, BuildFunction, Buildable},
     utils::{self, dynamo_db::batch_write_item},
 };
 
 use aws_sdk_dynamodb as dynamodb;
 use chrono::{DateTime, Utc};
-use dynamodb::model::{AttributeValue, PutRequest, WriteRequest};
+use dynamodb::{
+    client::fluent_builders::PutItem,
+    model::{AttributeValue, PutRequest, WriteRequest},
+};
 use lambda_http::{http::StatusCode, Body, Error};
-use std::env;
 
 pub fn build_calendar_date_item<T: Buildable>(
     mut builder: T,
@@ -45,10 +47,25 @@ pub fn build_calendar_date_item<T: Buildable>(
     builder.item("created", AttributeValue::S(now.to_string()))
 }
 
+struct BuildCalendarDate {}
+
+impl BuildFunction<PutItem, types::calendar_date::CalendarDatePutRequest> for BuildCalendarDate {
+    fn build_item(
+        &self,
+        builder: PutItem,
+        calendar_date_put_request: types::calendar_date::CalendarDatePutRequest,
+        now: DateTime<Utc>,
+    ) -> PutItem {
+        build_calendar_date_item(builder, calendar_date_put_request, now)
+    }
+}
+
 pub async fn put_calendar_date(
     client: &dynamodb::Client,
     calendar_date: types::calendar_date::CalendarDatePutRequest,
 ) -> Result<lambda_http::Response<Body>, Error> {
+    let calendar_date_builder = BuildCalendarDate {};
+
     if calendar_date.ymd.len() != 10 {
         return Ok(utils::http::build_http_response(
             StatusCode::BAD_REQUEST,
@@ -56,14 +73,12 @@ pub async fn put_calendar_date(
         ));
     }
 
-    let mut builder = client
-        .put_item()
-        .table_name(env::var("TABLE_NAME").unwrap().to_string());
-
-    let now = Utc::now();
-    builder = build_calendar_date_item(builder, calendar_date, now);
-
-    utils::dynamo_db::send_put_item_request(builder).await
+    utils::dynamo_db::put_item_http::<types::calendar_date::CalendarDatePutRequest>(
+        client,
+        calendar_date_builder,
+        calendar_date,
+    )
+    .await
 }
 
 pub async fn put_calendar_dates(

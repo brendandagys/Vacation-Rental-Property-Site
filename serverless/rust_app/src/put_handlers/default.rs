@@ -1,13 +1,15 @@
 use crate::{
-    types::{self, Buildable},
+    types::{self, BuildFunction, Buildable},
     utils::{self, dynamo_db::batch_write_item},
 };
 
 use aws_sdk_dynamodb as dynamodb;
 use chrono::{DateTime, Utc};
-use dynamodb::model::{AttributeValue, PutRequest, WriteRequest};
+use dynamodb::{
+    client::fluent_builders::PutItem,
+    model::{AttributeValue, PutRequest, WriteRequest},
+};
 use lambda_http::{Body, Error};
-use std::env;
 
 pub fn build_default_item<T: Buildable>(
     builder: T,
@@ -29,18 +31,31 @@ pub fn build_default_item<T: Buildable>(
         .item("created", AttributeValue::S(now.to_string()))
 }
 
+struct BuildDefault {}
+
+impl BuildFunction<PutItem, types::default::DefaultPutRequest> for BuildDefault {
+    fn build_item(
+        &self,
+        builder: PutItem,
+        default_put_request: types::default::DefaultPutRequest,
+        now: DateTime<Utc>,
+    ) -> PutItem {
+        build_default_item(builder, default_put_request, now)
+    }
+}
+
 pub async fn put_default(
     client: &dynamodb::Client,
     default: types::default::DefaultPutRequest,
 ) -> Result<lambda_http::Response<Body>, Error> {
-    let mut builder = client
-        .put_item()
-        .table_name(env::var("TABLE_NAME").unwrap().to_string());
+    let default_builder = BuildDefault {};
 
-    let now = Utc::now();
-    builder = build_default_item(builder, default, now);
-
-    utils::dynamo_db::send_put_item_request(builder).await
+    utils::dynamo_db::put_item_http::<types::default::DefaultPutRequest>(
+        client,
+        default_builder,
+        default,
+    )
+    .await
 }
 
 pub async fn put_defaults(

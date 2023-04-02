@@ -1,15 +1,18 @@
-use crate::{types, utils};
+use crate::{
+    types::{self, BuildFunction},
+    utils,
+};
 
 use aws_sdk_dynamodb as dynamodb;
-use chrono::Utc;
-use dynamodb::model::AttributeValue;
+use chrono::{DateTime, Utc};
+use dynamodb::{client::fluent_builders::PutItem, model::AttributeValue};
 use lambda_http::{http::StatusCode, Body, Error};
-use std::env;
 
-pub async fn put_booking_inquiry(
-    client: &dynamodb::Client,
+pub fn build_booking_inquiry_item(
+    mut builder: PutItem,
     booking_inquiry: types::booking_inquiry::BookingInquiryPutRequest,
-) -> Result<lambda_http::Response<Body>, Error> {
+    now: DateTime<Utc>,
+) -> PutItem {
     let types::booking_inquiry::BookingInquiryPutRequest {
         state,
         email,
@@ -23,20 +26,9 @@ pub async fn put_booking_inquiry(
         message,
     } = booking_inquiry;
 
-    if email.trim() == "" || message.trim() == "" {
-        return Ok(utils::http::build_http_response(
-            StatusCode::BAD_REQUEST,
-            "Please provide all fields.",
-        ));
-    }
-
     let ensure_state = state.unwrap_or(types::booking_inquiry::BookingInquiryState::New);
 
-    let now = Utc::now();
-
-    let mut builder = client
-        .put_item()
-        .table_name(env::var("TABLE_NAME").unwrap().to_string())
+    builder = builder
         .item("PK", AttributeValue::S("INQUIRY".into()))
         .item("SK", AttributeValue::S(now.to_string()))
         .item("GSI-PK", AttributeValue::S("INQUIRY".into()))
@@ -54,5 +46,43 @@ pub async fn put_booking_inquiry(
     builder = builder.item("message", AttributeValue::S(message));
     builder = builder.item("created", AttributeValue::S(now.to_string()));
 
-    utils::dynamo_db::send_put_item_request(builder).await
+    builder
+}
+
+struct BuildBookingInquiry {}
+
+impl BuildFunction<PutItem, types::booking_inquiry::BookingInquiryPutRequest>
+    for BuildBookingInquiry
+{
+    fn build_item(
+        &self,
+        builder: PutItem,
+        booking_inquiry_put_request: types::booking_inquiry::BookingInquiryPutRequest,
+        now: DateTime<Utc>,
+    ) -> PutItem {
+        build_booking_inquiry_item(builder, booking_inquiry_put_request, now)
+    }
+}
+
+pub async fn put_booking_inquiry(
+    client: &dynamodb::Client,
+    booking_inquiry: types::booking_inquiry::BookingInquiryPutRequest,
+) -> Result<lambda_http::Response<Body>, Error> {
+    let types::booking_inquiry::BookingInquiryPutRequest { email, message, .. } = &booking_inquiry;
+
+    if email.trim() == "" || message.trim() == "" {
+        return Ok(utils::http::build_http_response(
+            StatusCode::BAD_REQUEST,
+            "Please provide all fields.",
+        ));
+    }
+
+    let booking_inquiry_builder = BuildBookingInquiry {};
+
+    utils::dynamo_db::put_item_http::<types::booking_inquiry::BookingInquiryPutRequest>(
+        client,
+        booking_inquiry_builder,
+        booking_inquiry,
+    )
+    .await
 }
