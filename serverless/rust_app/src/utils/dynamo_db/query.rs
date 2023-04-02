@@ -3,6 +3,7 @@ use crate::utils;
 
 use aws_sdk_dynamodb as dynamodb;
 use aws_sdk_dynamodb::model::AttributeValue;
+use dynamodb::model::ReturnConsumedCapacity;
 use lambda_http::{http::StatusCode, Body, Error, Response};
 use serde::{Deserialize, Serialize};
 use serde_dynamo::from_items;
@@ -34,7 +35,11 @@ pub async fn query<'a, T: Deserialize<'a> + Serialize + std::fmt::Debug>(
     }
 
     // Send the query to DynamoDB
-    let result = match builder.send().await {
+    let result = match builder
+        .return_consumed_capacity(ReturnConsumedCapacity::Indexes)
+        .send()
+        .await
+    {
         Ok(result) => result,
         Err(error) => {
             return Ok(utils::http::build_http_response(

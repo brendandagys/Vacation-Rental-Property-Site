@@ -3,6 +3,7 @@ use crate::{types, utils};
 
 use aws_sdk_dynamodb as dynamodb;
 use aws_sdk_dynamodb::model::AttributeValue;
+use dynamodb::model::ReturnConsumedCapacity;
 use lambda_http::{http::StatusCode, Body, Error};
 use serde::{Deserialize, Serialize};
 use serde_dynamo::from_item;
@@ -18,6 +19,7 @@ pub async fn get_item<'a, T: Deserialize<'a> + Serialize>(
         .table_name(env::var("TABLE_NAME").unwrap().to_string())
         .key("PK", primary_key)
         .key("SK", sort_key)
+        .return_consumed_capacity(ReturnConsumedCapacity::Indexes)
         .send()
         .await
     {
