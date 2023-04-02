@@ -23,7 +23,7 @@ pub struct CalendarDate {
     pub year: u16,
     pub month: u8,
     pub date: u8,
-    #[serde(rename = "cellColor")]
+    #[serde(rename(serialize = "cellColor"))]
     pub cell_color: Option<String>,
     pub created: String,
     pub modified: Option<String>,
@@ -37,6 +37,6 @@ pub struct CalendarDatePutRequest {
     pub year: u16,
     pub month: u8,
     pub date: u8,
-    #[serde(rename = "cellColor")]
+    #[serde(rename(deserialize = "cellColor"))]
     pub cell_color: Option<String>,
 }

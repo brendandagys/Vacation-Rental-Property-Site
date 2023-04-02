@@ -15,16 +15,7 @@ pub enum Stars {
     Five,
 }
 
-#[derive(Clone, Deserialize)]
-pub struct TestimonialPutRequest {
-    pub email: String,
-    pub stars: Stars,
-    pub title: String,
-    pub comment: String,
-    pub active: bool,
-}
-
-#[derive(Clone, Debug, Deserialize, Serialize)]
+#[derive(Debug, Deserialize, Serialize)]
 pub struct Testimonial {
     #[serde(rename = "PK")]
     pub primary_key: String,
@@ -41,4 +32,13 @@ pub struct Testimonial {
     pub active: bool,
     pub created: String,
     pub modified: Option<String>,
+}
+
+#[derive(Deserialize)]
+pub struct TestimonialPutRequest {
+    pub email: String,
+    pub stars: Stars,
+    pub title: String,
+    pub comment: String,
+    pub active: bool,
 }

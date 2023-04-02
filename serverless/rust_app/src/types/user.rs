@@ -1,6 +1,6 @@
 use serde::{Deserialize, Serialize};
 
-#[derive(Clone, Debug, Deserialize, Serialize)]
+#[derive(Debug, Deserialize, Serialize)]
 pub struct User {
     #[serde(rename = "PK")]
     pub primary_key: String,
@@ -22,7 +22,7 @@ pub struct User {
     pub modified: Option<String>,
 }
 
-#[derive(Clone, Deserialize)]
+#[derive(Deserialize)]
 pub struct UserPutRequest {
     pub username: String,
     pub email: String,

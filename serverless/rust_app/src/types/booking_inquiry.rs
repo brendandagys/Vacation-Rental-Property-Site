@@ -8,7 +8,7 @@ pub enum BookingInquiryState {
     Accepted,
 }
 
-#[derive(Clone, Debug, Deserialize, Serialize)]
+#[derive(Debug, Deserialize, Serialize)]
 pub struct BookingInquiry {
     #[serde(rename = "PK")]
     pub primary_key: String,
@@ -20,34 +20,34 @@ pub struct BookingInquiry {
     pub gsi_sort_key: String,
     pub state: BookingInquiryState,
     pub email: String,
-    #[serde(rename = "fromTo")]
+    #[serde(rename(serialize = "fromTo"))]
     pub from_to: Option<String>,
     pub last: Option<String>,
     pub first: Option<String>,
     pub phone: Option<String>,
     pub subtotal: Option<String>,
-    #[serde(rename = "adultCount")]
+    #[serde(rename(serialize = "adultCount"))]
     pub adult_count: Option<u8>,
-    #[serde(rename = "childCount")]
+    #[serde(rename(serialize = "childCount"))]
     pub child_count: Option<u8>,
     pub message: String,
     pub created: String,
     pub modified: Option<String>,
 }
 
-#[derive(Clone, Deserialize)]
+#[derive(Deserialize)]
 pub struct BookingInquiryPutRequest {
     pub state: Option<BookingInquiryState>,
     pub email: String,
-    #[serde(rename = "fromTo")]
+    #[serde(rename(deserialize = "fromTo"))]
     pub from_to: Option<String>,
     pub last: Option<String>,
     pub first: Option<String>,
     pub phone: Option<String>,
     pub subtotal: Option<String>,
-    #[serde(rename = "adultCount")]
+    #[serde(rename(deserialize = "adultCount"))]
     pub adult_count: Option<u8>,
-    #[serde(rename = "childCount")]
+    #[serde(rename(deserialize = "childCount"))]
     pub child_count: Option<u8>,
     pub message: String,
 }
