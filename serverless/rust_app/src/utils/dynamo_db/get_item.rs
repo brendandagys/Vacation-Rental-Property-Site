@@ -1,5 +1,5 @@
 use super::serialize_fetch_response;
-use crate::{types, utils};
+use crate::utils;
 
 use aws_sdk_dynamodb as dynamodb;
 use aws_sdk_dynamodb::model::AttributeValue;
