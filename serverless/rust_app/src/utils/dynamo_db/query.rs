@@ -1,5 +1,5 @@
 use super::serialize_fetch_response;
-use crate::utils;
+use crate::{types, utils};
 
 use aws_sdk_dynamodb as dynamodb;
 use aws_sdk_dynamodb::model::AttributeValue;
@@ -11,7 +11,7 @@ use std::env;
 
 pub async fn query<'a, T: Deserialize<'a> + Serialize + std::fmt::Debug>(
     client: &dynamodb::Client,
-    index_name: Option<String>,
+    index_name: Option<types::Index>,
     key_condition_expression: String,
     expression_attribute_names: &[(&str, &str)],
     expression_attribute_values: Vec<(&str, AttributeValue)>,
@@ -21,7 +21,7 @@ pub async fn query<'a, T: Deserialize<'a> + Serialize + std::fmt::Debug>(
         .table_name(env::var("TABLE_NAME").unwrap().to_string());
 
     if let Some(index_name) = index_name {
-        builder = builder.index_name(index_name);
+        builder = builder.index_name(index_name.to_string());
     }
 
     builder = builder.key_condition_expression(&key_condition_expression);
@@ -84,7 +84,7 @@ pub async fn query<'a, T: Deserialize<'a> + Serialize + std::fmt::Debug>(
 
 pub async fn query_http<'a, T: Deserialize<'a> + Serialize + std::fmt::Debug>(
     client: &dynamodb::Client,
-    index_name: Option<String>,
+    index_name: Option<types::Index>,
     key_condition_expression: String,
     expression_attribute_names: &[(&str, &str)],
     expression_attribute_values: Vec<(&str, AttributeValue)>,

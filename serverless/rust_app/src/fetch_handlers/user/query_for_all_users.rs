@@ -10,7 +10,7 @@ pub async fn query_for_all_users(
 ) -> Result<Response<Body>, Error> {
     utils::dynamo_db::query_http::<types::user::User>(
         client,
-        Some("GSI-1".to_string()),
+        Some(types::Index::GSI1),
         "#field = :value".to_string(),
         &[("#field", "GSI-PK")],
         vec![(":value", AttributeValue::S("USER".into()))],

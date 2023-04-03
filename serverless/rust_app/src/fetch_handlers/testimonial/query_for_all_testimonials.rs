@@ -10,7 +10,7 @@ pub async fn query_for_all_testimonials(
 ) -> Result<Response<Body>, Error> {
     utils::dynamo_db::query_http::<types::testimonial::Testimonial>(
         client,
-        Some("GSI-1".to_string()),
+        Some(types::Index::GSI1),
         "#field = :value".to_string(),
         &[("#field", "GSI-PK")],
         vec![(":value", AttributeValue::S("TESTIMONIAL".into()))],

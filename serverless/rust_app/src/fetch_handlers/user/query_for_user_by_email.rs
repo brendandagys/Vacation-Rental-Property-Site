@@ -11,7 +11,7 @@ pub async fn query_for_user_by_email(
 ) -> Result<Response<Body>, Error> {
     utils::dynamo_db::query_http::<types::user::User>(
         client,
-        Some("GSI-1".to_string()),
+        Some(types::Index::GSI1),
         "#key1 = :value1 AND #key2 = :value2".to_string(),
         &[("#key1", "GSI-PK"), ("#key2", "GSI-SK")],
         vec![

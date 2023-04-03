@@ -15,6 +15,18 @@ use dynamodb::{
 
 use serde::Deserialize;
 
+pub enum Index {
+    GSI1,
+}
+
+impl ToString for Index {
+    fn to_string(&self) -> String {
+        match self {
+            Index::GSI1 => format!("GSI-1"),
+        }
+    }
+}
+
 #[derive(Deserialize)]
 #[serde(untagged)]
 pub enum PutRequestEntity {
