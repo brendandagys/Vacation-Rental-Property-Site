@@ -43,16 +43,16 @@ pub enum PutRequestEntity {
 }
 
 pub trait Buildable {
-    fn item(self, k: impl Into<std::string::String>, v: AttributeValue) -> Self;
+    fn item(self, k: impl Into<String>, v: AttributeValue) -> Self;
 }
 
 impl Buildable for Builder {
-    fn item(self, k: impl Into<std::string::String>, v: AttributeValue) -> Builder {
+    fn item(self, k: impl Into<String>, v: AttributeValue) -> Builder {
         self.item(k, v)
     }
 }
 impl Buildable for PutItem {
-    fn item(self, k: impl Into<std::string::String>, v: AttributeValue) -> Self {
+    fn item(self, k: impl Into<String>, v: AttributeValue) -> Self {
         self.item(k, v)
     }
 }
