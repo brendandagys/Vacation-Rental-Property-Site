@@ -1,6 +1,7 @@
 use aws_sdk_dynamodb as dynamodb;
 use lambda_http::{http::StatusCode, run, service_fn, Body, Error, Request, Response};
 
+mod fetch_handlers;
 mod put_handlers;
 mod types;
 mod utils;

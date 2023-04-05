@@ -1,4 +1,5 @@
 use crate::{
+    fetch_handlers,
     types::{self, BuildFunction},
     utils,
 };
@@ -75,6 +76,19 @@ pub async fn put_user(
         return Ok(utils::http::build_http_response(
             StatusCode::BAD_REQUEST,
             "Password must be at least seven characters, with no whitespace.",
+        ));
+    }
+
+    let existing_user_with_username =
+        fetch_handlers::user::get_user_by_username(client, username).await;
+
+    let existing_user_with_email =
+        fetch_handlers::user::query_for_user_by_email(client, email).await;
+
+    if existing_user_with_email.is_ok() || existing_user_with_username.is_ok() {
+        return Ok(utils::http::build_http_response(
+            StatusCode::BAD_REQUEST,
+            "User already exists.",
         ));
     }
 
