@@ -1,8 +1,10 @@
 mod get_user_by_username;
-use get_user_by_username::get_user_by_username;
+pub use get_user_by_username::get_user_by_username;
+use get_user_by_username::get_user_by_username_http;
 
 mod query_for_user_by_email;
-use query_for_user_by_email::query_for_user_by_email;
+pub use query_for_user_by_email::query_for_user_by_email;
+use query_for_user_by_email::query_for_user_by_email_http;
 
 mod query_for_all_users;
 use query_for_all_users::query_for_all_users;
@@ -43,11 +45,11 @@ pub async fn get(
     };
 
     if let Some(username) = querymap.first("username") {
-        return get_user_by_username(client, username, querymap.clone()).await;
+        return get_user_by_username_http(client, username, querymap.clone()).await;
     }
 
     if let Some(email) = querymap.first("email") {
-        return query_for_user_by_email(client, email, querymap.clone()).await;
+        return query_for_user_by_email_http(client, email, querymap.clone()).await;
     }
 
     query_for_all_users(client, querymap).await
