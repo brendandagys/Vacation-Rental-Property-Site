@@ -59,7 +59,7 @@ pub fn append_u8_item_if_exists(
     }
 }
 
-fn serialize_fetch_response<T: serde::Serialize>(data: T) -> Result<Response<Body>, Error> {
+pub fn serialize_fetch_response<T: serde::Serialize>(data: T) -> Result<Response<Body>, Error> {
     match serde_json::to_string(&data) {
         Ok(string) => Ok(utils::http::build_http_response(StatusCode::OK, &string)),
         Err(error) => {

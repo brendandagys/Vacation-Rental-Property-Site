@@ -9,7 +9,7 @@ pub async fn query_for_calendar_dates_in_date_range(
     (start_date, end_date): (&str, &str),
     querymap: QueryMap,
 ) -> Result<Response<Body>, Error> {
-    utils::dynamo_db::query_http::<types::calendar_date::CalendarDate>(
+    let found_calendar_dates = match utils::dynamo_db::query::<types::calendar_date::CalendarDate>(
         client,
         None,
         "#key1 = :value1 AND #key2 BETWEEN :value2 AND :value3".to_string(),
@@ -21,4 +21,36 @@ pub async fn query_for_calendar_dates_in_date_range(
         ],
     )
     .await
+    {
+        Ok(calendar_dates) => calendar_dates,
+        Err((status_code, error_message)) => {
+            return Ok(utils::http::build_http_response(
+                status_code,
+                &error_message,
+            ))
+        }
+    };
+
+    let mut dates = Vec::new();
+
+    let current_date = chrono::NaiveDate::parse_from_str(start_date, "%Y-%m-%d").unwrap();
+    let end_date = chrono::NaiveDate::parse_from_str(end_date, "%Y-%m-%d").unwrap();
+
+    while current_date <= end_date {
+        dates.push(current_date.format("%Y-%m-%d").to_string());
+        current_date.checked_add_days(chrono::Days::new(1));
+    }
+
+    let all_requested_calendar_dates =
+        match super::get_missing_calendar_dates(client, found_calendar_dates, dates).await {
+            Ok(calendar_dates) => calendar_dates,
+            Err((status_code, error_message)) => {
+                return Ok(utils::http::build_http_response(
+                    status_code,
+                    &error_message,
+                ))
+            }
+        };
+
+    utils::dynamo_db::serialize_fetch_response(all_requested_calendar_dates)
 }

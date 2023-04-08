@@ -5,6 +5,9 @@ mod get_default_by_name;
 pub use get_default_by_name::get_default_by_name;
 use get_default_by_name::get_default_by_name_http;
 
+mod batch_get_defaults;
+pub use batch_get_defaults::batch_get_defaults;
+
 use aws_sdk_dynamodb as dynamodb;
 use lambda_http::{aws_lambda_events::query_map::QueryMap, Body, Error, Response};
 
