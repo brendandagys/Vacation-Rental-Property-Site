@@ -6,10 +6,10 @@ export type THttpMethod =
   | 'PUT'
   | 'DELETE';
 
-export interface IApiResponse<T = unknown> {
-  data: T;
+export interface IApiResponse<T> {
+  data: Nullable<T>;
   meta: {
-    records: number;
+    count: number;
     limit: Nullable<number>;
   };
 }

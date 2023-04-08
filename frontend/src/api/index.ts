@@ -36,11 +36,8 @@ export const api = async <T = unknown>(
     })
   );
   
-  const status = response.status;
-  const responseBody = await response.json() as IApiResponse<T>;
-
   return {
-    body: responseBody,
-    status,
+    status: response.status,
+    body: await response.json() as IApiResponse<T>,
   };
 };

@@ -1,10 +1,12 @@
-use super::serialize_fetch_response;
+use super::serialize_response;
 use crate::{types, utils};
 
 use aws_sdk_dynamodb as dynamodb;
 use aws_sdk_dynamodb::model::AttributeValue;
 use dynamodb::model::ReturnConsumedCapacity;
-use lambda_http::{http::StatusCode, Body, Error, Response};
+use lambda_http::{
+    aws_lambda_events::query_map::QueryMap, http::StatusCode, Body, Error, Response,
+};
 use serde::{Deserialize, Serialize};
 use serde_dynamo::from_items;
 use std::env;
@@ -15,6 +17,7 @@ pub async fn query<'a, T: Deserialize<'a> + Serialize + std::fmt::Debug>(
     key_condition_expression: String,
     expression_attribute_names: &[(&str, &str)],
     expression_attribute_values: Vec<(&str, AttributeValue)>,
+    limit: Option<i32>,
 ) -> Result<Vec<T>, (StatusCode, String)> {
     let mut builder = client
         .query()
@@ -32,6 +35,10 @@ pub async fn query<'a, T: Deserialize<'a> + Serialize + std::fmt::Debug>(
 
     for (key, value) in expression_attribute_values {
         builder = builder.expression_attribute_values(key, value);
+    }
+
+    if let Some(limit) = limit {
+        builder = builder.limit(limit)
     }
 
     // Send the query to DynamoDB
@@ -84,21 +91,35 @@ pub async fn query<'a, T: Deserialize<'a> + Serialize + std::fmt::Debug>(
 
 pub async fn query_http<'a, T: Deserialize<'a> + Serialize + std::fmt::Debug>(
     client: &dynamodb::Client,
+    querymap: QueryMap,
     index_name: Option<types::Index>,
     key_condition_expression: String,
     expression_attribute_names: &[(&str, &str)],
     expression_attribute_values: Vec<(&str, AttributeValue)>,
 ) -> Result<Response<Body>, Error> {
+    let limit = match querymap.first("limit") {
+        Some(limit) => match limit.parse::<i32>() {
+            Ok(limit) => Some(limit),
+            Err(_) => None, // Improper limit => fetch all records
+        },
+        None => None,
+    };
+
     match query::<T>(
         client,
         index_name,
         key_condition_expression,
         expression_attribute_names,
         expression_attribute_values,
+        limit,
     )
     .await
     {
-        Ok(typed_entities) => serialize_fetch_response(typed_entities),
+        Ok(typed_entities) => serialize_response(
+            types::http::ApiResponseData::Multiple(typed_entities),
+            Some(querymap),
+            limit,
+        ),
         Err((status_code, message)) => Ok(utils::http::build_http_response(status_code, &message)),
     }
 }

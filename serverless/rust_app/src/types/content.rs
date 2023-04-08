@@ -38,6 +38,12 @@ pub enum ContentData {
     Image(ImageContent),
 }
 
+#[derive(Debug)]
+pub enum ContentDataType {
+    TEXT,
+    IMAGE,
+}
+
 #[derive(Debug, Deserialize, Serialize)]
 pub struct Content {
     #[serde(rename = "PK")]

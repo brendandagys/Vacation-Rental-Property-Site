@@ -1,10 +1,10 @@
-use super::serialize_fetch_response;
-use crate::utils;
+use super::serialize_response;
+use crate::{types, utils};
 
 use aws_sdk_dynamodb as dynamodb;
 use aws_sdk_dynamodb::model::AttributeValue;
 use dynamodb::model::ReturnConsumedCapacity;
-use lambda_http::{http::StatusCode, Body, Error};
+use lambda_http::{aws_lambda_events::query_map::QueryMap, http::StatusCode, Body, Error};
 use serde::{Deserialize, Serialize};
 use serde_dynamo::from_item;
 use std::env;
@@ -52,11 +52,16 @@ pub async fn get_item<'a, T: Deserialize<'a> + Serialize>(
 
 pub async fn get_item_http<'a, T: Deserialize<'a> + Serialize>(
     client: &dynamodb::Client,
+    querymap: QueryMap,
     primary_key: AttributeValue,
     sort_key: AttributeValue,
 ) -> Result<lambda_http::Response<Body>, Error> {
     match get_item::<T>(client, primary_key, sort_key).await {
-        Ok(typed_entity) => serialize_fetch_response(typed_entity),
+        Ok(typed_entity) => serialize_response(
+            types::http::ApiResponseData::Single(typed_entity),
+            Some(querymap),
+            None,
+        ),
         Err((status_code, message)) => Ok(utils::http::build_http_response(status_code, &message)),
     }
 }

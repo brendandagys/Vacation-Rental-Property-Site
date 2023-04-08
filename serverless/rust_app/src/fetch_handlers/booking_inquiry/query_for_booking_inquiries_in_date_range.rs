@@ -11,6 +11,7 @@ pub async fn query_for_booking_inquiries_in_date_range(
 ) -> Result<Response<Body>, Error> {
     utils::dynamo_db::query_http::<types::booking_inquiry::BookingInquiry>(
         client,
+        querymap,
         None,
         "#key1 = :value1 AND #key2 BETWEEN :value2 AND :value3".to_string(),
         &[("#key1", "PK"), ("#key2", "SK")],

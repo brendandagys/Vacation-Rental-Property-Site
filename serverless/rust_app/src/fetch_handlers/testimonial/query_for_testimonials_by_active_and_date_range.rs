@@ -12,6 +12,7 @@ pub async fn query_for_testimonials_by_active_and_date_range(
 ) -> Result<Response<Body>, Error> {
     utils::dynamo_db::query_http::<types::testimonial::Testimonial>(
         client,
+        querymap,
         None,
         "#field1 = :value1 AND #field2 BETWEEN :value2 AND :value3".to_string(),
         &[("#field1", "PK"), ("#field2", "SK")],

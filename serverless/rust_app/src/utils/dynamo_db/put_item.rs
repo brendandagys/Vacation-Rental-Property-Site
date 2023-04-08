@@ -1,4 +1,4 @@
-use crate::{types::BuildFunction, utils};
+use crate::{types, utils};
 
 use aws_sdk_dynamodb as dynamodb;
 use chrono::Utc;
@@ -10,7 +10,7 @@ use std::env;
 
 pub async fn put_item<U>(
     client: &dynamodb::Client,
-    item_builder: impl BuildFunction<PutItem, U>,
+    item_builder: impl types::BuildFunction<PutItem, U>,
     entity: U,
 ) -> Result<PutItemOutput, (StatusCode, String)> {
     let mut builder = client
@@ -33,14 +33,15 @@ pub async fn put_item<U>(
 
 pub async fn put_item_http<U>(
     client: &dynamodb::Client,
-    item_builder: impl BuildFunction<PutItem, U>,
+    item_builder: impl types::BuildFunction<PutItem, U>,
     entity: U,
 ) -> Result<lambda_http::Response<Body>, Error> {
     match put_item(client, item_builder, entity).await {
-        Ok(put_item_output) => Ok(utils::http::build_http_response(
-            StatusCode::OK,
-            &format!("PUT result: {:?}", put_item_output),
-        )),
+        Ok(put_item_output) => utils::dynamo_db::serialize_response(
+            types::http::ApiResponseData::Single(format!("{:?}", put_item_output)),
+            None,
+            None,
+        ),
         Err((status_code, message)) => Ok(utils::http::build_http_response(status_code, &message)),
     }
 }

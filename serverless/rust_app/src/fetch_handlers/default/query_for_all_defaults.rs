@@ -10,6 +10,7 @@ pub async fn query_for_all_defaults(
 ) -> Result<Response<Body>, Error> {
     utils::dynamo_db::query_http::<types::default::Default>(
         client,
+        querymap,
         None,
         "#field = :value".to_string(),
         &[("#field", "PK")],

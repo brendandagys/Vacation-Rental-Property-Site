@@ -2,6 +2,7 @@ pub mod booking_inquiry;
 pub mod calendar_date;
 pub mod content;
 pub mod default;
+pub mod http;
 pub mod log_in;
 pub mod testimonial;
 pub mod user;
@@ -19,8 +20,8 @@ pub enum Index {
     GSI1,
 }
 
-impl ToString for Index {
-    fn to_string(&self) -> String {
+impl Index {
+    pub fn to_string(&self) -> String {
         match self {
             Index::GSI1 => format!("GSI-1"),
         }

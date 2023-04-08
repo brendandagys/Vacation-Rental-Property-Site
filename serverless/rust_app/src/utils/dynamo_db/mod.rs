@@ -13,11 +13,13 @@ pub use put_item::{put_item, put_item_http};
 mod query;
 pub use query::{query, query_http};
 
-use crate::utils;
+use crate::{types, utils};
 
 use aws_sdk_dynamodb as dynamodb;
 use dynamodb::{client::fluent_builders::PutItem, model::AttributeValue};
-use lambda_http::{http::StatusCode, Body, Error, Response};
+use lambda_http::{
+    aws_lambda_events::query_map::QueryMap, http::StatusCode, Body, Error, Response,
+};
 use std::env;
 
 pub async fn get_dynamo_db_client() -> dynamodb::Client {
@@ -59,8 +61,14 @@ pub fn append_u8_item_if_exists(
     }
 }
 
-pub fn serialize_fetch_response<T: serde::Serialize>(data: T) -> Result<Response<Body>, Error> {
-    match serde_json::to_string(&data) {
+pub fn serialize_response<T: serde::Serialize>(
+    data: types::http::ApiResponseData<T>,
+    querymap: Option<QueryMap>,
+    limit: Option<i32>,
+) -> Result<Response<Body>, Error> {
+    let api_response = types::http::ApiResponse::new(data, querymap, limit);
+
+    match serde_json::to_string(&api_response) {
         Ok(string) => Ok(utils::http::build_http_response(StatusCode::OK, &string)),
         Err(error) => {
             println!("Error converting response data into a JSON string: {error}");

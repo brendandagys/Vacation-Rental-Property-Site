@@ -11,6 +11,7 @@ pub async fn query_for_testimonials_by_active(
 ) -> Result<Response<Body>, Error> {
     utils::dynamo_db::query_http::<types::testimonial::Testimonial>(
         client,
+        querymap,
         None,
         "#field = :value".to_string(),
         &[("#field", "PK")],

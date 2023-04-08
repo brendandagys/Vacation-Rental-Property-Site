@@ -1,4 +1,4 @@
-use crate::utils;
+use crate::{types, utils};
 
 use aws_sdk_dynamodb as dynamodb;
 use dynamodb::model::{ReturnConsumedCapacity, WriteRequest};
@@ -16,10 +16,11 @@ pub async fn batch_write_item(
         .send()
         .await
     {
-        Ok(result) => Ok(utils::http::build_http_response(
-            StatusCode::OK,
-            &format!("{:?}", result),
-        )),
+        Ok(batch_write_item_output) => utils::dynamo_db::serialize_response(
+            types::http::ApiResponseData::Single(format!("{:?}", batch_write_item_output)),
+            None,
+            None,
+        ),
         Err(error) => {
             println!("Error performing batch write: {error}");
             Ok(utils::http::build_http_response(

@@ -19,6 +19,7 @@ pub async fn query_for_calendar_dates_in_date_range(
             (":value2", AttributeValue::S(format!("{start_date}"))),
             (":value3", AttributeValue::S(format!("{end_date}"))),
         ],
+        None,
     )
     .await
     {
@@ -52,5 +53,9 @@ pub async fn query_for_calendar_dates_in_date_range(
             }
         };
 
-    utils::dynamo_db::serialize_fetch_response(all_requested_calendar_dates)
+    utils::dynamo_db::serialize_response(
+        types::http::ApiResponseData::Multiple(all_requested_calendar_dates),
+        Some(querymap),
+        None,
+    )
 }

@@ -19,6 +19,7 @@ pub async fn query_for_user_by_email(
             (":value1", AttributeValue::S("USER".into())),
             (":value2", AttributeValue::S(format!("{email}"))),
         ],
+        None,
     )
     .await
 }
@@ -30,6 +31,7 @@ pub async fn query_for_user_by_email_http(
 ) -> Result<Response<Body>, Error> {
     utils::dynamo_db::query_http::<types::user::User>(
         client,
+        querymap,
         Some(types::Index::GSI1),
         "#key1 = :value1 AND #key2 = :value2".to_string(),
         &[("#key1", "GSI-PK"), ("#key2", "GSI-SK")],

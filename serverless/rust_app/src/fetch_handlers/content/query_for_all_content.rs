@@ -10,6 +10,7 @@ pub async fn query_for_all_content(
 ) -> Result<Response<Body>, Error> {
     utils::dynamo_db::query_http::<types::content::Content>(
         client,
+        querymap,
         Some(types::Index::GSI1),
         "#field = :value".to_string(),
         &[("#field", "GSI-PK")],

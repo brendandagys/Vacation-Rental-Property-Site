@@ -41,6 +41,7 @@ pub async fn query_for_testimonials_in_stars_range(
 
     utils::dynamo_db::query_http::<types::testimonial::Testimonial>(
         client,
+        querymap,
         Some(types::Index::GSI1),
         "#key1 = :value1 AND #key2 BETWEEN :value2 AND :value3".to_string(),
         &[("#key1", "GSI-PK"), ("#key2", "GSI-SK")],

@@ -11,7 +11,7 @@ pub async fn get_user_by_username(
     username: &str,
 ) -> Result<types::user::User, (StatusCode, String)> {
     utils::dynamo_db::get_item::<types::user::User>(
-        &client,
+        client,
         AttributeValue::S(format!("USER-{username}")),
         AttributeValue::S("USER-INFO".into()),
     )
@@ -24,7 +24,8 @@ pub async fn get_user_by_username_http(
     querymap: QueryMap,
 ) -> Result<Response<Body>, Error> {
     utils::dynamo_db::get_item_http::<types::user::User>(
-        &client,
+        client,
+        querymap,
         AttributeValue::S(format!("USER-{username}")),
         AttributeValue::S("USER-INFO".into()),
     )

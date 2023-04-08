@@ -1,10 +1,10 @@
-use super::serialize_fetch_response;
-use crate::utils;
+use super::serialize_response;
+use crate::{types, utils};
 
 use aws_sdk_dynamodb as dynamodb;
 use aws_sdk_dynamodb::model::AttributeValue;
 use dynamodb::model::{KeysAndAttributes, ReturnConsumedCapacity};
-use lambda_http::{http::StatusCode, Body, Error};
+use lambda_http::{aws_lambda_events::query_map::QueryMap, http::StatusCode, Body, Error};
 use serde::{Deserialize, Serialize};
 use serde_dynamo::from_items;
 use std::{collections::HashMap, env};
@@ -66,10 +66,15 @@ pub async fn batch_get_item<'a, T: Deserialize<'a> + Serialize>(
 
 pub async fn batch_get_item_http<'a, T: Deserialize<'a> + Serialize>(
     client: &dynamodb::Client,
+    querymap: QueryMap,
     item_keys: Vec<(AttributeValue, AttributeValue)>,
 ) -> Result<lambda_http::Response<Body>, Error> {
     match batch_get_item::<T>(client, item_keys).await {
-        Ok(typed_entities) => serialize_fetch_response(typed_entities),
+        Ok(typed_entities) => serialize_response(
+            types::http::ApiResponseData::Multiple(typed_entities),
+            Some(querymap),
+            None,
+        ),
         Err((status_code, message)) => Ok(utils::http::build_http_response(status_code, &message)),
     }
 }

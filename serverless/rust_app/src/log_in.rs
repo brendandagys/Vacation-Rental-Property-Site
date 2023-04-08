@@ -63,8 +63,8 @@ async fn log_in(request: Request, client: &dynamodb::Client) -> Result<impl Into
 
                 let token_claims = types::log_in::JwtClaims {
                     username,
-                    last: "Dagys".into(),
-                    first: "Brendan".into(),
+                    last: user.last,
+                    first: user.first,
                     exp: Utc::now()
                         .checked_add_signed(chrono::Duration::days(1))
                         .unwrap()
@@ -78,18 +78,13 @@ async fn log_in(request: Request, client: &dynamodb::Client) -> Result<impl Into
                 ) {
                     Ok(token) => match bcrypt::verify(password, &user.hash) {
                         Ok(valid) => match valid {
-                            true => {
-                                match serde_json::to_string(&types::log_in::LogInResponse { token })
-                                {
-                                    Ok(string) => Ok(Response::builder().body(string.into())?),
-                                    Err(error) => {
-                                        println!("Error: {:?}", error);
-                                        Ok(Response::builder()
-                                            .status(StatusCode::INTERNAL_SERVER_ERROR)
-                                            .body("Error".into())?)
-                                    }
-                                }
-                            }
+                            true => utils::dynamo_db::serialize_response(
+                                types::http::ApiResponseData::Single(
+                                    types::log_in::LogInResponse { token },
+                                ),
+                                None,
+                                None,
+                            ),
                             false => Ok(Response::builder()
                                 .status(StatusCode::UNAUTHORIZED)
                                 .body("Invalid password".into())?),

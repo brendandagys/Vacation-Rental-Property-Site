@@ -11,6 +11,7 @@ pub async fn query_for_calendar_dates_by_state(
 ) -> Result<Response<Body>, Error> {
     utils::dynamo_db::query_http::<types::calendar_date::CalendarDate>(
         client,
+        querymap,
         Some(types::Index::GSI1),
         "#key1 = :value1 AND #key2 = :value2".to_string(),
         &[("#key1", "GSI-PK"), ("#key2", "GSI-SK")],

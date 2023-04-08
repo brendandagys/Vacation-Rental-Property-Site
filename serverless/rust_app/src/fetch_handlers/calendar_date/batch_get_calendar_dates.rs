@@ -46,5 +46,9 @@ pub async fn batch_get_calendar_dates(
             }
         };
 
-    utils::dynamo_db::serialize_fetch_response(all_requested_calendar_dates)
+    utils::dynamo_db::serialize_response(
+        types::http::ApiResponseData::Multiple(all_requested_calendar_dates),
+        Some(querymap),
+        None,
+    )
 }
