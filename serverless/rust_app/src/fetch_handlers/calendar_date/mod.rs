@@ -106,15 +106,7 @@ async fn get_missing_calendar_dates(
     let mut created_calendar_dates_from_defaults = unfound_fetched_dates_ymd
         .iter()
         .map(|ymd| {
-            let utils::YmdParts { year, month, date } = match utils::get_parts_from_ymd(&ymd) {
-                Ok(parts) => parts,
-                Err(error) => {
-                    return Err((
-                        StatusCode::BAD_REQUEST,
-                        format!("Invalid YMDs provided. Format is YYYY-MM-DD. ERROR: {error}"),
-                    ))
-                }
-            };
+            let utils::YmdParts { year, month, date } = utils::get_parts_from_ymd(&ymd)?;
 
             if !(1..13).contains(&month) {
                 return Err((

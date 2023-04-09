@@ -3,7 +3,7 @@ pub mod dynamo_db;
 pub mod http;
 pub mod miscellaneous;
 
-use lambda_http::Error;
+use lambda_http::http::StatusCode;
 
 pub fn str_vec_to_string_vec(items: Vec<&str>) -> Vec<String> {
     items.iter().map(|item| item.to_string()).collect()
@@ -15,10 +15,23 @@ pub struct YmdParts {
     pub date: u8,
 }
 
-pub fn get_parts_from_ymd(ymd: &str) -> Result<YmdParts, Error> {
-    let year: u16 = ymd[0..4].parse()?; // Don't think it's worth matching 3 times...
-    let month: u8 = ymd[5..7].parse()?;
-    let date: u8 = ymd[8..10].parse()?;
+pub fn get_parts_from_ymd(ymd: &str) -> Result<YmdParts, (StatusCode, String)> {
+    let year: i32 = ymd[0..4].parse().unwrap_or(400000);
+    let month: u32 = ymd[5..7].parse().unwrap_or(0);
+    let date: u32 = ymd[8..10].parse().unwrap_or(0);
 
-    Ok(YmdParts { year, month, date })
+    let clean_date = chrono::NaiveDate::from_ymd_opt(year, month, date);
+
+    if let None = clean_date {
+        return Err((
+            StatusCode::BAD_REQUEST,
+            format!("Cannot parse YMD: {ymd}. Format is YYYY-MM-DD."),
+        ));
+    }
+
+    Ok(YmdParts {
+        year: year as u16,
+        month: month as u8,
+        date: date as u8,
+    })
 }
