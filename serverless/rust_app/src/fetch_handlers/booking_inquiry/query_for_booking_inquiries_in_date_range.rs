@@ -20,6 +20,7 @@ pub async fn query_for_booking_inquiries_in_date_range(
             (":value2", AttributeValue::S(format!("{start_date}"))),
             (":value3", AttributeValue::S(format!("{end_date}"))),
         ],
+        false,
     )
     .await
 }

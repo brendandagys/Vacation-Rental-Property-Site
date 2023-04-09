@@ -15,6 +15,7 @@ pub async fn query_for_all_booking_inquiries(
         "#field = :value".to_string(),
         &[("#field", "PK")],
         vec![(":value", AttributeValue::S("INQUIRY".into()))],
+        false,
     )
     .await
 }

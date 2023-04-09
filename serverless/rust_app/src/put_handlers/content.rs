@@ -14,10 +14,10 @@ use lambda_http::{Body, Error};
 
 pub fn build_content_item<T: Buildable>(
     mut builder: T,
-    content: types::content::ContentPutRequest,
+    content: types::content::FinalContentPutRequest,
     now: DateTime<Utc>,
 ) -> T {
-    let types::content::ContentPutRequest {
+    let types::content::FinalContentPutRequest {
         content_id,
         version,
         content_data,
@@ -55,11 +55,11 @@ pub fn build_content_item<T: Buildable>(
 
 struct BuildContent {}
 
-impl BuildFunction<PutItem, types::content::ContentPutRequest> for BuildContent {
+impl BuildFunction<PutItem, types::content::FinalContentPutRequest> for BuildContent {
     fn build_item(
         &self,
         builder: PutItem,
-        content_put_request: types::content::ContentPutRequest,
+        content_put_request: types::content::FinalContentPutRequest,
         now: DateTime<Utc>,
     ) -> PutItem {
         build_content_item(builder, content_put_request, now)
@@ -77,12 +77,13 @@ pub async fn put_content(
         Err(_) => 0,
     };
 
-    utils::dynamo_db::put_item_http::<types::content::ContentPutRequest>(
+    utils::dynamo_db::put_item_http::<types::content::FinalContentPutRequest>(
         client,
         content_builder,
-        types::content::ContentPutRequest {
+        types::content::FinalContentPutRequest {
+            content_id: content.content_id,
             version: current_version + 1,
-            ..content
+            content_data: content.content_data,
         },
     )
     .await
@@ -94,16 +95,34 @@ pub async fn put_contents(
 ) -> Result<lambda_http::Response<Body>, Error> {
     let now = Utc::now();
 
-    let write_requests = contents
-        .into_iter()
-        .map(|content| {
-            let put_request_builder = PutRequest::builder();
+    let mut write_requests = Vec::new();
 
+    // Using `.map()` didn't work, even with `futures::future::join_all()`
+    for content in contents {
+        let put_request_builder = PutRequest::builder();
+
+        let current_version = match get_content_by_content_id(client, &content.content_id).await {
+            Ok(content) => content.version,
+            Err(_) => 0,
+        };
+
+        write_requests.push(
             WriteRequest::builder()
-                .put_request(build_content_item(put_request_builder, content, now).build())
-                .build()
-        })
-        .collect();
+                .put_request(
+                    build_content_item(
+                        put_request_builder,
+                        types::content::FinalContentPutRequest {
+                            content_id: content.content_id,
+                            version: current_version + 1,
+                            content_data: content.content_data,
+                        },
+                        now,
+                    )
+                    .build(),
+                )
+                .build(),
+        )
+    }
 
     batch_write_item(client, write_requests).await
 }

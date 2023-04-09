@@ -2,6 +2,7 @@ use lambda_http::aws_lambda_events::query_map::QueryMap;
 use serde::Serialize;
 
 #[derive(Serialize)]
+#[serde(untagged)]
 pub enum ApiResponseData<T> {
     Multiple(Vec<T>),
     Single(T),

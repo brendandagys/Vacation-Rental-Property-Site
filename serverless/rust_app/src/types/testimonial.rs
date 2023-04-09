@@ -15,7 +15,7 @@ pub enum Stars {
     Five,
 }
 
-#[derive(Debug, Deserialize, Serialize)]
+#[derive(Clone, Debug, Deserialize, Serialize)]
 pub struct Testimonial {
     #[serde(rename = "PK")]
     pub primary_key: String,

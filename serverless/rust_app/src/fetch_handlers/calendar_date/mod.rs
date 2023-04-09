@@ -96,7 +96,7 @@ async fn get_missing_calendar_dates(
     // Get distinct months (2 digits)
     let unfound_months: Vec<&str> = unfound_fetched_dates_ymd
         .iter()
-        .map(|ymd| &ymd[3..5])
+        .map(|ymd| &ymd[5..7])
         .collect();
 
     // Get defaults for distinct months
@@ -128,11 +128,13 @@ async fn get_missing_calendar_dates(
                 Err(message) => return Err((StatusCode::BAD_REQUEST, message)),
             };
 
-            let price = &month_price_defaults
+            let price = match &month_price_defaults
                 .iter()
                 .find(|&default| default.default_for == month_price_default_to_use)
-                .unwrap()
-                .value;
+            {
+                Some(default) => default.value.clone(),
+                None => types::default::DEFAULT_PRICE.into(),
+            };
 
             Ok(types::calendar_date::CalendarDate::new(
                 ymd.into(),
@@ -149,6 +151,8 @@ async fn get_missing_calendar_dates(
 
     // Append to result
     found_dates.append(&mut created_calendar_dates_from_defaults);
+
+    found_dates.sort(); // Default sort is in order of struct fields
 
     Ok(found_dates)
 }

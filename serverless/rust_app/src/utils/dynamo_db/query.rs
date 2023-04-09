@@ -18,6 +18,7 @@ pub async fn query<'a, T: Deserialize<'a> + Serialize + std::fmt::Debug>(
     expression_attribute_names: &[(&str, &str)],
     expression_attribute_values: Vec<(&str, AttributeValue)>,
     limit: Option<i32>,
+    singular: bool,
 ) -> Result<Vec<T>, (StatusCode, String)> {
     let mut builder = client
         .query()
@@ -59,15 +60,10 @@ pub async fn query<'a, T: Deserialize<'a> + Serialize + std::fmt::Debug>(
         None => {
             return Err((
                 StatusCode::NOT_FOUND,
-                serde_json::json!(format!(
-                    "{}",
-                    if key_condition_expression.contains(" = :") {
-                        "null"
-                    } else {
-                        "[]"
-                    }
-                ))
-                .to_string(),
+                match singular {
+                    true => serde_json::json!(null).to_string(),
+                    false => serde_json::json!([]).to_string(),
+                },
             ))
         }
     }
@@ -89,13 +85,14 @@ pub async fn query<'a, T: Deserialize<'a> + Serialize + std::fmt::Debug>(
     Ok(entities)
 }
 
-pub async fn query_http<'a, T: Deserialize<'a> + Serialize + std::fmt::Debug>(
+pub async fn query_http<'a, T: Deserialize<'a> + Serialize + std::fmt::Debug + Clone>(
     client: &dynamodb::Client,
     querymap: QueryMap,
     index_name: Option<types::Index>,
     key_condition_expression: String,
     expression_attribute_names: &[(&str, &str)],
     expression_attribute_values: Vec<(&str, AttributeValue)>,
+    singular: bool,
 ) -> Result<Response<Body>, Error> {
     let limit = match querymap.first("limit") {
         Some(limit) => match limit.parse::<i32>() {
@@ -112,14 +109,32 @@ pub async fn query_http<'a, T: Deserialize<'a> + Serialize + std::fmt::Debug>(
         expression_attribute_names,
         expression_attribute_values,
         limit,
+        singular,
     )
     .await
     {
-        Ok(typed_entities) => serialize_response(
-            types::http::ApiResponseData::Multiple(typed_entities),
-            Some(querymap),
-            limit,
-        ),
+        Ok(typed_entities) => {
+            if typed_entities.len() == 0 {
+                return Ok(utils::http::build_http_response(
+                    StatusCode::NOT_FOUND,
+                    &match singular {
+                        true => serde_json::json!(null).to_string(),
+                        false => serde_json::json!([]).to_string(),
+                    },
+                ));
+            }
+
+            serialize_response(
+                if singular {
+                    let single_entity = typed_entities.first().unwrap().to_owned();
+                    types::http::ApiResponseData::Single(single_entity)
+                } else {
+                    types::http::ApiResponseData::Multiple(typed_entities)
+                },
+                Some(querymap),
+                limit,
+            )
+        }
         Err((status_code, message)) => Ok(utils::http::build_http_response(status_code, &message)),
     }
 }

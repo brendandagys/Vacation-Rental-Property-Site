@@ -20,6 +20,7 @@ pub async fn query_for_calendar_dates_in_date_range(
             (":value3", AttributeValue::S(format!("{end_date}"))),
         ],
         None,
+        false,
     )
     .await
     {
@@ -34,12 +35,12 @@ pub async fn query_for_calendar_dates_in_date_range(
 
     let mut dates = Vec::new();
 
-    let current_date = chrono::NaiveDate::parse_from_str(start_date, "%Y-%m-%d").unwrap();
+    let mut current_date = chrono::NaiveDate::parse_from_str(start_date, "%Y-%m-%d").unwrap();
     let end_date = chrono::NaiveDate::parse_from_str(end_date, "%Y-%m-%d").unwrap();
 
     while current_date <= end_date {
         dates.push(current_date.format("%Y-%m-%d").to_string());
-        current_date.checked_add_days(chrono::Days::new(1));
+        current_date = current_date.checked_add_days(chrono::Days::new(1)).unwrap();
     }
 
     let all_requested_calendar_dates =

@@ -19,6 +19,7 @@ pub async fn query_for_calendar_dates_by_state(
             (":value1", AttributeValue::S("DATE".into())),
             (":value2", AttributeValue::S(format!("{state}"))),
         ],
+        false,
     )
     .await
 }

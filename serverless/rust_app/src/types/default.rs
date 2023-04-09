@@ -1,6 +1,6 @@
 use serde::{Deserialize, Serialize};
 
-#[derive(Deserialize, Debug, PartialEq, Serialize)]
+#[derive(Clone, Deserialize, Debug, PartialEq, Serialize)]
 pub enum DefaultFor {
     PriceJanuary,
     PriceFebruary,
@@ -15,6 +15,8 @@ pub enum DefaultFor {
     PriceNovember,
     PriceDecember,
 }
+
+pub const DEFAULT_PRICE: &str = "100";
 
 impl std::convert::TryFrom<u8> for DefaultFor {
     type Error = String;
@@ -59,7 +61,7 @@ impl std::convert::TryFrom<&str> for DefaultFor {
     }
 }
 
-#[derive(Debug, Deserialize, Serialize)]
+#[derive(Clone, Debug, Deserialize, Serialize)]
 pub struct Default {
     #[serde(rename = "PK")]
     pub primary_key: String,

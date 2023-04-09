@@ -15,6 +15,7 @@ pub async fn query_for_all_users(
         "#field = :value".to_string(),
         &[("#field", "GSI-PK")],
         vec![(":value", AttributeValue::S("USER".into()))],
+        false,
     )
     .await
 }

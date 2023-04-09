@@ -20,6 +20,7 @@ pub async fn query_for_user_by_email(
             (":value2", AttributeValue::S(format!("{email}"))),
         ],
         None,
+        true,
     )
     .await
 }
@@ -39,6 +40,7 @@ pub async fn query_for_user_by_email_http(
             (":value1", AttributeValue::S("USER".into())),
             (":value2", AttributeValue::S(format!("{email}"))),
         ],
+        true,
     )
     .await
 }

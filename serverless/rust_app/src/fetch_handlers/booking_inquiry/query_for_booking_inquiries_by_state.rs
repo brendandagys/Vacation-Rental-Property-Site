@@ -19,6 +19,7 @@ pub async fn query_for_booking_inquiries_by_state(
             (":value1", AttributeValue::S("INQUIRY".into())),
             (":value2", AttributeValue::S(format!("{state}"))),
         ],
+        false,
     )
     .await
 }

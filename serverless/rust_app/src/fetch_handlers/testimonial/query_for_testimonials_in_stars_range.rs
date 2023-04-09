@@ -50,6 +50,7 @@ pub async fn query_for_testimonials_in_stars_range(
             (":value2", AttributeValue::S(format!("{from}"))),
             (":value3", AttributeValue::S(format!("{to}"))),
         ],
+        false,
     )
     .await
 }

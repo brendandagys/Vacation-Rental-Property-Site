@@ -27,6 +27,7 @@ pub async fn query_for_testimonials_by_active_and_date_range(
             (":value2", AttributeValue::S(start_date.into())),
             (":value3", AttributeValue::S(end_date.into())),
         ],
+        false,
     )
     .await
 }

@@ -15,6 +15,7 @@ pub async fn query_for_all_defaults(
         "#field = :value".to_string(),
         &[("#field", "PK")],
         vec![(":value", AttributeValue::S("DEFAULT".into()))],
+        false,
     )
     .await
 }

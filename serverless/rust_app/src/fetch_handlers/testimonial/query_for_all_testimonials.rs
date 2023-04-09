@@ -15,6 +15,7 @@ pub async fn query_for_all_testimonials(
         "#field = :value".to_string(),
         &[("#field", "GSI-PK")],
         vec![(":value", AttributeValue::S("TESTIMONIAL".into()))],
+        false,
     )
     .await
 }

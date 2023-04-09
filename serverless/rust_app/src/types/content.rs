@@ -1,6 +1,6 @@
 use serde::{Deserialize, Serialize};
 
-#[derive(Deserialize, Debug, Serialize)]
+#[derive(Clone, Deserialize, Debug, Serialize)]
 pub enum ContentId {
     Header,
     HeroImage,
@@ -9,7 +9,7 @@ pub enum ContentId {
     Footer,
 }
 
-#[derive(Deserialize, Debug, Serialize)]
+#[derive(Clone, Deserialize, Debug, Serialize)]
 pub enum Language {
     Danish,
     Dutch,
@@ -20,18 +20,18 @@ pub enum Language {
     Swedish,
 }
 
-#[derive(Debug, Deserialize, Serialize)]
+#[derive(Clone, Debug, Deserialize, Serialize)]
 pub struct TextContent {
     pub language: Language,
     pub value: String,
 }
 
-#[derive(Debug, Deserialize, Serialize)]
+#[derive(Clone, Debug, Deserialize, Serialize)]
 pub struct ImageContent {
     pub url: String,
 }
 
-#[derive(Debug, Deserialize, Serialize)]
+#[derive(Clone, Debug, Deserialize, Serialize)]
 #[serde(untagged)]
 pub enum ContentData {
     Text(TextContent),
@@ -44,7 +44,7 @@ pub enum ContentDataType {
     IMAGE,
 }
 
-#[derive(Debug, Deserialize, Serialize)]
+#[derive(Clone, Debug, Deserialize, Serialize)]
 pub struct Content {
     #[serde(rename = "PK")]
     pub primary_key: String,
@@ -65,6 +65,14 @@ pub struct Content {
 
 #[derive(Deserialize)]
 pub struct ContentPutRequest {
+    #[serde(rename(deserialize = "contentId"))]
+    pub content_id: ContentId,
+    #[serde(flatten)]
+    pub content_data: ContentData,
+}
+
+#[derive(Deserialize)]
+pub struct FinalContentPutRequest {
     #[serde(rename(deserialize = "contentId"))]
     pub content_id: ContentId,
     pub version: u16,

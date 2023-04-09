@@ -22,6 +22,7 @@ pub async fn query_for_testimonials_by_active(
                 if active { "ACTIVE" } else { "INACTIVE" }
             )),
         )],
+        false,
     )
     .await
 }
