@@ -4,15 +4,20 @@ import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import { logIn } from '../api/authentication';
 import { Nullable } from '../types';
+import { useAuth } from '../context/authContext';
 
 export const LogInForm = () => {
   const [ username, setUsername ] = useState('');
   const [ password, setPassword ] = useState('');
 
+  const { setToken } = useAuth();
+
   const [ errorMessage, setErrorMessage ] = useState<Nullable<string>>(null);
 
   const submitForm = async () => {
-    const errorMessage = await logIn({ username, password });
+    const { token, errorMessage } = await logIn({ username, password });
+
+    token && setToken(token);
     errorMessage && setErrorMessage(errorMessage);
   };
 

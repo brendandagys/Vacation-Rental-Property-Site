@@ -3,12 +3,21 @@ import './static/sass/app.scss';
 import { HomePage } from './pages/HomePage';
 import { LogInPage } from './pages/LogInPage';
 import { AdminPage } from './pages/AdminPage';
+import { useAuth } from './context/authContext';
 
 export const App = () => {
+  const { isLoggedIn, decodedToken } = useAuth();
+
+  console.log({ isLoggedIn, decodedToken });
+  
   const path = window.location.pathname;
 
-  if (path === '/login') {
+  if (path === '/log-in') {
     return <LogInPage />;
+  }
+  
+  if (!isLoggedIn) {
+    return <HomePage />;
   }
 
   if (path === '/admin') {

@@ -1,3 +1,4 @@
+
 export const AdminPage = () => (
-  <></>
+  <>AdminPage</>
 );

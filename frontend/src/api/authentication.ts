@@ -1,19 +1,34 @@
 import { api } from '.';
-import { ILogInRequest, ILogInResponse } from '../types/authentication';
+import { Nullable } from '../types';
+import { IJwtToken, ILogInRequest, ILogInResponse } from '../types/authentication';
 
-export const logIn = async (logInRequest: ILogInRequest): Promise<string | void> => {
-  const { body, errorMessage } = (
-    await api<ILogInResponse>('log-in', 'POST', logInRequest)
-  );
-
-  if (errorMessage) {
-    return errorMessage;
+export const validateToken = async (token: string): Promise<Nullable<IJwtToken>> => {
+  const { status, body } = await api<IJwtToken>('auth', 'POST', { token });
+  
+  if (status === 200 && body?.data) {
+    return body.data;
   }
+
+  return null;
+};
+
+export const logIn = async (
+  logInRequest: ILogInRequest
+): Promise<{ token: Nullable<string>; errorMessage: Nullable<string> }> => {
+  const { body, errorMessage } = (
+    await api<ILogInResponse>('auth', 'POST', logInRequest)
+  );
 
   if (body?.data) {
     console.info('Token:', body.data.token);
     localStorage.setItem('token', body.data.token);
+    window.location.pathname = '/admin';
   }
+
+  return {
+    token: body?.data.token ?? null,
+    errorMessage,
+  };
 
 };
 
