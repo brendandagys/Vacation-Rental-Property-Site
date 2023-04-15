@@ -9,21 +9,25 @@ interface IAuthContext {
   setToken: (token: string) => void;
 }
 
-export const getToken = (): Nullable<string> => localStorage.getItem('token');
+const getToken = (): Nullable<string> => localStorage.getItem('token');
 
 export const AuthContext = createContext({} as IAuthContext);
+
+let fetchedOnce = false;
 
 export const AuthProvider = ({ children }: { children: React.ReactNode}) => {
   const [ decodedToken, setDecodedToken ] = useState<Nullable<IJwtToken>>(null);
   const [ token, setToken ] = useState<Nullable<string>>(getToken());
 
   const _validateToken = async (token: string): Promise<void> => {
-    console.log('Validating token...', token);
     setDecodedToken(await validateToken(token));
   };
 
   useEffect(() => {
-    token && void _validateToken(token);
+    if (!fetchedOnce) {
+      fetchedOnce = true;
+      token && void _validateToken(token);
+    }
   }, [ token ]);
 
   return (
