@@ -37,11 +37,11 @@ pub async fn put_item_http<U>(
     entity: U,
 ) -> Result<lambda_http::Response<Body>, Error> {
     match put_item(client, item_builder, entity).await {
-        Ok(put_item_output) => utils::dynamo_db::serialize_response(
+        Ok(put_item_output) => utils::http::send_response(
             types::http::ApiResponseData::Single(format!("{:?}", put_item_output)),
             None,
             None,
         ),
-        Err((status_code, message)) => Ok(utils::http::build_http_response(status_code, &message)),
+        Err((status_code, message)) => Ok(utils::http::send_error(status_code, &message)),
     }
 }

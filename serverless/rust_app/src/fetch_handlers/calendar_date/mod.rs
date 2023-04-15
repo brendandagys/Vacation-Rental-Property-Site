@@ -44,7 +44,7 @@ pub async fn get(client: &dynamodb::Client, querymap: QueryMap) -> Result<Respon
         .await;
     }
 
-    return Ok(utils::http::build_http_response(
+    return Ok(utils::http::send_error(
         StatusCode::BAD_REQUEST,
         "Invalid parameters provided to fetch `CalendarDate`.",
     ));

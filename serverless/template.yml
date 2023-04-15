@@ -73,11 +73,16 @@ Resources:
       Architectures:
       - arm64
       Events:
-        HelloWorld:
+        LogIn:
           Type: Api # More info about API Event Source: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#api
           Properties:
             Path: /log-in
-            Method: post
+            Method: POST
+        CORS:
+          Type: Api
+          Properties:
+            Path: /log-in
+            Method: OPTIONS
       Environment:
         Variables:
           JWT_SECRET: !Ref JwtSecret
@@ -101,11 +106,16 @@ Resources:
       Architectures:
       - arm64
       Events:
-        HelloWorld:
+        Fetch:
           Type: Api # More info about API Event Source: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#api
           Properties:
             Path: /fetch
-            Method: get
+            Method: GET
+        CORS:
+          Type: Api
+          Properties:
+            Path: /fetch
+            Method: OPTIONS
       Environment:
         Variables:
           JWT_SECRET: !Ref JwtSecret
@@ -113,7 +123,7 @@ Resources:
           AUTHORIZATION_HASH_SALT: !Ref AuthorizationHashSalt
           DYNAMODB_ENDPOINT: !Ref DynamoDbEndpoint
   
-  PutItemFunction:
+  PutFunction:
     Type: AWS::Serverless::Function # More info about Function Resource: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#awsserverlessfunction
     Metadata:
       BuildMethod: rust-cargolambda # More info about Cargo Lambda: https://github.com/cargo-lambda/cargo-lambda
@@ -126,11 +136,16 @@ Resources:
       Architectures:
       - arm64
       Events:
-        HelloWorld:
+        Put:
           Type: Api # More info about API Event Source: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#api
           Properties:
             Path: /put
-            Method: put
+            Method: PUT
+        CORS:
+          Type: Api
+          Properties:
+            Path: /put
+            Method: OPTIONS
       Environment:
         Variables:
           JWT_SECRET: !Ref JwtSecret
@@ -159,16 +174,16 @@ Resources:
           - Ref: AWS::StackName
       AutoConfigurationEnabled: 'true'
     DependsOn: ApplicationResourceGroup
-Outputs:
+# Outputs:
   # ServerlessRestApi is an implicit API created out of Events key under Serverless::Function
   # Find out more about other implicit resources you can reference within SAM
   # https://github.com/awslabs/serverless-application-model/blob/master/docs/internals/generated_resources.rst#api
-  PutApi:
-    Description: API Gateway endpoint URL for Prod stage for Put function
-    Value: !Sub "https://${ServerlessRestApi}.execute-api.${AWS::Region}.${AWS::URLSuffix}/Prod/"
+  # PutApi:
+  #   Description: API Gateway endpoint URL for Prod stage for Put function
+  #   Value: !Sub "https://${ServerlessRestApi}.execute-api.${AWS::Region}.${AWS::URLSuffix}/Prod/"
   # PutFunction:
   #   Description: Put Lambda Function ARN
   #   Value: !GetAtt PutFunction.Arn
-  PutTable:
-    Description: DynamoDB table name
-    Value: !GetAtt Table.Arn
+  # PutTable:
+  #   Description: DynamoDB table name
+  #   Value: !GetAtt Table.Arn

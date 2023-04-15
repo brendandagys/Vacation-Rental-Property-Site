@@ -25,7 +25,7 @@ pub async fn get(
     let token = match headers.get("Authorization") {
         Some(token) => token,
         None => {
-            return Ok(utils::http::build_http_response(
+            return Ok(utils::http::send_error(
                 StatusCode::UNAUTHORIZED,
                 "No `Authorization` header provided.",
             ))
@@ -37,7 +37,7 @@ pub async fn get(
         Ok(_) => {}
         Err(error) => {
             println!("Error validating token: {error}");
-            return Ok(utils::http::build_http_response(
+            return Ok(utils::http::send_error(
                 StatusCode::UNAUTHORIZED,
                 "Invalid token.",
             ));

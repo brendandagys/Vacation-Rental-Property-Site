@@ -1,4 +1,3 @@
-use super::serialize_response;
 use crate::{types, utils};
 
 use aws_sdk_dynamodb as dynamodb;
@@ -57,11 +56,11 @@ pub async fn get_item_http<'a, T: Deserialize<'a> + Serialize>(
     sort_key: AttributeValue,
 ) -> Result<lambda_http::Response<Body>, Error> {
     match get_item::<T>(client, primary_key, sort_key).await {
-        Ok(typed_entity) => serialize_response(
+        Ok(typed_entity) => utils::http::send_response(
             types::http::ApiResponseData::Single(typed_entity),
             Some(querymap),
             None,
         ),
-        Err((status_code, message)) => Ok(utils::http::build_http_response(status_code, &message)),
+        Err((status_code, message)) => Ok(utils::http::send_error(status_code, &message)),
     }
 }

@@ -1,4 +1,3 @@
-use super::serialize_response;
 use crate::{types, utils};
 
 use aws_sdk_dynamodb as dynamodb;
@@ -124,7 +123,7 @@ pub async fn query_http<'a, T: Deserialize<'a> + Serialize + std::fmt::Debug + C
                 ));
             }
 
-            serialize_response(
+            utils::http::send_response(
                 if singular {
                     let single_entity = typed_entities.first().unwrap().to_owned();
                     types::http::ApiResponseData::Single(single_entity)
@@ -135,6 +134,6 @@ pub async fn query_http<'a, T: Deserialize<'a> + Serialize + std::fmt::Debug + C
                 limit,
             )
         }
-        Err((status_code, message)) => Ok(utils::http::build_http_response(status_code, &message)),
+        Err((status_code, message)) => Ok(utils::http::send_error(status_code, &message)),
     }
 }

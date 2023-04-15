@@ -73,7 +73,7 @@ pub async fn put_user(
     let no_whitespace_password = password.replace(" ", "");
 
     if no_whitespace_password.len() < 7 {
-        return Ok(utils::http::build_http_response(
+        return Ok(utils::http::send_error(
             StatusCode::BAD_REQUEST,
             "Password must be at least seven characters, with no whitespace.",
         ));
@@ -86,7 +86,7 @@ pub async fn put_user(
         fetch_handlers::user::query_for_user_by_email(client, email).await;
 
     if existing_user_with_email.is_ok() || existing_user_with_username.is_ok() {
-        return Ok(utils::http::build_http_response(
+        return Ok(utils::http::send_error(
             StatusCode::BAD_REQUEST,
             "User already exists.",
         ));
@@ -95,7 +95,7 @@ pub async fn put_user(
     match utils::authorization::hash_password(no_whitespace_password.clone()) {
         Ok(_) => {}
         Err(error) => {
-            return Ok(utils::http::build_http_response(
+            return Ok(utils::http::send_error(
                 StatusCode::BAD_REQUEST,
                 &format!("Unable to hash provided password. ERROR: {error}"),
             ))
@@ -109,7 +109,7 @@ pub async fn put_user(
         || last.trim() == ""
         || phone.trim() == ""
     {
-        return Ok(utils::http::build_http_response(
+        return Ok(utils::http::send_error(
             StatusCode::BAD_REQUEST,
             "Please provide all fields.",
         ));

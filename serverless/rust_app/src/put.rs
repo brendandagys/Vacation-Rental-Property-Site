@@ -1,5 +1,8 @@
 use aws_sdk_dynamodb as dynamodb;
-use lambda_http::{http::StatusCode, run, service_fn, Body, Error, Request, Response};
+use lambda_http::{
+    http::{Method, StatusCode},
+    run, service_fn, Body, Error, Request, Response,
+};
 
 mod fetch_handlers;
 mod put_handlers;
@@ -10,7 +13,14 @@ mod utils;
 async fn main() -> Result<(), Error> {
     let client = utils::dynamo_db::get_dynamo_db_client().await;
 
-    run(service_fn(|request| async { put(request, &client).await })).await?;
+    run(service_fn(|request: Request| async {
+        if request.method() == Method::OPTIONS {
+            return Ok(utils::http::build_cors_response());
+        }
+
+        put(request, &client).await
+    }))
+    .await?;
 
     Ok(())
 }
@@ -19,7 +29,7 @@ async fn put(request: Request, client: &dynamodb::Client) -> Result<Response<Bod
     let token = match request.headers().get("Authorization") {
         Some(token) => token,
         None => {
-            return Ok(utils::http::build_http_response(
+            return Ok(utils::http::send_error(
                 StatusCode::UNAUTHORIZED,
                 "No `Authorization` header provided.",
             ))
@@ -31,7 +41,7 @@ async fn put(request: Request, client: &dynamodb::Client) -> Result<Response<Bod
         Ok(_) => {}
         Err(error) => {
             println!("Error validating token: {error}");
-            return Ok(utils::http::build_http_response(
+            return Ok(utils::http::send_error(
                 StatusCode::UNAUTHORIZED,
                 "Invalid token.",
             ));
@@ -71,12 +81,12 @@ async fn put(request: Request, client: &dynamodb::Client) -> Result<Response<Bod
                     put_handlers::default::put_defaults(client, defaults).await
                 }
             },
-            Err(error) => Ok(utils::http::build_http_response(
+            Err(error) => Ok(utils::http::send_error(
                 StatusCode::BAD_REQUEST,
                 &format!("Please provide a valid entity. ERROR: {error}"),
             )),
         },
-        _ => Ok(utils::http::build_http_response(
+        _ => Ok(utils::http::send_error(
             StatusCode::BAD_REQUEST,
             "Please provide a text body.",
         )),

@@ -23,17 +23,13 @@ pub struct ApiResponse<T> {
 impl<T> ApiResponse<T> {
     pub fn new(data: ApiResponseData<T>, querymap: Option<QueryMap>, limit: Option<i32>) -> Self {
         match data {
-            ApiResponseData::Single(data) => {
-                let meta = ApiResponseMeta {
+            ApiResponseData::Single(data) => Self {
+                data: ApiResponseData::Single(data),
+                meta: ApiResponseMeta {
                     count: 1,
                     limit: None,
-                };
-
-                Self {
-                    data: ApiResponseData::Single(data),
-                    meta,
-                }
-            }
+                },
+            },
             ApiResponseData::Multiple(vec_data) => {
                 let count = vec_data.len();
 
@@ -42,6 +38,19 @@ impl<T> ApiResponse<T> {
                     meta: ApiResponseMeta { count, limit },
                 }
             }
+        }
+    }
+}
+
+#[derive(Serialize)]
+pub struct ApiErrorResponse {
+    message: String,
+}
+
+impl ApiErrorResponse {
+    pub fn new(message: &str) -> Self {
+        Self {
+            message: message.into(),
         }
     }
 }

@@ -16,14 +16,14 @@ pub async fn batch_write_item(
         .send()
         .await
     {
-        Ok(batch_write_item_output) => utils::dynamo_db::serialize_response(
+        Ok(batch_write_item_output) => utils::http::send_response(
             types::http::ApiResponseData::Single(format!("{:?}", batch_write_item_output)),
             None,
             None,
         ),
         Err(error) => {
             println!("Error performing batch write: {error}");
-            Ok(utils::http::build_http_response(
+            Ok(utils::http::send_error(
                 StatusCode::INTERNAL_SERVER_ERROR,
                 &error.to_string(),
             ))
