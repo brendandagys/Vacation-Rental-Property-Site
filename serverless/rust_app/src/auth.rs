@@ -1,3 +1,6 @@
+mod types;
+mod utils;
+
 use aws_sdk_dynamodb as dynamodb;
 use chrono::Utc;
 use dynamodb::model::AttributeValue;
@@ -6,9 +9,6 @@ use lambda_http::{
     run, service_fn, Body, Error, Request, Response,
 };
 use std::env;
-
-mod types;
-mod utils;
 
 #[tokio::main]
 async fn main() -> Result<(), Error> {
