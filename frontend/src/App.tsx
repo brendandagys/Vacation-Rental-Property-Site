@@ -14,82 +14,91 @@ import { images, enjoyTheSun } from './static/images';
 import { Alert } from 'react-bootstrap';
 
 import './static/sass/app.scss';
+import { LoginForm } from './components/LoginForm';
 
-export const App = () => (
-  <>
-    <div className="app__image">
-      <img src={enjoyTheSun} alt='Balcony view' />
-    </div>
+export const App = () => {
+  const path = window.location.pathname;
 
-    <Container fluid='md'>
-      <Row className='pt-4'>
-        <Col xs={12}>
-          <Alert variant='info' className="app__header">
-            <h1>Welcome to Calaceite FRONTLINE Vistamar!</h1>
-          </Alert>
-        </Col>
-      </Row>
-
-      <Row className='my-5'>
-        <Col xs={11} sm={10} md={8} lg={6} xl={4} className='mx-auto'>
-          <div className='app__contact-information'>
-            <p>Please contact Dawn-Ava for more information about a Spanish luxury holiday!</p>
-            <span>WhatsApp: <b>+1 (416) 779-6411</b></span>
-            <span><b>spainfrontline@gmail.com</b></span>
+  return (
+    path === '/login'
+      ? <LoginForm />
+      : (
+        <>
+          <div className="app__image">
+            <img src={enjoyTheSun} alt='Balcony view' />
           </div>
-        </Col>
-      </Row>
 
-      <Row>
-        <Col xs={12}>
-          <CalendarsContainer />
-        </Col>
-      </Row>
+          <Container fluid='md'>
+            <Row className='pt-4'>
+              <Col xs={12}>
+                <Alert variant='info' className="app__header">
+                  <h1>Welcome to Calaceite FRONTLINE Vistamar!</h1>
+                </Alert>
+              </Col>
+            </Row>
 
-      <Row className='gy-2 mb-5 mt-5 pt-5'>
-        <Col lg={6}>
-          <InformationCard
-            backgroundColor='#af0d12'
-            color='white'
-            lines={introductionLines}
-            title='Overview'
-          />
-        </Col>
+            <Row className='my-5'>
+              <Col xs={11} sm={10} md={8} lg={6} xl={4} className='mx-auto'>
+                <div className='app__contact-information'>
+                  <p>Please contact Dawn-Ava for more information about a Spanish luxury holiday!</p>
+                  <span>WhatsApp: <b>+1 (416) 779-6411</b></span>
+                  <span><b>spainfrontline@gmail.com</b></span>
+                </div>
+              </Col>
+            </Row>
 
-        <Col lg={6}>
-          <InformationCard
-            backgroundColor='#fabe00'
-            lines={amenitiesLines}
-            title='Amenities'
-          />
-        </Col>
-      </Row>
+            <Row>
+              <Col xs={12}>
+                <CalendarsContainer />
+              </Col>
+            </Row>
 
-      <Row className='px-3'>
-        <div className='app__image-carousel'>
-          <Col className='m-auto' md={8}>
-            <ImageCarousel images={images} />
-          </Col>
-        </div>
-      </Row>
+            <Row className='gy-2 mb-5 mt-5 pt-5'>
+              <Col lg={6}>
+                <InformationCard
+                  backgroundColor='#af0d12'
+                  color='white'
+                  lines={introductionLines}
+                  title='Overview'
+                />
+              </Col>
 
-      <Row className='my-4 pb-5'>
-        <Col className='mt-3' lg={6}>
-          <InformationCard
-            backgroundColor='#af0d12'
-            color='white'
-            lines={descriptionLines}
-            title='Description'
-          />
-        </Col>
-        <Col lg={6} className='mt-3'>
-          <InformationCard
-            backgroundColor='#fabe00'
-            lines={neighbourhoodLines}
-            title='Neighbourhood'
-          />
-        </Col>
-      </Row>
-    </Container>
-  </>
-);
+              <Col lg={6}>
+                <InformationCard
+                  backgroundColor='#fabe00'
+                  lines={amenitiesLines}
+                  title='Amenities'
+                />
+              </Col>
+            </Row>
+
+            <Row className='px-3'>
+              <div className='app__image-carousel'>
+                <Col className='m-auto' md={8}>
+                  <ImageCarousel images={images} />
+                </Col>
+              </div>
+            </Row>
+
+            <Row className='my-4 pb-5'>
+              <Col className='mt-3' lg={6}>
+                <InformationCard
+                  backgroundColor='#af0d12'
+                  color='white'
+                  lines={descriptionLines}
+                  title='Description'
+                />
+              </Col>
+              <Col lg={6} className='mt-3'>
+                <InformationCard
+                  backgroundColor='#fabe00'
+                  lines={neighbourhoodLines}
+                  title='Neighbourhood'
+                />
+              </Col>
+            </Row>
+          </Container>
+        </>
+      )
+  );
+};

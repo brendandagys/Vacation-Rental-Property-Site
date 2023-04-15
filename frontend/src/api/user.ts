@@ -1,42 +1,59 @@
-import { api } from '.';
+import { api, isApiResponse } from '.';
+import { Nullable } from '../types';
 import { IUser, IUserPutRequest } from '../types/user';
 
 export const getAllUsers = async (): Promise<IUser[]> => {
-  const { body: { data: allUsers } } = (
+  const { body, errorMessage } = (
     await api<IUser[]>('fetch?Entity=User', 'GET')
   );
 
-  console.info('All users:', { allUsers });
+  if (body && isApiResponse(body)) {
+    const { data: allUsers } = body;
+    console.info('All users:', { allUsers });
+    return allUsers;
+  }
 
-  return allUsers;
+  return [];
 };
 
-export const getUserByUsername = async (username: string): Promise<IUser> => {
-  const { body: { data: user } } = (
+export const getUserByUsername = async (username: string): Promise<Nullable<IUser>> => {
+  const { body, errorMessage } = (
     await api<IUser>(`fetch?Entity=User?username=${username}`, 'GET')
   );
 
-  console.info('user:', { user });
+  if (body && isApiResponse(body)) {
+    const { data: user } = body;
+    console.info('User:', { user });
+    return user;
+  }
 
-  return user;
+  return null;
 };
 
-export const getUserByEmail = async (email: string): Promise<IUser> => {
-  const { body: { data: user } } = (
+export const getUserByEmail = async (email: string): Promise<Nullable<IUser>> => {
+  const { body, errorMessage } = (
     await api<IUser>(`fetch?Entity=User?email=${email}`, 'GET')
   );
 
-  console.info('user:', { user });
+  if (body && isApiResponse(body)) {
+    const { data: user } = body;
+    console.info('User:', { user });
+    return user;
+  }
 
-  return user;
+  return null;
 };
 
-export const putUser = async (user: IUserPutRequest): Promise<string> => {
-  const { body: { data: putItemOutput } } = (
+export const putUser = async (user: IUserPutRequest): Promise<Nullable<string>> => {
+  const { body, errorMessage } = (
     await api<string>('put', 'PUT', user)
   );
 
-  console.info('PUT user output:', putItemOutput);
+  if (body && isApiResponse(body)) {
+    const { data: putItemOutput } = body;
+    console.info('PUT user output:', putItemOutput);
+    return putItemOutput;
+  }
 
-  return putItemOutput;
+  return null;
 };

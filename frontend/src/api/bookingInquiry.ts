@@ -1,33 +1,42 @@
-import { api } from './index';
+import { api, isApiResponse } from './index';
 import { EBookingInquiryState, IBookingInquiry, IBookingInquiryPutRequest } from '../types/bookingInquiry';
-import { IYearMonthDate } from '../types';
+import { IYearMonthDate, Nullable } from '../types';
 import { getYmdFromParts } from '../utils/helpers';
 
 export const getAllBookingInquiries = async (): Promise<IBookingInquiry[]> => {
-  const { body: { data: allBookingInquiries } } = (
+  const { body, errorMessage } = (
     await api<IBookingInquiry[]>('fetch?Entity=BookingInquiry', 'GET')
   );
 
-  console.info('Booking inquiries:', { allBookingInquiries });
+  if (body && isApiResponse(body)) {
+    const { data: allBookingInquiries } = body;
+    console.info('Booking inquiries:', { allBookingInquiries });
+    
+    return allBookingInquiries;
+  }
 
-  return allBookingInquiries;
+  return [];
 };
 
 export const getBookingInquiriesByState = async (state: EBookingInquiryState): Promise<IBookingInquiry[]> => {
-  const { body: { data: bookingInquiries } } = (
+  const { body, errorMessage } = (
     await api<IBookingInquiry[]>(`fetch?Entity=BookingInquiry?state=${state}`, 'GET')
   );
 
-  console.info('Booking inquiries:', { bookingInquiries });
+  if (body && isApiResponse(body)) {
+    const { data: bookingInquiries } = body;
+    console.info('Booking inquiries:', { bookingInquiries });
+    return bookingInquiries;
+  }
 
-  return bookingInquiries;
+  return [];
 };
 
 export const getBookingInquiriesInDateRange = async (
   startDate: IYearMonthDate,
   endDate: IYearMonthDate
 ): Promise<IBookingInquiry[]> => {
-  const { body: { data: bookingInquiries } } = (
+  const { body, errorMessage } = (
     await api<IBookingInquiry[]>(
       `fetch?Entity=BookingInquiry?start_date=${
         getYmdFromParts(startDate)}&end_date=${getYmdFromParts(endDate)}`,
@@ -35,17 +44,28 @@ export const getBookingInquiriesInDateRange = async (
     )
   );
 
-  console.info('Booking inquiries:', { bookingInquiries });
+  if (body && isApiResponse(body)) {
+    const { data: bookingInquiries } = body;
+    console.info('Booking inquiries:', { bookingInquiries });
+    return bookingInquiries;
+  }
 
-  return bookingInquiries;
+  return [];
 };
 
-export const putBookingInquiry = async (bookingInquiry: IBookingInquiryPutRequest): Promise<string> => {
-  const { body: { data: putItemOutput } } = (
+export const putBookingInquiry = async (
+  bookingInquiry: IBookingInquiryPutRequest
+): Promise<Nullable<string>> => {
+  const { body, errorMessage } = (
     await api<string>('put', 'PUT', bookingInquiry)
   );
 
-  console.info('PUT booking inquiry output:', putItemOutput);
+  if (body && isApiResponse(body)) {
+    const { data: putItemOutput } = body;
+    console.info('PUT booking inquiry output:', putItemOutput);
+  
+    return putItemOutput;
+  }
 
-  return putItemOutput;
+  return null;
 };
