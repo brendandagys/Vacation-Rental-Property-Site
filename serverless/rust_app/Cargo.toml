@@ -29,8 +29,8 @@ aws-types = { version = "0.52.0", features = ["hardcoded-credentials"] }
 http = "0.2.8"
 
 [[bin]]
-name = "log_in"
-path = "src/log_in.rs"
+name = "auth"
+path = "src/auth.rs"
 
 [[bin]]
 name = "fetch"

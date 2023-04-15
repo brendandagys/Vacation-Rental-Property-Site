@@ -14,6 +14,18 @@ pub struct LogInRequest {
     pub password: String,
 }
 
+#[derive(Debug, Deserialize)]
+pub struct ValidateTokenRequest {
+    pub token: String,
+}
+
+#[derive(Deserialize)]
+#[serde(untagged)]
+pub enum AuthRequestEntity {
+    LogInRequest(LogInRequest),
+    ValidateTokenRequest(ValidateTokenRequest),
+}
+
 #[derive(Serialize)]
 pub struct LogInResponse {
     pub token: String,

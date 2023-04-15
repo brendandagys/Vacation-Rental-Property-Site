@@ -60,12 +60,12 @@ Resources:
   #       Name: id
   #       Type: String
 
-  LogInFunction:
+  AuthFunction:
     Type: AWS::Serverless::Function # More info about Function Resource: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#awsserverlessfunction
     Metadata:
       BuildMethod: rust-cargolambda # More info about Cargo Lambda: https://github.com/cargo-lambda/cargo-lambda
       BuildProperties:
-        Binary: log_in
+        Binary: auth
     Properties:
       CodeUri: ./rust_app   # Points to dir of Cargo.toml
       Handler: bootstrap    # Do not change, as this is the default executable name produced by Cargo Lambda
@@ -73,15 +73,15 @@ Resources:
       Architectures:
       - arm64
       Events:
-        LogIn:
+        Auth:
           Type: Api # More info about API Event Source: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#api
           Properties:
-            Path: /log-in
+            Path: /auth
             Method: POST
         CORS:
           Type: Api
           Properties:
-            Path: /log-in
+            Path: /auth
             Method: OPTIONS
       Environment:
         Variables:

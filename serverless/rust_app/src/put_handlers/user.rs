@@ -26,7 +26,7 @@ pub fn build_user_item(
 
     let no_whitespace_password = password.replace(" ", "");
 
-    let hash = utils::authorization::hash_password(no_whitespace_password).unwrap();
+    let hash = utils::auth::hash_password(no_whitespace_password).unwrap();
 
     builder
         .item("PK", AttributeValue::S(format!("USER-{username}")))
@@ -92,7 +92,7 @@ pub async fn put_user(
         ));
     }
 
-    match utils::authorization::hash_password(no_whitespace_password.clone()) {
+    match utils::auth::hash_password(no_whitespace_password.clone()) {
         Ok(_) => {}
         Err(error) => {
             return Ok(utils::http::send_error(

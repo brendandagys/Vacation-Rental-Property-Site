@@ -36,8 +36,7 @@ async fn put(request: Request, client: &dynamodb::Client) -> Result<Response<Bod
         }
     };
 
-    match utils::authorization::validate_token::<types::log_in::JwtClaims>(token.to_str().unwrap())
-    {
+    match utils::auth::validate_token::<types::auth::JwtClaims>(token.to_str().unwrap()) {
         Ok(_) => {}
         Err(error) => {
             println!("Error validating token: {error}");
