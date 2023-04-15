@@ -6,10 +6,8 @@ import { AdminPage } from './pages/AdminPage';
 import { useAuth } from './context/authContext';
 
 export const App = () => {
-  const { isLoggedIn, decodedToken } = useAuth();
+  const { isLoggedIn } = useAuth();
 
-  console.log({ isLoggedIn, decodedToken });
-  
   const path = window.location.pathname;
 
   if (path === '/log-in') {

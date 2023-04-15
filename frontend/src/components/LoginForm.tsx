@@ -10,14 +10,14 @@ export const LogInForm = () => {
   const [ username, setUsername ] = useState('');
   const [ password, setPassword ] = useState('');
 
-  const { setToken } = useAuth();
+  const { validateTokenAndSetDecodedToken } = useAuth();
 
   const [ errorMessage, setErrorMessage ] = useState<Nullable<string>>(null);
 
   const submitForm = async () => {
     const { token, errorMessage } = await logIn({ username, password });
 
-    token && setToken(token);
+    token && void validateTokenAndSetDecodedToken(token);
     errorMessage && setErrorMessage(errorMessage);
   };
 
