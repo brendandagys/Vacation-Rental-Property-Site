@@ -5,7 +5,7 @@ import Form from 'react-bootstrap/Form';
 import { logIn } from '../api/authentication';
 import { Nullable } from '../types';
 
-export const LoginForm = () => {
+export const LogInForm = () => {
   const [ username, setUsername ] = useState('');
   const [ password, setPassword ] = useState('');
 
