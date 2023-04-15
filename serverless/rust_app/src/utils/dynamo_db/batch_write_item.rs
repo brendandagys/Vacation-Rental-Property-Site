@@ -23,10 +23,7 @@ pub async fn batch_write_item(
         ),
         Err(error) => {
             println!("Error performing batch write: {error}");
-            Ok(utils::http::send_error(
-                StatusCode::INTERNAL_SERVER_ERROR,
-                &error.to_string(),
-            ))
+            utils::http::send_error(StatusCode::INTERNAL_SERVER_ERROR, &error.to_string())
         }
     }
 }

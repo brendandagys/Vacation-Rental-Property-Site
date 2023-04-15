@@ -74,6 +74,6 @@ pub async fn batch_get_item_http<'a, T: Deserialize<'a> + Serialize>(
             Some(querymap),
             None,
         ),
-        Err((status_code, message)) => Ok(utils::http::send_error(status_code, &message)),
+        Err((status_code, message)) => utils::http::send_error(status_code, &message),
     }
 }

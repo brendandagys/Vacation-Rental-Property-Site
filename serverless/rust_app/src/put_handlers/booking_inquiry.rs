@@ -71,10 +71,7 @@ pub async fn put_booking_inquiry(
     let types::booking_inquiry::BookingInquiryPutRequest { email, message, .. } = &booking_inquiry;
 
     if email.trim() == "" || message.trim() == "" {
-        return Ok(utils::http::send_error(
-            StatusCode::BAD_REQUEST,
-            "Please provide all fields.",
-        ));
+        return utils::http::send_error(StatusCode::BAD_REQUEST, "Please provide all fields.");
     }
 
     let booking_inquiry_builder = BuildBookingInquiry {};

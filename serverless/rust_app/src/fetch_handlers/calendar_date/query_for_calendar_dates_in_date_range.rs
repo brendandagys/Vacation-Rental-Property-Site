@@ -26,7 +26,7 @@ pub async fn query_for_calendar_dates_in_date_range(
     {
         Ok(calendar_dates) => calendar_dates,
         Err((status_code, error_message)) => {
-            return Ok(utils::http::send_error(status_code, &error_message))
+            return utils::http::send_error(status_code, &error_message)
         }
     };
 
@@ -44,7 +44,7 @@ pub async fn query_for_calendar_dates_in_date_range(
         match super::get_missing_calendar_dates(client, found_calendar_dates, dates).await {
             Ok(calendar_dates) => calendar_dates,
             Err((status_code, error_message)) => {
-                return Ok(utils::http::send_error(status_code, &error_message))
+                return utils::http::send_error(status_code, &error_message)
             }
         };
 

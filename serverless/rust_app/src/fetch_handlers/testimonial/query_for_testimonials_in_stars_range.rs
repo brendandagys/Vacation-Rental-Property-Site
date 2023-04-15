@@ -13,30 +13,27 @@ pub async fn query_for_testimonials_in_stars_range(
     let from: f32 = match inclusive_lower.parse() {
         Ok(val) => val,
         Err(_) => {
-            return Ok(utils::http::send_error(
+            return utils::http::send_error(
                 StatusCode::BAD_REQUEST,
                 "Provide a number value for `from`.",
-            ))
+            )
         }
     };
 
     let to: f32 = match inclusive_upper.parse() {
         Ok(val) => val,
         Err(_) => {
-            return Ok(utils::http::send_error(
+            return utils::http::send_error(
                 StatusCode::BAD_REQUEST,
                 "Provide a number value for `to`.",
-            ))
+            )
         }
     };
 
     let valid_stars: [u8; 11] = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 
     if !valid_stars.contains(&((from * 2.0) as u8)) | !valid_stars.contains(&((to * 2.0) as u8)) {
-        return Ok(utils::http::send_error(
-            StatusCode::BAD_REQUEST,
-            "Provide a valid `Stars` value.",
-        ));
+        return utils::http::send_error(StatusCode::BAD_REQUEST, "Provide a valid `Stars` value.");
     }
 
     utils::dynamo_db::query_http::<types::testimonial::Testimonial>(

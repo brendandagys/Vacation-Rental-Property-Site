@@ -19,12 +19,7 @@ pub async fn get(client: &dynamodb::Client, querymap: QueryMap) -> Result<Respon
             "Subheader" => types::content::ContentId::Subheader,
             "Description" => types::content::ContentId::Description,
             "Footer" => types::content::ContentId::Footer,
-            _ => {
-                return Ok(send_error(
-                    StatusCode::BAD_REQUEST,
-                    "Invalid `content_id` provided.",
-                ))
-            }
+            _ => return send_error(StatusCode::BAD_REQUEST, "Invalid `content_id` provided."),
         };
 
         return get_content_by_content_id_http(client, content_id, querymap.clone()).await;

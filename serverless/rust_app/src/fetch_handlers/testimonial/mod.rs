@@ -28,10 +28,10 @@ pub async fn get(client: &dynamodb::Client, querymap: QueryMap) -> Result<Respon
             "true" => true,
             "false" => false,
             _ => {
-                return Ok(utils::http::send_error(
+                return utils::http::send_error(
                     StatusCode::BAD_REQUEST,
                     "Provide `true` or `false` for the `active` parameter.",
-                ))
+                )
             }
         };
 

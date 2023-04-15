@@ -67,10 +67,7 @@ pub async fn put_testimonial(
     } = &testimonial;
 
     if email.trim() == "" || title.trim() == "" || comment.trim() == "" {
-        return Ok(utils::http::send_error(
-            StatusCode::BAD_REQUEST,
-            "Please provide all fields.",
-        ));
+        return utils::http::send_error(StatusCode::BAD_REQUEST, "Please provide all fields.");
     }
 
     let testimonial_builder = BuildTestimonial {};

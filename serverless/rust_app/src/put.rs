@@ -29,10 +29,10 @@ async fn put(request: Request, client: &dynamodb::Client) -> Result<Response<Bod
     let token = match request.headers().get("Authorization") {
         Some(token) => token,
         None => {
-            return Ok(utils::http::send_error(
+            return utils::http::send_error(
                 StatusCode::UNAUTHORIZED,
                 "No `Authorization` header provided.",
-            ))
+            )
         }
     };
 
@@ -40,10 +40,7 @@ async fn put(request: Request, client: &dynamodb::Client) -> Result<Response<Bod
         Ok(_) => {}
         Err(error) => {
             println!("Error validating token: {error}");
-            return Ok(utils::http::send_error(
-                StatusCode::UNAUTHORIZED,
-                "Invalid token.",
-            ));
+            return utils::http::send_error(StatusCode::UNAUTHORIZED, "Invalid token.");
         }
     };
 
@@ -80,14 +77,11 @@ async fn put(request: Request, client: &dynamodb::Client) -> Result<Response<Bod
                     put_handlers::default::put_defaults(client, defaults).await
                 }
             },
-            Err(error) => Ok(utils::http::send_error(
+            Err(error) => utils::http::send_error(
                 StatusCode::BAD_REQUEST,
                 &format!("Please provide a valid entity. ERROR: {error}"),
-            )),
+            ),
         },
-        _ => Ok(utils::http::send_error(
-            StatusCode::BAD_REQUEST,
-            "Please provide a text body.",
-        )),
+        _ => utils::http::send_error(StatusCode::BAD_REQUEST, "Please provide a text body."),
     }
 }

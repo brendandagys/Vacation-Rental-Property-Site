@@ -35,11 +35,11 @@ async fn fetch(request: Request, client: &dynamodb::Client) -> Result<Response<B
             "Default" => fetch_handlers::default::get(client, querymap).await,
             "Testimonial" => fetch_handlers::testimonial::get(client, querymap).await,
             "User" => fetch_handlers::user::get(client, request.headers(), querymap).await,
-            &_ => Ok(utils::http::send_error(StatusCode::OK, "Please specify one of the following entity types: `BookingInquiry`, `CalendarDate`, `Content`, `Default`, `Testimonial`, `User`.")),
+            &_ => utils::http::send_error(StatusCode::OK, "Please specify one of the following entity types: `BookingInquiry`, `CalendarDate`, `Content`, `Default`, `Testimonial`, `User`."),
         },
-        None => Ok(utils::http::send_error(
+        None => utils::http::send_error(
             StatusCode::BAD_REQUEST,
             "Please provide a valid `entity` type via query string.",
-        )),
+        ),
     }
 }

@@ -28,7 +28,7 @@ pub async fn batch_get_calendar_dates(
         {
             Ok(calendar_dates) => calendar_dates,
             Err((status_code, error_message)) => {
-                return Ok(utils::http::send_error(status_code, &error_message))
+                return utils::http::send_error(status_code, &error_message)
             }
         };
 
@@ -36,7 +36,7 @@ pub async fn batch_get_calendar_dates(
         match super::get_missing_calendar_dates(client, found_calendar_dates, dates).await {
             Ok(calendar_dates) => calendar_dates,
             Err((status_code, error_message)) => {
-                return Ok(utils::http::send_error(status_code, &error_message))
+                return utils::http::send_error(status_code, &error_message)
             }
         };
 

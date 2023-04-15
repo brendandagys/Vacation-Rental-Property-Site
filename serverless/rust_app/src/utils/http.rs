@@ -48,19 +48,16 @@ pub fn send_response<T: serde::Serialize>(
         Ok(string) => Ok(utils::http::build_http_response(StatusCode::OK, &string)),
         Err(error) => {
             println!("Error converting response data into a JSON string: {error}");
-            Ok(utils::http::send_error(
-                StatusCode::INTERNAL_SERVER_ERROR,
-                &error.to_string(),
-            ))
+            utils::http::send_error(StatusCode::INTERNAL_SERVER_ERROR, &error.to_string())
         }
     }
 }
 
-pub fn send_error(status_code: StatusCode, message: &str) -> Response<Body> {
+pub fn send_error(status_code: StatusCode, message: &str) -> Result<Response<Body>, Error> {
     let error_response = types::http::ApiErrorResponse::new(message);
 
     match serde_json::to_string(&error_response) {
-        Ok(string) => utils::http::build_http_response(status_code, &string),
+        Ok(string) => Ok(utils::http::build_http_response(status_code, &string)),
         Err(error) => {
             println!("Error converting response data into a JSON string: {error}");
             utils::http::send_error(StatusCode::INTERNAL_SERVER_ERROR, &format!("{error}"))

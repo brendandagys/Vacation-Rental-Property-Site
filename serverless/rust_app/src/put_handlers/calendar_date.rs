@@ -67,10 +67,10 @@ pub async fn put_calendar_date(
     let calendar_date_builder = BuildCalendarDate {};
 
     if calendar_date.ymd.len() != 10 {
-        return Ok(utils::http::send_error(
+        return utils::http::send_error(
             StatusCode::BAD_REQUEST,
             "Please provide a valid YYYY-MM-DD string.",
-        ));
+        );
     }
 
     utils::dynamo_db::put_item_http::<types::calendar_date::CalendarDatePutRequest>(

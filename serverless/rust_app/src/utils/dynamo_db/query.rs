@@ -134,6 +134,6 @@ pub async fn query_http<'a, T: Deserialize<'a> + Serialize + std::fmt::Debug + C
                 limit,
             )
         }
-        Err((status_code, message)) => Ok(utils::http::send_error(status_code, &message)),
+        Err((status_code, message)) => utils::http::send_error(status_code, &message),
     }
 }

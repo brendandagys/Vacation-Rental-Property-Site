@@ -47,17 +47,17 @@ async fn auth(request: Request, client: &dynamodb::Client) -> Result<Response<Bo
                     let password = log_in_request.password;
 
                     if username == "" || password == "" {
-                        return Ok(utils::http::send_error(
+                        return utils::http::send_error(
                             StatusCode::BAD_REQUEST,
                             "Please provide both necessary parameters: `username` and `password`.",
-                        ));
+                        );
                     }
 
                     // Fetch the user attempting to log in
                     let user = match get_user_by_username(client, &username).await {
                         Ok(user) => user,
                         Err((status_code, ..)) => {
-                            return Ok(utils::http::send_error(status_code, "User does not exist."))
+                            return utils::http::send_error(status_code, "User does not exist.")
                         }
                     };
 
@@ -65,10 +65,10 @@ async fn auth(request: Request, client: &dynamodb::Client) -> Result<Response<Bo
                     let jwt_secret = match env::var("JWT_SECRET") {
                         Ok(secret) => secret,
                         Err(_) => {
-                            return Ok(utils::http::send_error(
+                            return utils::http::send_error(
                                 StatusCode::INTERNAL_SERVER_ERROR,
                                 "Token secret not set. Please try again later.",
-                            ))
+                            )
                         }
                     };
 
@@ -98,25 +98,25 @@ async fn auth(request: Request, client: &dynamodb::Client) -> Result<Response<Bo
                                     None,
                                     None,
                                 ),
-                                false => Ok(utils::http::send_error(
+                                false => utils::http::send_error(
                                     StatusCode::UNAUTHORIZED,
                                     "Invalid password!",
-                                )),
+                                ),
                             },
                             Err(error) => {
                                 println!("Error: {:?}", error);
-                                Ok(utils::http::send_error(
+                                utils::http::send_error(
                                     StatusCode::INTERNAL_SERVER_ERROR,
                                     "Error validating password!",
-                                ))
+                                )
                             }
                         },
                         Err(error) => {
                             println!("Error: {:?}", error);
-                            Ok(utils::http::send_error(
+                            utils::http::send_error(
                                 StatusCode::INTERNAL_SERVER_ERROR,
                                 "Could not create token!",
-                            ))
+                            )
                         }
                     }
                 }
@@ -129,21 +129,17 @@ async fn auth(request: Request, client: &dynamodb::Client) -> Result<Response<Bo
                             None,
                             None,
                         ),
-                        Err(error) => Ok(utils::http::send_error(
-                            StatusCode::FORBIDDEN,
-                            &error.to_string(),
-                        )),
+                        Err(error) => {
+                            utils::http::send_error(StatusCode::FORBIDDEN, &error.to_string())
+                        }
                     }
                 }
             },
-            Err(error) => Ok(utils::http::send_error(
+            Err(error) => utils::http::send_error(
                 StatusCode::BAD_REQUEST,
                 &format!("Please provide a valid entity. ERROR: {error}"),
-            )),
+            ),
         },
-        _ => Ok(utils::http::send_error(
-            StatusCode::BAD_REQUEST,
-            "Please provide a text body.",
-        )),
+        _ => utils::http::send_error(StatusCode::BAD_REQUEST, "Please provide a text body."),
     }
 }
