@@ -5,7 +5,7 @@ import { getYmdFromParts } from '../utils/helpers';
 
 export const getAllTestimonials = async (): Promise<ITestimonial[]> => {
   const { body, errorMessage } = (
-    await api<ITestimonial[]>('fetch?Entity=Testimonial', 'GET')
+    await api<ITestimonial[]>('fetch?entity=Testimonial', 'GET')
   );
 
   if (body && isApiResponse(body)) {
@@ -19,7 +19,7 @@ export const getAllTestimonials = async (): Promise<ITestimonial[]> => {
 
 export const getTestimonialsByStars = async (stars: EStars): Promise<ITestimonial[]> => {
   const { body, errorMessage } = (
-    await api<ITestimonial[]>(`fetch?Entity=Testimonial?stars=${stars}`, 'GET')
+    await api<ITestimonial[]>(`fetch?entity=Testimonial&stars=${stars}`, 'GET')
   );
 
   if (body && isApiResponse(body)) {
@@ -33,7 +33,7 @@ export const getTestimonialsByStars = async (stars: EStars): Promise<ITestimonia
 
 export const getTestimonialsByActive = async (active: boolean): Promise<ITestimonial[]> => {
   const { body, errorMessage } = (
-    await api<ITestimonial[]>(`fetch?Entity=Testimonial?active=${active ? 'true' : 'false'}`, 'GET')
+    await api<ITestimonial[]>(`fetch?entity=Testimonial&active=${active ? 'true' : 'false'}`, 'GET')
   );
 
   if (body && isApiResponse(body)) {
@@ -52,7 +52,7 @@ export const getTestimonialsByActiveAndInDateRange = async (
 ): Promise<ITestimonial[]> => {
   const { body, errorMessage } = (
     await api<ITestimonial[]>(
-      `fetch?Entity=Testimonial?active=${active ? 'true' : 'false'
+      `fetch?entity=Testimonial&active=${active ? 'true' : 'false'
       }&start_date=${getYmdFromParts(startDate)}&end_date=${getYmdFromParts(endDate)}`,
       'GET'
     )

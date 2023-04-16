@@ -6,7 +6,7 @@ import { api, isApiResponse } from './index';
 export const getSpecificCalendarDates = async (ymdList: string[]): Promise<ICalendarDate[]> => {
   const query = new URLSearchParams({ dates: JSON.stringify(ymdList) });
   const { body, errorMessage } = (
-    await api<ICalendarDate[]>(`fetch?Entity=CalendarDate&${query.toString()}`, 'GET')
+    await api<ICalendarDate[]>(`fetch?entity=CalendarDate&${query.toString()}`, 'GET')
   );
 
   if (body && isApiResponse(body)) {
@@ -20,7 +20,7 @@ export const getSpecificCalendarDates = async (ymdList: string[]): Promise<ICale
 
 export const getCalendarDatesByState = async (state: ECalendarDateState): Promise<ICalendarDate[]> => {
   const { body, errorMessage } = (
-    await api<ICalendarDate[]>(`fetch?Entity=CalendarDate?state=${state}`, 'GET')
+    await api<ICalendarDate[]>(`fetch?entity=CalendarDate&state=${state}`, 'GET')
   );
 
   if (body && isApiResponse(body)) {
@@ -38,7 +38,7 @@ export const getCalendarDatesInDateRange = async (
 ): Promise<ICalendarDate[]> => {
   const { body, errorMessage } = (
     await api<ICalendarDate[]>(
-      `fetch?Entity=CalendarDate?start_date=${
+      `fetch?entity=CalendarDate&start_date=${
         getYmdFromParts(startDate)}&end_date=${getYmdFromParts(endDate)}`,
       'GET'
     )

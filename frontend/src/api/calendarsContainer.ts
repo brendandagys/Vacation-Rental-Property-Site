@@ -1,13 +1,14 @@
-// import { api } from '.';
-import { dateData } from '../static/data/date-data';
 import {
   TCalendarMonthsRequest,
   TCalendarsData,
   TMonthNumber,
   IYearMonth,
   ICalendarDate,
+  TDateNumber,
 } from '../types';
+import { getPartsFromYmd } from '../utils/helpers';
 import { makeYm, makeYmd } from '../utils/helpers';
+import { getCalendarDatesInDateRange } from './calendarDate';
 
 export const getYearMonthForDate = (date: Date): IYearMonth => {
   const year = date.getFullYear();
@@ -28,17 +29,46 @@ export const getMonthsForRequest = (yearMonth: IYearMonth, numberAhead = 0): TCa
 
 export const fetchCalendarMonths = async (
   months: TCalendarMonthsRequest
-): Promise<TCalendarsData> => (
-  Promise.resolve(
-    months
-      .reduce((acc, { year, month }) => {
-        const ym = makeYm(year, month);
-        return { ...acc, ...(dateData[ym] ? { [ym]: dateData[ym] } : {}) };
-      }, {})
-  )
-);
+): Promise<TCalendarsData> => {
+  const sortedMonths = (
+    [ ...months ].sort((a, b) => makeYm(a.year, a.month) > makeYm(b.year, b.month) ? 1 : -1)
+  );
 
-// api(months);
+  const firstMonth = sortedMonths[0];
+  const firstDate = `${makeYm(firstMonth.year, firstMonth.month)}-01`;
+
+  const lastMonth = sortedMonths[sortedMonths.length - 1];
+  const firstDayOfLastMonth = new Date(lastMonth.year, lastMonth.month - 1, 1);
+  const lastDayOfLastMonth = (
+    new Date(firstDayOfLastMonth.getFullYear(), firstDayOfLastMonth.getMonth() + 1, 0)
+  );
+  const lastDate = (
+    makeYmd(
+      lastDayOfLastMonth.getFullYear(),
+      lastDayOfLastMonth.getMonth() + 1 as TMonthNumber,
+      lastDayOfLastMonth.getDate() as TDateNumber,
+    )
+  );
+
+  const calendarDates = (
+    await getCalendarDatesInDateRange(getPartsFromYmd(firstDate), getPartsFromYmd(lastDate))
+  );
+
+  console.log({ calendarDates });
+  
+  return (
+    calendarDates.reduce<Record<string, ICalendarDate[]>>((acc, calendarDate) => {
+      const { year, month } = calendarDate;
+      const ym = makeYm(year, month);
+
+      return {
+        ...acc,
+        [ym]: [ ...(acc[ym] ? acc[ym] : []), calendarDate ],
+      };
+    }, {})
+  );
+};
+
 export const sortCalendarDates = (a: ICalendarDate, b: ICalendarDate) => (
   (new Date(a.year, a.month - 1, a.date)) > (new Date(b.year, b.month - 1, b.date)) ? 1 : -1
 );

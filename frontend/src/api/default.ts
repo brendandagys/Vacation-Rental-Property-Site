@@ -3,7 +3,7 @@ import { IDefault, IDefaultPutRequest } from '../types/default';
 import { Nullable } from '../types';
 
 export const getAllDefaults = async (): Promise<IDefault[]> => {
-  const { body, errorMessage } = await api<IDefault[]>('fetch?Entity=Default', 'GET');
+  const { body, errorMessage } = await api<IDefault[]>('fetch?entity=Default', 'GET');
 
   if (body && isApiResponse(body)) {
     const { data: allDefaults } = body;
@@ -16,7 +16,7 @@ export const getAllDefaults = async (): Promise<IDefault[]> => {
 
 export const getDefaultByName = async (name: string): Promise<Nullable<IDefault>> => {
   const { body, errorMessage } = (
-    await api<IDefault>(`fetch?Entity=Default?name=${name}`, 'GET')
+    await api<IDefault>(`fetch?entity=Default&name=${name}`, 'GET')
   );
 
   if (body && isApiResponse(body)) {

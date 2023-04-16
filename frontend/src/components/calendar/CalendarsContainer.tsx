@@ -16,12 +16,14 @@ import {
 } from '../../types';
 import { makeYm, makeYmd } from '../../utils/helpers';
 import { Calendar } from './Calendar';
-import downArrow from '../../static/icons/down-arrow.svg';
+// import downArrow from '../../static/icons/down-arrow.svg';
+
+let fetchedOnce = false;
 
 export const CalendarsContainer = (): JSX.Element => {
   const [ calendarsData, setCalendarsData ] = useState<TCalendarsData>({});
-  const [ currentYear, setCurrentYear ] = useState(() => (new Date()).getFullYear());
-  const [ currentMonth, setCurrentMonth ] = (
+  const [ currentYear ] = useState(() => (new Date()).getFullYear());
+  const [ currentMonth ] = (
     useState<TMonthNumber>(() => (new Date()).getMonth() + 1 as TMonthNumber) // 1-based
   );
   const [ firstClick, setFirstClick ] = useState<ICalendarDate | null>(null);
@@ -158,8 +160,11 @@ export const CalendarsContainer = (): JSX.Element => {
   };
 
   useEffect(() => {
-    const monthsToFetch = getMonthsForRequest({ year: currentYear, month: currentMonth }, 7);
-    fetchData(monthsToFetch).catch(console.error);
+    if (!fetchedOnce) {
+      fetchedOnce = true;
+      const monthsToFetch = getMonthsForRequest({ year: currentYear, month: currentMonth }, 11);
+      fetchData(monthsToFetch).catch(console.error);
+    }
   }, [ currentYear, currentMonth, fetchData ]);
 
   const getCalendarDateYmd = (calendarDate: ICalendarDate) => {
@@ -171,11 +176,11 @@ export const CalendarsContainer = (): JSX.Element => {
     return '';
   };
 
-  const onFetchMonths = () => {
-    setCalendarsExpanded(true);
-    const monthsToFetch = getMonthsForRequest({ year: currentYear, month: currentMonth }, 11);
-    fetchData(monthsToFetch).catch(console.error);
-  };
+  // const onFetchMonths = () => {
+  //   setCalendarsExpanded(true);
+  //   const monthsToFetch = getMonthsForRequest({ year: currentYear, month: currentMonth }, 11);
+  //   fetchData(monthsToFetch).catch(console.error);
+  // };
 
   return (
     <Container>
@@ -229,7 +234,7 @@ export const CalendarsContainer = (): JSX.Element => {
             ))
         }
       </Row>
-      {
+      {/* {
         !calendarsExpanded
         && (
           <Row>
@@ -242,7 +247,7 @@ export const CalendarsContainer = (): JSX.Element => {
             </Col>
           </Row>
         )
-      }
+      } */}
     </Container>
   );
 };

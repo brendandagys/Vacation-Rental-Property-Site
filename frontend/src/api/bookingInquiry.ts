@@ -5,7 +5,7 @@ import { getYmdFromParts } from '../utils/helpers';
 
 export const getAllBookingInquiries = async (): Promise<IBookingInquiry[]> => {
   const { body, errorMessage } = (
-    await api<IBookingInquiry[]>('fetch?Entity=BookingInquiry', 'GET')
+    await api<IBookingInquiry[]>('fetch?entity=BookingInquiry', 'GET')
   );
 
   if (body && isApiResponse(body)) {
@@ -20,7 +20,7 @@ export const getAllBookingInquiries = async (): Promise<IBookingInquiry[]> => {
 
 export const getBookingInquiriesByState = async (state: EBookingInquiryState): Promise<IBookingInquiry[]> => {
   const { body, errorMessage } = (
-    await api<IBookingInquiry[]>(`fetch?Entity=BookingInquiry?state=${state}`, 'GET')
+    await api<IBookingInquiry[]>(`fetch?entity=BookingInquiry&state=${state}`, 'GET')
   );
 
   if (body && isApiResponse(body)) {
@@ -38,7 +38,7 @@ export const getBookingInquiriesInDateRange = async (
 ): Promise<IBookingInquiry[]> => {
   const { body, errorMessage } = (
     await api<IBookingInquiry[]>(
-      `fetch?Entity=BookingInquiry?start_date=${
+      `fetch?entity=BookingInquiry&start_date=${
         getYmdFromParts(startDate)}&end_date=${getYmdFromParts(endDate)}`,
       'GET'
     )

@@ -4,7 +4,7 @@ import { IUser, IUserPutRequest } from '../types/user';
 
 export const getAllUsers = async (): Promise<IUser[]> => {
   const { body, errorMessage } = (
-    await api<IUser[]>('fetch?Entity=User', 'GET')
+    await api<IUser[]>('fetch?entity=User', 'GET')
   );
 
   if (body && isApiResponse(body)) {
@@ -18,7 +18,7 @@ export const getAllUsers = async (): Promise<IUser[]> => {
 
 export const getUserByUsername = async (username: string): Promise<Nullable<IUser>> => {
   const { body, errorMessage } = (
-    await api<IUser>(`fetch?Entity=User?username=${username}`, 'GET')
+    await api<IUser>(`fetch?entity=User&username=${username}`, 'GET')
   );
 
   if (body && isApiResponse(body)) {
@@ -32,7 +32,7 @@ export const getUserByUsername = async (username: string): Promise<Nullable<IUse
 
 export const getUserByEmail = async (email: string): Promise<Nullable<IUser>> => {
   const { body, errorMessage } = (
-    await api<IUser>(`fetch?Entity=User?email=${email}`, 'GET')
+    await api<IUser>(`fetch?entity=User&email=${email}`, 'GET')
   );
 
   if (body && isApiResponse(body)) {

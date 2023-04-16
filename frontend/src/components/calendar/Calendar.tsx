@@ -1,7 +1,7 @@
 import { Dispatch, SetStateAction, useState } from 'react';
 import { mapCalendarDateToDate } from '../../api/calendarsContainer';
-import { monthsEnglish, weekdayHeadersEnglish } from '../../static/data/date-data';
 import { ECalendarDateState, ICalendarDate } from '../../types';
+import { monthsEnglish, weekdayHeadersEnglish } from '../../static/data/dates';
 
 interface ICalendarProps {
   dateData: ICalendarDate[];

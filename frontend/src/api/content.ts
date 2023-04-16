@@ -3,7 +3,7 @@ import { IContent, IContentPutRequest } from '../types/content';
 import { Nullable } from '../types';
 
 export const getAllContent = async (): Promise<IContent[]> => {
-  const { body, errorMessage } = await api<IContent[]>('fetch?Entity=Content', 'GET');
+  const { body, errorMessage } = await api<IContent[]>('fetch?entity=Content', 'GET');
 
   if (body && isApiResponse(body)) {
     const { data: allContent } = body;
@@ -16,7 +16,7 @@ export const getAllContent = async (): Promise<IContent[]> => {
 
 export const getContentByContentId = async (content_id: string): Promise<Nullable<IContent>> => {
   const { body, errorMessage } = (
-    await api<IContent>(`fetch?Entity=Content?content_id=${content_id}`, 'GET')
+    await api<IContent>(`fetch?entity=Content&content_id=${content_id}`, 'GET')
   );
 
   if (body && isApiResponse(body)) {
