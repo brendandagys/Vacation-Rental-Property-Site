@@ -40,7 +40,7 @@ module.exports = {
     "no-console": [ "warn", { allow: [ "warn", "error", "info" ] } ],
     "no-multiple-empty-lines": [ "warn", { max: 1, maxEOF: 1 } ],
     "no-plusplus": "off",
-    "no-trailing-spaces": [ "warn", { skipBlankLines: true, ignoreComments: true } ],
+    "no-trailing-spaces": [ "warn", { skipBlankLines: false, ignoreComments: false } ],
     "no-undef": "off",
     "no-underscore-dangle": "off",
     "no-unused-vars": "off",
