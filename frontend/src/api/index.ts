@@ -18,10 +18,10 @@ const isApiErrorResponse = <T> (
 
 /**
  * Make an API request to the Lambda server.
- * @param path 
- * @param method 
- * @param body 
- * @param args 
+ * @param path
+ * @param method
+ * @param body
+ * @param args
  */
 export const api = async <T = unknown>(
   path: string,
@@ -35,11 +35,11 @@ export const api = async <T = unknown>(
     'Content-Type': 'application/json',
     // Accept: 'application/json',
   };
-  
+
   if (token) {
     headers['Authorization'] = token;
   }
-  
+
   const response = (
     await fetch(`${API}/${path}`, {
       method,
@@ -49,12 +49,12 @@ export const api = async <T = unknown>(
   );
 
   const responseBody = await response.json() as IApiResponse<T> | IApiErrorResponse;
-  
+
   const isError = response.status >= 400 && isApiErrorResponse(responseBody);
   const errorMessage = isError ? responseBody.message : null;
-  
+
   const body = isApiResponse(responseBody) ? responseBody : null;
-  
+
   return {
     status: response.status,
     errorMessage,
