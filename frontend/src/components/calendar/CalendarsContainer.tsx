@@ -10,28 +10,32 @@ import {
 import {
   ECalendarDateState,
   ICalendarDate,
+  Nullable,
   TCalendarMonthsRequest,
   TCalendarsData,
   TMonthNumber,
 } from '../../types';
 import { makeYm, makeYmd } from '../../utils/helpers';
 import { Calendar } from './Calendar';
-// import downArrow from '../../static/icons/down-arrow.svg';
+import { DEFAULT_PRICE } from '../../utils/constants';
+
+interface ICalendarsContainerProps {
+  onDateRangeSelected?: (from: ICalendarDate, to: ICalendarDate) => void;
+}
 
 let fetchedOnce = false;
 
-export const CalendarsContainer = (): JSX.Element => {
+export const CalendarsContainer = ({ onDateRangeSelected }: ICalendarsContainerProps): JSX.Element => {
   const [ calendarsData, setCalendarsData ] = useState<TCalendarsData>({});
   const [ currentYear ] = useState(() => (new Date()).getFullYear());
   const [ currentMonth ] = (
     useState<TMonthNumber>(() => (new Date()).getMonth() + 1 as TMonthNumber) // 1-based
   );
-  const [ firstClick, setFirstClick ] = useState<ICalendarDate | null>(null);
-  const [ secondClick, setSecondClick ] = useState<ICalendarDate | null>(null);
+  const [ firstClick, setFirstClick ] = useState<Nullable<ICalendarDate>>(null);
+  const [ secondClick, setSecondClick ] = useState<Nullable<ICalendarDate>>(null);
 
   const [ selectedDates, setSelectedDates ] = useState<string[]>([]);
-  const [ hoveredDate, setHoveredDate ] = useState<ICalendarDate | null>(null);
-  const [ calendarsExpanded, setCalendarsExpanded ] = useState(false);
+  const [ hoveredDate, setHoveredDate ] = useState<Nullable<ICalendarDate>>(null);
 
   const [ currencySymbol ] = useState('€');
 
@@ -53,15 +57,17 @@ export const CalendarsContainer = (): JSX.Element => {
           from = firstClick;
         }
 
+        from && to && onDateRangeSelected?.(from, to);
+
         return { from, to };
       },
-      [ firstClick, secondClick ]
+      [ firstClick, secondClick ] // eslint-disable-line react-hooks/exhaustive-deps
     )
   );
 
   const getCalendarDateForYmd = (
     useCallback(
-      (ymd: string): ICalendarDate | null => {
+      (ymd: string): Nullable<ICalendarDate> => {
         const [ year, month, date ] = ymd.split('-');
         return (
           calendarsData[`${year}-${month}`]
@@ -87,7 +93,7 @@ export const CalendarsContainer = (): JSX.Element => {
       selectedDates
         .map(getCalendarDateForYmd)
         .filter((calendarDate) => calendarDate?.state === ECalendarDateState.available)
-        .map((x) => x!.price)
+        .map((x) => x?.price ?? DEFAULT_PRICE)
         .reduce((acc, dateAmount) => acc + dateAmount, 0)
     ), [ getCalendarDateForYmd, selectedDates ])
   );
@@ -104,10 +110,12 @@ export const CalendarsContainer = (): JSX.Element => {
         )
       );
 
-      setCalendarsData((old) => ({ ...old, ...data }));
-    }, [] // eslint-disable-line react-hooks/exhaustive-deps
+      setCalendarsData((old) => {
+        return { ...old, ...data };
+      });
+    }, [ calendarsData ]
   );
-  
+
   const datesInHoverRange = (
     useMemo(() => {
       if (!hoveredDate || !firstClick || secondClick) {
@@ -153,7 +161,6 @@ export const CalendarsContainer = (): JSX.Element => {
       );
       return;
     }
-
     // Hasn't chosen anything
     setFirstClick(calendarDate);
     setSelectedDates([ mapCalendarDateToString(calendarDate) ]);
@@ -175,12 +182,6 @@ export const CalendarsContainer = (): JSX.Element => {
 
     return '';
   };
-
-  // const onFetchMonths = () => {
-  //   setCalendarsExpanded(true);
-  //   const monthsToFetch = getMonthsForRequest({ year: currentYear, month: currentMonth }, 11);
-  //   fetchData(monthsToFetch).catch(console.error);
-  // };
 
   return (
     <Container>
@@ -234,20 +235,6 @@ export const CalendarsContainer = (): JSX.Element => {
             ))
         }
       </Row>
-      {/* {
-        !calendarsExpanded
-        && (
-          <Row>
-            <Col
-              xs={12}
-              className='text-center my-5 calendars-container__down-arrow'
-              onClick={onFetchMonths}
-            >
-              <img src={downArrow} height='50' alt='down arrow' />
-            </Col>
-          </Row>
-        )
-      } */}
     </Container>
   );
 };

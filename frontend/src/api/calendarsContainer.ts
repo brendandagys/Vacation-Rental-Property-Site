@@ -55,7 +55,7 @@ export const fetchCalendarMonths = async (
   );
 
   console.log({ calendarDates });
-  
+
   return (
     calendarDates.reduce<Record<string, ICalendarDate[]>>((acc, calendarDate) => {
       const { year, month } = calendarDate;
@@ -83,14 +83,14 @@ export const mapCalendarDateToString = ({ year, month, date }: ICalendarDate): s
 
 /**
  * Returns an array of YYYY-MM-DD strings, one for each date (inclusive) between
- * the arguments, regardless of order.
- * @param firstDate 
- * @param secondDate 
- * @returns 
+ * the Date object arguments, regardless of order.
+ * @param firstDate
+ * @param secondDate
+ * @returns
  */
 export const getDatesInRange = (firstDate: Date, secondDate: Date): string[] => {
   const [ start, end ] = [ firstDate, secondDate ].sort((a, b) => a.getTime() < b.getTime() ? -1 : 1);
-  
+
   const dates = [];
   while (start.toISOString() <= end.toISOString()) {
     dates.push(
