@@ -99,50 +99,52 @@ async fn get_missing_calendar_dates(
         .map(|ymd| &ymd[5..7])
         .collect();
 
-    // Get defaults for distinct months
-    let month_price_defaults = get_month_defaults(client, unfound_months).await?;
+    if unfound_months.len() > 0 {
+        // Get defaults for distinct months
+        let month_price_defaults = get_month_defaults(client, unfound_months).await?;
 
-    // Create calendar dates for unfound YMDs
-    let mut created_calendar_dates_from_defaults = unfound_fetched_dates_ymd
-        .iter()
-        .map(|ymd| {
-            let utils::YmdParts { year, month, date } = utils::get_parts_from_ymd(&ymd)?;
+        // Create calendar dates for unfound YMDs
+        let mut created_calendar_dates_from_defaults = unfound_fetched_dates_ymd
+            .iter()
+            .map(|ymd| {
+                let utils::YmdParts { year, month, date } = utils::get_parts_from_ymd(&ymd)?;
 
-            if !(1..13).contains(&month) {
-                return Err((
-                    StatusCode::BAD_REQUEST,
-                    "Month must be between `01` and `12`.".to_string(),
-                ));
-            }
+                if !(1..13).contains(&month) {
+                    return Err((
+                        StatusCode::BAD_REQUEST,
+                        "Month must be between `01` and `12`.".to_string(),
+                    ));
+                }
 
-            let month_price_default_to_use = match types::default::DefaultFor::try_from(month) {
-                Ok(default) => default,
-                Err(message) => return Err((StatusCode::BAD_REQUEST, message)),
-            };
+                let month_price_default_to_use = match types::default::DefaultFor::try_from(month) {
+                    Ok(default) => default,
+                    Err(message) => return Err((StatusCode::BAD_REQUEST, message)),
+                };
 
-            let price = match &month_price_defaults
-                .iter()
-                .find(|&default| default.default_for == month_price_default_to_use)
-            {
-                Some(default) => default.value.clone(),
-                None => types::default::DEFAULT_PRICE.into(),
-            };
+                let price = match &month_price_defaults
+                    .iter()
+                    .find(|&default| default.default_for == month_price_default_to_use)
+                {
+                    Some(default) => default.value.clone(),
+                    None => types::default::DEFAULT_PRICE.into(),
+                };
 
-            Ok(types::calendar_date::CalendarDate::new(
-                ymd.into(),
-                Some(types::calendar_date::DateState::Available),
-                price.parse::<u16>().unwrap(),
-                year,
-                month,
-                date,
-                None,
-                Utc::now().to_string(),
-            ))
-        })
-        .collect::<Result<Vec<_>, _>>()?;
+                Ok(types::calendar_date::CalendarDate::new(
+                    ymd.into(),
+                    Some(types::calendar_date::DateState::Available),
+                    price.parse::<u16>().unwrap(),
+                    year,
+                    month,
+                    date,
+                    None,
+                    Utc::now().to_string(),
+                ))
+            })
+            .collect::<Result<Vec<_>, _>>()?;
 
-    // Append to result
-    found_dates.append(&mut created_calendar_dates_from_defaults);
+        // Append to result
+        found_dates.append(&mut created_calendar_dates_from_defaults);
+    }
 
     found_dates.sort(); // Default sort is in order of struct fields
 
