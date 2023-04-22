@@ -4,7 +4,7 @@ import { IJwtToken, ILogInRequest, ILogInResponse } from '../types/authenticatio
 
 export const validateToken = async (token: string): Promise<Nullable<IJwtToken>> => {
   const { status, body } = await api<IJwtToken>('auth', 'POST', { token });
-  
+
   if (status === 200 && body?.data) {
     return body.data;
   }

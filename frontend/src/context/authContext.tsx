@@ -33,7 +33,10 @@ export const AuthProvider = ({ children }: { children: React.ReactNode}) => {
 
   return (
     <AuthContext.Provider
-      value={{ isLoggedIn: !!decodedToken, decodedToken, validateTokenAndSetDecodedToken }}
+      value={{
+        isLoggedIn: !!decodedToken,
+        decodedToken, validateTokenAndSetDecodedToken,
+      }}
     >
       {children}
     </AuthContext.Provider>

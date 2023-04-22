@@ -13,7 +13,7 @@ export const App = () => {
   if (path === '/log-in') {
     return <LogInPage />;
   }
-  
+
   if (!isLoggedIn) {
     return <HomePage />;
   }
