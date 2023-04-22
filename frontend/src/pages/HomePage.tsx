@@ -37,11 +37,14 @@ export const HomePage = () => (
         </Col>
       </Row>
 
-      <Row>
-        <Col xs={12}>
-          <CalendarsContainer />
-        </Col>
-      </Row>
+      {
+        window.location.pathname !== '/admin' &&
+        <Row>
+          <Col xs={12}>
+            <CalendarsContainer />
+          </Col>
+        </Row>
+      }
 
       <Row className='gy-2 mb-5 mt-5 pt-5'>
         <Col lg={6}>

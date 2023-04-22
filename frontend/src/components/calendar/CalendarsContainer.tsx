@@ -1,9 +1,7 @@
-import { useCallback, useEffect, useMemo, useState } from 'react';
+import { useCallback, useMemo, useState } from 'react';
 import { Alert, Col, Container, Row } from 'react-bootstrap';
 import {
-  fetchCalendarMonths,
   getDatesInRange,
-  getMonthsForRequest,
   mapCalendarDateToDate,
   mapCalendarDateToString,
 } from '../../api/calendarsContainer';
@@ -11,26 +9,19 @@ import {
   ECalendarDateState,
   ICalendarDate,
   Nullable,
-  TCalendarMonthsRequest,
-  TCalendarsData,
-  TMonthNumber,
 } from '../../types';
-import { makeYm, makeYmd } from '../../utils/helpers';
+import {  makeYmd } from '../../utils/helpers';
 import { Calendar } from './Calendar';
 import { DEFAULT_PRICE } from '../../utils/constants';
+import { useCalendarsData } from '../../hooks/useCalendarsData';
 
 interface ICalendarsContainerProps {
   onDateRangeSelected?: (from: ICalendarDate, to: ICalendarDate) => void;
 }
 
-let fetchedOnce = false;
-
-export const CalendarsContainer = ({ onDateRangeSelected }: ICalendarsContainerProps): JSX.Element => {
-  const [ calendarsData, setCalendarsData ] = useState<TCalendarsData>({});
-  const [ currentYear ] = useState(() => (new Date()).getFullYear());
-  const [ currentMonth ] = (
-    useState<TMonthNumber>(() => (new Date()).getMonth() + 1 as TMonthNumber) // 1-based
-  );
+export const CalendarsContainer = ({
+  onDateRangeSelected,
+}: ICalendarsContainerProps): JSX.Element => {
   const [ firstClick, setFirstClick ] = useState<Nullable<ICalendarDate>>(null);
   const [ secondClick, setSecondClick ] = useState<Nullable<ICalendarDate>>(null);
 
@@ -38,6 +29,8 @@ export const CalendarsContainer = ({ onDateRangeSelected }: ICalendarsContainerP
   const [ hoveredDate, setHoveredDate ] = useState<Nullable<ICalendarDate>>(null);
 
   const [ currencySymbol ] = useState('€');
+
+  const calendarsData = useCalendarsData();
 
   const dateRange = (
     useMemo(
@@ -98,24 +91,6 @@ export const CalendarsContainer = ({ onDateRangeSelected }: ICalendarsContainerP
     ), [ getCalendarDateForYmd, selectedDates ])
   );
 
-  const fetchData = useCallback(
-    async (months: TCalendarMonthsRequest) => {
-      const data = (
-        await fetchCalendarMonths(
-          months.filter(
-            ({ year, month }) => {
-              return !Object.keys(calendarsData).includes(makeYm(year, month));
-            }
-          )
-        )
-      );
-
-      setCalendarsData((old) => {
-        return { ...old, ...data };
-      });
-    }, [ calendarsData ]
-  );
-
   const datesInHoverRange = (
     useMemo(() => {
       if (!hoveredDate || !firstClick || secondClick) {
@@ -165,14 +140,6 @@ export const CalendarsContainer = ({ onDateRangeSelected }: ICalendarsContainerP
     setFirstClick(calendarDate);
     setSelectedDates([ mapCalendarDateToString(calendarDate) ]);
   };
-
-  useEffect(() => {
-    if (!fetchedOnce) {
-      fetchedOnce = true;
-      const monthsToFetch = getMonthsForRequest({ year: currentYear, month: currentMonth }, 11);
-      fetchData(monthsToFetch).catch(console.error);
-    }
-  }, [ currentYear, currentMonth, fetchData ]);
 
   const getCalendarDateYmd = (calendarDate: ICalendarDate) => {
     const { year, month, date } = calendarDate;
