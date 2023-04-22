@@ -53,10 +53,10 @@ export const Calendar = ({
   const blankCells = Array.from(Array(firstWeekdayOfMonth)).map((_, i) => getBlankCalendarCell(i));
   const dateCells = (
     dateData.map((calendarDate) => {
-      const { date, price, state: _state, priceColor: _priceColor } = calendarDate;
+      const { date, price, state: _state } = calendarDate;
 
-      const priceColor = _priceColor || getPriceColor(price);
-      
+      const priceColor = getPriceColor(price);
+
       const isSelected = selected.includes(calendarDate);
       const isHovered = datesInHoverRange.includes(calendarDate);
 
@@ -64,7 +64,7 @@ export const Calendar = ({
         (mapCalendarDateToDate(calendarDate) < new Date())
           ? ECalendarDateState.unavailable
           : _state
-      );
+      ).toLowerCase(); // Rust enum variants are capitalized
 
       return (
         <td
