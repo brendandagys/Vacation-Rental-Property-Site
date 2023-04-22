@@ -1,7 +1,7 @@
 import { Dispatch, SetStateAction, useState } from 'react';
 import { mapCalendarDateToDate } from '../../api/calendarsContainer';
-import { ECalendarDateState, ICalendarDate } from '../../types';
 import { monthsEnglish, weekdayHeadersEnglish } from '../../static/data/dates';
+import { EDateState, ICalendarDate } from '../../types/calendarDate';
 
 interface ICalendarProps {
   dateData: ICalendarDate[];
@@ -62,7 +62,7 @@ export const Calendar = ({
 
       const state = (
         (mapCalendarDateToDate(calendarDate) < new Date())
-          ? ECalendarDateState.unavailable
+          ? EDateState.Unavailable
           : _state
       ).toLowerCase(); // Rust enum variants are capitalized
 

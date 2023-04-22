@@ -3,9 +3,9 @@ import {
   TCalendarsData,
   TMonthNumber,
   IYearMonth,
-  ICalendarDate,
   TDateNumber,
 } from '../types';
+import { ICalendarDate } from '../types/calendarDate';
 import { getPartsFromYmd } from '../utils/helpers';
 import { makeYm, makeYmd } from '../utils/helpers';
 import { getCalendarDatesInDateRange } from './calendarDate';
@@ -59,7 +59,7 @@ export const fetchCalendarMonths = async (
   return (
     calendarDates.reduce<Record<string, ICalendarDate[]>>((acc, calendarDate) => {
       const { year, month } = calendarDate;
-      const ym = makeYm(year, month);
+      const ym = makeYm(year, month as TMonthNumber);
 
       return {
         ...acc,
@@ -78,7 +78,7 @@ export const mapCalendarDateToDate = ({ year, month, date }: ICalendarDate): Dat
 );
 
 export const mapCalendarDateToString = ({ year, month, date }: ICalendarDate): string => (
-  makeYmd(year, month, date)
+  makeYmd(year, month as TMonthNumber, date as TDateNumber)
 );
 
 /**

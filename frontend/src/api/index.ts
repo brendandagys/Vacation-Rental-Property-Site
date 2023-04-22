@@ -40,11 +40,15 @@ export const api = async <T = unknown>(
     headers['Authorization'] = token;
   }
 
+  const finalRequestBody = (
+    Array.isArray(requestBody) ? requestBody : { ...requestBody, ...args }
+  );
+
   const response = (
     await fetch(`${API}/${path}`, {
       method,
       headers,
-      body: (requestBody ?? null) && JSON.stringify({ ...requestBody, ...args }),
+      body: (requestBody ?? null) && JSON.stringify(finalRequestBody),
     })
   );
 

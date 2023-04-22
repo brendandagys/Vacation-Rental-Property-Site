@@ -1,26 +1,30 @@
 import { useCallback, useMemo, useState } from 'react';
-import { Alert, Col, Container, Row } from 'react-bootstrap';
+import { Col, Container, Row } from 'react-bootstrap';
 import {
   getDatesInRange,
   mapCalendarDateToDate,
   mapCalendarDateToString,
 } from '../../api/calendarsContainer';
 import {
-  ECalendarDateState,
-  ICalendarDate,
   Nullable,
+  TCalendarsData,
+  TDateNumber,
+  TMonthNumber,
 } from '../../types';
 import {  makeYmd } from '../../utils/helpers';
 import { Calendar } from './Calendar';
 import { DEFAULT_PRICE } from '../../utils/constants';
 import { useCalendarsData } from '../../hooks/useCalendarsData';
+import { EDateState, ICalendarDate } from '../../types/calendarDate';
 
 interface ICalendarsContainerProps {
   onDateRangeSelected?: (from: ICalendarDate, to: ICalendarDate) => void;
+  providedCalendarsData?: TCalendarsData;
 }
 
 export const CalendarsContainer = ({
   onDateRangeSelected,
+  providedCalendarsData,
 }: ICalendarsContainerProps): JSX.Element => {
   const [ firstClick, setFirstClick ] = useState<Nullable<ICalendarDate>>(null);
   const [ secondClick, setSecondClick ] = useState<Nullable<ICalendarDate>>(null);
@@ -28,9 +32,7 @@ export const CalendarsContainer = ({
   const [ selectedDates, setSelectedDates ] = useState<string[]>([]);
   const [ hoveredDate, setHoveredDate ] = useState<Nullable<ICalendarDate>>(null);
 
-  const [ currencySymbol ] = useState('€');
-
-  const calendarsData = useCalendarsData();
+  const calendarsData = providedCalendarsData || useCalendarsData().calendarsData;
 
   const dateRange = (
     useMemo(
@@ -76,7 +78,7 @@ export const CalendarsContainer = ({
   const isYmdAvailable = (
     useCallback(
       (ymd: string): boolean => (
-        getCalendarDateForYmd(ymd)?.state === ECalendarDateState.available
+        getCalendarDateForYmd(ymd)?.state === EDateState.Available
       ), [ getCalendarDateForYmd ]
     )
   );
@@ -85,7 +87,7 @@ export const CalendarsContainer = ({
     useMemo(() => (
       selectedDates
         .map(getCalendarDateForYmd)
-        .filter((calendarDate) => calendarDate?.state === ECalendarDateState.available)
+        .filter((calendarDate) => calendarDate?.state === EDateState.Available)
         .map((x) => x?.price ?? DEFAULT_PRICE)
         .reduce((acc, dateAmount) => acc + dateAmount, 0)
     ), [ getCalendarDateForYmd, selectedDates ])
@@ -116,7 +118,7 @@ export const CalendarsContainer = ({
     }
 
     if (
-      calendarDate.state !== ECalendarDateState.available
+      calendarDate.state !== EDateState.Available
       || (mapCalendarDateToDate(calendarDate) < new Date())
     ) {
       return;
@@ -144,7 +146,7 @@ export const CalendarsContainer = ({
   const getCalendarDateYmd = (calendarDate: ICalendarDate) => {
     const { year, month, date } = calendarDate;
     if (year && month && date) {
-      return makeYmd(year, month, date);
+      return makeYmd(year, month as TMonthNumber, date as TDateNumber);
     }
 
     return '';
@@ -152,7 +154,7 @@ export const CalendarsContainer = ({
 
   return (
     <Container>
-      {
+      {/* {
         dateRange.to &&
         <Row>
           <Col className='mx-auto' xs={8} sm={6} md={5} lg={3}>
@@ -161,8 +163,8 @@ export const CalendarsContainer = ({
             </Alert>
           </Col>
         </Row>
-      }
-      {
+      } */}
+      {/* {
         dateRange.to &&
         <Row className='justify-content-center'>
           <Col xs={5} sm={4} lg={2}>
@@ -178,7 +180,7 @@ export const CalendarsContainer = ({
             </Alert>
           </Col>
         </Row>
-      }
+      } */}
       <Row className='justify-content-space-evenly'>
         {
           Object.keys(calendarsData)

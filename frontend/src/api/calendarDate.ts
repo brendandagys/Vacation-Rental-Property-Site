@@ -1,12 +1,17 @@
-import { ECalendarDateState, ICalendarDate, IYearMonthDate, Nullable } from '../types';
-import { ICalendarDatePutRequest } from '../types/calendarDate';
+import { IYearMonthDate, Nullable } from '../types';
+import { EDateState, ICalendarDate, ICalendarDatePutRequest } from '../types/calendarDate';
 import { getYmdFromParts } from '../utils/helpers';
 import { api, isApiResponse } from './index';
 
 export const getSpecificCalendarDates = async (ymdList: string[]): Promise<ICalendarDate[]> => {
-  const query = new URLSearchParams({ dates: JSON.stringify(ymdList) });
+  const params = new URLSearchParams();
+
+  for (const ymd of ymdList) {
+    params.append('dates', ymd);
+  }
+
   const { body, errorMessage } = (
-    await api<ICalendarDate[]>(`fetch?entity=CalendarDate&${query.toString()}`, 'GET')
+    await api<ICalendarDate[]>(`fetch?entity=CalendarDate&${params.toString()}`, 'GET')
   );
 
   if (body && isApiResponse(body)) {
@@ -18,7 +23,7 @@ export const getSpecificCalendarDates = async (ymdList: string[]): Promise<ICale
   return [];
 };
 
-export const getCalendarDatesByState = async (state: ECalendarDateState): Promise<ICalendarDate[]> => {
+export const getCalendarDatesByState = async (state: EDateState): Promise<ICalendarDate[]> => {
   const { body, errorMessage } = (
     await api<ICalendarDate[]>(`fetch?entity=CalendarDate&state=${state}`, 'GET')
   );

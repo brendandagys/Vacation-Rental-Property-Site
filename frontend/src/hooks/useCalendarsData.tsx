@@ -1,7 +1,6 @@
 import { useState, useCallback, useEffect } from 'react';
 import { fetchCalendarMonths, getMonthsForRequest } from '../api/calendarsContainer';
 import { TCalendarsData, TCalendarMonthsRequest, TMonthNumber } from '../types';
-import { makeYm } from '../utils/helpers';
 
 let fetchedOnce = false;
 
@@ -10,18 +9,9 @@ export const useCalendarsData = () => {
 
   const fetchData = useCallback(
     async (months: TCalendarMonthsRequest) => {
-      const data = (
-        await fetchCalendarMonths(
-          months.filter(
-            ({ year, month }) => {
-              return !Object.keys(calendarsData).includes(makeYm(year, month));
-            }
-          )
-        )
-      );
 
-      setCalendarsData(data);
-    }, [ calendarsData ]
+      setCalendarsData(await fetchCalendarMonths(months));
+    }, []
   );
 
   const [ currentYear ] = useState(() => (new Date()).getFullYear());
@@ -36,7 +26,7 @@ export const useCalendarsData = () => {
       const monthsToFetch = getMonthsForRequest({ year: currentYear, month: currentMonth }, 11);
       fetchData(monthsToFetch).catch(console.error);
     }
-  }, [ currentYear, currentMonth, fetchData ]);
+  }, [ currentMonth, currentYear, fetchData ]);
 
-  return calendarsData;
+  return { calendarsData, fetchCalendarsData: fetchData, currentYear, currentMonth };
 };

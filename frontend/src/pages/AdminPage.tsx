@@ -1,17 +1,23 @@
 import Container from 'react-bootstrap/Container';
-import Row from 'react-bootstrap/Row';
-import Col from 'react-bootstrap/Col';
+import Tabs from 'react-bootstrap/Tabs';
+import Tab from 'react-bootstrap/Tab';
 
-import { CalendarsContainer } from '../components/calendar/CalendarsContainer';
+import { ManageCalendarDatesContainer } from '../components/calendar/ManageCalendarDatesContainer';
 
 export const AdminPage = () => {
+
   return (
-    <Container fluid='md'>
-      <Row>
-        <Col xs={12}>
-          <CalendarsContainer onDateRangeSelected={(from, to) => console.log({ from, to })} />
-        </Col>
-      </Row>
-    </Container>
+    <>
+      <Container fluid='md pt-4'>
+        <Tabs defaultActiveKey="calendar-dates" className="mb-3">
+          <Tab eventKey="calendar-dates" title="Calendar Dates">
+            <ManageCalendarDatesContainer />
+          </Tab>
+          <Tab eventKey="defaults" title="Defaults">
+          </Tab>
+        </Tabs>
+      </Container>
+
+    </>
   );
 };

@@ -14,12 +14,8 @@ export const App = () => {
     return <LogInPage />;
   }
 
-  if (!isLoggedIn) {
-    return <HomePage />;
-  }
-
   if (path === '/admin') {
-    return <AdminPage />;
+    return isLoggedIn ? <AdminPage /> : <LogInPage />;
   }
 
   return <HomePage />;
