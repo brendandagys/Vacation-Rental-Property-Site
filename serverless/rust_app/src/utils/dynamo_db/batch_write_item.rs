@@ -20,6 +20,7 @@ pub async fn batch_write_item(
             types::http::ApiResponseData::Single(format!("{:?}", batch_write_item_output)),
             None,
             None,
+            None,
         ),
         Err(error) => {
             println!("Error performing batch write: {error}");

@@ -114,13 +114,17 @@ pub async fn query_http<'a, T: Deserialize<'a> + Serialize + std::fmt::Debug + C
     {
         Ok(typed_entities) => {
             if typed_entities.len() == 0 {
-                return Ok(utils::http::build_http_response(
-                    StatusCode::NOT_FOUND,
-                    &match singular {
-                        true => serde_json::json!(null).to_string(),
-                        false => serde_json::json!([]).to_string(),
-                    },
-                ));
+                let data_type = if singular {
+                    types::http::ApiResponseData::NoneSingular::<()>(())
+                } else {
+                    types::http::ApiResponseData::NoneMultiple(Vec::new())
+                };
+                return utils::http::send_response(
+                    data_type,
+                    Some(querymap),
+                    limit,
+                    Some(StatusCode::NOT_FOUND),
+                );
             }
 
             utils::http::send_response(
@@ -132,6 +136,7 @@ pub async fn query_http<'a, T: Deserialize<'a> + Serialize + std::fmt::Debug + C
                 },
                 Some(querymap),
                 limit,
+                None,
             )
         }
         Err((status_code, message)) => utils::http::send_error(status_code, &message),

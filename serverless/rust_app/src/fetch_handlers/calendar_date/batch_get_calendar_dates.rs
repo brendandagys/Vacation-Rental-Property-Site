@@ -44,5 +44,6 @@ pub async fn batch_get_calendar_dates(
         types::http::ApiResponseData::Multiple(all_requested_calendar_dates),
         Some(querymap),
         None,
+        None,
     )
 }

@@ -5,6 +5,8 @@ use serde::Serialize;
 #[serde(untagged)]
 pub enum ApiResponseData<T> {
     Multiple(Vec<T>),
+    NoneSingular(()),
+    NoneMultiple(Vec<T>),
     Single(T),
 }
 
@@ -38,6 +40,17 @@ impl<T> ApiResponse<T> {
                     meta: ApiResponseMeta { count, limit },
                 }
             }
+            ApiResponseData::NoneSingular(data) => Self {
+                data: ApiResponseData::NoneSingular(data),
+                meta: ApiResponseMeta {
+                    count: 0,
+                    limit: None,
+                },
+            },
+            ApiResponseData::NoneMultiple(data) => Self {
+                data: ApiResponseData::NoneMultiple(data),
+                meta: ApiResponseMeta { count: 0, limit },
+            },
         }
     }
 }

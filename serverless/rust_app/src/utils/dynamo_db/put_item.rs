@@ -41,6 +41,7 @@ pub async fn put_item_http<U>(
             types::http::ApiResponseData::Single(format!("{:?}", put_item_output)),
             None,
             None,
+            None,
         ),
         Err((status_code, message)) => utils::http::send_error(status_code, &message),
     }

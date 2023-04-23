@@ -97,6 +97,7 @@ async fn auth(request: Request, client: &dynamodb::Client) -> Result<Response<Bo
                                     ),
                                     None,
                                     None,
+                                    None,
                                 ),
                                 false => utils::http::send_error(
                                     StatusCode::UNAUTHORIZED,
@@ -126,6 +127,7 @@ async fn auth(request: Request, client: &dynamodb::Client) -> Result<Response<Bo
                     ) {
                         Ok(token_claims) => utils::http::send_response(
                             types::http::ApiResponseData::Single(token_claims),
+                            None,
                             None,
                             None,
                         ),

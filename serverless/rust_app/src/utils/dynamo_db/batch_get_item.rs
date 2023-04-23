@@ -73,6 +73,7 @@ pub async fn batch_get_item_http<'a, T: Deserialize<'a> + Serialize>(
             types::http::ApiResponseData::Multiple(typed_entities),
             Some(querymap),
             None,
+            None,
         ),
         Err((status_code, message)) => utils::http::send_error(status_code, &message),
     }

@@ -52,5 +52,6 @@ pub async fn query_for_calendar_dates_in_date_range(
         types::http::ApiResponseData::Multiple(all_requested_calendar_dates),
         Some(querymap),
         None,
+        None,
     )
 }

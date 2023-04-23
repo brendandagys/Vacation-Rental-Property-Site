@@ -16,7 +16,7 @@ pub enum DefaultFor {
     PriceDecember,
 }
 
-pub const DEFAULT_PRICE: &str = "100";
+pub const DEFAULT_PRICE: &str = "85";
 
 impl std::convert::TryFrom<u8> for DefaultFor {
     type Error = String;

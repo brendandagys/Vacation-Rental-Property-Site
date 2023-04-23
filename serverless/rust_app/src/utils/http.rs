@@ -41,11 +41,15 @@ pub fn send_response<T: serde::Serialize>(
     data: types::http::ApiResponseData<T>,
     querymap: Option<QueryMap>,
     limit: Option<i32>,
+    status_code: Option<StatusCode>,
 ) -> Result<Response<Body>, Error> {
     let api_response = types::http::ApiResponse::new(data, querymap, limit);
 
     match serde_json::to_string(&api_response) {
-        Ok(string) => Ok(utils::http::build_http_response(StatusCode::OK, &string)),
+        Ok(string) => Ok(utils::http::build_http_response(
+            status_code.unwrap_or(StatusCode::OK),
+            &string,
+        )),
         Err(error) => {
             println!("Error converting response data into a JSON string: {error}");
             utils::http::send_error(StatusCode::INTERNAL_SERVER_ERROR, &error.to_string())
