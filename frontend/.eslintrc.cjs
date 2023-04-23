@@ -48,6 +48,7 @@ module.exports = {
     quotes: [ "warn", "single", { allowTemplateLiterals: true } ],
     "react-hooks/exhaustive-deps": "warn",
     semi: [ "warn", "always" ],
+    "space-before-function-paren": "warn",
     "space-infix-ops": "warn",
     "space-unary-ops": [
       2, {
