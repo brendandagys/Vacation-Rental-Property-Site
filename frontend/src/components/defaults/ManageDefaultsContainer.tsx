@@ -4,6 +4,20 @@ import { EDefaultFor, IDefault } from '../../types/default';
 import { UpdateDefaultForm } from './UpdateDefaultForm';
 import { Button, Card, Col, Container, Row } from 'react-bootstrap';
 
+const monthPriceOrder = Object.keys(EDefaultFor);
+
+const sortDefaults = (a: IDefault, b: IDefault) => {
+  const aToCompare = (
+    a.defaultFor.includes('Price') ? monthPriceOrder.indexOf(`${a.defaultFor}`) : a.defaultFor
+  );
+
+  const bToCompare = (
+    b.defaultFor.includes('Price') ? monthPriceOrder.indexOf(`${b.defaultFor}`) : b.defaultFor
+  );
+
+  return aToCompare < bToCompare ? -1 : 1;
+};
+
 export const ManageDefaultsContainer = () => {
   const [ allDefaults, setAllDefaults ] = useState<IDefault[]>([]);
   const [ defaultsToUpdate, setDefaultsToUpdate ] = useState<IDefault[]>([]);
@@ -29,7 +43,7 @@ export const ManageDefaultsContainer = () => {
       <Row>
         {
           allDefaults
-            .sort((a, b) => a.defaultFor < b.defaultFor ? -1 : 1)
+            .sort(sortDefaults)
             .map((_default) => {
               return (
                 <Col key={_default.defaultFor} xs={6} sm={4} md={3} lg={2} className="mt-3">
