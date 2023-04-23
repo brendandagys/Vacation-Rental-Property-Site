@@ -19,23 +19,35 @@ const sortDefaults = (a: IDefault, b: IDefault) => {
 };
 
 export const ManageDefaultsContainer = () => {
-  const [ allDefaults, setAllDefaults ] = useState<IDefault[]>([]);
-  const [ defaultsToUpdate, setDefaultsToUpdate ] = useState<IDefault[]>([]);
+  const [ allDefaults, setAllDefaults ] = useState<IDefault[]>([]); // Needed for controlled inputs
+  const [ originalDefaults, setOriginalDefaults ] = useState<IDefault[]>([]); // Calculate field changes
+  const [ updatedDefaults, setUpdatedDefaults ] = useState<IDefault[]>([]);
 
   useEffect(() => {
     const fetch = async () => {
       const allDefaults = await getAllDefaults();
       setAllDefaults(allDefaults);
+      setOriginalDefaults(allDefaults);
     };
 
     void fetch();
   }, []);
 
   const onUpdateDefaults = () => {
-    void putDefaults(defaultsToUpdate.map(({ defaultFor, value }) => ({
-      defaultFor,
-      value,
-    })));
+    const defaultsToUpdate = (
+      updatedDefaults
+        .filter((d) => {
+          const original = originalDefaults.find(({ defaultFor }) => defaultFor === d.defaultFor) ?? null;
+          return original && original.value !== d.value;
+        })
+        .map(({ defaultFor, value }) => ({
+          defaultFor,
+          value,
+        }))
+    );
+    defaultsToUpdate.length && void putDefaults(defaultsToUpdate    );
+
+    setUpdatedDefaults([]);
   };
 
   return (
@@ -45,6 +57,10 @@ export const ManageDefaultsContainer = () => {
           allDefaults
             .sort(sortDefaults)
             .map((_default) => {
+              const changedDefault = (
+                updatedDefaults.find((d) => d.defaultFor === _default.defaultFor) ?? null
+              );
+
               return (
                 <Col key={_default.defaultFor} xs={6} sm={4} md={3} lg={2} className="mt-3">
                   <Card className="p-3" style={{ background: '#f3f3f3' }}>
@@ -52,8 +68,17 @@ export const ManageDefaultsContainer = () => {
                       key={_default.defaultFor}
                       decimalInput={Object.values(EDefaultFor).includes(_default.defaultFor)}
                       default={_default}
+                      isUpdated={
+                        !!(
+                          changedDefault
+                          && (
+                            changedDefault.value
+                            !== originalDefaults.find((d) => d.defaultFor === _default.defaultFor)?.value
+                          )
+                        )
+                      }
                       setAllDefaults={setAllDefaults}
-                      setDefaultsToUpdate={setDefaultsToUpdate}
+                      setUpdatedDefaults={setUpdatedDefaults}
                     />
                   </Card>
                 </Col>
