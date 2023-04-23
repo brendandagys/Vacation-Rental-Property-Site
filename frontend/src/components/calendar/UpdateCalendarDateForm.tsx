@@ -52,8 +52,8 @@ export const UpdateCalendarDateForm = ({ calendarDate, setDatesToUpdate }: IUpda
               type="text"
               placeholder="Price"
               value={price}
-              onChange={(e) => {
-                e.target.value.match(/^\d*\.?\d*$/) && setPrice(e.target.value);
+              onChange={({ target: { value } }) => {
+                value.match(/^\d*\.?\d*$/) && setPrice(value);
               }}
             />
           </Form.Group>

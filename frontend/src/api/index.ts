@@ -54,7 +54,7 @@ export const api = async <T = unknown>(
 
   const responseBody = await response.json() as IApiResponse<T> | IApiErrorResponse;
 
-  const isError = response.status >= 400 && isApiErrorResponse(responseBody);
+  const isError = response.status >= 400 && response.status !== 404 && isApiErrorResponse(responseBody);
   const errorMessage = isError ? responseBody.message : null;
 
   const body = isApiResponse(responseBody) ? responseBody : null;

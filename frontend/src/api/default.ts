@@ -1,14 +1,36 @@
 import { api, isApiResponse } from './index';
-import { IDefault, IDefaultPutRequest } from '../types/default';
+import { EDefaultFor, IDefault, IDefaultPutRequest } from '../types/default';
 import { Nullable } from '../types';
+import { getDefaultValueForDefault } from '../utils/constants';
+
+const createIfNotExistsAllMonthDefaults = async (fetchedDefaults: IDefault[]): Promise<IDefault[]> => {
+  const mustExist = Object.values(EDefaultFor);
+
+  const fetchedDefaultFors = fetchedDefaults.map((d) => d.defaultFor);
+  const missingDefaultFors = mustExist.filter((defaultFor) => !fetchedDefaultFors.includes(defaultFor));
+
+  if (!missingDefaultFors.length) {
+    return fetchedDefaults;
+  }
+
+  await putDefaults(missingDefaultFors.map((defaultFor) => ({
+    defaultFor,
+    value: `${getDefaultValueForDefault(defaultFor)}`,
+  })));
+
+  return getAllDefaults();
+};
 
 export const getAllDefaults = async (): Promise<IDefault[]> => {
   const { body, errorMessage } = await api<IDefault[]>('fetch?entity=Default', 'GET');
 
   if (body && isApiResponse(body)) {
     const { data: allDefaults } = body;
-    console.info('Defaults:', { allDefaults });
-    return allDefaults;
+
+    const allDefaultsEnsured = await createIfNotExistsAllMonthDefaults(allDefaults);
+
+    console.info('Defaults:', { allDefaultsEnsured });
+    return allDefaultsEnsured;
   }
 
   return [];
