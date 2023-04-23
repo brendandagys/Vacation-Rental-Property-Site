@@ -11,18 +11,20 @@ import {
   TDateNumber,
   TMonthNumber,
 } from '../../types';
-import {  makeYmd } from '../../utils/helpers';
+import { makeYmd } from '../../utils/helpers';
 import { Calendar } from './Calendar';
 import { DEFAULT_PRICE } from '../../utils/constants';
 import { useCalendarsData } from '../../hooks/useCalendarsData';
 import { EDateState, ICalendarDate } from '../../types/calendarDate';
 
 interface ICalendarsContainerProps {
+  isAdmin?: boolean;
   onDateRangeSelected?: (from: ICalendarDate, to: ICalendarDate) => void;
   providedCalendarsData?: TCalendarsData;
 }
 
 export const CalendarsContainer = ({
+  isAdmin = false,
   onDateRangeSelected,
   providedCalendarsData,
 }: ICalendarsContainerProps): JSX.Element => {
@@ -34,31 +36,31 @@ export const CalendarsContainer = ({
 
   const calendarsData = providedCalendarsData || useCalendarsData().calendarsData;
 
-  const dateRange = (
-    useMemo(
-      () => {
-        let from = null;
-        let to = null;
+  // const dateRange = (
+  //   useMemo(
+  //     () => {
+  //       let from = null;
+  //       let to = null;
 
-        if (secondClick && firstClick) {
-          if (mapCalendarDateToDate(firstClick) < mapCalendarDateToDate(secondClick)) {
-            from = firstClick;
-            to = secondClick;
-          } else {
-            from = secondClick;
-            to = firstClick;
-          }
-        } else if (firstClick) {
-          from = firstClick;
-        }
+  //       if (secondClick && firstClick) {
+  //         if (mapCalendarDateToDate(firstClick) < mapCalendarDateToDate(secondClick)) {
+  //           from = firstClick;
+  //           to = secondClick;
+  //         } else {
+  //           from = secondClick;
+  //           to = firstClick;
+  //         }
+  //       } else if (firstClick) {
+  //         from = firstClick;
+  //       }
 
-        from && to && onDateRangeSelected?.(from, to);
+  //       from && to && onDateRangeSelected?.(from, to);
 
-        return { from, to };
-      },
-      [ firstClick, secondClick ] // eslint-disable-line react-hooks/exhaustive-deps
-    )
-  );
+  //       return { from, to };
+  //     },
+  //     [ firstClick, secondClick ] // eslint-disable-line react-hooks/exhaustive-deps
+  //   )
+  // );
 
   const getCalendarDateForYmd = (
     useCallback(
@@ -93,7 +95,7 @@ export const CalendarsContainer = ({
     ), [ getCalendarDateForYmd, selectedDates ])
   );
 
-  const datesInHoverRange = (
+  const ymdsInHoverRange = (
     useMemo(() => {
       if (!hoveredDate || !firstClick || secondClick) {
         return [];
@@ -104,9 +106,16 @@ export const CalendarsContainer = ({
           mapCalendarDateToDate(firstClick),
           mapCalendarDateToDate(hoveredDate)
         )
-          .filter(isYmdAvailable)
+          .filter(() => isAdmin ? true : isYmdAvailable)
       );
-    }, [ firstClick, hoveredDate, isYmdAvailable, secondClick ])
+    }, [ firstClick, hoveredDate, isAdmin, isYmdAvailable, secondClick ])
+  );
+
+  // Contiguous date range must contain all `Available` calendar dates
+  const isValidHover = (
+    ymdsInHoverRange.every((ymd) => (
+      getCalendarDateForYmd(ymd)?.state === EDateState.Available)
+      && ymd >= (new Date()).toISOString().slice(0, 10))
   );
 
   const onDateClick = (calendarDate: ICalendarDate) => {
@@ -118,39 +127,51 @@ export const CalendarsContainer = ({
     }
 
     if (
-      calendarDate.state !== EDateState.Available
-      || (mapCalendarDateToDate(calendarDate) < new Date())
-    ) {
-      return;
-    }
+      !isAdmin
+      && (
+        calendarDate.state !== EDateState.Available
+        || (mapCalendarDateToDate(calendarDate) < new Date())
+      )
+    ) { return; }
 
     if (firstClick) { // Already chose one date
       if (firstClick === calendarDate) { // Clicks same date
-        setFirstClick(null);
-        setSelectedDates([]);
+        if (!isAdmin) {
+          setFirstClick(null);
+          setSelectedDates([]);
+          return;
+        }
+      }
+
+      if (!isValidHover && !isAdmin) {
         return;
       }
 
       setSecondClick(calendarDate);
+
+      onDateRangeSelected?.(firstClick, calendarDate);
+
       const [ startDate, endDate ] = [ firstClick, calendarDate ].map(mapCalendarDateToDate);
       setSelectedDates(
-        getDatesInRange(startDate, endDate).filter(isYmdAvailable)
+        getDatesInRange(startDate, endDate)
+          .filter(() => isAdmin ? true : isYmdAvailable)
       );
       return;
     }
+
     // Hasn't chosen anything
     setFirstClick(calendarDate);
     setSelectedDates([ mapCalendarDateToString(calendarDate) ]);
   };
 
-  const getCalendarDateYmd = (calendarDate: ICalendarDate) => {
-    const { year, month, date } = calendarDate;
-    if (year && month && date) {
-      return makeYmd(year, month as TMonthNumber, date as TDateNumber);
-    }
+  // const getCalendarDateYmd = (calendarDate: ICalendarDate) => {
+  //   const { year, month, date } = calendarDate;
+  //   if (year && month && date) {
+  //     return makeYmd(year, month as TMonthNumber, date as TDateNumber);
+  //   }
 
-    return '';
-  };
+  //   return '';
+  // };
 
   return (
     <Container>
@@ -189,16 +210,20 @@ export const CalendarsContainer = ({
                 <Calendar
                   dateData={calendarsData[yearMonthKey]}
                   hoveredDate={hoveredDate}
-                  datesInHoverRange={
-                    calendarsData[yearMonthKey]
-                      .filter((date) => datesInHoverRange.includes(mapCalendarDateToString(date)))
-                  }
+                  isAdmin={isAdmin}
+                  isValidHover={isValidHover}
                   onDateClick={onDateClick}
                   selected={
                     calendarsData[yearMonthKey]
                       .filter((date) => selectedDates.includes(mapCalendarDateToString(date)))
                   }
                   setHoveredDate={setHoveredDate}
+                  ymdsInHoverRange={
+                    calendarsData[yearMonthKey]
+                      .filter(
+                        (date) => ymdsInHoverRange.includes(mapCalendarDateToString(date))
+                      )
+                  }
                 />
               </Col>
             ))

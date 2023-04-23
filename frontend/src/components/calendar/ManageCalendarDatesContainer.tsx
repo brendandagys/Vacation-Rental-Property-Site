@@ -47,6 +47,7 @@ export const ManageCalendarDatesContainer = () => {
         <Col xs={12}>
           <Card className="bg-secondary">
             <CalendarsContainer
+              isAdmin={true}
               onDateRangeSelected={
                 (from: ICalendarDate, to: ICalendarDate) => void onDateRangeSelected(from, to)
               }

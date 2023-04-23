@@ -65,13 +65,13 @@ export const HomePage = () => (
         </Col>
       </Row>
 
-      <Row className='px-3'>
+      {/* <Row className='px-3'>
         <div className='app__image-carousel'>
           <Col className='m-auto' md={8}>
             <ImageCarousel images={images} />
           </Col>
         </div>
-      </Row>
+      </Row> */}
 
       <Row className='my-4 pb-5'>
         <Col className='mt-3' lg={6}>

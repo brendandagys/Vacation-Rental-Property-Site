@@ -11,8 +11,13 @@
     &--booked,
     &--unavailable {
       opacity: 0.4;
-      cursor: not-allowed;
+      cursor: not-allowed !important;
     }
+
+    &--admin {
+      cursor: pointer !important;
+    }
+
 
     border-radius: $radius-xs;
 

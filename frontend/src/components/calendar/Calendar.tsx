@@ -3,15 +3,6 @@ import { mapCalendarDateToDate } from '../../api/calendarsContainer';
 import { monthsEnglish, weekdayHeadersEnglish } from '../../static/data/dates';
 import { EDateState, ICalendarDate } from '../../types/calendarDate';
 
-interface ICalendarProps {
-  dateData: ICalendarDate[];
-  datesInHoverRange: ICalendarDate[];
-  hoveredDate: ICalendarDate | null;
-  onDateClick: (calendarDate: ICalendarDate) => void;
-  selected: ICalendarDate[];
-  setHoveredDate: Dispatch<SetStateAction<ICalendarDate | null>>;
-}
-
 enum EPriceColor {
   green = 'green',
   yellow = 'yellow',
@@ -24,14 +15,27 @@ const weekdayHeaders = (
     .map((day) => <th key={day} className='calendar__weekday-header'>{day}</th>)
 );
 
+interface ICalendarProps {
+  dateData: ICalendarDate[];
+  hoveredDate: ICalendarDate | null;
+  isAdmin?: boolean;
+  isValidHover: boolean;
+  onDateClick: (calendarDate: ICalendarDate) => void;
+  selected: ICalendarDate[];
+  setHoveredDate: Dispatch<SetStateAction<ICalendarDate | null>>;
+  ymdsInHoverRange: ICalendarDate[];
+}
+
 export const Calendar = ({
   dateData,
-  datesInHoverRange,
   hoveredDate,
+  isAdmin = false,
+  isValidHover,
   onDateClick,
   selected,
   setHoveredDate,
-}: ICalendarProps): JSX.Element => {
+  ymdsInHoverRange,
+}: ICalendarProps) => {
   const firstDayOfMonth = dateData[0];
   const { year, month } = firstDayOfMonth;
   const firstWeekdayOfMonth = (new Date(year, month - 1, 1)).getDay(); // 0: Sunday
@@ -58,7 +62,7 @@ export const Calendar = ({
       const priceColor = getPriceColor(price);
 
       const isSelected = selected.includes(calendarDate);
-      const isHovered = datesInHoverRange.includes(calendarDate);
+      const isHovered = ymdsInHoverRange.includes(calendarDate);
 
       const state = (
         (mapCalendarDateToDate(calendarDate) < new Date())
@@ -75,11 +79,13 @@ export const Calendar = ({
         >
           <div className={
             `calendar__date-cell
-            calendar__date-cell${state ? `--${state}` : ''}
+            calendar__date-cell${(hoveredDate === calendarDate && !isValidHover) ? '--unavailable' : ''}
+            calendar__date-cell${isAdmin ? '--admin' : ''}
+            calendar__date-cell${state ? `--${state.toLowerCase()}` : ''}
             calendar__date-cell${
         isSelected
           ? '--selected'
-          : (isHovered || hoveredDate === calendarDate)
+          : ((isHovered && isValidHover) || hoveredDate === calendarDate)
             ? '--hovered'
             : ''}`
           }>
