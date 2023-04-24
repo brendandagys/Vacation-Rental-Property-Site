@@ -10,7 +10,7 @@ export enum EBookingInquiryState {
 export interface IBookingInquiryPutRequest {
   state?: EBookingInquiryState;
   email: string;
-  from_to?: string;
+  fromTo?: string;
   last?: string;
   first?: string;
   phone?: string;

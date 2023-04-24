@@ -49,7 +49,6 @@ export const UpdateCalendarDateForm = ({ calendarDate, setDatesToUpdate }: IUpda
           <Form.Group className="mb-3">
             <Form.Label>Price</Form.Label>
             <Form.Control
-              type="text"
               placeholder="Price"
               value={price}
               onChange={({ target: { value } }) => {

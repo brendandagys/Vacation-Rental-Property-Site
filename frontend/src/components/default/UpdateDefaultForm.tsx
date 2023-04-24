@@ -25,7 +25,6 @@ export const UpdateDefaultForm = (
         <Form.Label>{_default.defaultFor}</Form.Label>
         <Form.Control
           style={isUpdated ? { background: 'lightgreen' } : {}}
-          type="text"
           value={_default.value}
           onChange={({ target: { value } }) => {
             (!decimalInput || value.match(/^\d*\.?\d*$/))

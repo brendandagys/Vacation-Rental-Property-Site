@@ -2,8 +2,8 @@ import Container from 'react-bootstrap/Container';
 import Tabs from 'react-bootstrap/Tabs';
 import Tab from 'react-bootstrap/Tab';
 
-import { ManageCalendarDatesContainer } from '../components/calendar/ManageCalendarDatesContainer';
-import { ManageDefaultsContainer } from '../components/defaults/ManageDefaultsContainer';
+import { ManageCalendarDatesContainer } from '../components/calendar-date/ManageCalendarDatesContainer';
+import { ManageDefaultsContainer } from '../components/default/ManageDefaultsContainer';
 import { Card } from 'react-bootstrap';
 
 export const AdminPage = () => {

@@ -11,7 +11,7 @@ export const getAllBookingInquiries = async (): Promise<IBookingInquiry[]> => {
   if (body && isApiResponse(body)) {
     const { data: allBookingInquiries } = body;
     console.info('Booking inquiries:', { allBookingInquiries });
-    
+
     return allBookingInquiries;
   }
 
@@ -63,7 +63,7 @@ export const putBookingInquiry = async (
   if (body && isApiResponse(body)) {
     const { data: putItemOutput } = body;
     console.info('PUT booking inquiry output:', putItemOutput);
-  
+
     return putItemOutput;
   }
 
