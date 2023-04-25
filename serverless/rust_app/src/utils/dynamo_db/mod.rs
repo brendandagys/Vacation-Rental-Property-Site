@@ -13,13 +13,8 @@ pub use put_item::{put_item, put_item_http};
 mod query;
 pub use query::{query, query_http};
 
-use crate::{types, utils};
-
 use aws_sdk_dynamodb as dynamodb;
 use dynamodb::{client::fluent_builders::PutItem, model::AttributeValue};
-use lambda_http::{
-    aws_lambda_events::query_map::QueryMap, http::StatusCode, Body, Error, Response,
-};
 use std::env;
 
 pub async fn get_dynamo_db_client() -> dynamodb::Client {

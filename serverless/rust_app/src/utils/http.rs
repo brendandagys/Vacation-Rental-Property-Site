@@ -1,4 +1,5 @@
 use crate::{types, utils};
+use std::env;
 
 use lambda_http::{
     aws_lambda_events::query_map::QueryMap,
@@ -6,13 +7,14 @@ use lambda_http::{
     Body, Error, Response,
 };
 
-const ORIGIN: &str = "http://localhost:3001";
 const METHODS: &str = "OPTIONS, GET, POST, PUT";
 const HEADERS: &str = "Content-Type, Authorization";
 
 fn add_cors_headers_to_response(response_builder: Builder) -> Builder {
+    let origin = env::var("CORS_ORIGIN").unwrap_or("http://localhost:3001".into());
+
     response_builder
-        .header("Access-Control-Allow-Origin", ORIGIN)
+        .header("Access-Control-Allow-Origin", origin)
         .header("Access-Control-Allow-Methods", METHODS)
         .header("Access-Control-Allow-Headers", HEADERS)
 }

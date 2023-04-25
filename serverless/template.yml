@@ -13,6 +13,10 @@ Parameters:
     Type: String
     Default: 9281938493930257
     Description: Secret salt for hashing passwords
+  CorsOrigin:
+    Type: String
+    Default: https://api.spainluxury.holiday
+    Description: Origin allowed to interact with the API
   DynamoDbEndpoint:
     Type: String
     Default: http://docker.for.mac.localhost:8000
@@ -85,10 +89,11 @@ Resources:
             Method: OPTIONS
       Environment:
         Variables:
+          AUTHORIZATION_HASH_SALT: !Ref AuthorizationHashSalt
+          CORS_ORIGIN: !Ref CorsOrigin
+          DYNAMODB_ENDPOINT: !Ref DynamoDbEndpoint
           JWT_SECRET: !Ref JwtSecret
           TABLE_NAME: !Ref TableName
-          AUTHORIZATION_HASH_SALT: !Ref AuthorizationHashSalt
-          DYNAMODB_ENDPOINT: !Ref DynamoDbEndpoint
       # Policies:
       # - DynamoDBWritePolicy:   # More info about SAM policy templates: https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/serverless-policy-templates.html
       #     TableName: !Ref Table
@@ -118,10 +123,11 @@ Resources:
             Method: OPTIONS
       Environment:
         Variables:
+          AUTHORIZATION_HASH_SALT: !Ref AuthorizationHashSalt
+          CORS_ORIGIN: !Ref CorsOrigin
+          DYNAMODB_ENDPOINT: !Ref DynamoDbEndpoint
           JWT_SECRET: !Ref JwtSecret
           TABLE_NAME: !Ref TableName
-          AUTHORIZATION_HASH_SALT: !Ref AuthorizationHashSalt
-          DYNAMODB_ENDPOINT: !Ref DynamoDbEndpoint
   
   PutFunction:
     Type: AWS::Serverless::Function # More info about Function Resource: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#awsserverlessfunction
@@ -148,11 +154,11 @@ Resources:
             Method: OPTIONS
       Environment:
         Variables:
+          AUTHORIZATION_HASH_SALT: !Ref AuthorizationHashSalt
+          CORS_ORIGIN: !Ref CorsOrigin
+          DYNAMODB_ENDPOINT: !Ref DynamoDbEndpoint
           JWT_SECRET: !Ref JwtSecret
           TABLE_NAME: !Ref TableName
-          AUTHORIZATION_HASH_SALT: !Ref AuthorizationHashSalt
-          DYNAMODB_ENDPOINT: !Ref DynamoDbEndpoint
-
 
   ApplicationResourceGroup:
     Type: AWS::ResourceGroups::Group
