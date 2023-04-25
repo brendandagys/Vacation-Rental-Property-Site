@@ -1,3 +1,4 @@
+import { Button, Row } from 'react-bootstrap';
 import { EDateState, ICalendarDate } from '../../types/calendarDate';
 
 import { Dispatch, SetStateAction, useEffect, useState } from 'react';
@@ -12,16 +13,22 @@ interface IUpdateCalendarDateFormProps {
 }
 
 export const UpdateCalendarDateForm = ({ calendarDate, setDatesToUpdate }: IUpdateCalendarDateFormProps) => {
-  const [ state, setState ] = useState(calendarDate.state);
-  const [ price, setPrice ] = useState(`${calendarDate.price}`);
   const [ cellColor, setCellColor ] = useState(calendarDate.cellColor);
+  const [ price, setPrice ] = useState(`${calendarDate.price}`);
+  const [ state, setState ] = useState(calendarDate.state);
+
+  useEffect(() => {
+    setCellColor(calendarDate.cellColor);
+    setPrice(`${calendarDate.price}`);
+    setState(calendarDate.state);
+  }, [ calendarDate ]);
 
   useEffect(() => {
     setDatesToUpdate((old) => [
       ...old.filter(({ ymd }) => ymd !== calendarDate.ymd),
       {
         ...calendarDate,
-        cellColor: cellColor || undefined,
+        cellColor,
         price: parseInt(price),
         state,
       },
@@ -57,14 +64,44 @@ export const UpdateCalendarDateForm = ({ calendarDate, setDatesToUpdate }: IUpda
             />
           </Form.Group>
 
-          <Form.Group>
-            <Form.Label>Cell Color</Form.Label>
-            <Form.Control
-              type="color"
-              value={cellColor ?? ''}
-              onChange={(e) => setCellColor(e.target.value)}
-            />
-          </Form.Group>
+          <Row>
+            <Col xs={6}>
+              <Form.Group>
+                <Form.Label>Cell Color</Form.Label>
+                <Form.Control
+                  type="color"
+                  value={cellColor ?? ''}
+                  onChange={(e) => setCellColor(e.target.value)}
+                />
+              </Form.Group>
+            </Col>
+
+            <Col xs={6}>
+              <Button
+                size='sm'
+                onClick={() => {
+                  setDatesToUpdate((old) => old.map((o) => ({ ...o, price: parseInt(price) })));
+                }}
+              >
+                Apply price to all
+              </Button>
+              <Button
+                size='sm'
+                variant='secondary'
+                className='mt-1'
+                onClick={() => {
+                  setDatesToUpdate((old) => old.map((o) => ({
+                    ...o,
+                    cellColor,
+                    price: parseInt(price),
+                    state,
+                  })));
+                }}
+              >
+                Apply to all
+              </Button>
+            </Col>
+          </Row>
         </Form>
       </Card>
     </Col>

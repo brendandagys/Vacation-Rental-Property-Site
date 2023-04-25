@@ -3,7 +3,7 @@ import { CalendarsContainer } from './CalendarsContainer';
 import { getSpecificCalendarDates, putCalendarDates } from '../../api/calendarDate';
 import { getDatesInRange, getMonthsForRequest, mapCalendarDateToDate } from '../../api/calendarsContainer';
 import { useState } from 'react';
-import { CalendarDateModal } from './CalendarDateModal';
+import { CalendarDateModal } from './UpdateCalendarDateModal';
 import { ICalendarDate } from '../../types/calendarDate';
 import { useCalendarsData } from '../../hooks/useCalendarsData';
 
