@@ -15,14 +15,14 @@ Parameters:
     Description: Secret salt for hashing passwords
   CorsOrigin:
     Type: String
-    Default: https://api.spainluxury.holiday
+    Default: https://spainluxury.holiday
     Description: Origin allowed to interact with the API
   DynamoDbEndpoint:
     Type: String
-    Default: http://docker.for.mac.localhost:8000
+    Default: https://dynamodb.us-east-1.amazonaws.com
   JwtSecret:
     Type: String
-    Default: myjwtsecret
+    Default: tj3290jfd02djfdjkl2
   TableName:
     Type: String
     Default: business-site
