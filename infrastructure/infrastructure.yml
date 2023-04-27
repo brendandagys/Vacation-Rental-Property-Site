@@ -245,10 +245,13 @@ Resources:
       DomainName: !Ref Domain
       SubjectAlternativeNames:
         - !Sub www.${Domain}
+        - !Sub api.${Domain}
       DomainValidationOptions:
         - DomainName: !Ref Domain
           HostedZoneId: !Ref HostedZoneId
         - DomainName: !Sub www.${Domain}
+          HostedZoneId: !Ref HostedZoneId
+        - DomainName: !Sub api.${Domain}
           HostedZoneId: !Ref HostedZoneId
       ValidationMethod: DNS
 
