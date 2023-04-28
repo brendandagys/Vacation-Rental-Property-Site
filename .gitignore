@@ -18,6 +18,8 @@ target/
 env.*
 /extra
 .aws-sam/
+samconfig.toml
+serverless/template.yml
 
 npm-debug.log*
 yarn-debug.log*
