@@ -68,6 +68,7 @@ Resources:
                   - cloudfront:DescribeFunction
                   - cloudfront:PublishFunction
                   - cloudfront:DeleteFunction
+                  - cloudfront:UpdateFunction
                 Resource: !Sub arn:aws:cloudfront::${AWS::AccountId}:function/*
               - Effect: Allow
                 Action:
