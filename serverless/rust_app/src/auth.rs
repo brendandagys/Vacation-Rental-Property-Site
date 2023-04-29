@@ -56,8 +56,11 @@ async fn auth(request: Request, client: &dynamodb::Client) -> Result<Response<Bo
                     // Fetch the user attempting to log in
                     let user = match get_user_by_username(client, &username).await {
                         Ok(user) => user,
-                        Err((status_code, ..)) => {
-                            return utils::http::send_error(status_code, "User does not exist.")
+                        Err(_) => {
+                            return utils::http::send_error(
+                                StatusCode::BAD_REQUEST,
+                                "Invalid username or password.",
+                            )
                         }
                     };
 
@@ -101,7 +104,7 @@ async fn auth(request: Request, client: &dynamodb::Client) -> Result<Response<Bo
                                 ),
                                 false => utils::http::send_error(
                                     StatusCode::UNAUTHORIZED,
-                                    "Invalid password!",
+                                    "Invalid username or password.",
                                 ),
                             },
                             Err(error) => {
