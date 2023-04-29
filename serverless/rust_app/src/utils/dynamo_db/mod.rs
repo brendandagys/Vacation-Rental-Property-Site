@@ -17,12 +17,25 @@ use aws_sdk_dynamodb as dynamodb;
 use dynamodb::{client::fluent_builders::PutItem, model::AttributeValue};
 use std::env;
 
+const DYNAMODB_LOCAL: &str = "http://docker.for.mac.localhost:8000";
+
 pub async fn get_dynamo_db_client() -> dynamodb::Client {
+    let endpoint_url = match env::var("DYNAMODB_ENDPOINT") {
+        Ok(endpoint) => {
+            if endpoint == "" {
+                DYNAMODB_LOCAL.into()
+            } else {
+                endpoint
+            }
+        }
+        Err(_) => DYNAMODB_LOCAL.into(),
+    };
+
+    println!("DynamoDB endpoint: {}", endpoint_url);
+
     let config = aws_config::load_from_env().await;
     let local_config = dynamodb::config::Builder::from(&config)
-        .endpoint_url(
-            env::var("DYNAMODB_ENDPOINT").unwrap_or("http://docker.for.mac.localhost:8000".into()),
-        )
+        .endpoint_url(endpoint_url)
         .build();
 
     dynamodb::Client::from_conf(local_config)
