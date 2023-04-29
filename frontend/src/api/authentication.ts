@@ -22,7 +22,6 @@ export const logIn = async (
   if (body?.data) {
     console.info('Token:', body.data.token);
     localStorage.setItem('token', body.data.token);
-    window.history.pushState(null, '', '/admin');
   }
 
   return {
