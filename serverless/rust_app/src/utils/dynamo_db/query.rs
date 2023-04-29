@@ -69,6 +69,16 @@ pub async fn query<'a, T: Deserialize<'a> + Serialize + std::fmt::Debug>(
     .clone()
     .to_vec();
 
+    if items.len() == 0 {
+        return Err((
+            StatusCode::NOT_FOUND,
+            match singular {
+                true => serde_json::json!(null).to_string(),
+                false => serde_json::json!([]).to_string(),
+            },
+        ));
+    }
+
     // Get typed entities, derived from the DynamoDB response
     let entities: Vec<T> = match from_items(items.clone()) {
         Ok(entities) => entities,
