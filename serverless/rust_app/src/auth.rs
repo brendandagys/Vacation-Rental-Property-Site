@@ -70,7 +70,7 @@ async fn auth(request: Request, client: &dynamodb::Client) -> Result<Response<Bo
                         Err(_) => {
                             return utils::http::send_error(
                                 StatusCode::INTERNAL_SERVER_ERROR,
-                                "Token secret not set. Please try again later.",
+                                "Token secret not set! Use `JWT_SECRET`.",
                             )
                         }
                     };

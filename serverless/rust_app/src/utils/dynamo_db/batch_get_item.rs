@@ -21,14 +21,13 @@ pub async fn batch_get_item<'a, T: Deserialize<'a> + Serialize>(
         ]))
     }
 
+    let table_name = env::var("TABLE_NAME").unwrap().to_string();
+
     let keys_and_attributes = keys_and_attributes_builder.build();
 
     let result = match client
         .batch_get_item()
-        .request_items(
-            env::var("TABLE_NAME").unwrap().to_string(),
-            keys_and_attributes,
-        )
+        .request_items(&table_name, keys_and_attributes)
         .return_consumed_capacity(ReturnConsumedCapacity::Indexes)
         .send()
         .await
@@ -41,12 +40,22 @@ pub async fn batch_get_item<'a, T: Deserialize<'a> + Serialize>(
 
     let tables_and_items = match result.responses() {
         Some(items) => items,
-        None => return Err((StatusCode::NOT_FOUND, serde_json::json!([]).to_string())),
+        None => {
+            return Err((
+                StatusCode::INTERNAL_SERVER_ERROR,
+                "No table data returned!".into(),
+            ))
+        }
     };
 
-    let items = match tables_and_items.get(&env::var("TABLE_NAME").unwrap()) {
+    let items = match tables_and_items.get(&table_name) {
         Some(items) => items,
-        None => return Err((StatusCode::OK, serde_json::json!([]).to_string())),
+        None => {
+            return Err((
+                StatusCode::INTERNAL_SERVER_ERROR,
+                "Error obtaining DynamoDB items from result!".into(),
+            ))
+        }
     };
 
     let entities: Vec<T> = match from_items(items.clone()) {
@@ -68,13 +77,32 @@ pub async fn batch_get_item_http<'a, T: Deserialize<'a> + Serialize>(
     querymap: QueryMap,
     item_keys: Vec<(AttributeValue, AttributeValue)>,
 ) -> Result<lambda_http::Response<Body>, Error> {
+    let limit = match querymap.first("limit") {
+        Some(limit) => match limit.parse::<i32>() {
+            Ok(limit) => Some(limit),
+            Err(_) => None, // Improper limit => fetch all records
+        },
+        None => None,
+    };
+
     match batch_get_item::<T>(client, item_keys).await {
-        Ok(typed_entities) => utils::http::send_response(
-            types::http::ApiResponseData::Multiple(typed_entities),
-            Some(querymap),
-            None,
-            None,
-        ),
+        Ok(typed_entities) => {
+            if typed_entities.len() == 0 {
+                return utils::http::send_response(
+                    types::http::ApiResponseData::NoneMultiple::<Vec<()>>(Vec::new()),
+                    Some(querymap),
+                    limit,
+                    Some(StatusCode::NOT_FOUND),
+                );
+            }
+
+            utils::http::send_response(
+                types::http::ApiResponseData::Multiple(typed_entities),
+                Some(querymap),
+                None,
+                None,
+            )
+        }
         Err((status_code, message)) => utils::http::send_error(status_code, &message),
     }
 }

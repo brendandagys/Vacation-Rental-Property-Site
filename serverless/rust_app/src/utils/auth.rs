@@ -3,8 +3,7 @@ use jsonwebtoken::{DecodingKey, Validation};
 use serde::Deserialize;
 use std::env;
 
-pub fn hash_password(password: String) -> BcryptResult<String> {
-    let salt = env::var("AUTHORIZATION_HASH_SALT").unwrap();
+pub fn hash_password(password: String, salt: String) -> BcryptResult<String> {
     let salt_characters: Vec<u8> = salt.bytes().collect();
 
     if salt_characters.len() < 16 {

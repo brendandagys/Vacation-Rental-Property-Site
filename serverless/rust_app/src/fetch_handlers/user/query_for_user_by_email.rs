@@ -20,7 +20,6 @@ pub async fn query_for_user_by_email(
             (":value2", AttributeValue::S(format!("{email}"))),
         ],
         None,
-        true,
     )
     .await
 }

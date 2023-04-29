@@ -17,7 +17,6 @@ pub async fn query<'a, T: Deserialize<'a> + Serialize + std::fmt::Debug>(
     expression_attribute_names: &[(&str, &str)],
     expression_attribute_values: Vec<(&str, AttributeValue)>,
     limit: Option<i32>,
-    singular: bool,
 ) -> Result<Vec<T>, (StatusCode, String)> {
     let mut builder = client
         .query()
@@ -58,26 +57,13 @@ pub async fn query<'a, T: Deserialize<'a> + Serialize + std::fmt::Debug>(
         Some(items) => items,
         None => {
             return Err((
-                StatusCode::NOT_FOUND,
-                match singular {
-                    true => serde_json::json!(null).to_string(),
-                    false => serde_json::json!([]).to_string(),
-                },
+                StatusCode::INTERNAL_SERVER_ERROR,
+                "Error obtaining DynamoDB items from query result!".into(),
             ))
         }
     }
     .clone()
     .to_vec();
-
-    if items.len() == 0 {
-        return Err((
-            StatusCode::NOT_FOUND,
-            match singular {
-                true => serde_json::json!(null).to_string(),
-                false => serde_json::json!([]).to_string(),
-            },
-        ));
-    }
 
     // Get typed entities, derived from the DynamoDB response
     let entities: Vec<T> = match from_items(items.clone()) {
@@ -118,7 +104,6 @@ pub async fn query_http<'a, T: Deserialize<'a> + Serialize + std::fmt::Debug + C
         expression_attribute_names,
         expression_attribute_values,
         limit,
-        singular,
     )
     .await
     {

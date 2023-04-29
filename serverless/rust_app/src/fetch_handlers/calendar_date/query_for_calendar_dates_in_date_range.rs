@@ -20,7 +20,6 @@ pub async fn query_for_calendar_dates_in_date_range(
             (":value3", AttributeValue::S(format!("{end_date}"))),
         ],
         None,
-        false,
     )
     .await
     {

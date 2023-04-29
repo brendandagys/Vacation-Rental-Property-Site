@@ -1,10 +1,10 @@
-mod batch_get_calendar_dates;
+use chrono::Utc;
 use std::collections::HashSet;
 
-use batch_get_calendar_dates::batch_get_calendar_dates;
+mod batch_get_calendar_dates;
+use batch_get_calendar_dates::batch_get_calendar_dates_http;
 
 mod query_for_calendar_dates_by_state;
-use chrono::Utc;
 use query_for_calendar_dates_by_state::query_for_calendar_dates_by_state;
 
 mod query_for_calendar_dates_in_date_range;
@@ -20,7 +20,7 @@ use lambda_http::{
 
 pub async fn get(client: &dynamodb::Client, querymap: QueryMap) -> Result<Response<Body>, Error> {
     if let Some(dates) = querymap.all("dates") {
-        return batch_get_calendar_dates(
+        return batch_get_calendar_dates_http(
             client,
             utils::str_vec_to_string_vec(dates),
             querymap.clone(),

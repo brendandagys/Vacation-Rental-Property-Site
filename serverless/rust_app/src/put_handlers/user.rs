@@ -1,3 +1,5 @@
+use std::env;
+
 use crate::{
     fetch_handlers,
     types::{self, BuildFunction},
@@ -26,7 +28,10 @@ pub fn build_user_item(
 
     let no_whitespace_password = password.replace(" ", "");
 
-    let hash = utils::auth::hash_password(no_whitespace_password).unwrap();
+    let salt = env::var("HASH_SALT").expect("Hash salt not set! Use `HASH_SALT`.");
+
+    let hash =
+        utils::auth::hash_password(no_whitespace_password, salt).expect("Could not hash password!");
 
     builder
         .item("PK", AttributeValue::S(format!("USER-{username}")))
@@ -89,7 +94,17 @@ pub async fn put_user(
         return utils::http::send_error(StatusCode::BAD_REQUEST, "User already exists.");
     }
 
-    match utils::auth::hash_password(no_whitespace_password.clone()) {
+    let salt = match env::var("HASH_SALT") {
+        Ok(secret) => secret,
+        Err(_) => {
+            return utils::http::send_error(
+                StatusCode::INTERNAL_SERVER_ERROR,
+                "Hash salt not set! Use `HASH_SALT`.",
+            )
+        }
+    };
+
+    match utils::auth::hash_password(no_whitespace_password.clone(), salt) {
         Ok(_) => {}
         Err(error) => {
             return utils::http::send_error(

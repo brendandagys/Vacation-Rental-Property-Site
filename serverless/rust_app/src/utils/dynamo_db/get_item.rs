@@ -62,6 +62,16 @@ pub async fn get_item_http<'a, T: Deserialize<'a> + Serialize>(
             None,
             None,
         ),
-        Err((status_code, message)) => utils::http::send_error(status_code, &message),
+        Err((status_code, message)) => {
+            if let StatusCode::NOT_FOUND = status_code {
+                return utils::http::send_response(
+                    types::http::ApiResponseData::NoneSingular::<()>(()),
+                    Some(querymap),
+                    None,
+                    Some(status_code),
+                );
+            }
+            utils::http::send_error(status_code, &message)
+        }
     }
 }
