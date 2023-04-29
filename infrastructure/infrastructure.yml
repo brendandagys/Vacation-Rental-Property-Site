@@ -359,3 +359,9 @@ Resources:
       AliasTarget:
         HostedZoneId: !Ref CloudFrontHostedZoneId
         DNSName: !GetAtt Distribution.DomainName
+
+Outputs:
+  CertificateArn:
+    Value: !Ref Certificate
+    Export:
+      Name: !Sub ${AWS::StackName}-certificate-arn
