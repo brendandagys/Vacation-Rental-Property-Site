@@ -86,7 +86,7 @@ export const ManageDefaultsContainer = () => {
             })
         }
       </Row>
-      <Button className="mt-4" onClick={onUpdateDefaults}>Save Defaults</Button>
+      {allDefaults.length > 0 && <Button className="mt-4" onClick={onUpdateDefaults}>Save Defaults</Button>}
     </Container>
   );
 };
