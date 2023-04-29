@@ -76,13 +76,14 @@ export const Calendar = ({
           onClick={() => onDateClick(calendarDate)}
           onMouseEnter={() => setHoveredDate(calendarDate)}
           onMouseLeave={() => setHoveredDate(null)}
+          style={{ ...(calendarDate.cellColor ? { background: calendarDate.cellColor } : {}) }}
         >
           <div className={
             `calendar__date-cell
-            calendar__date-cell${(hoveredDate === calendarDate && !isValidHover) ? '--unavailable' : ''}
-            calendar__date-cell${isAdmin ? '--admin' : ''}
-            calendar__date-cell${state ? `--${state.toLowerCase()}` : ''}
-            calendar__date-cell${
+             calendar__date-cell${(hoveredDate === calendarDate && !isValidHover) ? '--unavailable' : ''}
+             calendar__date-cell${isAdmin ? '--admin' : ''}
+             calendar__date-cell${state ? `--${state.toLowerCase()}` : ''}
+             calendar__date-cell${
         isSelected
           ? '--selected'
           : ((isHovered && isValidHover) || hoveredDate === calendarDate)
