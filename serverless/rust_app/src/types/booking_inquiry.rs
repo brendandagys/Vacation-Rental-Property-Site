@@ -35,7 +35,7 @@ pub struct BookingInquiry {
     pub modified: Option<String>,
 }
 
-#[derive(Deserialize)]
+#[derive(Deserialize, Serialize)]
 pub struct BookingInquiryPutRequest {
     pub state: Option<BookingInquiryState>,
     pub email: String,

@@ -1,18 +1,21 @@
+use std::env;
+
 use crate::{
     types::{self, BuildFunction},
     utils,
 };
 
 use aws_sdk_dynamodb as dynamodb;
+use dynamodb::{operation::put_item::builders::PutItemFluentBuilder, types::AttributeValue};
+
 use chrono::{DateTime, Utc};
-use dynamodb::{client::fluent_builders::PutItem, model::AttributeValue};
 use lambda_http::{http::StatusCode, Body, Error};
 
 pub fn build_booking_inquiry_item(
-    mut builder: PutItem,
+    mut builder: PutItemFluentBuilder,
     booking_inquiry: types::booking_inquiry::BookingInquiryPutRequest,
     now: DateTime<Utc>,
-) -> PutItem {
+) -> PutItemFluentBuilder {
     let types::booking_inquiry::BookingInquiryPutRequest {
         state,
         email,
@@ -51,15 +54,15 @@ pub fn build_booking_inquiry_item(
 
 struct BuildBookingInquiry {}
 
-impl BuildFunction<PutItem, types::booking_inquiry::BookingInquiryPutRequest>
+impl BuildFunction<PutItemFluentBuilder, types::booking_inquiry::BookingInquiryPutRequest>
     for BuildBookingInquiry
 {
     fn build_item(
         &self,
-        builder: PutItem,
+        builder: PutItemFluentBuilder,
         booking_inquiry_put_request: types::booking_inquiry::BookingInquiryPutRequest,
         now: DateTime<Utc>,
-    ) -> PutItem {
+    ) -> PutItemFluentBuilder {
         build_booking_inquiry_item(builder, booking_inquiry_put_request, now)
     }
 }
@@ -75,6 +78,21 @@ pub async fn put_booking_inquiry(
     }
 
     let booking_inquiry_builder = BuildBookingInquiry {};
+
+    let topic_arn = env::var("SNS_TOPIC_ARN").unwrap_or("".into());
+
+    if topic_arn != "" {
+        let message = serde_json::to_string(&booking_inquiry)?;
+        println!("SNS Topic ARN: {:?} | Message: {:?}", topic_arn, message);
+
+        utils::sns::get_sns_client()
+            .await
+            .publish()
+            .topic_arn(topic_arn)
+            .message(message)
+            .send()
+            .await?;
+    }
 
     utils::dynamo_db::put_item_http::<types::booking_inquiry::BookingInquiryPutRequest>(
         client,
