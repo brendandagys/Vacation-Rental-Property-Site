@@ -3,20 +3,13 @@ mod types;
 mod utils;
 
 use aws_sdk_dynamodb as dynamodb;
-use lambda_http::{
-    http::{Method, StatusCode},
-    run, service_fn, Body, Error, Request, RequestExt, Response,
-};
+use lambda_http::{http::StatusCode, run, service_fn, Body, Error, Request, RequestExt, Response};
 
 #[tokio::main]
 async fn main() -> Result<(), Error> {
     let client = utils::dynamo_db::get_dynamo_db_client().await;
 
     run(service_fn(|request: Request| async {
-        if request.method() == Method::OPTIONS {
-            return Ok(utils::http::build_cors_response());
-        }
-
         fetch(request, &client).await
     }))
     .await?;

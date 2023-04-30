@@ -3,11 +3,8 @@ mod utils;
 
 use aws_sdk_dynamodb as dynamodb;
 use chrono::Utc;
-use dynamodb::model::AttributeValue;
-use lambda_http::{
-    http::{Method, StatusCode},
-    run, service_fn, Body, Error, Request, Response,
-};
+use dynamodb::types::AttributeValue;
+use lambda_http::{http::StatusCode, run, service_fn, Body, Error, Request, Response};
 use std::env;
 
 #[tokio::main]
@@ -15,10 +12,6 @@ async fn main() -> Result<(), Error> {
     let client = utils::dynamo_db::get_dynamo_db_client().await;
 
     run(service_fn(|request: Request| async {
-        if request.method() == Method::OPTIONS {
-            return Ok(utils::http::build_cors_response());
-        }
-
         auth(request, &client).await
     }))
     .await?;

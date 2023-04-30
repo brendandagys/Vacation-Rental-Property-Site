@@ -7,16 +7,20 @@ use lambda_http::{
     Body, Error, Response,
 };
 
-const METHODS: &str = "OPTIONS, GET, POST, PUT";
-const HEADERS: &str = "Content-Type, Authorization";
+const DEFAULT_CORS_ORIGIN: &str = "*";
+const DEFAULT_CORS_METHODS: &str = "OPTIONS, GET, POST, PUT";
+const DEFAULT_CORS_HEADERS: &str = "Content-Type, Authorization, X-Forwarded-For";
 
 fn add_cors_headers_to_response(response_builder: Builder) -> Builder {
-    let origin = env::var("CORS_ORIGIN").unwrap_or("http://localhost:3001".into());
+    let origin = env::var("CORS_ORIGIN").unwrap_or(DEFAULT_CORS_ORIGIN.into());
+    let methods = env::var("CORS_METHODS").unwrap_or(DEFAULT_CORS_METHODS.into());
+    let headers = env::var("CORS_HEADERS").unwrap_or(DEFAULT_CORS_HEADERS.into());
+    // println!("CORS origin: {origin} | CORS methods: {methods} | CORS headers: {headers}");
 
     response_builder
         .header("Access-Control-Allow-Origin", origin)
-        .header("Access-Control-Allow-Methods", METHODS)
-        .header("Access-Control-Allow-Headers", HEADERS)
+        .header("Access-Control-Allow-Methods", methods)
+        .header("Access-Control-Allow-Headers", headers)
 }
 
 pub fn build_http_response(status_code: StatusCode, body_text: &str) -> Response<Body> {
@@ -31,12 +35,6 @@ pub fn build_http_response(status_code: StatusCode, body_text: &str) -> Response
             .body(Body::Text(format!("{error}")))
             .unwrap(),
     }
-}
-
-pub fn build_cors_response() -> Response<Body> {
-    add_cors_headers_to_response(Response::builder())
-        .body(Body::Text("Welcome!".into()))
-        .unwrap()
 }
 
 pub fn send_response<T: serde::Serialize>(
