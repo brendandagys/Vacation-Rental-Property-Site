@@ -1,7 +1,7 @@
 use crate::{types, utils};
 
 use aws_sdk_dynamodb as dynamodb;
-use dynamodb::model::AttributeValue;
+use dynamodb::types::AttributeValue;
 use lambda_http::{aws_lambda_events::query_map::QueryMap, Body, Error, Response};
 
 pub async fn query_for_testimonials_by_active_and_date_range(

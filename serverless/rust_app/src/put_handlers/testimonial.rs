@@ -5,14 +5,14 @@ use crate::{
 
 use aws_sdk_dynamodb as dynamodb;
 use chrono::{DateTime, Utc};
-use dynamodb::{client::fluent_builders::PutItem, model::AttributeValue};
+use dynamodb::{operation::put_item::builders::PutItemFluentBuilder, types::AttributeValue};
 use lambda_http::{http::StatusCode, Body, Error};
 
 pub fn build_testimonial_item(
-    builder: PutItem,
+    builder: PutItemFluentBuilder,
     testimonial: types::testimonial::TestimonialPutRequest,
     now: DateTime<Utc>,
-) -> PutItem {
+) -> PutItemFluentBuilder {
     let types::testimonial::TestimonialPutRequest {
         email,
         stars,
@@ -44,13 +44,15 @@ pub fn build_testimonial_item(
 
 struct BuildTestimonial {}
 
-impl BuildFunction<PutItem, types::testimonial::TestimonialPutRequest> for BuildTestimonial {
+impl BuildFunction<PutItemFluentBuilder, types::testimonial::TestimonialPutRequest>
+    for BuildTestimonial
+{
     fn build_item(
         &self,
-        builder: PutItem,
+        builder: PutItemFluentBuilder,
         testimonial_put_request: types::testimonial::TestimonialPutRequest,
         now: DateTime<Utc>,
-    ) -> PutItem {
+    ) -> PutItemFluentBuilder {
         build_testimonial_item(builder, testimonial_put_request, now)
     }
 }

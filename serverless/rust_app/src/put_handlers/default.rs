@@ -6,8 +6,8 @@ use crate::{
 use aws_sdk_dynamodb as dynamodb;
 use chrono::{DateTime, Utc};
 use dynamodb::{
-    client::fluent_builders::PutItem,
-    model::{AttributeValue, PutRequest, WriteRequest},
+    operation::put_item::builders::PutItemFluentBuilder,
+    types::{AttributeValue, PutRequest, WriteRequest},
 };
 use lambda_http::{Body, Error};
 
@@ -33,13 +33,13 @@ pub fn build_default_item<T: Buildable>(
 
 struct BuildDefault {}
 
-impl BuildFunction<PutItem, types::default::DefaultPutRequest> for BuildDefault {
+impl BuildFunction<PutItemFluentBuilder, types::default::DefaultPutRequest> for BuildDefault {
     fn build_item(
         &self,
-        builder: PutItem,
+        builder: PutItemFluentBuilder,
         default_put_request: types::default::DefaultPutRequest,
         now: DateTime<Utc>,
-    ) -> PutItem {
+    ) -> PutItemFluentBuilder {
         build_default_item(builder, default_put_request, now)
     }
 }

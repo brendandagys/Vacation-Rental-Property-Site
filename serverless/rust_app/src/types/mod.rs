@@ -9,10 +9,8 @@ pub mod user;
 
 use aws_sdk_dynamodb as dynamodb;
 use chrono::{DateTime, Utc};
-use dynamodb::{
-    client::fluent_builders::PutItem,
-    model::{put_request::Builder, AttributeValue},
-};
+use dynamodb::types::builders::PutRequestBuilder;
+use dynamodb::{operation::put_item::builders::PutItemFluentBuilder, types::AttributeValue};
 
 use serde::Deserialize;
 
@@ -47,12 +45,12 @@ pub trait Buildable {
     fn item(self, k: impl Into<String>, v: AttributeValue) -> Self;
 }
 
-impl Buildable for Builder {
-    fn item(self, k: impl Into<String>, v: AttributeValue) -> Builder {
+impl Buildable for PutRequestBuilder {
+    fn item(self, k: impl Into<String>, v: AttributeValue) -> Self {
         self.item(k, v)
     }
 }
-impl Buildable for PutItem {
+impl Buildable for PutItemFluentBuilder {
     fn item(self, k: impl Into<String>, v: AttributeValue) -> Self {
         self.item(k, v)
     }

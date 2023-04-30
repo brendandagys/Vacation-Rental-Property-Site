@@ -1,14 +1,13 @@
 use crate::{types, utils};
-
 use aws_sdk_dynamodb as dynamodb;
-use aws_sdk_dynamodb::model::AttributeValue;
-use dynamodb::model::ReturnConsumedCapacity;
+use serde_dynamo::from_items;
+use std::env;
+
+use dynamodb::types::{AttributeValue, ReturnConsumedCapacity};
 use lambda_http::{
     aws_lambda_events::query_map::QueryMap, http::StatusCode, Body, Error, Response,
 };
 use serde::{Deserialize, Serialize};
-use serde_dynamo::from_items;
-use std::env;
 
 pub async fn query<'a, T: Deserialize<'a> + Serialize + std::fmt::Debug>(
     client: &dynamodb::Client,

@@ -1,7 +1,7 @@
 use crate::{types, utils};
 
 use aws_sdk_dynamodb as dynamodb;
-use dynamodb::model::{ReturnConsumedCapacity, WriteRequest};
+use dynamodb::types::{ReturnConsumedCapacity, WriteRequest};
 use lambda_http::{http::StatusCode, Body, Error};
 use std::env;
 

@@ -3,14 +3,15 @@ use crate::{types, utils};
 use aws_sdk_dynamodb as dynamodb;
 use chrono::Utc;
 use dynamodb::{
-    client::fluent_builders::PutItem, model::ReturnConsumedCapacity, output::PutItemOutput,
+    operation::put_item::{builders::PutItemFluentBuilder, PutItemOutput},
+    types::ReturnConsumedCapacity,
 };
 use lambda_http::{http::StatusCode, Body, Error};
 use std::env;
 
 pub async fn put_item<U>(
     client: &dynamodb::Client,
-    item_builder: impl types::BuildFunction<PutItem, U>,
+    item_builder: impl types::BuildFunction<PutItemFluentBuilder, U>,
     entity: U,
 ) -> Result<PutItemOutput, (StatusCode, String)> {
     let mut builder = client
@@ -33,7 +34,7 @@ pub async fn put_item<U>(
 
 pub async fn put_item_http<U>(
     client: &dynamodb::Client,
-    item_builder: impl types::BuildFunction<PutItem, U>,
+    item_builder: impl types::BuildFunction<PutItemFluentBuilder, U>,
     entity: U,
 ) -> Result<lambda_http::Response<Body>, Error> {
     match put_item(client, item_builder, entity).await {

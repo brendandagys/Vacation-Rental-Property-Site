@@ -1,7 +1,7 @@
 use crate::{types, utils};
 
 use aws_sdk_dynamodb as dynamodb;
-use dynamodb::model::AttributeValue;
+use dynamodb::types::AttributeValue;
 use lambda_http::http::StatusCode;
 
 pub async fn batch_get_defaults(

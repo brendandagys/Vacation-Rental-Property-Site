@@ -6,8 +6,8 @@ use crate::{
 use aws_sdk_dynamodb as dynamodb;
 use chrono::{DateTime, Utc};
 use dynamodb::{
-    client::fluent_builders::PutItem,
-    model::{AttributeValue, PutRequest, WriteRequest},
+    operation::put_item::builders::PutItemFluentBuilder,
+    types::{AttributeValue, PutRequest, WriteRequest},
 };
 use lambda_http::{http::StatusCode, Body, Error};
 
@@ -49,13 +49,15 @@ pub fn build_calendar_date_item<T: Buildable>(
 
 struct BuildCalendarDate {}
 
-impl BuildFunction<PutItem, types::calendar_date::CalendarDatePutRequest> for BuildCalendarDate {
+impl BuildFunction<PutItemFluentBuilder, types::calendar_date::CalendarDatePutRequest>
+    for BuildCalendarDate
+{
     fn build_item(
         &self,
-        builder: PutItem,
+        builder: PutItemFluentBuilder,
         calendar_date_put_request: types::calendar_date::CalendarDatePutRequest,
         now: DateTime<Utc>,
-    ) -> PutItem {
+    ) -> PutItemFluentBuilder {
         build_calendar_date_item(builder, calendar_date_put_request, now)
     }
 }

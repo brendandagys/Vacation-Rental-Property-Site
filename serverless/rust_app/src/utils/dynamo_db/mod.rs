@@ -1,3 +1,8 @@
+use std::env;
+
+use aws_sdk_dynamodb as dynamodb;
+use dynamodb::{operation::put_item::builders::PutItemFluentBuilder, types::AttributeValue};
+
 mod batch_get_item;
 pub use batch_get_item::{batch_get_item, batch_get_item_http};
 
@@ -12,10 +17,6 @@ pub use put_item::{put_item, put_item_http};
 
 mod query;
 pub use query::{query, query_http};
-
-use aws_sdk_dynamodb as dynamodb;
-use dynamodb::{client::fluent_builders::PutItem, model::AttributeValue};
-use std::env;
 
 const DYNAMODB_LOCAL: &str = "http://docker.for.mac.localhost:8000";
 
@@ -42,10 +43,10 @@ pub async fn get_dynamo_db_client() -> dynamodb::Client {
 }
 
 pub fn append_string_item_if_exists(
-    builder: PutItem,
+    builder: PutItemFluentBuilder,
     attribute_key: &str,
     value: Option<String>,
-) -> PutItem {
+) -> PutItemFluentBuilder {
     match value {
         Some(value) => {
             let updated_builder = builder.item(attribute_key, AttributeValue::S(value));
@@ -56,10 +57,10 @@ pub fn append_string_item_if_exists(
 }
 
 pub fn append_u8_item_if_exists(
-    builder: PutItem,
+    builder: PutItemFluentBuilder,
     attribute_key: &str,
     value: Option<u8>,
-) -> PutItem {
+) -> PutItemFluentBuilder {
     match value {
         Some(value) => {
             let updated_builder = builder.item(attribute_key, AttributeValue::N(value.to_string()));

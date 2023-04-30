@@ -8,14 +8,14 @@ use crate::{
 
 use aws_sdk_dynamodb as dynamodb;
 use chrono::{DateTime, Utc};
-use dynamodb::{client::fluent_builders::PutItem, model::AttributeValue};
+use dynamodb::{operation::put_item::builders::PutItemFluentBuilder, types::AttributeValue};
 use lambda_http::{http::StatusCode, Body, Error};
 
 pub fn build_user_item(
-    builder: PutItem,
+    builder: PutItemFluentBuilder,
     user: types::user::UserPutRequest,
     now: DateTime<Utc>,
-) -> PutItem {
+) -> PutItemFluentBuilder {
     let types::user::UserPutRequest {
         username,
         email,
@@ -50,13 +50,13 @@ pub fn build_user_item(
 
 struct BuildUser {}
 
-impl BuildFunction<PutItem, types::user::UserPutRequest> for BuildUser {
+impl BuildFunction<PutItemFluentBuilder, types::user::UserPutRequest> for BuildUser {
     fn build_item(
         &self,
-        builder: PutItem,
+        builder: PutItemFluentBuilder,
         user_put_request: types::user::UserPutRequest,
         now: DateTime<Utc>,
-    ) -> PutItem {
+    ) -> PutItemFluentBuilder {
         build_user_item(builder, user_put_request, now)
     }
 }

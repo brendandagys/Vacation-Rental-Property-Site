@@ -2,6 +2,7 @@ pub mod auth;
 pub mod dynamo_db;
 pub mod http;
 pub mod miscellaneous;
+pub mod sns;
 
 use lambda_http::http::StatusCode;
 

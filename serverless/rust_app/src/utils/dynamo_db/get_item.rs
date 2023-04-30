@@ -1,8 +1,7 @@
 use crate::{types, utils};
 
 use aws_sdk_dynamodb as dynamodb;
-use aws_sdk_dynamodb::model::AttributeValue;
-use dynamodb::model::ReturnConsumedCapacity;
+use dynamodb::types::{AttributeValue, ReturnConsumedCapacity};
 use lambda_http::{aws_lambda_events::query_map::QueryMap, http::StatusCode, Body, Error};
 use serde::{Deserialize, Serialize};
 use serde_dynamo::from_item;
