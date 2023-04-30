@@ -6,20 +6,21 @@ edition = "2021"
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
-aws-config = "0.54.1"
-aws-sdk-dynamodb = "0.24.0"
+aws-config = "0.55.1"
+aws-sdk-dynamodb = "0.26.0"
+aws-sdk-sns = "0.26.0"
 aws-smithy-client = { version = "0.52.0", features = ["test-util"] }
 bcrypt = "0.14"
 chrono = "0.4"
 jsonwebtoken = "8.2.0"
 lambda_http = "0.7.2"
-serde_dynamo = { version = "4", features = ["aws-sdk-dynamodb+0_24"] }
+serde_dynamo = { version = "4.2.1", features = ["aws-sdk-dynamodb+0_26"] }
 tokio = { version = "1.21.1", features = ["full"] }
 
 # From AWS documentation
 lambda_runtime = "0.6.0"
-serde = "1.0.136"
-serde_json = "1.0"
+serde = "1.0.160"
+serde_json = "1.0.96"
 tracing = { version = "0.1", features = ["log"] }
 tracing-subscriber = { version = "0.3", default-features = false, features = ["fmt"] }
 
