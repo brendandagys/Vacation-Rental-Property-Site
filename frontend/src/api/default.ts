@@ -29,7 +29,7 @@ export const getAllDefaults = async (): Promise<IDefault[]> => {
 
     const allDefaultsEnsured = await createIfNotExistsAllMonthDefaults(allDefaults);
 
-    console.info('Defaults:', { allDefaultsEnsured });
+    // console.info('Defaults:', { allDefaultsEnsured });
     return allDefaultsEnsured;
   }
 
@@ -43,7 +43,7 @@ export const getDefaultByName = async (name: string): Promise<Nullable<IDefault>
 
   if (body && isApiResponse(body)) {
     const { data: defaultFor } = body;
-    console.info('Default:', { defaultFor });
+    // console.info('Default:', { defaultFor });
     return defaultFor;
   }
 
@@ -57,7 +57,7 @@ export const putDefault = async (defaultObject: IDefaultPutRequest): Promise<Nul
 
   if (body && isApiResponse(body)) {
     const { data: putItemOutput } = body;
-    console.info('PUT default output:', putItemOutput);
+    // console.info('PUT default output:', putItemOutput);
     return putItemOutput;
   }
 
@@ -71,7 +71,7 @@ export const putDefaults = async (defaults: IDefaultPutRequest[]): Promise<Nulla
 
   if (body && isApiResponse(body)) {
     const { data: putItemsOutput } = body;
-    console.info('PUT defaults output:', putItemsOutput);
+    // console.info('PUT defaults output:', putItemsOutput);
     return putItemsOutput;
   }
 

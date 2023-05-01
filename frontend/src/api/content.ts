@@ -7,7 +7,7 @@ export const getAllContent = async (): Promise<IContent[]> => {
 
   if (body && isApiResponse(body)) {
     const { data: allContent } = body;
-    console.info('Content:', { allContent });
+    // console.info('Content:', { allContent });
     return allContent;
   }
 
@@ -21,7 +21,7 @@ export const getContentByContentId = async (content_id: string): Promise<Nullabl
 
   if (body && isApiResponse(body)) {
     const { data: content } = body;
-    console.info('Content:', { content });
+    // console.info('Content:', { content });
     return content;
   }
 
@@ -35,7 +35,7 @@ export const putContent = async (content: IContentPutRequest): Promise<Nullable<
 
   if (body && isApiResponse(body)) {
     const { data: putItemOutput } = body;
-    console.info('PUT content output:', putItemOutput);
+    // console.info('PUT content output:', putItemOutput);
     return putItemOutput;
   }
 
@@ -49,7 +49,7 @@ export const putContents = async (contents: IContentPutRequest[]): Promise<Nulla
 
   if (body && isApiResponse(body)) {
     const { data: putItemsOutput } = body;
-    console.info('PUT contents output:', putItemsOutput);
+    // console.info('PUT contents output:', putItemsOutput);
     return putItemsOutput;
   }
 

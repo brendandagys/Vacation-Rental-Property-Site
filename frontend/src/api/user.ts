@@ -9,7 +9,7 @@ export const getAllUsers = async (): Promise<IUser[]> => {
 
   if (body && isApiResponse(body)) {
     const { data: allUsers } = body;
-    console.info('All users:', { allUsers });
+    // console.info('All users:', { allUsers });
     return allUsers;
   }
 
@@ -23,7 +23,7 @@ export const getUserByUsername = async (username: string): Promise<Nullable<IUse
 
   if (body && isApiResponse(body)) {
     const { data: user } = body;
-    console.info('User:', { user });
+    // console.info('User:', { user });
     return user;
   }
 
@@ -37,7 +37,7 @@ export const getUserByEmail = async (email: string): Promise<Nullable<IUser>> =>
 
   if (body && isApiResponse(body)) {
     const { data: user } = body;
-    console.info('User:', { user });
+    // console.info('User:', { user });
     return user;
   }
 
@@ -51,7 +51,7 @@ export const putUser = async (user: IUserPutRequest): Promise<Nullable<string>> 
 
   if (body && isApiResponse(body)) {
     const { data: putItemOutput } = body;
-    console.info('PUT user output:', putItemOutput);
+    // console.info('PUT user output:', putItemOutput);
     return putItemOutput;
   }
 

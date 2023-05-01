@@ -10,7 +10,7 @@ export const getAllTestimonials = async (): Promise<ITestimonial[]> => {
 
   if (body && isApiResponse(body)) {
     const { data: allTestimonials } = body;
-    console.info('Testimonials:', { allTestimonials });
+    // console.info('Testimonials:', { allTestimonials });
     return allTestimonials;
   }
 
@@ -24,7 +24,7 @@ export const getTestimonialsByStars = async (stars: EStars): Promise<ITestimonia
 
   if (body && isApiResponse(body)) {
     const { data: testimonials } = body;
-    console.info('Testimonials:', { testimonials });
+    // console.info('Testimonials:', { testimonials });
     return testimonials;
   }
 
@@ -38,7 +38,7 @@ export const getTestimonialsByActive = async (active: boolean): Promise<ITestimo
 
   if (body && isApiResponse(body)) {
     const { data: testimonials } = body;
-    console.info('Testimonials:', { testimonials });
+    // console.info('Testimonials:', { testimonials });
     return testimonials;
   }
 
@@ -60,7 +60,7 @@ export const getTestimonialsByActiveAndInDateRange = async (
 
   if (body && isApiResponse(body)) {
     const { data: testimonials } = body;
-    console.info('Testimonials:', { testimonials });
+    // console.info('Testimonials:', { testimonials });
     return testimonials;
   }
 
@@ -74,7 +74,7 @@ export const putTestimonial = async (testimonial: ITestimonialPutRequest): Promi
 
   if (body && isApiResponse(body)) {
     const { data: putItemOutput } = body;
-    console.info('PUT testimonial output:', putItemOutput);
+    // console.info('PUT testimonial output:', putItemOutput);
     return putItemOutput;
   }
 

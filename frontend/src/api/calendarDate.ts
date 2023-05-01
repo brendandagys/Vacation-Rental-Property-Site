@@ -16,7 +16,7 @@ export const getSpecificCalendarDates = async (ymdList: string[]): Promise<ICale
 
   if (body && isApiResponse(body)) {
     const { data: calendarDates } = body;
-    console.info('Calendar dates: ', calendarDates);
+    // console.info('Calendar dates: ', calendarDates);
     return calendarDates;
   }
 
@@ -30,7 +30,7 @@ export const getCalendarDatesByState = async (state: EDateState): Promise<ICalen
 
   if (body && isApiResponse(body)) {
     const { data: calendarDates } = body;
-    console.info('Calendar dates:', calendarDates);
+    // console.info('Calendar dates:', calendarDates);
     return calendarDates;
   }
 
@@ -51,7 +51,7 @@ export const getCalendarDatesInDateRange = async (
 
   if (body && isApiResponse(body)) {
     const { data: calendarDates } = body;
-    console.info('Calendar dates:', calendarDates);
+    // console.info('Calendar dates:', calendarDates);
     return calendarDates;
   }
 
@@ -65,7 +65,7 @@ export const putCalendarDate = async (calendarDate: ICalendarDatePutRequest): Pr
 
   if (body && isApiResponse(body)) {
     const { data: putItemOutput } = body;
-    console.info('PUT calendar date output:', putItemOutput);
+    // console.info('PUT calendar date output:', putItemOutput);
     return putItemOutput;
   }
 
@@ -81,7 +81,7 @@ export const putCalendarDates = async (
 
   if (body && isApiResponse(body)) {
     const { data: putItemOutput } = body;
-    console.info('PUT calendar dates output:', putItemOutput);
+    // console.info('PUT calendar dates output:', putItemOutput);
     return putItemOutput;
   }
 

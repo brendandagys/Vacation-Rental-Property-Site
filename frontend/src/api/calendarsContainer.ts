@@ -54,8 +54,6 @@ export const fetchCalendarMonths = async (
     await getCalendarDatesInDateRange(getPartsFromYmd(firstDate), getPartsFromYmd(lastDate))
   );
 
-  console.log({ calendarDates });
-
   return (
     calendarDates.reduce<Record<string, ICalendarDate[]>>((acc, calendarDate) => {
       const { year, month } = calendarDate;
