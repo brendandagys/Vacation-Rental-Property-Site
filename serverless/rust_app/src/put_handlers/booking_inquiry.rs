@@ -6,6 +6,8 @@ use crate::{
 };
 
 use aws_sdk_dynamodb as dynamodb;
+use aws_sdk_sns as sns;
+
 use dynamodb::{operation::put_item::builders::PutItemFluentBuilder, types::AttributeValue};
 
 use chrono::{DateTime, Utc};
@@ -74,7 +76,10 @@ pub async fn put_booking_inquiry(
     let types::booking_inquiry::BookingInquiryPutRequest { email, message, .. } = &booking_inquiry;
 
     if email.trim() == "" || message.trim() == "" {
-        return utils::http::send_error(StatusCode::BAD_REQUEST, "Please provide all fields.");
+        return utils::http::send_error(
+            StatusCode::BAD_REQUEST,
+            "Please provide an email and message.",
+        );
     }
 
     let booking_inquiry_builder = BuildBookingInquiry {};
@@ -83,15 +88,32 @@ pub async fn put_booking_inquiry(
 
     if topic_arn != "" {
         let message = serde_json::to_string(&booking_inquiry)?;
-        println!("SNS Topic ARN: {:?} | Message: {:?}", topic_arn, message);
 
-        utils::sns::get_sns_client()
+        match utils::sns::get_sns_client()
             .await
             .publish()
-            .topic_arn(topic_arn)
-            .message(message)
+            .topic_arn(&topic_arn)
+            .message(&message)
             .send()
-            .await?;
+            .await
+        {
+            Ok(res) => {
+                println!(
+                    "Published message (ID: {:?}) to SNS Topic ARN: {:?} | MESSAGE: {:?}",
+                    res.message_id(),
+                    topic_arn,
+                    message
+                )
+            }
+            Err(error) => match error {
+                sns::error::SdkError::ServiceError(service_error) => {
+                    println!("SNS ServiceError: {:?}", service_error);
+                }
+                _ => {
+                    println!("SdkError<PublishError>: {error}");
+                }
+            },
+        };
     }
 
     utils::dynamo_db::put_item_http::<types::booking_inquiry::BookingInquiryPutRequest>(
