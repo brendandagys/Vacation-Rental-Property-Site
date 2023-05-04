@@ -29,7 +29,7 @@ export const UpdateCalendarDateForm = ({ calendarDate, setDatesToUpdate }: IUpda
       {
         ...calendarDate,
         cellColor,
-        price: parseInt(price),
+        price: parseInt(price || '0'),
         state,
       },
     ].sort((a, b) => a.ymd < b.ymd ? -1 : 1));
@@ -57,7 +57,7 @@ export const UpdateCalendarDateForm = ({ calendarDate, setDatesToUpdate }: IUpda
             <Form.Label>Price</Form.Label>
             <Form.Control
               placeholder="Price"
-              value={price}
+              value={price === '0' ? '' : price}
               onChange={({ target: { value } }) => {
                 value.match(/^\d*\.?\d*$/) && setPrice(value);
               }}
