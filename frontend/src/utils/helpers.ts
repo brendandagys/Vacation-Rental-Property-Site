@@ -31,3 +31,14 @@ export const getYmdFromParts = (yearMonthDate: IYearMonthDate): string => {
   const padded = (num: number) => num.toString().padStart(2, '0');
   return `${year}-${padded(month)}-${padded(date)}`;
 };
+
+/**
+ * Turns an array into an array of arrays, each containing the specified number of items.
+ * @param array
+ * @param elementsPerArray Size of each child array
+ * @returns An array of arrays
+ */
+export const chunkArray = <T>(array: T[], elementsPerArray: number): T[][] => [
+  array.slice(0, elementsPerArray),
+  ...(array.length <= elementsPerArray ? [] : chunkArray(array.slice(elementsPerArray), elementsPerArray)),
+];

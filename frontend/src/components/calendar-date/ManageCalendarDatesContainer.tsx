@@ -25,11 +25,13 @@ export const ManageCalendarDatesContainer = () => {
   };
 
   const updateCalendarDates = async () => {
-    await putCalendarDates(
+    const result = await putCalendarDates(
       datesToUpdate.map(({ state, price, cellColor, ymd, year, month, date }) =>  (
         { ymd, state, price, year, month, date, cellColor }
       ))
     );
+
+    console.log('`updateCalendarDates()` result:', result);
   };
 
   const onUpdateCalendarDates = async () => {

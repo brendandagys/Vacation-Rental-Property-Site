@@ -1,6 +1,6 @@
 import { IYearMonthDate, Nullable } from '../types';
 import { EDateState, ICalendarDate, ICalendarDatePutRequest } from '../types/calendarDate';
-import { getYmdFromParts } from '../utils/helpers';
+import { chunkArray, getYmdFromParts } from '../utils/helpers';
 import { api, isApiResponse } from './index';
 
 export const getSpecificCalendarDates = async (ymdList: string[]): Promise<ICalendarDate[]> => {
@@ -74,16 +74,22 @@ export const putCalendarDate = async (calendarDate: ICalendarDatePutRequest): Pr
 
 export const putCalendarDates = async (
   calendarDates: ICalendarDatePutRequest[]
-): Promise<Nullable<string>> => {
-  const { body, errorMessage } = (
-    await api<string>('put', 'PUT', calendarDates)
-  );
+): Promise<Nullable<string>[]> => (
+  Promise.all(
+    chunkArray(calendarDates, 25)
+      .map(
+        async (calendarDatesChunk) => {
+          const { body, errorMessage } = await api<string>('put', 'PUT', calendarDatesChunk);
 
-  if (body && isApiResponse(body)) {
-    const { data: putItemOutput } = body;
-    // console.info('PUT calendar dates output:', putItemOutput);
-    return putItemOutput;
-  }
+          if (body && isApiResponse(body)) {
+            const { data: putItemOutput } = body;
+            console.info('PUT calendar dates output:', putItemOutput);
+            return putItemOutput;
+          }
 
-  return null;
-};
+          return errorMessage ?? null;
+        }
+      )
+      .filter(Boolean)
+  )
+);
