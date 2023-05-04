@@ -87,10 +87,18 @@ pub async fn put_user(
     let existing_user_with_username =
         fetch_handlers::user::get_user_by_username(client, username).await;
 
-    let existing_user_with_email =
-        fetch_handlers::user::query_for_user_by_email(client, email).await;
+    let mut existing_user_with_email = true;
 
-    if existing_user_with_email.is_ok() || existing_user_with_username.is_ok() {
+    match fetch_handlers::user::query_for_user_by_email(client, email).await {
+        Ok(email_vector) => {
+            if email_vector.len() == 0 {
+                existing_user_with_email = false;
+            }
+        }
+        Err((status_code, message)) => return utils::http::send_error(status_code, &message),
+    };
+
+    if existing_user_with_email || existing_user_with_username.is_ok() {
         return utils::http::send_error(StatusCode::BAD_REQUEST, "User already exists.");
     }
 
