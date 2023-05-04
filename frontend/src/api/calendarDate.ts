@@ -83,7 +83,6 @@ export const putCalendarDates = async (
 
           if (body && isApiResponse(body)) {
             const { data: putItemOutput } = body;
-            console.info('PUT calendar dates output:', putItemOutput);
             return putItemOutput;
           }
 

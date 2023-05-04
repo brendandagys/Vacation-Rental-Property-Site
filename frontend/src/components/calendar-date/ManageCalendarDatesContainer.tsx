@@ -1,11 +1,18 @@
 import { Row, Col, Card } from 'react-bootstrap';
 import { CalendarsContainer } from './CalendarsContainer';
-import { getSpecificCalendarDates, putCalendarDates } from '../../api/calendarDate';
-import { getDatesInRange, getMonthsForRequest, mapCalendarDateToDate } from '../../api/calendarsContainer';
+import { getMonthsForRequest } from '../../api/calendarsContainer';
 import { useState } from 'react';
 import { CalendarDateModal } from './UpdateCalendarDateModal';
 import { ICalendarDate } from '../../types/calendarDate';
 import { useCalendarsData } from '../../hooks/useCalendarsData';
+import { getPartsFromYmd, makeYmd } from '../../utils/helpers';
+import { getCalendarDatesInDateRange, putCalendarDates } from '../../api/calendarDate';
+import { TDateNumber, TMonthNumber } from '../../types';
+
+// TODO: Delete this when helper function is updated
+const mapCalendarDateToYmd = ({ year, month, date }: ICalendarDate): string => (
+  makeYmd(year, month as TMonthNumber, date as TDateNumber)
+);
 
 export const ManageCalendarDatesContainer = () => {
   const [ datesToUpdate, setDatesToUpdate ] = useState<ICalendarDate[]>([]);
@@ -15,8 +22,9 @@ export const ManageCalendarDatesContainer = () => {
 
   const onDateRangeSelected = async (from: ICalendarDate, to: ICalendarDate): Promise<void> => {
     const selectedCalendarDates = (
-      await getSpecificCalendarDates(
-        getDatesInRange(mapCalendarDateToDate(from), mapCalendarDateToDate(to))
+      await getCalendarDatesInDateRange(
+        getPartsFromYmd(mapCalendarDateToYmd(from)),
+        getPartsFromYmd(mapCalendarDateToYmd(to))
       )
     );
 
