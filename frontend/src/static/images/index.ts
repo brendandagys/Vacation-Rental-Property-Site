@@ -1,7 +1,7 @@
 import i1 from './01.webp';
 import i2 from './02.webp';
 import i3 from './03.webp';
-import i4 from './4 copy.jpg';
+import i4 from './balcony-west-view.jpg';
 import i5 from './05.webp';
 import i6 from './06.webp';
 import i7 from './7.jpg';
@@ -26,22 +26,22 @@ import i25 from './chair5.jpg';
 import i26 from './coffee machine.jpg';
 import i27 from './Enjoy the sun.jpeg';
 import i28 from './IMG_2127.jpg';
-import i29 from './IMG_2130.jpg';
+import i29 from './second-bedroom.jpg';
 import i30 from './IMG_2175.jpg';
 import i31 from './IMG_2216.jpg';
 import i32 from './IMG_4179 2.jpg';
-import i33 from './IMG_6248.jpg';
+import i33 from './balcony-east-view.jpg';
 import i34 from './IMG_6253.jpg';
 import i35 from './IMG_7541.jpg';
-import i36 from './lightsin pool.jpg';
-import i37 from './Npool.jpg';
+import i36 from './upper-pool-at-night.jpg';
+import i37 from './lower-pool.jpg';
 import i38 from './pool grass.jpeg';
 import i39 from './pool trees.webp';
 import i40 from './Table.jpg';
 import i41 from './vistamar.webp';
 import i42 from './zb.jpg';
 
-export const enjoyTheSun = i27;
+export const enjoyTheSun = i4;
 
 export const images = [
   i1,
