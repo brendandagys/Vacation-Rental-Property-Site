@@ -1,11 +1,16 @@
 AWSTemplateFormatVersion: 2010-09-09
 
 Conditions:
+  CreateAssetsBucketAndPolicy: !Equals [!Ref CreateAssetsBucketAndPolicy, 'true']
   CreateDeployBucketAndPolicy: !Equals [!Ref CreateDeployBucketAndPolicy, 'true']
   CreateDnsRecordWww: !Equals [!Ref DnsRecordWwwFlag, 'true']
 
 Parameters:
   DnsRecordWwwFlag:
+    Type: String
+    Default: 'true'
+
+  CreateAssetsBucketAndPolicy:
     Type: String
     Default: 'true'
 
@@ -40,6 +45,39 @@ Parameters:
     Default: /index.html
 
 Resources:
+  AssetsBucket:
+    Condition: CreateAssetsBucketAndPolicy
+    Type: AWS::S3::Bucket
+    DeletionPolicy: Retain
+    Properties:
+      BucketName: !Sub ${Domain}-ASSETS
+      CorsConfiguration:
+        CorsRules:
+          - AllowedHeaders:
+              - '*'
+            AllowedMethods:
+              - GET
+            AllowedOrigins:
+              - !Sub https://${Domain}
+            Id: allow-domain-to-fetch-static-content
+            MaxAge: 3600
+  
+  AssetsBucketPolicy:
+    Condition: CreateAssetsBucketAndPolicy
+    Type: AWS::S3::BucketPolicy
+    Properties:
+      Bucket: !Ref AssetsBucket
+      PolicyDocument:
+        Statement:
+          - Effect: Allow
+            Principal: '*'
+            Action: s3:GetObject
+            Resource: !Sub 'arn:aws:s3:::${AssetsBucket}/*'
+            Condition:
+              StringEquals:
+                "aws:Referer":
+                  - !Sub https://${Domain}
+
   DeployBucket:
     Condition: CreateDeployBucketAndPolicy
     Type: AWS::S3::Bucket
