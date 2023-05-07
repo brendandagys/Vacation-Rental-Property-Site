@@ -54,7 +54,7 @@ Resources:
       PublicAccessBlockConfiguration:
         BlockPublicAcls: true
         IgnorePublicAcls: true
-        BlockPublicPolicy: true
+        BlockPublicPolicy: false
         RestrictPublicBuckets: false
       CorsConfiguration:
         CorsRules:
