@@ -4,7 +4,7 @@ import Col from 'react-bootstrap/Col';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 
-import { enjoyTheSun, images, lowerPool, secondBedroom } from '../static/images';
+import { balconySunset, images, lowerPool, secondBedroom } from '../static/images';
 import { CalendarsContainer } from '../components/calendar-date/CalendarsContainer';
 import { BookingInquiryModal } from '../components/booking-inquiry/BookingInquiryModal';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -26,7 +26,7 @@ export const HomePage = () => {
       <Navbar />
       <div
         style={{
-          backgroundImage: `url(${enjoyTheSun})`,
+          backgroundImage: `url(${balconySunset})`,
           backgroundSize: 'cover',
           backgroundPosition: 'center',
         }}
