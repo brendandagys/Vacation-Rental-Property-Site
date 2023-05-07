@@ -12,7 +12,7 @@ Parameters:
 
   CreateAssetsBucketAndPolicy:
     Type: String
-    Default: 'true'
+    Default: 'false'
 
   CreateDeployBucketAndPolicy:
     Type: String
@@ -52,9 +52,9 @@ Resources:
     Properties:
       BucketName: !Sub ${Domain}-assets
       PublicAccessBlockConfiguration:
-        BlockPublicAcls: false
-        BlockPublicPolicy: false
-        IgnorePublicAcls: false
+        BlockPublicAcls: true
+        IgnorePublicAcls: true
+        BlockPublicPolicy: true
         RestrictPublicBuckets: false
       CorsConfiguration:
         CorsRules:
@@ -82,6 +82,7 @@ Resources:
               StringEquals:
                 "aws:Referer":
                   - !Sub https://${Domain}
+                  - http://localhost:3001
 
   DeployBucket:
     Condition: CreateDeployBucketAndPolicy

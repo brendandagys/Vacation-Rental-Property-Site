@@ -4,7 +4,7 @@ import Col from 'react-bootstrap/Col';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 
-import { balconySunset, images, lowerPool, secondBedroom } from '../static/images';
+import { balconySunset, images, pictures, lowerPool, secondBedroom } from '../static/images';
 import { CalendarsContainer } from '../components/calendar-date/CalendarsContainer';
 import { BookingInquiryModal } from '../components/booking-inquiry/BookingInquiryModal';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -146,7 +146,7 @@ export const HomePage = () => {
         </Col>
       </Row>
 
-      <Row className='py-5 bg-black'><Col xs={12}><ImageGallery images={images} /></Col></Row>
+      <Row className='py-5 bg-black'><Col xs={12}><ImageGallery images={pictures} /></Col></Row>
 
       <Row id="testimonials" className='py-5 justify-content-center'>
         <Col xs={12} className='text-center text-white mb-5'><h1>Testimonials</h1></Col>
