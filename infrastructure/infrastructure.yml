@@ -82,7 +82,7 @@ Resources:
             Condition:
               StringEquals:
                 "aws:Referer":
-                  - !Sub https://${Domain}
+                  - !Sub https://${Domain}/
                   - http://localhost:3001/
 
   DeployBucket:
