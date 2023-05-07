@@ -1,4 +1,3 @@
-import i1 from './01.webp';
 import i2 from './02.webp';
 import i3 from './03.webp';
 import i4 from './balcony-west-view.jpg';
@@ -40,50 +39,55 @@ import i39 from './pool trees.webp';
 import i40 from './Table.jpg';
 import i41 from './vistamar.webp';
 import i42 from './zb.jpg';
+import i43 from './balcony-wide-view.jpeg';
+import i44 from './balcony-sunset.jpg';
 
-export const enjoyTheSun = i4;
+export const enjoyTheSun = i44;
+export const secondBedroom = i29;
+export const lowerPool = i37;
+export const upperPoolAtNight = i36;
 
 export const images = [
-  i1,
   i2,
   i3,
   i4,
   i5,
-  i6,
   i7,
   i8,
-  i9,
-  i10,
-  i11,
-  i12,
   i13,
   i14,
+  i6,
+  i9,
+  i10,
+  i12,
+  i11,
   i15,
   i16,
-  i17,
   i18,
-  i19,
+  i17,
   i20,
+  i24,
+  i28,
+  i19,
   i21,
   i22,
   i23,
-  i24,
   i25,
   i26,
   i27,
-  i28,
   i29,
   i30,
   i31,
   i32,
   i33,
   i34,
+  i39,
+  i40,
   i35,
   i36,
   i37,
   i38,
-  i39,
-  i40,
   i41,
   i42,
+  i43,
 ];
