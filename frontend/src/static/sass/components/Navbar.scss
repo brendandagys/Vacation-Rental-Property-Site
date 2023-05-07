@@ -1,0 +1,21 @@
+.navbar {
+  background-color: $color-black;
+  padding: 10px;
+  display: flex;
+  justify-content: center;
+  
+  .nav-link {
+    color: $theme-yellow;
+    transition: color 0.3s ease;
+    
+    &:hover {
+      color: #f0f0f0;
+    }
+  }
+}
+
+.nav-container {
+  position: sticky;
+  top: 0;
+  z-index: 888;
+}
