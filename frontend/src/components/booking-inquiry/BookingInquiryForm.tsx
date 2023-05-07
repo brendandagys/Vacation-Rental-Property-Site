@@ -5,15 +5,16 @@ import { IBookingInquiryPutRequest } from '../../types/bookingInquiry';
 
 interface IBookingInquiryFormProps {
   setPutRequest: Dispatch<SetStateAction<Nullable<IBookingInquiryPutRequest>>>;
+  fromTo: Nullable<string>;
 }
 
-export const BookingInquiryForm = ({ setPutRequest }: IBookingInquiryFormProps) => {
+export const BookingInquiryForm = ({ setPutRequest, fromTo: _fromTo }: IBookingInquiryFormProps) => {
   const [ email, setEmail ] = useState('');
-  const [ fromTo, setFromTo ] = useState<Nullable<string>>(null);
+  const [ fromTo ] = useState<Nullable<string>>(_fromTo ?? null);
   const [ last, setLast ] = useState('');
   const [ first, setFirst ] = useState('');
   const [ phone, setPhone ] = useState('');
-  const [ subtotal, setSubtotal ] = useState<Nullable<number>>(null);
+  // const [ subtotal, setSubtotal ] = useState<Nullable<number>>(null);
   const [ adultCount, setAdultCount ] = useState<Nullable<number>>(null);
   const [ childCount, setChildCount ] = useState<Nullable<number>>(null);
   const [ message, setMessage ] = useState('');
@@ -29,14 +30,14 @@ export const BookingInquiryForm = ({ setPutRequest }: IBookingInquiryFormProps) 
           last,
           first,
           phone,
-          subtotal: subtotal ? `${subtotal}` : undefined,
+          // subtotal: subtotal ? `${subtotal}` : undefined,
           adultCount: adultCount ?? undefined,
           childCount: childCount ?? undefined,
           message,
         }
         : null
     );
-  }, [ adultCount, childCount, email, first, fromTo, last, message, phone, setPutRequest, subtotal ]);
+  }, [ adultCount, childCount, email, first, fromTo, last, message, phone, setPutRequest ]);
 
   return (
     <Form>
@@ -45,9 +46,7 @@ export const BookingInquiryForm = ({ setPutRequest }: IBookingInquiryFormProps) 
         <Form.Control
           required
           value={email}
-          onChange={({ target: { value } }) => {
-            setEmail(value);
-          }}
+          onChange={({ target: { value } }) => { setEmail(value); }}
         />
         <Form.Text className="font-xs text-muted">
           We'll never share your information with anyone else.
