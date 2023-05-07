@@ -1,4 +1,7 @@
 .calendar {
+  border: 2.75px solid $theme-yellow;
+  max-width: 280px;
+
   &__date-cell {
     cursor: pointer;
     display: flex;

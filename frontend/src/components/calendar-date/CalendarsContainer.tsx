@@ -3,19 +3,16 @@ import { Col, Container, Row } from 'react-bootstrap';
 import {
   getDatesInRange,
   mapCalendarDateToDate,
-  mapCalendarDateToString,
+  mapCalendarDateToYmd,
 } from '../../api/calendarsContainer';
 import {
   Nullable,
   TCalendarsData,
-  TDateNumber,
-  TMonthNumber,
 } from '../../types';
-import { makeYmd } from '../../utils/helpers';
 import { Calendar } from './Calendar';
-import { DEFAULT_PRICE } from '../../utils/constants';
 import { useCalendarsData } from '../../hooks/useCalendarsData';
 import { EDateState, ICalendarDate } from '../../types/calendarDate';
+import { useViewportWidth } from '../../hooks/useViewportWidth';
 
 interface ICalendarsContainerProps {
   isAdmin?: boolean;
@@ -34,7 +31,10 @@ export const CalendarsContainer = ({
   const [ selectedDates, setSelectedDates ] = useState<string[]>([]);
   const [ hoveredDate, setHoveredDate ] = useState<Nullable<ICalendarDate>>(null);
 
+  const [ showAllMonths, setShowAllMonths ] = useState(false);
+
   const calendarsData = providedCalendarsData || useCalendarsData().calendarsData;
+  const viewportWidth = useViewportWidth();
 
   // const dateRange = (
   //   useMemo(
@@ -85,15 +85,15 @@ export const CalendarsContainer = ({
     )
   );
 
-  const subtotal = (
-    useMemo(() => (
-      selectedDates
-        .map(getCalendarDateForYmd)
-        .filter((calendarDate) => calendarDate?.state === EDateState.Available)
-        .map((x) => x?.price ?? DEFAULT_PRICE)
-        .reduce((acc, dateAmount) => acc + dateAmount, 0)
-    ), [ getCalendarDateForYmd, selectedDates ])
-  );
+  // const subtotal = (
+  //   useMemo(() => (
+  //     selectedDates
+  //       .map(getCalendarDateForYmd)
+  //       .filter((calendarDate) => calendarDate?.state === EDateState.Available)
+  //       .map((x) => x?.price ?? DEFAULT_PRICE)
+  //       .reduce((acc, dateAmount) => acc + dateAmount, 0)
+  //   ), [ getCalendarDateForYmd, selectedDates ])
+  // );
 
   const ymdsInHoverRange = (
     useMemo(() => {
@@ -161,50 +161,21 @@ export const CalendarsContainer = ({
 
     // Hasn't chosen anything
     setFirstClick(calendarDate);
-    setSelectedDates([ mapCalendarDateToString(calendarDate) ]);
+    setSelectedDates([ mapCalendarDateToYmd(calendarDate) ]);
   };
-
-  // const getCalendarDateYmd = (calendarDate: ICalendarDate) => {
-  //   const { year, month, date } = calendarDate;
-  //   if (year && month && date) {
-  //     return makeYmd(year, month as TMonthNumber, date as TDateNumber);
-  //   }
-
-  //   return '';
-  // };
 
   return (
     <Container>
-      {/* {
-        dateRange.to &&
-        <Row>
-          <Col className='mx-auto' xs={8} sm={6} md={5} lg={3}>
-            <Alert className='border-white text-center'>
-              <h5 className='calendars-container__subtotal'>Subtotal: {currencySymbol}{subtotal}</h5>
-            </Alert>
-          </Col>
-        </Row>
-      } */}
-      {/* {
-        dateRange.to &&
-        <Row className='justify-content-center'>
-          <Col xs={5} sm={4} lg={2}>
-            <Alert className='border-white text-center'>
-              <h5>From: {dateRange.from ? getCalendarDateYmd(dateRange.from) : ''}</h5>
-            </Alert>
-          </Col>
-          <Col xs={5} sm={4} lg={2}>
-            <Alert className='border-white text-center'>
-              <h5>
-                  To: {dateRange.to ? getCalendarDateYmd(dateRange.to) : ''}
-              </h5>
-            </Alert>
-          </Col>
-        </Row>
-      } */}
       <Row className='justify-content-space-evenly'>
         {
           Object.keys(calendarsData)
+            .filter((_, i) => {
+              const numCalendarsToShow = (
+                (viewportWidth >= 992 && viewportWidth < 1200) ? 3 : 4
+              );
+
+              return showAllMonths || i < numCalendarsToShow || isAdmin;
+            })
             .map((yearMonthKey) => (
               <Col key={yearMonthKey} xs={12} sm={6} lg={4} xl={3} className='my-3'>
                 <Calendar
@@ -215,19 +186,30 @@ export const CalendarsContainer = ({
                   onDateClick={onDateClick}
                   selected={
                     calendarsData[yearMonthKey]
-                      .filter((date) => selectedDates.includes(mapCalendarDateToString(date)))
+                      .filter((date) => selectedDates.includes(mapCalendarDateToYmd(date)))
                   }
                   setHoveredDate={setHoveredDate}
                   ymdsInHoverRange={
                     calendarsData[yearMonthKey]
                       .filter(
-                        (date) => ymdsInHoverRange.includes(mapCalendarDateToString(date))
+                        (date) => ymdsInHoverRange.includes(mapCalendarDateToYmd(date))
                       )
                   }
                 />
               </Col>
             ))
         }
+      </Row>
+
+      <Row className='justify-content-center mt-4'>
+        <Col xs='auto'>
+          <button
+            className='button button-blue mt-4'
+            onClick={() => setShowAllMonths((old) => !old)}
+          >
+            {showAllMonths ? 'Show fewer months' : 'Show more months'}
+          </button>
+        </Col>
       </Row>
     </Container>
   );
