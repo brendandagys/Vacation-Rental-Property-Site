@@ -1,0 +1,21 @@
+.button {
+  display: inline-block;
+  padding: 15px 30px;
+  background-color: #c60c30;
+  color: #fff;
+  border: 2px solid #fff;
+  border-radius: 50px;
+  box-shadow: none;
+  transition: all 0.275s ease-in-out;
+  font-size: 1.4rem;
+
+  &--blue {
+    background-color: #6bdd25;
+  }
+}
+
+.button:hover {
+  background-color: $theme-yellow;
+  color: $color-black;
+  border-color: #fff;
+}
