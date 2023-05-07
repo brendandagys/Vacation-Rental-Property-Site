@@ -75,7 +75,7 @@ export const mapCalendarDateToDate = ({ year, month, date }: ICalendarDate): Dat
   new Date(year, month - 1, date)
 );
 
-export const mapCalendarDateToString = ({ year, month, date }: ICalendarDate): string => (
+export const mapCalendarDateToYmd = ({ year, month, date }: ICalendarDate): string => (
   makeYmd(year, month as TMonthNumber, date as TDateNumber)
 );
 
