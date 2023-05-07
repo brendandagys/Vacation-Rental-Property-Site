@@ -21,10 +21,15 @@ Parameters:
     Type: String
     Default: 'false'
 
+  Domain:
+    Type: String
+    Default: spainluxury.holiday
+    Description: Domain for the assets bucket
+
   HostedZoneId:
-    Description: Route 53 Hosted Zone ID
     Type: String
     Default: Z00358393282BXBWKBN4
+    Description: Route 53 Hosted Zone ID for `Domain`
 
 Resources:
   CloudFormationRole:
@@ -112,6 +117,16 @@ Resources:
                   - s3:GetBucketAcl
                   - s3:PutBucketAcl
                 Resource: !Sub arn:aws:s3:::${AWS::AccountId}-cloudfront-logs
+              - Effect: Allow
+                Action:
+                  - s3:CreateBucket
+                  - s3:DeleteBucket
+                  - s3:DeleteBucketPolicy
+                  - s3:GetBucketPublicAccessBlock
+                  - s3:PutBucketCORS
+                  - s3:PutBucketPolicy
+                  - s3:PutBucketPublicAccessBlock
+                Resource: !Sub arn:aws:s3:::${Domain}-assets
 
   PassCloudFormationRolePolicy:
     Type: AWS::IAM::Policy
