@@ -50,7 +50,7 @@ Resources:
     Type: AWS::S3::Bucket
     DeletionPolicy: Retain
     Properties:
-      BucketName: !Sub ${Domain}-ASSETS
+      BucketName: !Sub ${Domain}-assets
       CorsConfiguration:
         CorsRules:
           - AllowedHeaders:
