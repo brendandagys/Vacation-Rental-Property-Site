@@ -18,7 +18,19 @@ export const CalendarDateModal = (
     <Modal.Header closeButton>
       <Modal.Title>Manage Calendar Dates</Modal.Title>
     </Modal.Header>
-    <Modal.Body>Enter the details for the selected dates to update/create them.</Modal.Body>
+    <Modal.Body>
+      Enter the details for the selected dates to update/create them.
+      <div className='d-flex justify-content-center'>
+        <Button
+          className='mt-5 mb-0'
+          size='lg'
+          variant="primary"
+          onClick={() => void onUpdateCalendarDates()}
+        >
+          Update Calendar Dates
+        </Button>
+      </div>
+    </Modal.Body>
     <Modal.Body>
       <Container className="bg-white rounded px-4">
         <Row>
