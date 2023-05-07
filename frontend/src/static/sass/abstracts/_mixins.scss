@@ -10,3 +10,12 @@
   -ms-user-select: none;
   user-select: none;
 }
+
+@mixin site-font {
+  font-family: 'Mulish', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+  'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+  sans-serif;
+  src: url('../../fonts/mulish/Mulish-VariableFont_wght.ttf') format('truetype');
+  font-weight: 475;
+  font-style: normal;
+}
