@@ -1,8 +1,21 @@
 .app {
-  &__header {
-    border: 3px solid $color-white;
-    color: $color-blue-dddd;
+  &__welcome {
+    color: $color-spain-red;
     
+    h1 {
+      font-weight: 600;
+      text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+      @extend .font-8xl;
+    }
+  }
+
+  &__header {
+    background-color: rgba(89,89,89,.44);
+    border-radius: 11px;
+    color: $color-white;
+    max-width: 750px;
+    padding: 1.2rem 1.5rem;
+
     h1 {
       @extend .font-6xl;
       text-align: center;
@@ -12,38 +25,78 @@
   &__image {
     display: flex;
     flex-direction: column;
-    object-fit: contain;
-    overflow: auto;
     width: 100%;
   }
 
+  &__description {
+    background: $theme-gray;
+    color: $color-gray-dddd;
+    font-weight: 350;
+    line-height: $line-height-lg;
+    padding: 6rem 4rem;
+    text-indent: 20px;
+
+    p:not(:first-child) {
+      margin-top: 2rem;
+    }
+  }
+
   &__contact-information {
-    background: $color-green-ll;
-    border: 3px solid lightgreen;
+    backdrop-filter: blur(1.5px);
+    background-color: rgba(255, 255, 255, .25);
     border-radius: $radius-md;
+    border: 1px solid white;
+    color: rgba(49, 47, 47, 0.847);
     line-height: 25px;
-    padding: 1.25rem 2rem;
-    text-align: center;
+    padding: .4rem 1rem;
 
     p {
       font-size: $font-size-lg;
-      text-align: left;
       margin-bottom: 2.5rem;
+      text-align: left;
     }
     
     span {
-      color: slategray;
+      color: #e6de00;
       display: block;
-      font-size: $font-size-sm;
+      font-size: $font-size-xs;
 
       &:last-child {
-        margin-top: 0.15rem;
+        margin-top: 0.015rem;
       }
     }
   }
 
-  &__image-carousel {
-    background: $color-blue-lll;
-    border-radius: $radius-md;
+  &__neighborhood {
+    color: $color-gray-dddd;
+    font-weight: 400;
+    padding: 3rem 4rem;
+    text-indent: 20px;
+
+    p:not(:first-child) {
+      margin-top: 1.5rem;
+    }
+  }
+
+  &__footer {
+    background: #2a2d38;
+    height: 500px;
+    padding: 4.5rem 0 3rem;
+  }
+
+  &__copyright {
+    animation: glowing-blue 1.75s ease-in-out infinite;
+    
+    @keyframes glowing-blue {
+      0% {
+        text-shadow: 0 0 20px #00ccff;
+      }
+      50% {
+        text-shadow: 0 0 30px #00ccff;
+      }
+      100% {
+        text-shadow: 0 0 20px #00ccff;
+      }
+    }
   }
 }
