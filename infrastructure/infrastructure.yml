@@ -12,7 +12,7 @@ Parameters:
 
   CreateAssetsBucketAndPolicy:
     Type: String
-    Default: 'true'
+    Default: 'false'
 
   CreateDeployBucketAndPolicy:
     Type: String
@@ -82,7 +82,7 @@ Resources:
               StringEquals:
                 "aws:Referer":
                   - !Sub https://${Domain}
-                  - http://localhost:3001
+                  - http://localhost:3001/
 
   DeployBucket:
     Condition: CreateDeployBucketAndPolicy
