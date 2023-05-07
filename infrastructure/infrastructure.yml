@@ -51,6 +51,11 @@ Resources:
     DeletionPolicy: Retain
     Properties:
       BucketName: !Sub ${Domain}-assets
+      PublicAccessBlockConfiguration:
+        BlockPublicAcls: false
+        BlockPublicPolicy: false
+        IgnorePublicAcls: false
+        RestrictPublicBuckets: false
       CorsConfiguration:
         CorsRules:
           - AllowedHeaders:
