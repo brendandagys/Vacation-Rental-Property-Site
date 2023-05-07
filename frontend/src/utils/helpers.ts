@@ -42,3 +42,20 @@ export const chunkArray = <T>(array: T[], elementsPerArray: number): T[][] => [
   array.slice(0, elementsPerArray),
   ...(array.length <= elementsPerArray ? [] : chunkArray(array.slice(elementsPerArray), elementsPerArray)),
 ];
+
+/**
+ * Resolves a Promise after `setTimeout` waits for the specified number of milliseconds.
+ * Can be `await`ed to pause within an `async` function.
+ * @param duration The number of milliseconds to pause for
+ */
+// export const sleep = (duration: number): Promise<void> => (
+//   new Promise((resolve) => setTimeout(resolve, duration))
+// );
+
+// export const reduceAsyncSequential = async<T, R>(
+//   list: T[],
+//   fn: (acc: R, cur: T, i: number, array: T[]) => Promise<R>,
+//   initial: T
+// ) => (
+//   list.reduce(async (_acc, _cur, _i) => fn(await _acc, _cur, _i, list), Promise.resolve(initial))
+// );
