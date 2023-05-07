@@ -12,7 +12,7 @@ Parameters:
 
   CreateAssetsBucketAndPolicy:
     Type: String
-    Default: 'false'
+    Default: 'true'
 
   CreateDeployBucketAndPolicy:
     Type: String
@@ -92,8 +92,8 @@ Resources:
       BucketName: !Ref Domain
       PublicAccessBlockConfiguration:
         BlockPublicAcls: false
-        BlockPublicPolicy: true
         IgnorePublicAcls: false
+        BlockPublicPolicy: true
         RestrictPublicBuckets: true
 
   DeployBucketPolicy:
