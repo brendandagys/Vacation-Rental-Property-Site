@@ -44,21 +44,21 @@ export const HomePage = () => {
                 <h4>Contact us for more information about your next Spanish holiday!</h4>
 
                 <h5 className='mt-3'>
-                  <div className='d-flex justify-content-between'>
-                    <div className='d-flex align-items-center'>
+                  <Row className='justify-content-between'>
+                    <Col sm={6} className='align-items-center text-center mt-2'>
                       <FontAwesomeIcon icon={faEnvelope} size='lg' />
                       <span style={{ marginLeft: 10, color: 'yellow' }}>
                         <b>Email: </b>spainfrontline@gmail.com
                       </span>
-                    </div>
+                    </Col>
 
-                    <span>
+                    <Col sm={6} className='text-center mt-2'>
                       <WhatsAppLogo style={{ width: '2rem', height: '2rem' }} />
                       <span style={{ marginLeft: 5, color: 'yellow' }}>
                         <b>Whatsapp: </b>+1 (416) 779-6411
                       </span>
-                    </span>
-                  </div>
+                    </Col>
+                  </Row>
                 </h5>
               </div>
             </Col>
@@ -73,7 +73,7 @@ export const HomePage = () => {
       </div>
 
       <div className='app__description'>
-        <Container>
+        <Container className='py-5 px-5'>
           <p>Indulge in luxury and serenity at our exquisite coastal retreat. Located in the prestigious Nerja and Torrox-Costa region of Costa del Sol, Spain, our property offers an amazing <b>180° first-line south-facing sea view</b> of the Mediterranean Sea and mountains. <b>Walk to the sandy El Penoncillo Beach</b>, enjoy the fully equipped and well-maintained apartment with <b>2 bedrooms, 2 bathrooms</b>, and a fully stocked kitchen. Relax by the <b>two large outdoor pools</b> surrounded by lush green gardens. The sunny terrace allows you to watch the waves during the day and sleep to their soothing sound at night.</p>
           <p>Explore the exciting tourist attractions in the area and enjoy the guaranteed Spanish sunshine all year round. Our property offers <b>free central air conditioning and heating</b>, <b>luxury cotton linens</b>, and modern amenities such as a <b>washing machine, dryer, fast Wi-Fi</b>, and a <b>flat-screen smart TV with Netflix</b>. With <b>private parking</b> and the convenience of beach umbrellas and mats, your comfort is our priority.</p>
           <p id="availability">Only a 40-minute drive from Malaga airport, our luxury rental is perfect for a romantic, retirement, or family holiday. Long-term rentals are welcome, allowing you to enjoy the sun during the winter months. Check-in is easy, and you'll have the <b>same apartment as seen in the pictures on our website</b>. Experience a truly remarkable get-away - <b>get in touch now</b>!</p>
@@ -117,7 +117,7 @@ export const HomePage = () => {
       <Row>
         <Col xs={12} md={6} style={{ background: '#fabe00', minHeight: 300 }}>
           <div className='app__neighborhood font-sm'>
-            <Container>
+            <Container className='py-5 px-5'>
               <Col xs={12} className='text-center text-black mb-5'><h1>Points of Interest</h1></Col>
               <p>There are plenty of close-by attractions to explore during your stay:</p>
               <p>The breathtaking town of <b>Nerja</b> and its famous <b>Balcony of Europe</b> offer stunning views that will leave you in awe. Don't miss the chance to visit the <b>Nerja Crystal Caves</b>, considered the best in the world and an absolute must-see.</p>
@@ -148,7 +148,7 @@ export const HomePage = () => {
 
       <Row className='py-5 bg-black'><Col xs={12}><ImageGallery images={pictures} /></Col></Row>
 
-      <Row id="testimonials" className='py-5 justify-content-center'>
+      <Row id="testimonials" className='py-5 mx-5 justify-content-center'>
         <Col xs={12} className='text-center text-white mb-5'><h1>Testimonials</h1></Col>
 
         <Col xs={12} md={6} xl={4} className='mx-3 mt-4'>

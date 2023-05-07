@@ -120,7 +120,7 @@ export const Calendar = ({
   const calendarRows = rows.map((row, i) => <tr key={i}>{row}</tr>);
 
   return (
-    <div className='calendar'>
+    <div className='calendar mx-auto'>
       <div className='p-2 calendar__month-indicator'>
         <h2>{monthsEnglish[month - 1]} {year}</h2>
       </div>

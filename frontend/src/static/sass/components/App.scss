@@ -33,8 +33,11 @@
     color: $color-gray-dddd;
     font-weight: 350;
     line-height: $line-height-lg;
-    padding: 6rem 4rem;
     text-indent: 20px;
+
+    // p {
+    //   text-align: justify;
+    // }
 
     p:not(:first-child) {
       margin-top: 2rem;
@@ -70,7 +73,6 @@
   &__neighborhood {
     color: $color-gray-dddd;
     font-weight: 400;
-    padding: 3rem 4rem;
     text-indent: 20px;
 
     p:not(:first-child) {
