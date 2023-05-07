@@ -1,0 +1,16 @@
+.amenity-card {
+  border: 2px solid #ddd;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  font-size: $font-size-sm;
+  transition: box-shadow 0.3s ease;
+  color: $color-gray-ddd;
+
+  span {
+    margin-left: 10px;
+  }
+}
+
+.amenity-icon {
+  color: $color-black;
+}
