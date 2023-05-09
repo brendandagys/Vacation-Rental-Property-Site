@@ -99,7 +99,7 @@ export const HomePage = () => {
         }
       </Container>
 
-      <Row id="information" style={{ marginTop: '5rem' }}>
+      <Row id="information" className='mx-0' style={{ marginTop: '5rem' }}>
         <Col
           xs={12}
           md={6}
@@ -114,7 +114,7 @@ export const HomePage = () => {
         </Col>
       </Row>
 
-      <Row>
+      <Row className='mx-0'>
         <Col xs={12} md={6} style={{ background: '#fabe00', minHeight: 300 }}>
           <div className='app__neighborhood font-sm'>
             <Container className='py-5 px-5'>
@@ -123,7 +123,7 @@ export const HomePage = () => {
               <p>The breathtaking town of <b>Nerja</b> and its famous <b>Balcony of Europe</b> offer stunning views that will leave you in awe. Don't miss the chance to visit the <b>Nerja Crystal Caves</b>, considered the best in the world and an absolute must-see.</p>
               <p>Take a leisurely stroll along the Torrox-Costa Passeo, a lovely promenade lined with beach shops, bars, and restaurants. Experience the vibrant atmosphere of the outdoor street markets, held in different villages every morning from 10am to 2pm. Torrox hosts the market on Mondays, while Nerja is the place to be on Tuesdays.</p>
               <p>For beach lovers, the best <b>white sandy beaches</b> stretch right in front of the complex, from Nerja to Torrox-Costa. Burriana Beach in Nerja is particularly popular and bustling with tourists.</p>
-              <p>Adventurous souls can embark on the thrilling <b>Rio Chillar</b> River Walk in Nerja. This athletic and enjoyable activity is recommended with water-safe shoes and a walking stick, although it can be done with sandals or running shoes.</p>
+              <p>Adventurous souls can embark on the thrilling <b>Rio Chillar river walk</b> in Nerja. This athletic and enjoyable activity is recommended with water-safe shoes and a walking stick, although it can be done with sandals or running shoes.</p>
               <p>Take a short drive to Torrox-Pueblo, a unique old village nestled in the mountains. For more picturesque beauty, head north to the stunning white-washed mountain village of <b>Frigiliana</b>.</p>
               <p>If you're up for a day trip, visit the <b>Alhambra Castle in Granada</b>, one of Spain's main attractions. Make sure to order your tickets online in advance. For winter sports enthusiasts, the <b>Sierra Nevada Mountain Ski Station</b> is a drive north and offers excellent opportunities for winter sports.</p>
               <p>Ronda, another charming mountain village to the north, boasts breathtaking views from its iconic bridge spanning a deep gorge.</p>
@@ -146,7 +146,7 @@ export const HomePage = () => {
         </Col>
       </Row>
 
-      <Row className='py-5 bg-black'><Col xs={12}><ImageGallery images={pictures} /></Col></Row>
+      <Row className='py-5 bg-black mx-0'><Col xs={12}><ImageGallery images={pictures} /></Col></Row>
 
       <Row id="testimonials" className='py-5 mx-5 justify-content-center'>
         <Col xs={12} className='text-center text-white mb-5'><h1>Testimonials</h1></Col>
