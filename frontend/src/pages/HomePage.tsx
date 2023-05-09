@@ -74,9 +74,28 @@ export const HomePage = () => {
 
       <div className='app__description'>
         <Container className='py-5 px-5'>
-          <p>Indulge in luxury and serenity at our exquisite coastal retreat. Located in the prestigious Nerja and Torrox-Costa region of Costa del Sol, Spain, our property offers an amazing <b>180° first-line south-facing sea view</b> of the Mediterranean Sea and mountains. <b>Walk to the sandy El Penoncillo Beach</b>, enjoy the fully equipped and well-maintained apartment with <b>2 bedrooms, 2 bathrooms</b>, and a fully stocked kitchen. Relax by the <b>two large outdoor pools</b> surrounded by lush green gardens. The sunny terrace allows you to watch the waves during the day and sleep to their soothing sound at night.</p>
-          <p>Explore the exciting tourist attractions in the area and enjoy the guaranteed Spanish sunshine all year round. Our property offers <b>free central air conditioning and heating</b>, <b>luxury cotton linens</b>, and modern amenities such as a <b>washing machine, dryer, fast Wi-Fi</b>, and a <b>flat-screen smart TV with Netflix</b>. With <b>private parking</b> and the convenience of beach umbrellas and mats, your comfort is our priority.</p>
-          <p id="availability">Only a 40-minute drive from Malaga airport, our luxury rental is perfect for a romantic, retirement, or family holiday. Long-term rentals are welcome, allowing you to enjoy the sun during the winter months. Check-in is easy, and you'll have the <b>same apartment as seen in the pictures on our website</b>. Experience a truly remarkable get-away - <b>get in touch now</b>!</p>
+          <p>
+            Indulge in luxury and serenity at our exquisite coastal retreat. Located in the Nerja and
+            Torrox-Costa region of <b>Costa del Sol, Spain</b>, our property offers an amazing <b>180°
+            first-line south-facing sea view</b> of the Alboran Sea and mountains. <b>Walk to the sandy
+            El Penoncillo Beach</b>, enjoy the fully equipped and well-maintained suite with <b>2 bedrooms,
+            2 bathrooms</b>, and a fully stocked kitchen. Relax by the <b>two large outdoor
+            pools</b> surrounded by lush green gardens. The sunny terrace allows you to watch the waves
+            during the day and sleep to their soothing sound at night.
+          </p>
+          <p>
+            Explore the exciting tourist attractions in the area and enjoy the guaranteed Spanish sunshine
+            all year round. Our property offers <b>free central air conditioning and heating</b>, <b>luxury
+            cotton linens</b>, and modern amenities such as a <b>washing machine, dryer, fast Wi-Fi</b>, and
+            a <b>4K smart TV</b>. With <b>private parking</b> (and plenty of public space) and the
+            convenience of beach umbrellas and mats, your comfort is our priority.
+          </p>
+          <p id="availability">
+            Only a 40-minute drive from Malaga airport, this spot is perfect for a romantic, retirement,
+            or family holiday. Long-term rentals are welcome, allowing you to enjoy the sun during the
+            winter months. Check-in is made easy. Experience a truly remarkable getaway
+            - <b>get in touch now</b>!
+          </p>
         </Container>
       </div>
 
@@ -120,18 +139,62 @@ export const HomePage = () => {
             <Container className='py-5 px-5'>
               <Col xs={12} className='text-center text-black mb-5'><h1>Points of Interest</h1></Col>
               <p>There are plenty of close-by attractions to explore during your stay:</p>
-              <p>The breathtaking town of <b>Nerja</b> and its famous <b>Balcony of Europe</b> offer stunning views that will leave you in awe. Don't miss the chance to visit the <b>Nerja Crystal Caves</b>, considered the best in the world and an absolute must-see.</p>
-              <p>Take a leisurely stroll along the Torrox-Costa Passeo, a lovely promenade lined with beach shops, bars, and restaurants. Experience the vibrant atmosphere of the outdoor street markets, held in different villages every morning from 10am to 2pm. Torrox hosts the market on Mondays, while Nerja is the place to be on Tuesdays.</p>
-              <p>For beach lovers, the best <b>white sandy beaches</b> stretch right in front of the complex, from Nerja to Torrox-Costa. Burriana Beach in Nerja is particularly popular and bustling with tourists.</p>
-              <p>Adventurous souls can embark on the thrilling <b>Rio Chillar river walk</b> in Nerja. This athletic and enjoyable activity is recommended with water-safe shoes and a walking stick, although it can be done with sandals or running shoes.</p>
-              <p>Take a short drive to Torrox-Pueblo, a unique old village nestled in the mountains. For more picturesque beauty, head north to the stunning white-washed mountain village of <b>Frigiliana</b>.</p>
-              <p>If you're up for a day trip, visit the <b>Alhambra Castle in Granada</b>, one of Spain's main attractions. Make sure to order your tickets online in advance. For winter sports enthusiasts, the <b>Sierra Nevada Mountain Ski Station</b> is a drive north and offers excellent opportunities for winter sports.</p>
-              <p>Ronda, another charming mountain village to the north, boasts breathtaking views from its iconic bridge spanning a deep gorge.</p>
-              <p>Explore <b>Malaga City</b>, where you'll find a combination of shopping opportunities and the chance to hike the stunning Caminito del Rey. Remember to secure your tickets online beforehand.</p>
-              <p>Nearby, you can enjoy family-friendly attractions such as the <b>Bioparc Zoo</b>, <b>Aqualand</b>, <b>Tivoli World</b>, and <b>Aquavelis Water Parks</b>, all conveniently located near Malaga.</p>
-              <p>For a unique experience, take a cable car to the <b>Birds of Prey Exhibition in Benalmadena</b>. Be sure to order your tickets online for this unforgettable adventure.</p>
-              <p>And if you're up for a longer drive to the west, make a visit to Marbella, Puerto Banus, Cordoba, Seville, and Gibraltar, each offering its own distinct charm and attractions.</p>
-              <p id='gallery'>With so much to explore and discover, your stay promises to be filled with exciting adventures and unforgettable experiences.</p>
+              <p>
+                The breathtaking town of <b>Nerja</b> and its famous <b>Balcony of Europe</b> offer stunning
+                views that will leave you in awe. Don't miss the chance to visit the <b>Nerja Crystal
+                Caves</b>, a must-see.
+              </p>
+              <p>
+                Take a leisurely stroll along the <b>Torrox-Costa Passeo</b>, a lovely promenade lined with
+                beach shops, bars, and restaurants. Experience the vibrant atmosphere of the <b>outdoor
+                street markets</b>, held in different villages every morning from 10am to 2pm. Torrox
+                hosts the market on Mondays, while Nerja is the place to be on Tuesdays.
+              </p>
+              <p>
+                For beach lovers, the best <b>sandy beaches stretch right in front of the complex</b>, from
+                Nerja to Torrox-Costa. <b>Burriana Beach in Nerja</b> is particularly popular and bustling
+                with tourists.
+              </p>
+              <p>
+                Adventurous souls can embark on the thrilling <b>Rio Chillar river walk</b> near Nerja. This
+                athletic and enjoyable activity is recommended with water-safe shoes and a walking stick,
+                although it can be done with rugged sandals or running shoes.
+              </p>
+              <p>
+                Take a short drive to <b>Torrox-Pueblo</b>, a unique old village nestled in the mountains.
+                For more picturesque beauty, head north to the stunning white-washed mountain village
+                of <b>Frigiliana</b>.
+              </p>
+              <p>
+                If you're up for a day trip, visit the <b>Alhambra Castle in Granada</b>, one of Spain's
+                main attractions. Make sure to order your tickets online in advance. For winter sports
+                enthusiasts, the <b>Sierra Nevada Mountain Ski Station</b> is a 90-minute drive north,
+                and offers excellent opportunities for winter sports. Visit the beach and mountain
+                on the same day!
+              </p>
+              <p>
+                <b>Ronda</b>, another charming mountain village to the north, boasts breathtaking views
+                from its iconic bridge spanning a deep gorge.
+              </p>
+              <p>
+                Explore <b>Malaga City</b>, where you'll find a combination of shopping opportunities
+                and the chance to hike the stunning <b>Caminito del Rey</b>. Remember to secure your
+                tickets online beforehand.
+              </p>
+              <p>
+                Nearby, you can enjoy family-friendly attractions such as the <b>Bioparc
+                Zoo</b>, <b>Aqualand</b>, <b>Tivoli World</b>, and <b>Aquavelis Water Parks</b>,
+                all conveniently located near Malaga.
+              </p>
+              <p>
+                For a unique experience, take a cable car to the <b>Birds of Prey Exhibition in
+                Benalmadena</b>. Be sure to order your tickets online.
+              </p>
+              <p id="gallery">
+                If you're up for a longer drive to the west, make a visit to <b>Marbella</b>
+                , <b>Puerto Banus</b>, <b>Cordoba</b>, <b>Seville</b>, and <b>Gibraltar</b>,
+                each offering its own distinct charm and attractions.
+              </p>
             </Container>
           </div>
         </Col>
