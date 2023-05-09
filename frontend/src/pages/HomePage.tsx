@@ -20,6 +20,7 @@ import { Navbar } from '../components/Navbar';
 export const HomePage = () => {
   const [ showBookingInquiryModal, setShowBookingInquiryModal ] = useState(false);
   const [ fromTo, setFromTo ] = useState<Nullable<string>>(null);
+  const [ subtotal, setSubtotal ] = useState<Nullable<number>>(null);
 
   return (
     <div id="home" className='overflow-visible'>
@@ -109,10 +110,15 @@ export const HomePage = () => {
                 <p className='font-sm mt-4'>Select a date range below to begin an inquiry</p>
               </div>
 
-              <CalendarsContainer onDateRangeSelected={(from, to) => {
-                setFromTo(`${mapCalendarDateToYmd(from)} - ${mapCalendarDateToYmd(to)}`);
-                setShowBookingInquiryModal(true);
-              }} />
+              <CalendarsContainer
+                onDateRangeSelected={
+                  (from, to) => {
+                    setFromTo(`${mapCalendarDateToYmd(from)} - ${mapCalendarDateToYmd(to)}`);
+                    setShowBookingInquiryModal(true);
+                  }
+                }
+                setSubtotal={setSubtotal}
+              />
             </Col>
           </Row>
         }
@@ -249,9 +255,10 @@ export const HomePage = () => {
       </div>
 
       <BookingInquiryModal
-        show={showBookingInquiryModal}
-        setShow={setShowBookingInquiryModal}
         fromTo={fromTo}
+        setShow={setShowBookingInquiryModal}
+        show={showBookingInquiryModal}
+        subtotal={subtotal}
       />
     </div>
   );

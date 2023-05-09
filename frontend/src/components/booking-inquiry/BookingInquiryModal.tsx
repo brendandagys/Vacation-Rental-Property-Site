@@ -9,9 +9,10 @@ interface IBookingInquiryModalProps {
   fromTo: Nullable<string>;
   setShow: (show: boolean) => void;
   show: boolean;
+  subtotal: Nullable<number>;
 }
 
-export const BookingInquiryModal = ({ show, setShow, fromTo }: IBookingInquiryModalProps) => {
+export const BookingInquiryModal = ({ fromTo, setShow, show, subtotal }: IBookingInquiryModalProps) => {
   const [ putRequest, setPutRequest ] = useState<Nullable<IBookingInquiryPutRequest>>(null);
 
   const onSubmit = async () => {
@@ -25,7 +26,7 @@ export const BookingInquiryModal = ({ show, setShow, fromTo }: IBookingInquiryMo
 
       <Modal.Body>
         <Container className="bg-white rounded px-4">
-          <Row><BookingInquiryForm setPutRequest={setPutRequest} fromTo={fromTo} /></Row>
+          <Row><BookingInquiryForm fromTo={fromTo} setPutRequest={setPutRequest} subtotal={subtotal} /></Row>
         </Container>
       </Modal.Body>
 

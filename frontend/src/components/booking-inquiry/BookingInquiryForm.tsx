@@ -4,17 +4,21 @@ import { Nullable } from '../../types';
 import { IBookingInquiryPutRequest } from '../../types/bookingInquiry';
 
 interface IBookingInquiryFormProps {
-  setPutRequest: Dispatch<SetStateAction<Nullable<IBookingInquiryPutRequest>>>;
   fromTo: Nullable<string>;
+  setPutRequest: Dispatch<SetStateAction<Nullable<IBookingInquiryPutRequest>>>;
+  subtotal: Nullable<number>;
 }
 
-export const BookingInquiryForm = ({ setPutRequest, fromTo: _fromTo }: IBookingInquiryFormProps) => {
+export const BookingInquiryForm = ({
+  fromTo: _fromTo,
+  setPutRequest,
+  subtotal,
+}: IBookingInquiryFormProps) => {
   const [ email, setEmail ] = useState('');
   const [ fromTo ] = useState<Nullable<string>>(_fromTo ?? null);
   const [ last, setLast ] = useState('');
   const [ first, setFirst ] = useState('');
   const [ phone, setPhone ] = useState('');
-  // const [ subtotal, setSubtotal ] = useState<Nullable<number>>(null);
   const [ adultCount, setAdultCount ] = useState<Nullable<number>>(null);
   const [ childCount, setChildCount ] = useState<Nullable<number>>(null);
   const [ message, setMessage ] = useState('');
@@ -30,14 +34,14 @@ export const BookingInquiryForm = ({ setPutRequest, fromTo: _fromTo }: IBookingI
           last,
           first,
           phone,
-          // subtotal: subtotal ? `${subtotal}` : undefined,
+          subtotal: subtotal ? `${subtotal}` : undefined,
           adultCount: adultCount ?? undefined,
           childCount: childCount ?? undefined,
           message,
         }
         : null
     );
-  }, [ adultCount, childCount, email, first, fromTo, last, message, phone, setPutRequest ]);
+  }, [ adultCount, childCount, email, first, fromTo, last, message, phone, setPutRequest, subtotal ]);
 
   return (
     <Form>

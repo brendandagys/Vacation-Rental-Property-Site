@@ -1,4 +1,4 @@
-import { useCallback, useMemo, useState } from 'react';
+import { Dispatch, SetStateAction, useCallback, useEffect, useMemo, useState } from 'react';
 import { Col, Container, Row } from 'react-bootstrap';
 import {
   getDatesInRange,
@@ -18,12 +18,14 @@ interface ICalendarsContainerProps {
   isAdmin?: boolean;
   onDateRangeSelected?: (from: ICalendarDate, to: ICalendarDate) => void;
   providedCalendarsData?: TCalendarsData;
+  setSubtotal?: Dispatch<SetStateAction<Nullable<number>>>;
 }
 
 export const CalendarsContainer = ({
   isAdmin = false,
   onDateRangeSelected,
   providedCalendarsData,
+  setSubtotal,
 }: ICalendarsContainerProps): JSX.Element => {
   const [ firstClick, setFirstClick ] = useState<Nullable<ICalendarDate>>(null);
   const [ secondClick, setSecondClick ] = useState<Nullable<ICalendarDate>>(null);
@@ -35,32 +37,6 @@ export const CalendarsContainer = ({
 
   const calendarsData = providedCalendarsData || useCalendarsData().calendarsData;
   const viewportWidth = useViewportWidth();
-
-  // const dateRange = (
-  //   useMemo(
-  //     () => {
-  //       let from = null;
-  //       let to = null;
-
-  //       if (secondClick && firstClick) {
-  //         if (mapCalendarDateToDate(firstClick) < mapCalendarDateToDate(secondClick)) {
-  //           from = firstClick;
-  //           to = secondClick;
-  //         } else {
-  //           from = secondClick;
-  //           to = firstClick;
-  //         }
-  //       } else if (firstClick) {
-  //         from = firstClick;
-  //       }
-
-  //       from && to && onDateRangeSelected?.(from, to);
-
-  //       return { from, to };
-  //     },
-  //     [ firstClick, secondClick ] // eslint-disable-line react-hooks/exhaustive-deps
-  //   )
-  // );
 
   const getCalendarDateForYmd = (
     useCallback(
@@ -85,15 +61,29 @@ export const CalendarsContainer = ({
     )
   );
 
-  // const subtotal = (
-  //   useMemo(() => (
-  //     selectedDates
-  //       .map(getCalendarDateForYmd)
-  //       .filter((calendarDate) => calendarDate?.state === EDateState.Available)
-  //       .map((x) => x?.price ?? DEFAULT_PRICE)
-  //       .reduce((acc, dateAmount) => acc + dateAmount, 0)
-  //   ), [ getCalendarDateForYmd, selectedDates ])
-  // );
+  useEffect(
+    () => {
+      if (setSubtotal) {
+
+        const selectedDatesAsCalendarDates = (
+          selectedDates
+            .map(getCalendarDateForYmd)
+        );
+
+        for (const date of selectedDatesAsCalendarDates) {
+          if (!date) {
+            setSubtotal(null);
+          }
+        }
+
+        setSubtotal(
+          selectedDatesAsCalendarDates
+            .map((x) => x!.price) // eslint-disable-line @typescript-eslint/no-non-null-assertion
+            .reduce((total, price) => total + price, 0)
+        );
+      }
+    }, [ getCalendarDateForYmd, selectedDates, setSubtotal ]
+  );
 
   const ymdsInHoverRange = (
     useMemo(() => {
