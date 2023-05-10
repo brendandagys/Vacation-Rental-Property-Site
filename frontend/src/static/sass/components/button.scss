@@ -1,21 +1,15 @@
 .button {
-  display: inline-block;
-  padding: 15px 30px;
   background-color: #c60c30;
-  color: #fff;
-  border: 2px solid #fff;
   border-radius: 50px;
-  box-shadow: none;
-  transition: all 0.275s ease-in-out;
+  border: 2px solid #fff;
+  // box-shadow: 1px .1px 8px #d3d3d3;
+  color: #fff;
   font-size: 1.4rem;
-
-  &--blue {
-    background-color: #6bdd25;
-  }
+  padding: 15px 30px;
+  transition: all 0.275s ease-in-out;
 }
 
 .button:hover {
   background-color: $theme-yellow;
   color: $color-black;
-  border-color: #fff;
 }
