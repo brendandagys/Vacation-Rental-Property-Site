@@ -7,12 +7,19 @@ import { IBookingInquiryPutRequest } from '../../types/bookingInquiry';
 
 interface IBookingInquiryModalProps {
   fromTo: Nullable<string>;
+  numDatesSelected: number;
   setShow: (show: boolean) => void;
   show: boolean;
   subtotal: Nullable<number>;
 }
 
-export const BookingInquiryModal = ({ fromTo, setShow, show, subtotal }: IBookingInquiryModalProps) => {
+export const BookingInquiryModal = ({
+  fromTo,
+  numDatesSelected,
+  setShow,
+  show,
+  subtotal,
+}: IBookingInquiryModalProps) => {
   const [ putRequest, setPutRequest ] = useState<Nullable<IBookingInquiryPutRequest>>(null);
 
   const onSubmit = async () => {
@@ -26,7 +33,14 @@ export const BookingInquiryModal = ({ fromTo, setShow, show, subtotal }: IBookin
 
       <Modal.Body>
         <Container className="bg-white rounded px-4">
-          <Row><BookingInquiryForm fromTo={fromTo} setPutRequest={setPutRequest} subtotal={subtotal} /></Row>
+          <Row>
+            <BookingInquiryForm
+              fromTo={fromTo}
+              numDatesSelected={numDatesSelected}
+              setPutRequest={setPutRequest}
+              subtotal={subtotal}
+            />
+          </Row>
         </Container>
       </Modal.Body>
 

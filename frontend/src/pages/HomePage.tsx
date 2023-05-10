@@ -11,7 +11,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEnvelope, faCopyright } from '@fortawesome/free-solid-svg-icons';
 import { ReactComponent as WhatsAppLogo } from '../static/icons/whatsapp.svg';
 import { Nullable } from '../types';
-import { mapCalendarDateToYmd } from '../api/calendarsContainer';
+import { getDatesInRange, mapCalendarDateToDate, mapCalendarDateToYmd } from '../api/calendarsContainer';
 import { Amenities } from '../components/Amenities';
 import { ImageGallery } from '../components/ImageGallery';
 import Testimonial from '../components/Testimonial';
@@ -20,6 +20,7 @@ import { Navbar } from '../components/Navbar';
 export const HomePage = () => {
   const [ showBookingInquiryModal, setShowBookingInquiryModal ] = useState(false);
   const [ fromTo, setFromTo ] = useState<Nullable<string>>(null);
+  const [ numDatesSelected, setNumDatesSelected ] = useState(0);
   const [ subtotal, setSubtotal ] = useState<Nullable<number>>(null);
 
   return (
@@ -114,6 +115,9 @@ export const HomePage = () => {
                 onDateRangeSelected={
                   (from, to) => {
                     setFromTo(`${mapCalendarDateToYmd(from)} - ${mapCalendarDateToYmd(to)}`);
+                    setNumDatesSelected(
+                      getDatesInRange(mapCalendarDateToDate(from), mapCalendarDateToDate(to)).length
+                    );
                     setShowBookingInquiryModal(true);
                   }
                 }
@@ -256,6 +260,7 @@ export const HomePage = () => {
 
       <BookingInquiryModal
         fromTo={fromTo}
+        numDatesSelected={numDatesSelected}
         setShow={setShowBookingInquiryModal}
         show={showBookingInquiryModal}
         subtotal={subtotal}

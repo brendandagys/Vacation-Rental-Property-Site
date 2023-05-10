@@ -1,16 +1,18 @@
-import { Dispatch, SetStateAction, useEffect, useState } from 'react';
-import { Col, Form, Row } from 'react-bootstrap';
+import { Dispatch, SetStateAction, useEffect, useMemo, useState } from 'react';
+import { Col, Container, Form, Row, Table } from 'react-bootstrap';
 import { Nullable } from '../../types';
 import { IBookingInquiryPutRequest } from '../../types/bookingInquiry';
 
 interface IBookingInquiryFormProps {
   fromTo: Nullable<string>;
+  numDatesSelected: number;
   setPutRequest: Dispatch<SetStateAction<Nullable<IBookingInquiryPutRequest>>>;
   subtotal: Nullable<number>;
 }
 
 export const BookingInquiryForm = ({
   fromTo: _fromTo,
+  numDatesSelected,
   setPutRequest,
   subtotal,
 }: IBookingInquiryFormProps) => {
@@ -23,8 +25,16 @@ export const BookingInquiryForm = ({
   const [ childCount, setChildCount ] = useState<Nullable<number>>(null);
   const [ message, setMessage ] = useState('');
 
+  const adultAndChildrenTotal = useMemo(() => (
+    (adultCount ?? 0) + (childCount ?? 0)
+  ), [ adultCount, childCount ]);
+
+  const extraLinensCount = useMemo(() => (
+    adultAndChildrenTotal > 2 ? adultAndChildrenTotal - 2 : 0
+  ), [ adultAndChildrenTotal ]);
+
   useEffect(() => {
-    const hasMandatoryFields = email && last && first && message;
+    const hasMandatoryFields = email && last && first && message && adultCount && adultCount > 0;
 
     setPutRequest(
       hasMandatoryFields
@@ -37,14 +47,65 @@ export const BookingInquiryForm = ({
           subtotal: subtotal ? `${subtotal}` : undefined,
           adultCount: adultCount ?? undefined,
           childCount: childCount ?? undefined,
-          message,
+          message: message + (
+            (numDatesSelected)
+              ? ` | EXTRA LINENS: €${extraLinensCount * 16} | NUMBER OF DAYS: ${numDatesSelected}`
+              : ''
+          ),
         }
         : null
     );
-  }, [ adultCount, childCount, email, first, fromTo, last, message, phone, setPutRequest, subtotal ]);
+  }, [
+    adultCount,
+    childCount,
+    email,
+    extraLinensCount,
+    first,
+    fromTo,
+    last,
+    message,
+    numDatesSelected,
+    phone,
+    setPutRequest,
+    subtotal,
+  ]);
 
   return (
     <Form>
+      <Container>
+        {
+          fromTo && numDatesSelected && subtotal && (
+            <Table striped bordered hover className='inquiry-fee-table mb-5 w-75 mx-auto'>
+              <thead>
+                <tr>
+                  <th>Item</th>
+                  <th className="text-center">Fee</th>
+                </tr>
+              </thead>
+
+              <tbody>
+                <tr>
+                  <td>{numDatesSelected} day{numDatesSelected === 1 ? '' : 's'}</td>
+                  <td className="text-center">€{subtotal}</td>
+                </tr>
+                {
+                  extraLinensCount > 0 &&
+                  <tr>
+                    <td>{extraLinensCount} additional linen packages</td>
+                    <td className="text-center">€{(-2 + adultAndChildrenTotal) * 16}</td>
+                  </tr>
+                }
+              </tbody>
+              {
+                adultAndChildrenTotal > 2 &&
+                  <caption className='text-muted font-2xs'>
+                    Two linen packages are included free with every stay.
+                  </caption>
+              }
+            </Table>
+          )}
+      </Container>
+
       <Form.Group className="mb-4">
         <Form.Label>*Email</Form.Label>
         <Form.Control
@@ -96,7 +157,13 @@ export const BookingInquiryForm = ({
             <Form.Control
               type="number"
               value={adultCount ?? ''}
-              onChange={({ target: { value } }) => { setAdultCount(parseInt(value) || null); }}
+              onChange={({ target: { value } }) => {
+                if (value[0] === '-') {
+                  return;
+                }
+
+                setAdultCount(parseInt(value) || null);
+              }}
             />
           </Col>
 
@@ -105,7 +172,13 @@ export const BookingInquiryForm = ({
             <Form.Control
               type="number"
               value={childCount ?? ''}
-              onChange={({ target: { value } }) => { setChildCount(parseInt(value) || null); }}
+              onChange={({ target: { value } }) => {
+                if (value[0] === '-') {
+                  return;
+                }
+
+                setChildCount(parseInt(value) || null);
+              }}
             />
           </Col>
         </Row>
