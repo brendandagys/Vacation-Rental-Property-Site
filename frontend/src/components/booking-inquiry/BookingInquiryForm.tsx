@@ -75,34 +75,37 @@ export const BookingInquiryForm = ({
       <Container>
         {
           fromTo && numDatesSelected && subtotal && (
-            <Table striped bordered hover className='inquiry-fee-table mb-5 w-75 mx-auto'>
-              <thead>
-                <tr>
-                  <th>Item</th>
-                  <th className="text-center">Fee</th>
-                </tr>
-              </thead>
+            <>
+              <h5 className='text-center mb-2'>Booking Fees</h5>
+              <Table striped bordered hover className='inquiry-fee-table mb-5 w-75 mx-auto'>
+                <thead>
+                  <tr>
+                    <th>Item</th>
+                    <th className="text-center">Fee</th>
+                  </tr>
+                </thead>
 
-              <tbody>
-                <tr>
-                  <td>{numDatesSelected} day{numDatesSelected === 1 ? '' : 's'}</td>
-                  <td className="text-center">€{subtotal}</td>
-                </tr>
-                {
-                  extraLinensCount > 0 &&
+                <tbody>
+                  <tr>
+                    <td>{numDatesSelected} day{numDatesSelected === 1 ? '' : 's'}</td>
+                    <td className="text-center">€{subtotal}</td>
+                  </tr>
+                  {
+                    extraLinensCount > 0 &&
                   <tr>
                     <td>{extraLinensCount} additional linen packages</td>
                     <td className="text-center">€{(-2 + adultAndChildrenTotal) * 16}</td>
                   </tr>
-                }
-              </tbody>
-              {
-                adultAndChildrenTotal > 2 &&
+                  }
+                </tbody>
+                {
+                  adultAndChildrenTotal > 2 &&
                   <caption className='text-muted font-2xs'>
                     Two linen packages are included free with every stay.
                   </caption>
-              }
-            </Table>
+                }
+              </Table>
+            </>
           )}
       </Container>
 
