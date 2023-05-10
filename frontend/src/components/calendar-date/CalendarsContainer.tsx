@@ -16,6 +16,7 @@ import { useViewportWidth } from '../../hooks/useViewportWidth';
 
 interface ICalendarsContainerProps {
   isAdmin?: boolean;
+  onDateRangeCleared?: () => void;
   onDateRangeSelected?: (from: ICalendarDate, to: ICalendarDate) => void;
   providedCalendarsData?: TCalendarsData;
   setSubtotal?: Dispatch<SetStateAction<Nullable<number>>>;
@@ -23,6 +24,7 @@ interface ICalendarsContainerProps {
 
 export const CalendarsContainer = ({
   isAdmin = false,
+  onDateRangeCleared,
   onDateRangeSelected,
   providedCalendarsData,
   setSubtotal,
@@ -113,6 +115,7 @@ export const CalendarsContainer = ({
       setFirstClick(null);
       setSecondClick(null);
       setSelectedDates([]);
+      onDateRangeCleared?.();
       return;
     }
 

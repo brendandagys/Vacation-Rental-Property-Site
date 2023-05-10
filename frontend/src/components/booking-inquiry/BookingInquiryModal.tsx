@@ -29,10 +29,12 @@ export const BookingInquiryModal = ({
 
   return (
     <Modal show={show} onHide={() => setShow(false)}>
-      <Modal.Header closeButton><Modal.Title>Submit an Inquiry</Modal.Title></Modal.Header>
+      <Modal.Header closeButton style={{ background: '#f0f0f0' }}>
+        <Modal.Title>Submit an Inquiry</Modal.Title>
+      </Modal.Header>
 
-      <Modal.Body>
-        <Container className="bg-white rounded px-4">
+      <Modal.Body style={{ background: '#fcfcfc' }}>
+        <Container className="rounded px-4">
           <Row>
             <BookingInquiryForm
               fromTo={fromTo}
@@ -44,9 +46,9 @@ export const BookingInquiryModal = ({
         </Container>
       </Modal.Body>
 
-      <Modal.Footer>
-        <Button variant="secondary" onClick={() => setShow(false)}>Cancel</Button>
-        <Button disabled={!putRequest} variant="primary" onClick={() => void onSubmit()}>
+      <Modal.Footer style={{ background: '#f9f9f9' }}>
+        <Button variant="secondary" size='lg' onClick={() => setShow(false)}>Cancel</Button>
+        <Button disabled={!putRequest} variant="primary" size='lg' onClick={() => void onSubmit()}>
           Send
         </Button>
       </Modal.Footer>

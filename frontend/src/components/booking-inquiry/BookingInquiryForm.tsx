@@ -23,7 +23,13 @@ export const BookingInquiryForm = ({
   const [ phone, setPhone ] = useState('');
   const [ adultCount, setAdultCount ] = useState<Nullable<number>>(null);
   const [ childCount, setChildCount ] = useState<Nullable<number>>(null);
-  const [ message, setMessage ] = useState('');
+  const [ message, setMessage ] = (
+    useState(
+      `I am interested in booking this property${
+        fromTo ? ` from ${fromTo.split(' - ')[0]} to ${fromTo.split(' - ')[1]}` : ''
+      }. Please contact me with some additional information.`
+    )
+  );
 
   const adultAndChildrenTotal = useMemo(() => (
     (adultCount ?? 0) + (childCount ?? 0)
@@ -71,42 +77,45 @@ export const BookingInquiryForm = ({
   ]);
 
   return (
-    <Form>
+    <Form className='inquiry-form'>
       <Container>
         {
-          fromTo && numDatesSelected && subtotal && (
-            <>
-              <h5 className='text-center mb-2'>Booking Fees</h5>
-              <Table striped bordered hover className='inquiry-fee-table mb-5 w-75 mx-auto'>
-                <thead>
-                  <tr>
-                    <th>Item</th>
-                    <th className="text-center">Fee</th>
-                  </tr>
-                </thead>
+          (fromTo && numDatesSelected && subtotal)
+            ? (
+              <>
+                <h5 className='text-center mb-2'><b>Booking Fees</b></h5>
+                <Table striped bordered hover className='inquiry-fee-table mb-5 w-75 mx-auto'>
+                  <thead>
+                    <tr>
+                      <th>Item</th>
+                      <th className="text-center">Fee</th>
+                    </tr>
+                  </thead>
 
-                <tbody>
+                  <tbody>
+                    <tr>
+                      <td>{numDatesSelected} day{numDatesSelected === 1 ? '' : 's'}</td>
+                      <td className="text-center">€{subtotal}</td>
+                    </tr>
+                    {
+                      extraLinensCount > 0 &&
                   <tr>
-                    <td>{numDatesSelected} day{numDatesSelected === 1 ? '' : 's'}</td>
-                    <td className="text-center">€{subtotal}</td>
-                  </tr>
-                  {
-                    extraLinensCount > 0 &&
-                  <tr>
-                    <td>{extraLinensCount} additional linen packages</td>
+                    <td>{extraLinensCount} additional linen package{extraLinensCount === 1 ? '' : 's'}</td>
                     <td className="text-center">€{(-2 + adultAndChildrenTotal) * 16}</td>
                   </tr>
-                  }
-                </tbody>
-                {
-                  adultAndChildrenTotal > 2 &&
+                    }
+                  </tbody>
+                  {
+                    adultAndChildrenTotal > 2 &&
                   <caption className='text-muted font-2xs'>
                     Two linen packages are included free with every stay.
                   </caption>
-                }
-              </Table>
-            </>
-          )}
+                  }
+                </Table>
+              </>
+            )
+            : null
+        }
       </Container>
 
       <Form.Group className="mb-4">
@@ -122,40 +131,45 @@ export const BookingInquiryForm = ({
       </Form.Group>
 
       <Form.Group className="mb-4">
-        <Form.Label>*Last</Form.Label>
-        <Form.Control
-          required
-          value={last}
-          onChange={({ target: { value } }) => {
-            setLast(value);
-          }}
-        />
-      </Form.Group>
+        <Row>
+          <Col xs={6}>
+            <Form.Label>*Last</Form.Label>
+            <Form.Control
+              required
+              value={last}
+              onChange={({ target: { value } }) => {
+                setLast(value);
+              }}
+            />
+          </Col>
 
-      <Form.Group className="mb-4">
-        <Form.Label>*First</Form.Label>
-        <Form.Control
-          required
-          value={first}
-          onChange={({ target: { value } }) => {
-            setFirst(value);
-          }}
-        />
-      </Form.Group>
+          <Col xs={6}>
+            <Form.Label>*First</Form.Label>
+            <Form.Control
+              required
+              value={first}
+              onChange={({ target: { value } }) => {
+                setFirst(value);
+              }}
+            />
+          </Col>
+        </Row>
 
-      <Form.Group className="mb-4">
-        <Form.Label>Phone</Form.Label>
-        <Form.Control
-          value={phone}
-          onChange={({ target: { value } }) => {
-            setPhone(value);
-          }}
-        />
       </Form.Group>
 
       <Form.Group className="mb-4">
         <Row>
           <Col xs={6}>
+            <Form.Label>Phone</Form.Label>
+            <Form.Control
+              value={phone}
+              onChange={({ target: { value } }) => {
+                setPhone(value);
+              }}
+            />
+          </Col>
+
+          <Col xs={3}>
             <Form.Label>Adults</Form.Label>
             <Form.Control
               type="number"
@@ -170,7 +184,7 @@ export const BookingInquiryForm = ({
             />
           </Col>
 
-          <Col xs={6}>
+          <Col xs={3}>
             <Form.Label>Children</Form.Label>
             <Form.Control
               type="number"
@@ -193,10 +207,11 @@ export const BookingInquiryForm = ({
         <Form.Control
           required
           as="textarea"
-          value={message}
           onChange={({ target: { value } }) => {
             setMessage(value);
           }}
+          rows={5}
+          value={message}
         />
       </Form.Group>
     </Form>

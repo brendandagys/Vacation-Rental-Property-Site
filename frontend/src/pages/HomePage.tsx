@@ -67,7 +67,7 @@ export const HomePage = () => {
 
             <Col xs={12} className='text-center' style={{ marginBottom: '5rem' }}>
               <button onClick={() => setShowBookingInquiryModal(true)} className="button">
-                Request Quote
+                Reserve Now
               </button>
             </Col>
           </Row>
@@ -112,6 +112,7 @@ export const HomePage = () => {
               </div>
 
               <CalendarsContainer
+                onDateRangeCleared={() => { setFromTo(null); setNumDatesSelected(0); }}
                 onDateRangeSelected={
                   (from, to) => {
                     setFromTo(`${mapCalendarDateToYmd(from)} - ${mapCalendarDateToYmd(to)}`);

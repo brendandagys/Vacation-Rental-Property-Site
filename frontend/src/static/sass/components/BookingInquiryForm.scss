@@ -1,3 +1,18 @@
 .inquiry-fee-table {
   font-size: $font-size-xs
 }
+
+.inquiry-form {
+  input {
+    height: 30px;
+  }
+
+  label {
+    color: black;
+  }
+
+  input, textarea {
+    color: $color-gray-ddd;
+    font-size: $font-size-sm;
+  }
+}
