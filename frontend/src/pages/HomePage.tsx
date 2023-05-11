@@ -75,7 +75,7 @@ export const HomePage = () => {
       </div>
 
       <div className='app__description'>
-        <Container className='py-5 px-5'>
+        <Container className='px-5' style={{ paddingTop: '3.75rem', paddingBottom: '4.5rem' }}>
           <p>
             Indulge in luxury and serenity at our exquisite coastal retreat. Located in the Nerja and
             Torrox-Costa region of <b>Costa del Sol, Spain</b>, our property offers an amazing <b>180°
