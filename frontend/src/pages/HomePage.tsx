@@ -151,7 +151,7 @@ export const HomePage = () => {
           <div className='app__neighborhood font-sm'>
             <Container className='py-5 px-5'>
               <Col xs={12} className='text-center text-black mb-5'><h1>Points of Interest</h1></Col>
-              <p>There are plenty of close-by attractions to explore during your stay:</p>
+              <p>There are plenty of nearby attractions to explore during your stay:</p>
               <p>
                 The breathtaking town of <b>Nerja</b> and its famous <b>Balcony of Europe</b> offer stunning
                 views that will leave you in awe. Don't miss the chance to visit the <b>Nerja Crystal
