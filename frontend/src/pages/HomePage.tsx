@@ -50,14 +50,14 @@ export const HomePage = () => {
 
                 <h5 className='mt-3'>
                   <Row className='justify-content-between'>
-                    <Col sm={6} className='align-items-center text-center mt-2'>
+                    <Col sm={6} className='align-items-center text-center mt-3'>
                       <FontAwesomeIcon icon={faEnvelope} size='lg' />
                       <span style={{ marginLeft: 10, color: 'yellow' }}>
                         <b>Email: </b>spainfrontline@gmail.com
                       </span>
                     </Col>
 
-                    <Col sm={6} className='text-center mt-2'>
+                    <Col sm={6} className='text-center mt-3'>
                       <WhatsAppLogo style={{ width: '2rem', height: '2rem' }} />
                       <span style={{ marginLeft: 5, color: 'yellow' }}>
                         <b>Whatsapp: </b>+1 (416) 779-6411
