@@ -1,43 +1,47 @@
 import { Container, Row, Col, Card } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
-  faFire,
-  faKitchenSet,
-  faSnowflake,
+  faBook,
   faCoffee,
-  faTv,
-  faUtensils,
-  faSink,
-  faWifi,
-  faWaterLadder,
-  faSun,
+  faFire,
+  faFireBurner,
   faParking,
+  faSnowflake,
+  faSoap,
+  faSpoon,
+  faSun,
+  faTv,
   faUmbrellaBeach,
+  faUtensils,
+  faWaterLadder,
+  faWifi,
 } from '@fortawesome/free-solid-svg-icons';
 
 export const Amenities = () => {
   const amenities = [
-    { icon: faSun, label: 'Sea-facing terrace' },
-    { icon: faWaterLadder, label: '2 Outdoor pools' },
+    { icon: faSun, label: 'Sunny south terrace' },
+    { icon: faWaterLadder, label: '2 outdoor pools' },
     { icon: faParking, label: 'Private parking' },
-    { icon: faSnowflake, label: 'A/C' },
-    { icon: faWifi, label: 'Wi-Fi' },
-    { icon: faSink, label: 'Dishwasher' },
-    { icon: faUtensils, label: 'Dishes/cutlery' },
-    { icon: faKitchenSet, label: 'Cooking basics' },
-    { icon: faCoffee, label: 'Two coffee machines' },
-    { icon: faTv, label: 'Large Smart TV' },
-    { icon: faFire, label: 'Heating' },
+    { icon: faTv, label: '65" 4K smart TV' },
     { icon: faUmbrellaBeach, label: 'Beach access' },
+    { icon: faWifi, label: 'Fast Wi-Fi' },
+    { icon: faSnowflake, label: 'A/C' },
+    { icon: faFire, label: 'Heating' },
+    { icon: faSoap, label: 'Washer/drying machines' },
+    { icon: faSpoon, label: 'Fully stocked kitchen' },
+    { icon: faFireBurner, label: 'Bosch appliances' },
+    { icon: faCoffee, label: 'Nespresso + drip coffee' },
+    { icon: faBook, label: 'Reading materials' },
+    { icon: faUtensils, label: 'Dishes/cutlery' },
   ];
 
   return (
     <Container>
       <Col xs={12} className='text-center text-white mb-5'><h1>Amenities</h1></Col>
-      <Row className="justify-content-center">
+      <Row className="justify-content-start">
         {
           amenities.map((amenity, index) => (
-            <Col key={index} xs={6} sm={4} md={6} lg={4} xl={3} className="mb-4">
+            <Col key={index} xs={6} sm={4} md={6} lg={4} xxl={3} className="mb-4">
               <Card className="amenity-card">
                 <Card.Body className="d-flex align-items-center">
                   <FontAwesomeIcon icon={amenity.icon} size="2x" className="mr-3 amenity-icon" />
