@@ -13,7 +13,11 @@
 
     &--booked,
     &--unavailable {
-      opacity: 0.4;
+      background: #fbd4d4;
+      cursor: not-allowed !important;
+    }
+
+    &--invalid-hover {
       cursor: not-allowed !important;
     }
 
@@ -21,6 +25,10 @@
       cursor: pointer !important;
     }
 
+    &--is-past {
+      opacity: .4;
+      cursor: not-allowed;
+    }
 
     border-radius: $radius-xs;
 
@@ -51,6 +59,9 @@
       }
       &--red {
         color: $color-red;
+      }
+      &--black {
+        color: $color-black;
       }
     }
   }

@@ -8,6 +8,7 @@ enum EPriceColor {
   yellow = 'yellow',
   orange = 'orange',
   red = 'red',
+  black = 'black',
 }
 
 const weekdayHeaders = (
@@ -46,29 +47,17 @@ export const Calendar = ({
     (key: number | string) => <td key={`B${key}`} className='empty' />
   );
 
-  const getPriceColor = (price: number): EPriceColor => {
-    const color = (
-      price >= 200 ? 'red' : price >= 170 ? 'orange' : price >= 150 ? 'yellow' : 'green'
-    );
-
-    return EPriceColor[color];
-  };
+  const isPrimeMonth = [ 5, 6, 7, 8, 9 ].includes(month);
 
   const blankCells = Array.from(Array(firstWeekdayOfMonth)).map((_, i) => getBlankCalendarCell(i));
   const dateCells = (
     dateData.map((calendarDate) => {
-      const { date, price, state: _state } = calendarDate;
-
-      const priceColor = getPriceColor(price);
+      const { date, price, state, cellColor } = calendarDate;
 
       const isSelected = selected.includes(calendarDate);
       const isHovered = ymdsInHoverRange.includes(calendarDate);
 
-      const state = (
-        (mapCalendarDateToDate(calendarDate) < new Date())
-          ? EDateState.Unavailable
-          : _state
-      ).toLowerCase(); // Rust enum variants are capitalized
+      const isPast = mapCalendarDateToDate(calendarDate) < new Date();
 
       return (
         <td
@@ -76,23 +65,46 @@ export const Calendar = ({
           onClick={() => onDateClick(calendarDate)}
           onMouseEnter={() => setHoveredDate(calendarDate)}
           onMouseLeave={() => setHoveredDate(null)}
-          style={{ ...(calendarDate.cellColor ? { background: calendarDate.cellColor } : {}) }}
+          style={{ ...(cellColor ? { background: cellColor } : {}) }}
         >
           <div className={
             `calendar__date-cell
-             calendar__date-cell${(hoveredDate === calendarDate && !isValidHover) ? '--unavailable' : ''}
+             calendar__date-cell${(hoveredDate === calendarDate && !isValidHover) ? '--invalid-hover' : ''}
              calendar__date-cell${isAdmin ? '--admin' : ''}
              calendar__date-cell${state ? `--${state.toLowerCase()}` : ''}
+             calendar__date-cell${isPast ? '--is-past' : ''}
              calendar__date-cell${
         isSelected
           ? '--selected'
-          : ((isHovered && isValidHover) || hoveredDate === calendarDate)
+          : (
+            isValidHover && !isPast && (
+              isHovered
+              || (hoveredDate === calendarDate && state === EDateState.Available)
+            )
+          )
             ? '--hovered'
             : ''}`
           }>
-            <p>{date}</p>
-            <p className={`calendar__date-cell__price calendar__date-cell__price${
-              priceColor ? `--${priceColor}` : ''}`}>{currencySymbol}{price}</p>
+            {date}
+
+            <p
+              className={`calendar__date-cell__price
+              calendar__date-cell__price--${state !== EDateState.Available
+          ? EPriceColor['black']
+          : isPrimeMonth
+            ? EPriceColor['red']
+            : EPriceColor['green']
+        }`
+              }>
+              {
+                isPast
+                  ? <span style={{ opacity: 0 }}>_</span>
+                  :
+                  state === EDateState.Available
+                    ? `${currencySymbol}${price}`
+                    : <span className='font-6xs'>BOOKED</span>
+              }
+            </p>
           </div>
         </td>
       );
