@@ -78,7 +78,7 @@ export const BookingInquiryForm = ({
 
   return (
     <Form className='inquiry-form'>
-      <Container>
+      {/* <Container>
         {
           (fromTo && numDatesSelected && subtotal)
             ? (
@@ -116,9 +116,9 @@ export const BookingInquiryForm = ({
             )
             : null
         }
-      </Container>
+      </Container> */}
 
-      <Form.Group className="mb-4">
+      <Form.Group className="mb-4 pt-3">
         <Form.Label>*Email</Form.Label>
         <Form.Control
           required

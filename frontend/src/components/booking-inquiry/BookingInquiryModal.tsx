@@ -29,7 +29,7 @@ export const BookingInquiryModal = ({
 
   return (
     <Modal show={show} onHide={() => setShow(false)}>
-      <Modal.Header closeButton style={{ background: '#f0f0f0' }}>
+      <Modal.Header closeButton style={{ background: '#f0f0f0', paddingLeft: 22 }}>
         <Modal.Title>Submit an Inquiry</Modal.Title>
       </Modal.Header>
 
