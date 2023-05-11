@@ -89,8 +89,7 @@ export const HomePage = () => {
             Explore the exciting tourist attractions in the area and enjoy the guaranteed Spanish sunshine
             all year round. Our property offers <b>free central air conditioning and heating</b>, <b>luxury
             cotton linens</b>, and modern amenities such as a <b>washing machine, dryer, fast Wi-Fi</b>, and
-            a <b>65" 4K smart TV</b>. With <b>private parking</b> (and plenty of public space) and the
-            convenience of beach umbrellas and mats, your comfort is our priority.
+            a <b>65" 4K smart TV</b>. <b>Private parking</b> is also included.
           </p>
           <p id="availability">
             Only a 40-minute drive from Malaga airport, this spot is perfect for a romantic, retirement,
