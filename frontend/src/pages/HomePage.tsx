@@ -7,6 +7,7 @@ import Row from 'react-bootstrap/Row';
 import { balconySunset, lowerPool, pictures, secondBedroom } from '../static/images';
 import { CalendarsContainer } from '../components/calendar-date/CalendarsContainer';
 import { BookingInquiryModal } from '../components/booking-inquiry/BookingInquiryModal';
+import { PostSubmissionModal } from '../components/booking-inquiry/PostSubmissionModal';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEnvelope, faCopyright } from '@fortawesome/free-solid-svg-icons';
 import { ReactComponent as WhatsAppLogo } from '../static/icons/whatsapp.svg';
@@ -18,10 +19,12 @@ import Testimonial from '../components/Testimonial';
 import { Navbar } from '../components/Navbar';
 
 export const HomePage = () => {
-  const [ showBookingInquiryModal, setShowBookingInquiryModal ] = useState(false);
   const [ fromTo, setFromTo ] = useState<Nullable<string>>(null);
   const [ numDatesSelected, setNumDatesSelected ] = useState(0);
   const [ subtotal, setSubtotal ] = useState<Nullable<number>>(null);
+
+  const [ showBookingInquiryModal, setShowBookingInquiryModal ] = useState(false);
+  const [ showPostSubmissionModal, setShowPostSubmissionModal ] = useState(false);
 
   return (
     <div id="home" className='overflow-visible'>
@@ -262,8 +265,14 @@ export const HomePage = () => {
         fromTo={fromTo}
         numDatesSelected={numDatesSelected}
         setShow={setShowBookingInquiryModal}
+        setShowPostSubmissionModal={setShowPostSubmissionModal}
         show={showBookingInquiryModal}
         subtotal={subtotal}
+      />
+
+      <PostSubmissionModal
+        setShow={setShowPostSubmissionModal}
+        show={showPostSubmissionModal}
       />
     </div>
   );

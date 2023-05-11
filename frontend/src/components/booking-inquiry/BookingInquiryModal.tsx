@@ -9,6 +9,7 @@ interface IBookingInquiryModalProps {
   fromTo: Nullable<string>;
   numDatesSelected: number;
   setShow: (show: boolean) => void;
+  setShowPostSubmissionModal: (show: boolean) => void;
   show: boolean;
   subtotal: Nullable<number>;
 }
@@ -17,6 +18,7 @@ export const BookingInquiryModal = ({
   fromTo,
   numDatesSelected,
   setShow,
+  setShowPostSubmissionModal,
   show,
   subtotal,
 }: IBookingInquiryModalProps) => {
@@ -25,6 +27,7 @@ export const BookingInquiryModal = ({
   const onSubmit = async () => {
     putRequest && await putBookingInquiry(putRequest);
     setShow(false);
+    setShowPostSubmissionModal(true);
   };
 
   return (
