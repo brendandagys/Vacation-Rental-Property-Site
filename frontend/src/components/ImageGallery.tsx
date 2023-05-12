@@ -3,6 +3,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCircleChevronLeft, faCircleChevronRight, faCircleXmark } from '@fortawesome/free-solid-svg-icons';
 import { Nullable } from '../types';
 import { Col } from 'react-bootstrap';
+import { FadeInImage } from './FadeInImage';
 
 interface ImageGalleryProps {
   images: string[];
@@ -55,7 +56,7 @@ export const ImageGallery = ({ images }: ImageGalleryProps) => {
                 setShowModal(true);
               }}
             >
-              <img src={image} alt='' />
+              <FadeInImage src={image} alt='' />
             </div>
           ))
         }

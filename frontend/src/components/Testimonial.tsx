@@ -7,7 +7,7 @@ interface TestimonialProps {
   stars: number;
 }
 
-const Testimonial = ({ name, content, stars }: TestimonialProps) => {
+export const Testimonial = ({ name, content, stars }: TestimonialProps) => {
   return (
     <div className="testimonial">
       <div className="testimonial-content">
@@ -28,5 +28,3 @@ const Testimonial = ({ name, content, stars }: TestimonialProps) => {
     </div>
   );
 };
-
-export default Testimonial;

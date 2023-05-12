@@ -1,0 +1,8 @@
+.fade-in-image {
+  opacity: 0;
+  transition: opacity 1s ease-in;
+}
+
+.fade-in-image.visible {
+  opacity: 1;
+}

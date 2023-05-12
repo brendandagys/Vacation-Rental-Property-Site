@@ -15,7 +15,7 @@ import { Nullable } from '../types';
 import { getDatesInRange, mapCalendarDateToDate, mapCalendarDateToYmd } from '../api/calendarsContainer';
 import { Amenities } from '../components/Amenities';
 import { ImageGallery } from '../components/ImageGallery';
-import Testimonial from '../components/Testimonial';
+import { Testimonial } from '../components/Testimonial';
 import { Navbar } from '../components/Navbar';
 
 export const HomePage = () => {
