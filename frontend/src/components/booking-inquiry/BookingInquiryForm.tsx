@@ -124,6 +124,7 @@ export const BookingInquiryForm = ({
           required
           value={email}
           onChange={({ target: { value } }) => { setEmail(value); }}
+          style={{ fontSize: '16px' }}
         />
         <Form.Text className="font-xs text-muted">
           We'll never share your information with anyone else.
@@ -140,6 +141,7 @@ export const BookingInquiryForm = ({
               onChange={({ target: { value } }) => {
                 setLast(value);
               }}
+              style={{ fontSize: '16px' }}
             />
           </Col>
 
@@ -151,6 +153,7 @@ export const BookingInquiryForm = ({
               onChange={({ target: { value } }) => {
                 setFirst(value);
               }}
+              style={{ fontSize: '16px' }}
             />
           </Col>
         </Row>
@@ -166,6 +169,7 @@ export const BookingInquiryForm = ({
               onChange={({ target: { value } }) => {
                 setPhone(value);
               }}
+              style={{ fontSize: '16px' }}
             />
           </Col>
 
@@ -212,6 +216,7 @@ export const BookingInquiryForm = ({
           }}
           rows={5}
           value={message}
+          style={{ fontSize: '16px' }}
         />
       </Form.Group>
     </Form>
