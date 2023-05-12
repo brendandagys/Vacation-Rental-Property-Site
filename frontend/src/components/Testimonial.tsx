@@ -10,15 +10,17 @@ interface TestimonialProps {
 const Testimonial = ({ name, content, stars }: TestimonialProps) => {
   return (
     <div className="testimonial">
-      <div className="testimonial-avatar">
-        <span className='initials'>{name.split(' ').map((el) => el[0]).join('')}</span>
-      </div>
-
       <div className="testimonial-content">
-        <p className="testimonial-author">{name}</p>
+        <div className="d-flex align-items-center">
+          <div className="testimonial-avatar">
+            <span className='initials'>{name.split(' ').map((el) => el[0]).join('')}</span>
+          </div>
 
-        <div className="testimonial-stars">
-          {Array(stars).fill('').map((_, index) => <FontAwesomeIcon key={index} icon={faStar} />)}
+          <p className="testimonial-author">{name}</p>
+
+          <div className="testimonial-stars">
+            {Array(stars).fill('').map((_, index) => <FontAwesomeIcon key={index} icon={faStar} />)}
+          </div>
         </div>
 
         <p className="testimonial-text">{content}</p>
