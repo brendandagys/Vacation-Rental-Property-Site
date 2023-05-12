@@ -92,7 +92,7 @@ export const Calendar = ({
               calendar__date-cell__price--${state !== EDateState.Available
           ? EPriceColor['black']
           : isPrimeMonth
-            ? EPriceColor['red']
+            ? EPriceColor['orange']
             : EPriceColor['green']
         }`
               }>
