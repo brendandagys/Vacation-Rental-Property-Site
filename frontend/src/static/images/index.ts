@@ -52,4 +52,5 @@ export const pictures = [
   'https://s3.amazonaws.com/spainluxury.holiday-assets/community-walkway.avif',
   'https://s3.amazonaws.com/spainluxury.holiday-assets/community-walkway-2.jpg',
   balconySunset,
+  'https://s3.amazonaws.com/spainluxury.holiday-assets/beach-panoramic.png',
 ];
