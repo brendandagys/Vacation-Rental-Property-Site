@@ -225,7 +225,7 @@ export const HomePage = () => {
 
       <Row className='py-5 bg-black mx-0'><Col xs={12}><ImageGallery images={pictures} /></Col></Row>
 
-      <Row id="testimonials" className='py-5 mx-5 justify-content-center'>
+      <Row id="testimonials" className='py-5 px-5 mx-0 justify-content-center testimonials-container'>
         <Col xs={12} className='text-center text-white mb-5'><h1>Testimonials</h1></Col>
 
         <Col xs={12} md={6} xl={4} className='mx-3 mt-4'>

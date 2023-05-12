@@ -26,7 +26,8 @@ html {
 //    the `inherit` value on things like `<th>` elements.
 body {
   box-sizing: border-box;
-  background: $theme-blue;
+  background: #083d77;
+  // background: $theme-blue;
 }
 
 // Suppress the focus outline on elements that cannot be accessed via keyboard.
