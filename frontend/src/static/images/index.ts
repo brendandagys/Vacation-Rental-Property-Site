@@ -2,6 +2,12 @@ export const balconySunset = 'https://s3.amazonaws.com/spainluxury.holiday-asset
 export const lowerPool = 'https://s3.amazonaws.com/spainluxury.holiday-assets/lower-pool.jpg';
 export const secondBedroom = 'https://s3.amazonaws.com/spainluxury.holiday-assets/second-bedroom.jpg';
 export const upperPoolAtNight = 'https://s3.amazonaws.com/spainluxury.holiday-assets/upper-pool-at-night.jpg';
+export const terraceTableView = 'https://s3.amazonaws.com/spainluxury.holiday-assets/terrace-table-view.jpeg';
+export const terraceTableViewLow = (
+  'https://s3.amazonaws.com/spainluxury.holiday-assets/terrace-table-view-low.jpeg'
+);
+
+export const mainPhoto = terraceTableView;
 
 export const pictures = [
   'https://s3.amazonaws.com/spainluxury.holiday-assets/balcony-west-view.jpg',

@@ -1,6 +1,7 @@
 .app {
   &__welcome {
-    color: $color-spain-red;
+    color: white;
+    // color: $color-spain-red;
     
     h1 {
       @extend .font-8xl;
@@ -9,13 +10,14 @@
     }
     
     h2 {
-      @extend .font-5xl;
+      @extend .font-6xl;
+      font-family: brush script mt;
       text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
     }
   }
 
-  &__header {
-    background-color: rgba(89,89,89,.44);
+  &__contact-information {
+    background-color: rgba(89, 89, 89, .55);
     border-radius: 11px;
     color: $color-white;
     max-width: 750px;
@@ -46,32 +48,6 @@
 
     p:not(:first-child) {
       margin-top: 2rem;
-    }
-  }
-
-  &__contact-information {
-    backdrop-filter: blur(1.5px);
-    background-color: rgba(255, 255, 255, .25);
-    border-radius: $radius-md;
-    border: 1px solid white;
-    color: rgba(49, 47, 47, 0.847);
-    line-height: 25px;
-    padding: .4rem 1rem;
-
-    p {
-      font-size: $font-size-lg;
-      margin-bottom: 2.5rem;
-      text-align: left;
-    }
-    
-    span {
-      color: #e6de00;
-      display: block;
-      font-size: $font-size-xs;
-
-      &:last-child {
-        margin-top: 0.015rem;
-      }
     }
   }
 

@@ -4,7 +4,7 @@ import Col from 'react-bootstrap/Col';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 
-import { balconySunset, lowerPool, pictures, secondBedroom } from '../static/images';
+import { lowerPool, mainPhoto, pictures, secondBedroom } from '../static/images';
 import { CalendarsContainer } from '../components/calendar-date/CalendarsContainer';
 import { BookingInquiryModal } from '../components/booking-inquiry/BookingInquiryModal';
 import { PostSubmissionModal } from '../components/booking-inquiry/PostSubmissionModal';
@@ -31,7 +31,7 @@ export const HomePage = () => {
       <Navbar />
       <div
         style={{
-          backgroundImage: `url(${balconySunset})`,
+          backgroundImage: `url(${mainPhoto})`,
           backgroundSize: 'cover',
           backgroundPosition: 'center',
         }}
@@ -46,7 +46,7 @@ export const HomePage = () => {
             </Col>
 
             <Col id='book' xs={12} className='d-flex mt-auto mb-4 justify-content-center'>
-              <div className="app__header">
+              <div className="app__contact-information">
                 <h4>Contact us for more information about your next Spanish holiday!</h4>
 
                 <h5 className='mt-3'>
@@ -79,7 +79,7 @@ export const HomePage = () => {
       </div>
 
       <div className='app__description'>
-        <Container className='px-5' style={{ paddingTop: '3.75rem', paddingBottom: '4.5rem' }}>
+        <Container className='px-5' style={{ paddingTop: '3.75rem', paddingBottom: '3.75rem' }}>
           <p>
             Indulge in luxury and serenity at our exquisite coastal retreat. Located in the Nerja and
             Torrox-Costa region of <b>Costa del Sol, Spain</b>, our property offers an amazing <b>180°
