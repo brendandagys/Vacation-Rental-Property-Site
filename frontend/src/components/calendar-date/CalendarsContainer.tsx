@@ -142,7 +142,11 @@ export const CalendarsContainer = ({
 
       setSecondClick(calendarDate);
 
-      onDateRangeSelected?.(firstClick, calendarDate);
+      const isBackward = firstClick.ymd > calendarDate.ymd;
+      const firstChronologicalDate = isBackward ? calendarDate : firstClick;
+      const secondChronologicalDate = isBackward ? firstClick : calendarDate;
+
+      onDateRangeSelected?.(firstChronologicalDate, secondChronologicalDate);
 
       const [ startDate, endDate ] = [ firstClick, calendarDate ].map(mapCalendarDateToDate);
       setSelectedDates(
