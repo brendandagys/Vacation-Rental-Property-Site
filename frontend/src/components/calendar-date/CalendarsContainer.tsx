@@ -198,16 +198,20 @@ export const CalendarsContainer = ({
         }
       </Row>
 
-      <Row className='justify-content-center mt-4'>
-        <Col xs='auto'>
-          <button
-            className='button button-blue mt-4'
-            onClick={() => setShowAllMonths((old) => !old)}
-          >
-            {showAllMonths ? 'Show fewer months' : 'Show more months'}
-          </button>
-        </Col>
-      </Row>
+      {
+        !isAdmin && (
+          <Row className='justify-content-center mt-4'>
+            <Col xs='auto'>
+              <button
+                className='button button-blue mt-4'
+                onClick={() => setShowAllMonths((old) => !old)}
+              >
+                {showAllMonths ? 'Show fewer months' : 'Show more months'}
+              </button>
+            </Col>
+          </Row>
+        )
+      }
     </Container>
   );
 };
