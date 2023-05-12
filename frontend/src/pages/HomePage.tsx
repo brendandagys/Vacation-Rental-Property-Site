@@ -40,7 +40,8 @@ export const HomePage = () => {
           <Row className='flex-column justify-content-between pt-5' style={{ minHeight: 700 }}>
             <Col xs={12} className='d-flex justify-content-center'>
               <div className="app__welcome text-center">
-                <h1><i>Welcome</i> to Calaceite FRONTLINE Vistamar</h1>
+                <h1>Calaceite FRONTLINE Vistamar</h1>
+                <h2>Luxury Holiday on the Sea</h2>
               </div>
             </Col>
 

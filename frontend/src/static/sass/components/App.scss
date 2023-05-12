@@ -3,9 +3,14 @@
     color: $color-spain-red;
     
     h1 {
+      @extend .font-8xl;
       font-weight: 600;
       text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
-      @extend .font-8xl;
+    }
+    
+    h2 {
+      @extend .font-5xl;
+      text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
     }
   }
 
