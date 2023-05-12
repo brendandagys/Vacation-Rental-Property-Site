@@ -109,7 +109,7 @@ export const HomePage = () => {
           <Row className='mt-5'>
             <Col xs={12}>
               <div className='text-center text-white mb-5'>
-                <h1>Availability</h1>
+                <h1>Calendar</h1>
                 <p className='font-sm mt-4'>Select a date range below to begin an inquiry</p>
               </div>
 

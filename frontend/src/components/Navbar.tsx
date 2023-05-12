@@ -10,7 +10,7 @@ export const Navbar = () => (
         <Nav.Link href="#book">Book</Nav.Link>
       </Nav.Item>
       <Nav.Item>
-        <Nav.Link href="#availability">Availability</Nav.Link>
+        <Nav.Link href="#availability">Calendar</Nav.Link>
       </Nav.Item>
       <Nav.Item>
         <Nav.Link href="#information">Information</Nav.Link>
