@@ -341,13 +341,18 @@ Resources:
     Properties:
       DistributionConfig:
         Enabled: true
-        Comment: !Sub S3 SPA for ${AWS::StackName}
+        Comment: !Sub S3 SPA and assets bucket for ${AWS::StackName}
         Aliases:
           - !Ref Domain
-          - !If [CreateDnsRecordWww, !Sub 'www.${Domain}', !Ref AWS::NoValue]
+          - !If [CreateDnsRecordWww, !Sub www.${Domain}, !Ref AWS::NoValue]
         Origins:
-          - Id: !Sub ${AWS::StackName}
+          - Id: !Sub ${AWS::StackName}-spa
             DomainName: !Sub ${Domain}.s3.${AWS::Region}.amazonaws.com
+            S3OriginConfig:
+              OriginAccessIdentity: ''
+            OriginAccessControlId: !GetAtt OriginAccessControl.Id
+          - Id: !Sub ${AWS::StackName}-spa-assets
+            DomainName: !Sub ${Domain}-assets.s3.${AWS::Region}.amazonaws.com
             S3OriginConfig:
               OriginAccessIdentity: ''
             OriginAccessControlId: !GetAtt OriginAccessControl.Id
@@ -369,20 +374,27 @@ Resources:
         HttpVersion: http2
         IPV6Enabled: false
         DefaultCacheBehavior:
-          TargetOriginId: !Sub ${AWS::StackName}
-          ViewerProtocolPolicy: redirect-to-https
-          # OriginRequestPolicyId: 88a5eaf4-2fd4-4709-b370-b4c650ea3fcf
-          CachePolicyId: 658327ea-f89d-4fab-a63d-7e88639e58f6
+          TargetOriginId: !Sub ${AWS::StackName}-spa
           Compress: true
           AllowedMethods: [GET, HEAD, OPTIONS]
           CachedMethods: [GET, HEAD]
+          ViewerProtocolPolicy: redirect-to-https
+          CachePolicyId: 658327ea-f89d-4fab-a63d-7e88639e58f6 # Caching Optimized
           FunctionAssociations:
             - EventType: viewer-response
               FunctionARN: !Ref CloudFrontFunctionSecurityHeaders
+        CacheBehaviors:
+          - TargetOriginId: !Sub ${AWS::StackName}-spa-assets
+            Compress: true
+            AllowedMethods: [GET, HEAD, OPTIONS]
+            CachedMethods: [GET, HEAD]
+            ViewerProtocolPolicy: redirect-to-https
+            CachePolicyId: 658327ea-f89d-4fab-a63d-7e88639e58f6
+            PathPattern: images/*
         Logging:
           Bucket: !ImportValue LoggingBucketDomain
           IncludeCookies: true
-          Prefix: !Sub ${AWS::StackName}-logs
+          Prefix: !Sub ${AWS::StackName}-spa-distribution-logs
 
   DnsRecord:
     Type: AWS::Route53::RecordSet
