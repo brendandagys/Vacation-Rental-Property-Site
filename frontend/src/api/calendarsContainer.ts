@@ -1,9 +1,8 @@
 import {
-  TCalendarMonthsRequest,
-  TCalendarsData,
-  TMonthNumber,
   IYearMonth,
+  TCalendarsData,
   TDateNumber,
+  TMonthNumber,
 } from '../types';
 import { ICalendarDate } from '../types/calendarDate';
 import { getPartsFromYmd } from '../utils/helpers';
@@ -17,7 +16,7 @@ export const getYearMonthForDate = (date: Date): IYearMonth => {
   return { year, month };
 };
 
-export const getMonthsForRequest = (yearMonth: IYearMonth, numberAhead = 0): TCalendarMonthsRequest => {
+export const getMonthsForRequest = (yearMonth: IYearMonth, numberAhead = 0): IYearMonth[] => {
   const { year, month } = yearMonth;
   const months = [ yearMonth ];
 
@@ -27,9 +26,7 @@ export const getMonthsForRequest = (yearMonth: IYearMonth, numberAhead = 0): TCa
   return months;
 };
 
-export const fetchCalendarMonths = async (
-  months: TCalendarMonthsRequest
-): Promise<TCalendarsData> => {
+export const fetchCalendarMonths = async (months: IYearMonth[]): Promise<TCalendarsData> => {
   const sortedMonths = (
     [ ...months ].sort((a, b) => makeYm(a.year, a.month) > makeYm(b.year, b.month) ? 1 : -1)
   );

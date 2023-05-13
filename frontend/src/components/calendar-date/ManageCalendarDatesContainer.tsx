@@ -4,10 +4,10 @@ import { getMonthsForRequest } from '../../api/calendarsContainer';
 import { useState } from 'react';
 import { CalendarDateModal } from './UpdateCalendarDateModal';
 import { ICalendarDate } from '../../types/calendarDate';
-import { useCalendarsData } from '../../hooks/useCalendarsData';
 import { getPartsFromYmd, makeYmd } from '../../utils/helpers';
 import { getCalendarDatesInDateRange, putCalendarDates } from '../../api/calendarDate';
 import { TDateNumber, TMonthNumber } from '../../types';
+import { useCalendarsData } from '../../context/calendarsDataContext';
 
 // TODO: Delete this when helper function is updated
 const mapCalendarDateToYmd = ({ year, month, date }: ICalendarDate): string => (

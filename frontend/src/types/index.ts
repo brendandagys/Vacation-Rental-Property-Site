@@ -8,8 +8,6 @@ export interface IYearMonth { year: number; month: TMonthNumber }
 
 export interface IYearMonthDate extends IYearMonth { date: TDateNumber }
 
-export type TCalendarMonthsRequest = IYearMonth[];
-
 export type TCalendarsData = Record<string, ICalendarDate[]>;
 
 export type Nullable<T> = T | null;

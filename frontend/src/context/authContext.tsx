@@ -1,21 +1,21 @@
-import { createContext, useContext, useEffect, useState } from 'react';
+import { ReactNode, createContext, useContext, useEffect, useState } from 'react';
 import { Nullable } from '../types';
 import { validateToken } from '../api/authentication';
 import { IJwtToken } from '../types/authentication';
 
 interface IAuthContext {
-  isLoggedIn: boolean;
   decodedToken: Nullable<IJwtToken>;
+  isLoggedIn: boolean;
   validateTokenAndSetDecodedToken: (token: string) => Promise<void>;
 }
 
 const getToken = (): Nullable<string> => localStorage.getItem('token');
 
-export const AuthContext = createContext({} as IAuthContext);
+const AuthContext = createContext({} as IAuthContext);
 
 let fetchedOnce = false;
 
-export const AuthProvider = ({ children }: { children: React.ReactNode}) => {
+export const AuthProvider = ({ children }: { children: ReactNode}) => {
   const [ decodedToken, setDecodedToken ] = useState<Nullable<IJwtToken>>(null);
 
   const validateTokenAndSetDecodedToken = async (token: string): Promise<void> => {
@@ -34,8 +34,8 @@ export const AuthProvider = ({ children }: { children: React.ReactNode}) => {
   return (
     <AuthContext.Provider
       value={{
-        isLoggedIn: !!decodedToken,
         decodedToken,
+        isLoggedIn: !!decodedToken,
         validateTokenAndSetDecodedToken,
       }}
     >

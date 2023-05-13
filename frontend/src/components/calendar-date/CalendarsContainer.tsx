@@ -10,9 +10,9 @@ import {
   TCalendarsData,
 } from '../../types';
 import { Calendar } from './Calendar';
-import { useCalendarsData } from '../../hooks/useCalendarsData';
 import { EDateState, ICalendarDate } from '../../types/calendarDate';
 import { useViewportWidth } from '../../hooks/useViewportWidth';
+import { useCalendarsData } from '../../context/calendarsDataContext';
 
 interface ICalendarsContainerProps {
   isAdmin?: boolean;
@@ -165,7 +165,7 @@ export const CalendarsContainer = ({
     <Container>
       <Row className='justify-content-space-evenly'>
         {
-          Object.keys(calendarsData)
+          Object.keys(calendarsData ?? {})
             .filter((_, i) => {
               const numCalendarsToShow = (
                 (viewportWidth >= 992 && viewportWidth < 1200) ? 3 : 4

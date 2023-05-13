@@ -1,4 +1,4 @@
-import { createContext, useContext, useState } from 'react';
+import { ReactNode, createContext, useContext, useState } from 'react';
 
 interface IHistoryState {
   path: string;
@@ -9,9 +9,9 @@ interface INavContext {
   setPath: (path: string) => void;
 }
 
-export const NavContext = createContext({} as INavContext);
+const NavContext = createContext({} as INavContext);
 
-export const NavProvider = ({ children }: { children: React.ReactNode}) => {
+export const NavProvider = ({ children }: { children: ReactNode }) => {
   const [ path, _setPath ] = useState(location.pathname);
 
   // Update UI from browser navigation
