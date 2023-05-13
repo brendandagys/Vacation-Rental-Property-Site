@@ -126,7 +126,9 @@ Resources:
                   - s3:PutBucketCORS
                   - s3:PutBucketPolicy
                   - s3:PutBucketPublicAccessBlock
-                Resource: '*'
+                Resource:
+                  - !Sub arn:aws:s3:::${Domain}
+                  - !Sub arn:aws:s3:::${Domain}-assets
 
   PassCloudFormationRolePolicy:
     Type: AWS::IAM::Policy
