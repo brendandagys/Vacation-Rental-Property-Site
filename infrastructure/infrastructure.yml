@@ -115,8 +115,8 @@ Resources:
             # Principal:
             #   Service: codebuild.amazonaws.com
             Action:
-              - s3:PutObject,
-              - s3:PutObjectAcl,
+              - s3:PutObject
+              - s3:PutObjectAcl
             Resource: '*'
             # Resource: !Sub arn:aws:s3:::${Domain}
 
