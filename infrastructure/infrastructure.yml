@@ -52,19 +52,19 @@ Resources:
     Properties:
       BucketName: !Sub ${Domain}-assets
       PublicAccessBlockConfiguration:
-        BlockPublicAcls: true
-        IgnorePublicAcls: true
-        BlockPublicPolicy: false
-        RestrictPublicBuckets: false
+        BlockPublicAcls: false
+        IgnorePublicAcls: false
+        BlockPublicPolicy: true
+        RestrictPublicBuckets: true
       # CorsConfiguration:
       #   CorsRules:
-      #     - AllowedHeaders:
+      #     - Id: allow-domain-to-fetch-static-content
+      #       AllowedHeaders:
       #         - '*'
       #       AllowedMethods:
       #         - GET
       #       AllowedOrigins:
       #         - !Sub https://${Domain}
-      #       Id: allow-domain-to-fetch-static-content
       #       MaxAge: 3600
 
   AssetsBucketPolicy:
