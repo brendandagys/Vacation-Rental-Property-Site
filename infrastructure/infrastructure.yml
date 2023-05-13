@@ -90,8 +90,8 @@ Resources:
       PublicAccessBlockConfiguration:
         BlockPublicAcls: false
         IgnorePublicAcls: false
-        BlockPublicPolicy: false
-        RestrictPublicBuckets: false
+        BlockPublicPolicy: true
+        RestrictPublicBuckets: true
 
   DeployBucketPolicy:
     Condition: CreateDeployBucketAndPolicy
@@ -112,7 +112,7 @@ Resources:
             Condition:
               StringEquals:
                 AWS:SourceArn: !Sub arn:aws:cloudfront::${AWS::AccountId}:distribution/${Distribution}
-          - Sid: Policy-for-CloudFront-and-CodeBuild
+          - Sid: Policy-for-CodeBuild
             Effect: Allow
             Principal:
               Service: codebuild.amazonaws.com
@@ -120,14 +120,14 @@ Resources:
               - s3:PutObject
               - s3:PutObjectAcl
             Resource: !Sub arn:aws:s3:::${Domain}/*
-          - Sid: Allow-CloudFormation-To-Update-Bucket-Policy
-            Effect: Allow
-            Principal:
-              Service: cloudformation.amazonaws.com
-            Action:
-              - s3:PutBucketPolicy
-              - s3:CreateBucket
-            Resource: !Sub arn:aws:s3:::${Domain}
+          # - Sid: Allow-CloudFormation-To-Update-Bucket-Policy
+          #   Effect: Allow
+          #   Principal:
+          #     Service: cloudformation.amazonaws.com
+          #   Action:
+          #     - s3:PutBucketPolicy
+          #     - s3:CreateBucket
+          #   Resource: !Sub arn:aws:s3:::${Domain}
             
 
   CodeBuildRole:
