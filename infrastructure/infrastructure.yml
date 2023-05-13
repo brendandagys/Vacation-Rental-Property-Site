@@ -68,9 +68,8 @@ Resources:
       #       MaxAge: 3600
 
   AssetsBucketPolicy:
+    # Condition: CreateAssetsBucketAndPolicy
     Type: AWS::S3::BucketPolicy
-    Condition: CreateAssetsBucketAndPolicy
-    Condition: CreateDeployBucketAndPolicy
     DeletionPolicy: Retain
     Properties:
       Bucket: !Ref AssetsBucket
@@ -82,7 +81,7 @@ Resources:
             Principal:
               Service: cloudfront.amazonaws.com
             Action: s3:GetObject
-            Resource: !Sub arn:aws:s3:::${AssetsBucket}/*
+            Resource: !Sub arn:aws:s3:::${Domain}-assets/*
             Condition:
               StringEquals:
                 AWS:SourceArn: !Sub arn:aws:cloudfront::${AWS::AccountId}:distribution/${Distribution}
