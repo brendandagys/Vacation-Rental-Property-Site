@@ -9,7 +9,7 @@ export const terraceTableViewLow = (
 
 export const mainPhoto = terraceTableView;
 
-export const pictures = [
+export const images = [
   'https://spainluxury.holiday/images/balcony-west-view.jpg',
   'https://spainluxury.holiday/images/sea-view-daytime.jpg',
   'https://spainluxury.holiday/images/sea-view.webp',

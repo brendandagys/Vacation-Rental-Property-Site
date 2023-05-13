@@ -4,7 +4,7 @@ import Col from 'react-bootstrap/Col';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 
-import { lowerPool, mainPhoto, pictures, secondBedroom } from '../static/images';
+import { lowerPool, mainPhoto, images, secondBedroom } from '../static/images';
 import { CalendarsContainer } from '../components/calendar-date/CalendarsContainer';
 import { BookingInquiryModal } from '../components/booking-inquiry/BookingInquiryModal';
 import { PostSubmissionModal } from '../components/booking-inquiry/PostSubmissionModal';
@@ -234,7 +234,7 @@ export const HomePage = () => {
         </Col>
       </Row>
 
-      <Row className='py-5 bg-black mx-0'><Col xs={12}><ImageGallery images={pictures} /></Col></Row>
+      <Row className='py-5 bg-black mx-0'><Col xs={12}><ImageGallery images={images} /></Col></Row>
 
       <Row id="testimonials" className='py-5 px-5 mx-0 justify-content-center testimonials-container'>
         <Col xs={12} className='text-center text-white mb-5'><h1>Testimonials</h1></Col>
