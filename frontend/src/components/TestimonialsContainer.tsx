@@ -29,8 +29,8 @@ export const TestimonialsContainer = () => {
   return (
     <>
       {
-        testimonials.map(({ stars, name, content }) => (
-          <Col xs={12} md={6} xl={4} className='mx-3 mt-4'>
+        testimonials.map(({ stars, name, content }, i) => (
+          <Col key={i} xs={12} md={6} xl={4} className='mx-3 mt-4'>
             <Testimonial
               stars={stars}
               name={name}
