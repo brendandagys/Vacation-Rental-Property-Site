@@ -72,7 +72,7 @@ Resources:
     Type: AWS::S3::BucketPolicy
     DeletionPolicy: Retain
     Properties:
-      Bucket: !Ref AssetsBucket
+      Bucket: !Sub ${Domain}-assets
       PolicyDocument:
         Id: !Sub ${AWS::StackName}-assets-bucket-policy
         Statement:
