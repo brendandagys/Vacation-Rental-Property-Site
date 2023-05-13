@@ -104,7 +104,7 @@ export const HomePage = () => {
             - <b>get in touch now</b>!
           </p>
 
-          <div className='pt-5 mt-4 text-center'>
+          <div className='pt-5 mt-4 d-flex justify-content-center'>
             <button
               onClick={() => setShowDescriptionModal(true)}
               className="button button--light button--small"
