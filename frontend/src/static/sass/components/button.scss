@@ -2,14 +2,47 @@
   background-color: #c60c30;
   border-radius: 50px;
   border: 2px solid #fff;
-  // box-shadow: 1px .1px 8px #d3d3d3;
   color: #fff;
   font-size: 1.4rem;
   padding: 15px 30px;
-  transition: all 0.275s ease-in-out;
+  transition: all 0.2s ease-in-out;
+  
+  &:hover {
+    background-color: $theme-yellow;
+    color: $color-black;
+  }
+  
+  &--shadow {
+    box-shadow: .1px .2px 6px $color-white;
+  }
+  
+  &--shadow-2 {
+    box-shadow: .1px .2px 10px #a3a4b7;
+  }
+
+  &--small {
+    font-size: 1rem;
+    padding: 7.5px 15px;
+  }
 }
 
-.button:hover {
-  background-color: $theme-yellow;
+.button--blue {
+  background-color: dodgerblue;
+  color: white;
+
+  &:hover {
+    background-color: #61a9f0;
+    color: #fff;
+  }
+}
+
+.button--light {
+  background: #fff;
+  border: 2px solid #0b55a7;
   color: $color-black;
+  transition: all 0.225s ease-in-out;
+  
+  &:hover {
+    border: 2px solid $color-white;
+  }
 }
