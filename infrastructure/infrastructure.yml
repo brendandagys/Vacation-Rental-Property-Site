@@ -117,8 +117,7 @@ Resources:
             Action:
               - s3:PutObject
               - s3:PutObjectAcl
-            Resource: '*'
-            # Resource: !Sub arn:aws:s3:::${Domain}
+            Resource: !Sub arn:aws:s3:::${Domain}/*
 
   CodeBuildRole:
     Type: AWS::IAM::Role
