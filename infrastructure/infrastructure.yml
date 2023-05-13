@@ -51,14 +51,14 @@ Resources:
     DeletionPolicy: Retain
     Properties:
       BucketName: !Sub ${Domain}-assets
-      OwnershipControls:
-        Rules:
-          - ObjectOwnership: BucketOwnerEnforced
+      # OwnershipControls:
+      #   Rules:
+      #     - ObjectOwnership: BucketOwnerEnforced
       PublicAccessBlockConfiguration:
-        BlockPublicAcls: false
-        IgnorePublicAcls: false
-        BlockPublicPolicy: false
-        RestrictPublicBuckets: false
+        BlockPublicAcls: true
+        IgnorePublicAcls: true
+        BlockPublicPolicy: true
+        RestrictPublicBuckets: true
 
   AssetsBucketPolicy:
     Condition: CreateAssetsBucketAndPolicy
@@ -86,14 +86,14 @@ Resources:
     DeletionPolicy: Retain
     Properties:
       BucketName: !Ref Domain
-      OwnershipControls:
-        Rules:
-          - ObjectOwnership: BucketOwnerEnforced
+      # OwnershipControls:
+      #   Rules:
+      #     - ObjectOwnership: BucketOwnerEnforced
       PublicAccessBlockConfiguration:
-        BlockPublicAcls: false
-        IgnorePublicAcls: false
-        BlockPublicPolicy: false
-        RestrictPublicBuckets: false
+        BlockPublicAcls: true
+        IgnorePublicAcls: true
+        BlockPublicPolicy: true
+        RestrictPublicBuckets: true
 
   DeployBucketPolicy:
     Condition: CreateDeployBucketAndPolicy
