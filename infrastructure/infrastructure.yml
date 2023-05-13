@@ -90,8 +90,8 @@ Resources:
       PublicAccessBlockConfiguration:
         BlockPublicAcls: false
         IgnorePublicAcls: false
-        BlockPublicPolicy: true
-        RestrictPublicBuckets: true
+        BlockPublicPolicy: false
+        RestrictPublicBuckets: false
 
   DeployBucketPolicy:
     Condition: CreateDeployBucketAndPolicy
