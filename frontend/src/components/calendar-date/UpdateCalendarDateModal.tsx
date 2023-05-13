@@ -31,9 +31,13 @@ export const CalendarDateModal = (
         </Button>
       </div>
 
-      <div className='text-center pt-4'>
-        {datesToUpdate[0].ymd} - {datesToUpdate[datesToUpdate.length - 1].ymd}
-      </div>
+      {
+        datesToUpdate.length && (
+          <div className='text-center pt-4'>
+            {datesToUpdate[0].ymd} - {datesToUpdate[datesToUpdate.length - 1].ymd}
+          </div>
+        )
+      }
     </Modal.Body>
     <Modal.Body>
       <Container className="bg-white rounded px-4">
