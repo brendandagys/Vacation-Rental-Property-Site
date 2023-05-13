@@ -2,12 +2,12 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faStar } from '@fortawesome/free-solid-svg-icons';
 
 interface TestimonialProps {
-  name: string;
   content: string;
+  name: string;
   stars: number;
 }
 
-export const Testimonial = ({ name, content, stars }: TestimonialProps) => {
+export const Testimonial = ({ content, name, stars }: TestimonialProps) => {
   return (
     <div className="testimonial">
       <div className="testimonial-content">
@@ -16,7 +16,7 @@ export const Testimonial = ({ name, content, stars }: TestimonialProps) => {
             <span className='initials'>{name.split(' ').map((el) => el[0]).join('')}</span>
           </div>
 
-          <p className="testimonial-author">{name}</p>
+          {/* <p className="testimonial-author">{name}</p> */}
 
           <div className="testimonial-stars">
             {Array(stars).fill('').map((_, index) => <FontAwesomeIcon key={index} icon={faStar} />)}

@@ -15,8 +15,8 @@ import { Nullable } from '../types';
 import { getDatesInRange, mapCalendarDateToDate, mapCalendarDateToYmd } from '../api/calendarsContainer';
 import { Amenities } from '../components/Amenities';
 import { ImageGallery } from '../components/ImageGallery';
-import { Testimonial } from '../components/Testimonial';
 import { Navbar } from '../components/Navbar';
+import { TestimonialsContainer } from '../components/TestimonialsContainer';
 
 export const HomePage = () => {
   const [ fromTo, setFromTo ] = useState<Nullable<string>>(null);
@@ -228,23 +228,7 @@ export const HomePage = () => {
       <Row id="testimonials" className='py-5 px-5 mx-0 justify-content-center testimonials-container'>
         <Col xs={12} className='text-center text-white mb-5'><h1>Testimonials</h1></Col>
 
-        <Col xs={12} md={6} xl={4} className='mx-3 mt-4'>
-          <Testimonial
-            stars={5}
-            name="Jonathon Henning"
-            // eslint-disable-next-line max-len
-            content="I had an amazing stay at this vacation property! The stunning coastal views, luxurious amenities, and attentive staff made my experience unforgettable. From the moment I arrived, I felt pampered and relaxed. The beautifully decorated rooms provided a comfortable and stylish retreat. Whether I was enjoying the poolside serenity or taking leisurely walks along the nearby beach, every moment was pure bliss. If you're seeking a dreamy coastal getaway with top-notch service, this property is the perfect choice. I can't wait to return and make more incredible memories!"
-          />
-        </Col>
-
-        <Col xs={12} md={6} xl={4} className='mx-3 mt-4'>
-          <Testimonial
-            stars={5}
-            name="Mary Brigby"
-            // eslint-disable-next-line max-len
-            content="During my recent stay at this vacation property, I experienced pure tranquility and cleanliness. The surrounding area offered stunning views and perfect weather, creating an ideal setting for outdoor activities. The staff ensured everything was spotless and made my stay hassle-free. If you're looking for a peaceful getaway with beautiful surroundings, this property is a top choice. It guarantees a memorable and refreshing experience."
-          />
-        </Col>
+        <TestimonialsContainer />
       </Row>
 
       <div id="map" className='d-flex flex-column justify-content-center align-items-center app__footer'>
