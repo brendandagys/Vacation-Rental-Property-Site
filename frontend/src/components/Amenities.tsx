@@ -15,6 +15,7 @@ import {
   faUtensils,
   faWaterLadder,
   faWifi,
+  faWind,
 } from '@fortawesome/free-solid-svg-icons';
 
 export const Amenities = () => {
@@ -24,15 +25,17 @@ export const Amenities = () => {
     { icon: faParking, label: 'Private parking' },
     { icon: faTv, label: '65" 4K smart TV' },
     { icon: faUmbrellaBeach, label: 'Beach access' },
-    { icon: faWifi, label: 'Fast Wi-Fi' },
-    { icon: faSnowflake, label: 'A/C' },
-    { icon: faFire, label: 'Heating' },
-    { icon: faSoap, label: 'Washer/drying machines' },
+    { icon: faWifi, label: 'Fast Wi-Fi Internet' },
+    { icon: faSnowflake, label: 'Air conditioning' },
+    { icon: faFire, label: 'Central heating' },
+    { icon: faSoap, label: 'Washing machine' },
+    { icon: faWind, label: 'Drying machine' },
     { icon: faSpoon, label: 'Fully stocked kitchen' },
     { icon: faFireBurner, label: 'Bosch appliances' },
-    { icon: faCoffee, label: 'Nespresso + drip coffee' },
+    { icon: faCoffee, label: 'Nespresso machine' },
+    { icon: faCoffee, label: 'Drip coffee machine' },
     { icon: faBook, label: 'Reading materials' },
-    { icon: faUtensils, label: 'Dishes/cutlery' },
+    { icon: faUtensils, label: 'Dishes & cutlery' },
   ];
 
   return (
