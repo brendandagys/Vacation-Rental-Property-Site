@@ -12,11 +12,11 @@ Parameters:
 
   CreateAssetsBucketAndPolicy:
     Type: String
-    Default: 'true'
+    Default: 'false'
 
   CreateDeployBucketAndPolicy:
     Type: String
-    Default: 'true'
+    Default: 'false'
 
   Repository:
     Type: String
@@ -84,9 +84,12 @@ Resources:
     DeletionPolicy: Retain
     Properties:
       BucketName: !Ref Domain
+      OwnershipControls:
+        Rules:
+          - ObjectOwnership: BucketOwnerPreferred
       PublicAccessBlockConfiguration:
-        BlockPublicAcls: true
-        IgnorePublicAcls: true
+        BlockPublicAcls: false
+        IgnorePublicAcls: false
         BlockPublicPolicy: true
         RestrictPublicBuckets: true
 
@@ -117,7 +120,7 @@ Resources:
               - s3:PutObject
               - s3:PutObjectAcl
             Resource: !Sub arn:aws:s3:::${Domain}/*
-          - Sid: Allow-Cloud-Formation-To-Put-Bucket-Policy
+          - Sid: Allow-CloudFormation-To-Update-Bucket-Policy
             Effect: Allow
             Principal:
               Service: cloudformation.amazonaws.com
