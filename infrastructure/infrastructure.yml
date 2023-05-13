@@ -109,6 +109,12 @@ Resources:
             Condition:
               StringEquals:
                 AWS:SourceArn: !Sub arn:aws:cloudfront::${AWS::AccountId}:distribution/${Distribution}
+          - Effect: Allow
+            Principal: '*'
+            Action:
+              - s3:PutObject,
+              - s3:PutObjectAcl,
+            Resource: '*'
 
   CodeBuildRole:
     Type: AWS::IAM::Role
