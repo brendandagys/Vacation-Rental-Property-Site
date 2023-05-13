@@ -77,10 +77,12 @@ export const Calendar = ({
         isSelected
           ? '--selected'
           : (
-            isValidHover && !isPast && (
-              isHovered
-              || (hoveredDate === calendarDate && state === EDateState.Available)
+            (
+              isValidHover && !isPast && (
+                isHovered || (hoveredDate === calendarDate && state === EDateState.Available)
+              )
             )
+            || (isHovered && isAdmin)
           )
             ? '--hovered'
             : ''}`
