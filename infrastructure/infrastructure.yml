@@ -55,8 +55,8 @@ Resources:
         Rules:
           - ObjectOwnership: BucketOwnerEnforced
       PublicAccessBlockConfiguration:
-        BlockPublicAcls: true
-        IgnorePublicAcls: true
+        BlockPublicAcls: false
+        IgnorePublicAcls: false
         BlockPublicPolicy: false
         RestrictPublicBuckets: false
 
@@ -90,8 +90,8 @@ Resources:
         Rules:
           - ObjectOwnership: BucketOwnerEnforced
       PublicAccessBlockConfiguration:
-        BlockPublicAcls: true
-        IgnorePublicAcls: true
+        BlockPublicAcls: false
+        IgnorePublicAcls: false
         BlockPublicPolicy: false
         RestrictPublicBuckets: false
 
