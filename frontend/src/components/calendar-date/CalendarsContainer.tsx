@@ -203,7 +203,7 @@ export const CalendarsContainer = ({
           <Row className='justify-content-center mt-4'>
             <Col xs='auto'>
               <button
-                className='button button-blue mt-4'
+                className='button button--blue button--shadow mt-4'
                 onClick={() => setShowAllMonths((old) => !old)}
               >
                 {showAllMonths ? 'Show fewer months' : 'Show more months'}

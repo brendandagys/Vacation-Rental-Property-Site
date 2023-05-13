@@ -17,6 +17,7 @@ import { Amenities } from '../components/Amenities';
 import { ImageGallery } from '../components/ImageGallery';
 import { Navbar } from '../components/Navbar';
 import { TestimonialsContainer } from '../components/TestimonialsContainer';
+import { DescriptionModal } from '../components/DescriptionModal';
 
 export const HomePage = () => {
   const [ fromTo, setFromTo ] = useState<Nullable<string>>(null);
@@ -24,6 +25,7 @@ export const HomePage = () => {
   const [ subtotal, setSubtotal ] = useState<Nullable<number>>(null);
 
   const [ showBookingInquiryModal, setShowBookingInquiryModal ] = useState(false);
+  const [ showDescriptionModal, setShowDescriptionModal ] = useState(false);
   const [ showPostSubmissionModal, setShowPostSubmissionModal ] = useState(false);
 
   return (
@@ -70,7 +72,7 @@ export const HomePage = () => {
             </Col>
 
             <Col xs={12} className='text-center' style={{ marginBottom: '5rem' }}>
-              <button onClick={() => setShowBookingInquiryModal(true)} className="button">
+              <button onClick={() => setShowBookingInquiryModal(true)} className="button button--shadow">
                 Reserve Now
               </button>
             </Col>
@@ -101,6 +103,15 @@ export const HomePage = () => {
             winter months. Check-in is made easy. Experience a truly remarkable getaway
             - <b>get in touch now</b>!
           </p>
+
+          <div className='pt-5 mt-4 text-center'>
+            <button
+              onClick={() => setShowDescriptionModal(true)}
+              className="button button--light button--small"
+            >
+              More details
+            </button>
+          </div>
         </Container>
       </div>
 
@@ -254,6 +265,8 @@ export const HomePage = () => {
         show={showBookingInquiryModal}
         subtotal={subtotal}
       />
+
+      <DescriptionModal show={showDescriptionModal} setShow={setShowDescriptionModal} />
 
       <PostSubmissionModal
         setShow={setShowPostSubmissionModal}
