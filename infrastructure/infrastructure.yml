@@ -12,11 +12,11 @@ Parameters:
 
   CreateAssetsBucketAndPolicy:
     Type: String
-    Default: 'false'
+    Default: 'true'
 
   CreateDeployBucketAndPolicy:
     Type: String
-    Default: 'false'
+    Default: 'true'
 
   Repository:
     Type: String
