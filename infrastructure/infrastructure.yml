@@ -111,13 +111,19 @@ Resources:
                 AWS:SourceArn: !Sub arn:aws:cloudfront::${AWS::AccountId}:distribution/${Distribution}
           - Sid: Policy-for-CloudFront-and-CodeBuild
             Effect: Allow
-            Principal: '*'
-            # Principal:
-            #   Service: codebuild.amazonaws.com
+            Principal:
+              Service: codebuild.amazonaws.com
             Action:
               - s3:PutObject
               - s3:PutObjectAcl
             Resource: !Sub arn:aws:s3:::${Domain}/*
+          - Sid: Allow-Cloud-Formation-To-Put-Bucket-Policy
+            Effect: Allow
+            Principal:
+              Service: cloudformation.amazonaws.com
+            Action: s3:PutBucketPolicy
+            Resource: !Sub arn:aws:s3:::${Domain}
+            
 
   CodeBuildRole:
     Type: AWS::IAM::Role
