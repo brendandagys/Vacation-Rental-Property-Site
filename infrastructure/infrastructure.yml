@@ -344,7 +344,7 @@ Resources:
         Comment: !Sub S3 SPA and assets bucket for ${AWS::StackName}
         Aliases:
           - !Ref Domain
-          - !If [CreateDnsRecordWww, !Sub www.${Domain}, !Ref AWS::NoValue]
+          - !If [CreateDnsRecordWww, !Sub 'www.${Domain}', !Ref AWS::NoValue]
         Origins:
           - Id: !Sub ${AWS::StackName}-spa
             DomainName: !Sub ${Domain}.s3.${AWS::Region}.amazonaws.com
