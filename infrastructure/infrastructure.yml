@@ -56,16 +56,6 @@ Resources:
         IgnorePublicAcls: false
         BlockPublicPolicy: true
         RestrictPublicBuckets: true
-      # CorsConfiguration:
-      #   CorsRules:
-      #     - Id: allow-domain-to-fetch-static-content
-      #       AllowedHeaders:
-      #         - '*'
-      #       AllowedMethods:
-      #         - GET
-      #       AllowedOrigins:
-      #         - !Sub https://${Domain}
-      #       MaxAge: 3600
 
   AssetsBucketPolicy:
     # Condition: CreateAssetsBucketAndPolicy
@@ -75,6 +65,7 @@ Resources:
       Bucket: !Sub ${Domain}-assets
       PolicyDocument:
         Id: !Sub ${AWS::StackName}-assets-bucket-policy
+        Version: 2012-10-17
         Statement:
           - Sid: Policy-for-CloudFront-private-content
             Effect: Allow
