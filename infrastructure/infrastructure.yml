@@ -94,7 +94,7 @@ Resources:
         RestrictPublicBuckets: true
 
   DeployBucketPolicy:
-    Condition: CreateDeployBucketAndPolicy
+    # Condition: CreateDeployBucketAndPolicy
     Type: AWS::S3::BucketPolicy
     DeletionPolicy: Retain
     Properties:
