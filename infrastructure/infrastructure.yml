@@ -56,34 +56,36 @@ Resources:
         IgnorePublicAcls: true
         BlockPublicPolicy: false
         RestrictPublicBuckets: false
-      CorsConfiguration:
-        CorsRules:
-          - AllowedHeaders:
-              - '*'
-            AllowedMethods:
-              - GET
-            AllowedOrigins:
-              - !Sub https://${Domain}
-            Id: allow-domain-to-fetch-static-content
-            MaxAge: 3600
-  
+      # CorsConfiguration:
+      #   CorsRules:
+      #     - AllowedHeaders:
+      #         - '*'
+      #       AllowedMethods:
+      #         - GET
+      #       AllowedOrigins:
+      #         - !Sub https://${Domain}
+      #       Id: allow-domain-to-fetch-static-content
+      #       MaxAge: 3600
+
   AssetsBucketPolicy:
-    Condition: CreateAssetsBucketAndPolicy
     Type: AWS::S3::BucketPolicy
+    Condition: CreateAssetsBucketAndPolicy
+    Condition: CreateDeployBucketAndPolicy
     DeletionPolicy: Retain
     Properties:
       Bucket: !Ref AssetsBucket
       PolicyDocument:
+        Id: !Sub ${AWS::StackName}-assets-bucket-policy
         Statement:
-          - Effect: Allow
-            Principal: '*'
+          - Sid: Policy-for-CloudFront-private-content
+            Effect: Allow
+            Principal:
+              Service: cloudfront.amazonaws.com
             Action: s3:GetObject
-            Resource: !Sub 'arn:aws:s3:::${AssetsBucket}/*'
+            Resource: !Sub arn:aws:s3:::${AssetsBucket}/*
             Condition:
               StringEquals:
-                "aws:Referer":
-                  - !Sub https://${Domain}/
-                  - http://localhost:3001/
+                AWS:SourceArn: !Sub arn:aws:cloudfront::${AWS::AccountId}:distribution/${Distribution}
 
   DeployBucket:
     Condition: CreateDeployBucketAndPolicy
