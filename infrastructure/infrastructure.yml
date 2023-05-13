@@ -52,7 +52,8 @@ Resources:
     Properties:
       BucketName: !Sub ${Domain}-assets
       OwnershipControls:
-        Rules: ['BucketOwnerEnforced']
+        Rules:
+          - ObjectOwnership: BucketOwnerEnforced
       PublicAccessBlockConfiguration:
         BlockPublicAcls: true
         IgnorePublicAcls: true
@@ -86,7 +87,8 @@ Resources:
     Properties:
       BucketName: !Ref Domain
       OwnershipControls:
-        Rules: ['BucketOwnerEnforced']
+        Rules:
+          - ObjectOwnership: BucketOwnerEnforced
       PublicAccessBlockConfiguration:
         BlockPublicAcls: true
         IgnorePublicAcls: true
