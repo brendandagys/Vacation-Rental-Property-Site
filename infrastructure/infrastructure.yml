@@ -12,11 +12,11 @@ Parameters:
 
   CreateAssetsBucketAndPolicy:
     Type: String
-    Default: 'true'
+    Default: 'false'
 
   CreateDeployBucketAndPolicy:
     Type: String
-    Default: 'true'
+    Default: 'false'
 
   Repository:
     Type: String
@@ -120,6 +120,15 @@ Resources:
               - s3:PutObject
               - s3:PutObjectAcl
             Resource: !Sub arn:aws:s3:::${Domain}/*
+          - Sid: Allow-CloudFormation-To-Update-Bucket-Policy
+            Effect: Allow
+            Principal:
+              Service: cloudformation.amazonaws.com
+            Action:
+              - s3:PutBucketPolicy
+              - s3:CreateBucket
+            Resource: !Sub arn:aws:s3:::${Domain}
+            
 
   CodeBuildRole:
     Type: AWS::IAM::Role
