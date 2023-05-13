@@ -12,11 +12,11 @@ Parameters:
 
   CreateAssetsBucketAndPolicy:
     Type: String
-    Default: 'false'
+    Default: 'true'
 
   CreateDeployBucketAndPolicy:
     Type: String
-    Default: 'false'
+    Default: 'true'
 
   Repository:
     Type: String
@@ -60,7 +60,7 @@ Resources:
         RestrictPublicBuckets: true
 
   AssetsBucketPolicy:
-    # Condition: CreateAssetsBucketAndPolicy
+    Condition: CreateAssetsBucketAndPolicy
     Type: AWS::S3::BucketPolicy
     DeletionPolicy: Retain
     Properties:
@@ -94,7 +94,7 @@ Resources:
         RestrictPublicBuckets: true
 
   DeployBucketPolicy:
-    # Condition: CreateDeployBucketAndPolicy
+    Condition: CreateDeployBucketAndPolicy
     Type: AWS::S3::BucketPolicy
     DeletionPolicy: Retain
     Properties:
