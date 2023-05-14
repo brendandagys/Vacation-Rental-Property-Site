@@ -12,7 +12,7 @@ Parameters:
 
   CreateAssetsBucketAndPolicy:
     Type: String
-    Default: 'true'
+    Default: 'false'
 
   CreateDeployBucketAndPolicy:
     Type: String
@@ -84,9 +84,11 @@ Resources:
     DeletionPolicy: Retain
     Properties:
       BucketName: !Ref Domain
-      # Do not set `OwnershipControls` - bucket creation will fail 
+      OwnershipControls:
+        Rules:
+          - ObjectOwnership: BucketOwnerPreferred
       PublicAccessBlockConfiguration:
-        BlockPublicAcls: false
+        BlockPublicAcls: false # CloudFront and CodeBuild use ACLs
         IgnorePublicAcls: false
         BlockPublicPolicy: true
         RestrictPublicBuckets: true
@@ -326,9 +328,11 @@ Resources:
 
             // Set HTTP security headers
             headers['strict-transport-security'] = { value: 'max-age=63072000; includeSubdomains; preload'};
+
             headers['content-security-policy'] = {
-              value: "default-src 'none'; img-src 'self' data:; script-src 'self'; object-src 'none'; connect-src 'self'; manifest-src 'self'; style-src 'self'; style-src-elem 'self' 'unsafe-inline'; font-src 'self'"
+              value: "default-src 'none'; img-src 'self'; script-src 'self'; object-src 'none'; connect-src 'self'; manifest-src 'self'; style-src 'self'; style-src-elem 'self' 'unsafe-inline'; font-src 'self'"
             };
+
             headers['x-content-type-options'] = { value: 'nosniff'};
             headers['x-frame-options'] = {value: 'DENY'};
             headers['x-xss-protection'] = {value: '1; mode=block'};
