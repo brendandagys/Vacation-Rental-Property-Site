@@ -23,6 +23,7 @@ import { ImageGallery } from '../components/ImageGallery';
 import { Navbar } from '../components/Navbar';
 import { TestimonialsContainer } from '../components/TestimonialsContainer';
 import { DescriptionModal } from '../components/DescriptionModal';
+import { useViewportWidth } from '../hooks/useViewportWidth';
 
 export const HomePage = () => {
   const [ fromTo, setFromTo ] = useState<Nullable<string>>(null);
@@ -32,6 +33,8 @@ export const HomePage = () => {
   const [ showBookingInquiryModal, setShowBookingInquiryModal ] = useState(false);
   const [ showDescriptionModal, setShowDescriptionModal ] = useState(false);
   const [ showPostSubmissionModal, setShowPostSubmissionModal ] = useState(false);
+
+  const width = useViewportWidth();
 
   return (
     <div id="home" className='overflow-visible'>
@@ -164,9 +167,11 @@ export const HomePage = () => {
           className='p-0 d-flex align-items-center'
           style={{ background: '#2a2d38', objectFit: 'cover' }}
         >
-          <img src={sunnyLunchView} width="100%" alt="Lower pool" />
+          <img src={sunnyLunchView} width="100%" alt="sunny-lunch-view" />
         </Col>
       </Row>
+
+      <Row className='d-md-none bg-black' style={{ minHeight: 15 }}></Row>
 
       <Row className='mx-0'>
         <Col
@@ -175,7 +180,7 @@ export const HomePage = () => {
           className='p-0 d-flex align-items-center'
           style={{ background: '#2a2d38', objectFit: 'cover' }}
         >
-          <img src={sunnyLunchView2} width="100%" alt="Second bedroom"></img>
+          <img src={sunnyLunchView2} width="100%" alt="sunny-lunch-view-2"></img>
         </Col>
 
         <Col xs={12} md={6} style={{ background: '#fabe00', minHeight: 300 }}>
