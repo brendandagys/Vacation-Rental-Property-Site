@@ -71,7 +71,7 @@ export const LogInForm = () => {
         />
       </Form.Group>
 
-      <Button className='font-base mt-4' variant="primary" onClick={() => void submitForm()}>
+      <Button className='font-lg py-2 px-4 mt-4' variant="primary" onClick={() => void submitForm()}>
         Submit
       </Button>
     </Form>

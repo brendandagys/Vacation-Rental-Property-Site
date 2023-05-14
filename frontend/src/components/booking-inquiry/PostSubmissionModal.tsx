@@ -23,7 +23,7 @@ export const PostSubmissionModal = ({ show, setShow }: IPostSubmissionModalProps
     </Modal.Body>
 
     <Modal.Footer style={{ background: '#f9f9f9' }}>
-      <Button variant="primary" size='lg' onClick={() => setShow(false)}>Close</Button>
+      <Button className='font-lg py-2 px-4' variant="primary" onClick={() => setShow(false)}>Close</Button>
     </Modal.Footer>
   </Modal>
 );

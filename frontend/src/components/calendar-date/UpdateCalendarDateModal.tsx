@@ -56,10 +56,10 @@ export const CalendarDateModal = (
       </Container>
     </Modal.Body>
     <Modal.Footer className='mt-5'>
-      <Button className='font-lg' variant="secondary" onClick={() => setShow(false)}>
+      <Button className='font-lg py-2 px-4' variant="secondary" onClick={() => setShow(false)}>
         Cancel
       </Button>
-      <Button className='font-lg' variant="primary" onClick={() => void onUpdateCalendarDates()}>
+      <Button className='font-lg py-2 px-4' variant="primary" onClick={() => void onUpdateCalendarDates()}>
         Update Calendar Dates
       </Button>
     </Modal.Footer>

@@ -51,13 +51,13 @@ export const BookingInquiryModal = ({
 
       <Modal.Footer style={{ background: '#f9f9f9' }}>
         <Button
-          className='font-lg'
+          className='font-lg py-2 px-4'
           onClick={() => setShow(false)}
           variant="secondary"
         >Cancel</Button>
 
         <Button
-          className='font-lg'
+          className='font-lg py-2 px-4'
           disabled={!putRequest}
           onClick={() => void onSubmit()}
           variant="primary"

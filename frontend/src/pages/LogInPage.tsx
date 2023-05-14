@@ -9,7 +9,7 @@ export const LogInPage = () => {
     <Container className="p-4 mt-3">
       <Row className="justify-content-center">
         <Col xs={10} sm={8} md={6} lg={4} xl={3}>
-          <Button variant='warning' size='lg' onClick={() => { setPath('/'); }}>
+          <Button className='font-lg py-2 px-4' variant='warning' onClick={() => { setPath('/'); }}>
             Home
           </Button>
         </Col>
