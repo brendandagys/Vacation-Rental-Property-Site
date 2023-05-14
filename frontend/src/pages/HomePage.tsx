@@ -52,9 +52,15 @@ export const HomePage = () => {
               </div>
             </Col>
 
-            <Col id='book' xs={12} className='d-flex mt-auto mb-4 justify-content-center'>
+            <Col xs={12} className='text-center mb-auto' style={{ marginTop: '4rem' }}>
+              <button onClick={() => setShowBookingInquiryModal(true)} className="button button--shadow">
+                Reserve Now
+              </button>
+            </Col>
+
+            <Col id='book' xs={12} className='d-flex mb-5 justify-content-center'>
               <div className="app__contact-information">
-                <h4>Contact us for more information about your next Spanish holiday!</h4>
+                <h4>Contact us for more information about your next Spain holiday!</h4>
 
                 <h5 className='mt-3'>
                   <Row className='justify-content-between'>
@@ -74,12 +80,6 @@ export const HomePage = () => {
                   </Row>
                 </h5>
               </div>
-            </Col>
-
-            <Col xs={12} className='text-center' style={{ marginBottom: '5rem' }}>
-              <button onClick={() => setShowBookingInquiryModal(true)} className="button button--shadow">
-                Reserve Now
-              </button>
             </Col>
           </Row>
         </Container>
