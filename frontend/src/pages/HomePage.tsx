@@ -4,7 +4,12 @@ import Col from 'react-bootstrap/Col';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 
-import { lowerPool, mainPhoto, images, secondBedroom } from '../static/images';
+import {
+  mainPhoto,
+  images,
+  sunnyLunchView,
+  sunnyLunchView2,
+} from '../static/images';
 import { CalendarsContainer } from '../components/calendar-date/CalendarsContainer';
 import { BookingInquiryModal } from '../components/booking-inquiry/BookingInquiryModal';
 import { PostSubmissionModal } from '../components/booking-inquiry/PostSubmissionModal';
@@ -147,18 +152,32 @@ export const HomePage = () => {
         <Col
           xs={12}
           md={6}
-          className='p-0 d-flex align-items-center'
-          style={{ background: 'black', objectFit: 'cover' }}
+          className='p-4 pt-5 p-lg-5 d-flex align-items-center'
+          style={{ background: '#af0d12', minHeight: 300 }}
         >
-          <img src={lowerPool} width="100%" alt="Lower pool" />
+          <Amenities />
         </Col>
 
-        <Col xs={12} md={6} className='p-5' style={{ background: '#af0d12', minHeight: 300 }}>
-          <Amenities />
+        <Col
+          xs={12}
+          md={6}
+          className='p-0 d-flex align-items-center'
+          style={{ background: '#2a2d38', objectFit: 'cover' }}
+        >
+          <img src={sunnyLunchView} width="100%" alt="Lower pool" />
         </Col>
       </Row>
 
       <Row className='mx-0'>
+        <Col
+          xs={12}
+          md={6}
+          className='p-0 d-flex align-items-center'
+          style={{ background: '#2a2d38', objectFit: 'cover' }}
+        >
+          <img src={sunnyLunchView2} width="100%" alt="Second bedroom"></img>
+        </Col>
+
         <Col xs={12} md={6} style={{ background: '#fabe00', minHeight: 300 }}>
           <div className='app__neighborhood font-sm'>
             <Container className='py-5 px-5'>
@@ -211,10 +230,6 @@ export const HomePage = () => {
                 Zoo</b>, <b>Aqualand</b>, <b>Tivoli World</b>, and <b>Aquavelis Water Parks</b>,
                 all conveniently located near Malaga.
               </p>
-              <p>
-                For a unique experience, take a cable car to the <b>Birds of Prey Exhibition in
-                Benalmadena</b>. Be sure to order your tickets online.
-              </p>
               <p id="gallery">
                 If you're up for a longer drive to the west, make a visit to <b>Marbella</b>
                 , <b>Puerto Banus</b>, <b>Cordoba</b>, <b>Seville</b>, and <b>Gibraltar</b>,
@@ -222,15 +237,6 @@ export const HomePage = () => {
               </p>
             </Container>
           </div>
-        </Col>
-
-        <Col
-          xs={12}
-          md={6}
-          className='p-0 d-flex align-items-center'
-          style={{ background: '#2a2d38', objectFit: 'cover' }}
-        >
-          <img src={secondBedroom} width="100%" alt="Second bedroom"></img>
         </Col>
       </Row>
 

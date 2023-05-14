@@ -68,7 +68,7 @@ export const ImageGallery = ({ images }: ImageGalleryProps) => {
           images.map((image, i) => (
             <div
               className="single"
-              key={i}
+              key={image}
               onClick={() => {
                 setSlideNumber(i);
                 setShowModal(true);

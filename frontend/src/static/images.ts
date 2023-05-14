@@ -1,20 +1,19 @@
-export const balconySunset = 'https://spainluxury.holiday/images/balcony-sunset.jpg';
-export const lowerPool = 'https://spainluxury.holiday/images/lower-pool.jpg';
-export const secondBedroom = 'https://spainluxury.holiday/images/second-bedroom.jpg';
-export const upperPoolAtNight = 'https://spainluxury.holiday/images/upper-pool-at-night.jpg';
+// const balconySunset = 'https://spainluxury.holiday/images/balcony-sunset.jpg';
+const lowerPool = 'https://spainluxury.holiday/images/lower-pool.jpg';
+const secondBedroom = 'https://spainluxury.holiday/images/second-bedroom.jpg';
+const upperPoolAtNight = 'https://spainluxury.holiday/images/upper-pool-at-night.jpg';
 export const terraceTableView = 'https://spainluxury.holiday/images/terrace-table-view.jpeg';
-export const terraceTableViewLow = (
-  'https://spainluxury.holiday/images/terrace-table-view-low.jpeg'
-);
 
 export const mainPhoto = terraceTableView;
+export const sunnyLunchView = 'https://spainluxury.holiday/images/sunny-lunch-view.jpeg';
+export const sunnyLunchView2 = 'https://spainluxury.holiday/images/sunny-lunch-view-2.jpeg';
 
 export const images = [
-  'https://spainluxury.holiday/images/balcony-west-view.jpg',
+  'https://spainluxury.holiday/images/balcony-west-view-captioned.jpg',
   'https://spainluxury.holiday/images/sea-view-daytime.jpg',
   'https://spainluxury.holiday/images/sea-view.webp',
-  'https://spainluxury.holiday/images/balcony-east-view.jpg',
-  'https://spainluxury.holiday/images/balcony-wide-view.jpg',
+  'https://spainluxury.holiday/images/balcony-west-view.jpg',
+  'https://spainluxury.holiday/images/terrace-west-view-with-table.jpg',
   'https://spainluxury.holiday/images/balcony-view-night.webp',
   'https://spainluxury.holiday/images/sunset.webp',
   'https://spainluxury.holiday/images/front-balcony-view.jpg',
@@ -40,23 +39,27 @@ export const images = [
   'https://spainluxury.holiday/images/master-bathroom-2.jpg',
   'https://spainluxury.holiday/images/master-bathroom.jpg',
   'https://spainluxury.holiday/images/main-bedroom.jpg',
+  'https://spainluxury.holiday/images/balcony-east-view.jpg',
   'https://spainluxury.holiday/images/balcony-recliners.webp',
   'https://spainluxury.holiday/images/sea-view-daytime-2.jpg',
   'https://spainluxury.holiday/images/beach-staircase.jpg',
   'https://spainluxury.holiday/images/pool-trees.webp',
   'https://spainluxury.holiday/images/lower-pool-2.jpg',
   'https://spainluxury.holiday/images/lower-pool-and-building-view.jpg',
-  'https://spainluxury.holiday/images/pool-view-from-building.jpg',
   lowerPool,
+  'https://spainluxury.holiday/images/pool-view-from-building.jpg',
   'https://spainluxury.holiday/images/pool-grass.jpg',
   'https://spainluxury.holiday/images/pool-stairs.jpg',
   'https://spainluxury.holiday/images/lower-pool.webp',
+  'https://spainluxury.holiday/images/lower-pool-view-from-above.jpg',
   upperPoolAtNight,
+  'https://spainluxury.holiday/images/view-from-second-bedroom-window.jpg',
   'https://spainluxury.holiday/images/gate.webp',
-  'https://spainluxury.holiday/images/building-view-from-below.webp',
-  'https://spainluxury.holiday/images/community-from-window.jpg',
   'https://spainluxury.holiday/images/community-walkway.avif',
+  'https://spainluxury.holiday/images/other-building-from-below.jpg',
+  'https://spainluxury.holiday/images/buildings-view-from-side.jpg',
   'https://spainluxury.holiday/images/community-walkway-2.jpg',
-  balconySunset,
   'https://spainluxury.holiday/images/beach-panoramic.png',
+
+  // balconySunset,
 ];
