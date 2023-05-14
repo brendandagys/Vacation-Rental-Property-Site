@@ -22,8 +22,7 @@ export const CalendarDateModal = (
       Enter the details for the selected dates to update/create them.
       <div className='d-flex justify-content-center'>
         <Button
-          className='mt-5 mb-0'
-          size='lg'
+          className='mt-5 mb-0 font-lg'
           variant="primary"
           onClick={() => void onUpdateCalendarDates()}
         >
@@ -56,11 +55,11 @@ export const CalendarDateModal = (
         </Row>
       </Container>
     </Modal.Body>
-    <Modal.Footer>
-      <Button variant="secondary" onClick={() => setShow(false)}>
+    <Modal.Footer className='mt-5'>
+      <Button className='font-lg' variant="secondary" onClick={() => setShow(false)}>
         Cancel
       </Button>
-      <Button variant="primary" onClick={() => void onUpdateCalendarDates()}>
+      <Button className='font-lg' variant="primary" onClick={() => void onUpdateCalendarDates()}>
         Update Calendar Dates
       </Button>
     </Modal.Footer>

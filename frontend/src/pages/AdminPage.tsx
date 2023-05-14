@@ -17,6 +17,7 @@ export const AdminPage = () => {
         <Row>
           <Col className='mb-3 d-flex justify-content-between'>
             <Button
+              className='font-lg'
               variant='warning'
               onClick={() => { setPath('/'); }}
             >
@@ -24,6 +25,7 @@ export const AdminPage = () => {
             </Button>
 
             <Button
+              className='font-lg'
               variant='danger'
               onClick={() => {
                 logOut();

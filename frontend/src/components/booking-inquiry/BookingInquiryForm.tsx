@@ -1,5 +1,5 @@
 import { Dispatch, SetStateAction, useEffect, useMemo, useState } from 'react';
-import { Col, Container, Form, Row, Table } from 'react-bootstrap';
+import { Col, Form, Row } from 'react-bootstrap';
 import { Nullable } from '../../types';
 import { IBookingInquiryPutRequest } from '../../types/bookingInquiry';
 

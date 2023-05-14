@@ -55,7 +55,7 @@ export const DescriptionModal = ({ show, setShow }: IDescriptionModalProps) => (
     </Modal.Body>
 
     <Modal.Footer style={{ background: '#f9f9f9' }}>
-      <Button variant="primary" size='lg' onClick={() => setShow(false)}>Close</Button>
+      <Button className='font-lg' variant="primary" size='lg' onClick={() => setShow(false)}>Close</Button>
     </Modal.Footer>
   </Modal>
 );

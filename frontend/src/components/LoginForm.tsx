@@ -46,6 +46,7 @@ export const LogInForm = () => {
             setErrorMessage(null);
           }}
           onKeyDown={submitFormOnEnter}
+          style={{ fontSize: '15px' }}
         />
         {
           errorMessage &&
@@ -59,17 +60,18 @@ export const LogInForm = () => {
         <Form.Label>Password</Form.Label>
         <Form.Control
           type="password"
-          placeholder="Password"
+          placeholder="Enter password"
           value={password}
           onChange={(e) => {
             setPassword(e.target.value);
             setErrorMessage(null);
           }}
           onKeyDown={submitFormOnEnter}
+          style={{ fontSize: '15px' }}
         />
       </Form.Group>
 
-      <Button variant="primary" onClick={() => void submitForm()}>
+      <Button className='font-base mt-4' variant="primary" onClick={() => void submitForm()}>
         Submit
       </Button>
     </Form>
