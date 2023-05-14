@@ -81,7 +81,6 @@ export const mapCalendarDateToYmd = ({ year, month, date }: ICalendarDate): stri
  * the Date object arguments, regardless of order.
  * @param firstDate
  * @param secondDate
- * @returns
  */
 export const getDatesInRange = (firstDate: Date, secondDate: Date): string[] => {
   const [ start, end ] = [ firstDate, secondDate ].sort((a, b) => a.getTime() < b.getTime() ? -1 : 1);

@@ -33,6 +33,16 @@
       opacity: .4;
     }
 
+    &--is-start-of-unavailable-range {
+      background-image: linear-gradient(125deg, $color-white 50%, transparent 50%);
+      cursor: pointer;
+    }
+    
+    &--is-end-of-unavailable-range {
+      background-image: linear-gradient(-55deg, $color-white 50%, transparent 50%);
+      cursor: pointer;
+    }
+
     border-radius: $radius-xs;
 
     &--selected {
@@ -45,6 +55,7 @@
 
     &--hovered {
       background: $color-green-ll;
+      cursor: pointer !important;
     }
 
     &__price {

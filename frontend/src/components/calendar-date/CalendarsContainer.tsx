@@ -38,7 +38,19 @@ export const CalendarsContainer = ({
   const [ showAllMonths, setShowAllMonths ] = useState(false);
 
   const calendarsData = providedCalendarsData || useCalendarsData().calendarsData;
+
   const viewportWidth = useViewportWidth();
+
+  const yearMonthsToShow = useMemo(() => (
+    Object.keys(calendarsData ?? {})
+      .filter((_, i) => {
+        const numCalendarsToShow = (
+          (viewportWidth >= 992 && viewportWidth < 1200) ? 3 : 4
+        );
+
+        return showAllMonths || i < numCalendarsToShow || isAdmin;
+      })
+  ), [ calendarsData, isAdmin, showAllMonths, viewportWidth ]);
 
   const getCalendarDateForYmd = (
     useCallback(
@@ -66,7 +78,6 @@ export const CalendarsContainer = ({
   useEffect(
     () => {
       if (setSubtotal) {
-
         const selectedDatesAsCalendarDates = (
           selectedDates
             .map(getCalendarDateForYmd)
@@ -104,13 +115,20 @@ export const CalendarsContainer = ({
   );
 
   // Contiguous date range must contain all `Available` calendar dates
-  const isValidHover = (
-    ymdsInHoverRange.every((ymd) => (
-      getCalendarDateForYmd(ymd)?.state === EDateState.Available)
-      && ymd >= (new Date()).toISOString().slice(0, 10))
-  );
+  const isValidHover = useMemo(() => {
+    if (!ymdsInHoverRange.length) { return true; }
 
-  const onDateClick = (calendarDate: ICalendarDate) => {
+    return (
+      ymdsInHoverRange
+        .slice(1, ymdsInHoverRange.length - 1)
+        .every((ymd) => (
+          getCalendarDateForYmd(ymd)?.state === EDateState.Available
+            && ymd >= (new Date()).toISOString().slice(0, 10)
+        ))
+    );
+  }, [ getCalendarDateForYmd, ymdsInHoverRange ]);
+
+  const onDateClick = (calendarDate: ICalendarDate, isEdgeOfRange: boolean) => {
     if (secondClick) { // Already chose a range
       setFirstClick(null);
       setSecondClick(null);
@@ -122,8 +140,10 @@ export const CalendarsContainer = ({
     if (
       !isAdmin
       && (
-        calendarDate.state !== EDateState.Available
+        // Cannot select an unavailable date unless it borders a booking, nor one in past
+        (calendarDate.state !== EDateState.Available && !isEdgeOfRange)
         || (mapCalendarDateToDate(calendarDate) < new Date())
+        || !isValidHover // Or the date clicked on forms an invalid hover range
       )
     ) { return; }
 
@@ -134,10 +154,6 @@ export const CalendarsContainer = ({
           setSelectedDates([]);
           return;
         }
-      }
-
-      if (!isValidHover && !isAdmin) {
-        return;
       }
 
       setSecondClick(calendarDate);
@@ -165,36 +181,48 @@ export const CalendarsContainer = ({
     <Container>
       <Row className='justify-content-space-evenly'>
         {
-          Object.keys(calendarsData ?? {})
-            .filter((_, i) => {
-              const numCalendarsToShow = (
-                (viewportWidth >= 992 && viewportWidth < 1200) ? 3 : 4
-              );
+          yearMonthsToShow
+            .map((yearMonthKey, i, arr) => {
+              const hasPreviousYearMonth = i > 0;
+              const hasNextYearMonth = i < arr.length - 1;
 
-              return showAllMonths || i < numCalendarsToShow || isAdmin;
+              const lastMonth = (
+                hasPreviousYearMonth ? calendarsData[Object.keys(calendarsData)[i - 1]] : null
+              );
+              const stateOfLastMonthLastDate = lastMonth ? lastMonth[lastMonth.length - 1].state : null;
+
+              const nextMonth = hasNextYearMonth ? calendarsData[Object.keys(calendarsData)[i + 1]] : null;
+              const stateOfNextMonthFirstDate = nextMonth ? nextMonth[0].state : null;
+
+              return (
+                <Col key={yearMonthKey} xs={12} sm={6} lg={4} xl={3} className='my-3'>
+                  <Calendar
+                    dateData={calendarsData[yearMonthKey]}
+                    hoveredDate={hoveredDate}
+                    isAdmin={isAdmin}
+                    isValidHover={isValidHover}
+                    onDateClick={onDateClick}
+                    selected={
+                      calendarsData[yearMonthKey]
+                        .filter((date) => selectedDates.includes(mapCalendarDateToYmd(date)))
+                    }
+                    setHoveredDate={setHoveredDate}
+                    stateOfLastMonthLastDate={
+                      stateOfLastMonthLastDate ? stateOfLastMonthLastDate : EDateState.Unavailable
+                    }
+                    stateOfNextMonthFirstDate={
+                      stateOfNextMonthFirstDate ? stateOfNextMonthFirstDate : EDateState.Unavailable
+                    }
+                    ymdsInHoverRange={
+                      calendarsData[yearMonthKey]
+                        .filter(
+                          (date) => ymdsInHoverRange.includes(mapCalendarDateToYmd(date))
+                        )
+                    }
+                  />
+                </Col>
+              );
             })
-            .map((yearMonthKey) => (
-              <Col key={yearMonthKey} xs={12} sm={6} lg={4} xl={3} className='my-3'>
-                <Calendar
-                  dateData={calendarsData[yearMonthKey]}
-                  hoveredDate={hoveredDate}
-                  isAdmin={isAdmin}
-                  isValidHover={isValidHover}
-                  onDateClick={onDateClick}
-                  selected={
-                    calendarsData[yearMonthKey]
-                      .filter((date) => selectedDates.includes(mapCalendarDateToYmd(date)))
-                  }
-                  setHoveredDate={setHoveredDate}
-                  ymdsInHoverRange={
-                    calendarsData[yearMonthKey]
-                      .filter(
-                        (date) => ymdsInHoverRange.includes(mapCalendarDateToYmd(date))
-                      )
-                  }
-                />
-              </Col>
-            ))
         }
       </Row>
 

@@ -21,9 +21,11 @@ interface ICalendarProps {
   hoveredDate: ICalendarDate | null;
   isAdmin?: boolean;
   isValidHover: boolean;
-  onDateClick: (calendarDate: ICalendarDate) => void;
+  onDateClick: (calendarDate: ICalendarDate, isEdgeOfRange: boolean) => void;
   selected: ICalendarDate[];
   setHoveredDate: Dispatch<SetStateAction<ICalendarDate | null>>;
+  stateOfLastMonthLastDate: EDateState;
+  stateOfNextMonthFirstDate: EDateState;
   ymdsInHoverRange: ICalendarDate[];
 }
 
@@ -35,6 +37,8 @@ export const Calendar = ({
   onDateClick,
   selected,
   setHoveredDate,
+  stateOfLastMonthLastDate,
+  stateOfNextMonthFirstDate,
   ymdsInHoverRange,
 }: ICalendarProps) => {
   const firstDayOfMonth = dateData[0];
@@ -51,7 +55,7 @@ export const Calendar = ({
 
   const blankCells = Array.from(Array(firstWeekdayOfMonth)).map((_, i) => getBlankCalendarCell(i));
   const dateCells = (
-    dateData.map((calendarDate) => {
+    dateData.map((calendarDate, i) => {
       const { date, price, state, cellColor } = calendarDate;
 
       const isSelected = selected.includes(calendarDate);
@@ -59,33 +63,81 @@ export const Calendar = ({
 
       const isPast = mapCalendarDateToDate(calendarDate) < new Date();
 
+      const isStartOfUnavailableRange = (
+        state !== EDateState.Available
+        && (
+          (
+            i > 0
+            && dateData[i - 1].state === EDateState.Available
+          )
+          || (
+            i === 0
+            && stateOfLastMonthLastDate === EDateState.Available
+          )
+        )
+      );
+      const isEndOfUnavailableRange = (
+        state !== EDateState.Available
+        && (
+          (
+            i < dateData.length - 1
+            && dateData[i + 1].state === EDateState.Available
+          )
+          || (
+            i === dateData.length - 1
+            && stateOfNextMonthFirstDate === EDateState.Available
+          )
+        )
+      );
+
       return (
         <td
           key={`D${date}`}
-          onClick={() => onDateClick(calendarDate)}
+          onClick={() => onDateClick(calendarDate, isStartOfUnavailableRange || isEndOfUnavailableRange)}
           onMouseEnter={() => setHoveredDate(calendarDate)}
           onMouseLeave={() => setHoveredDate(null)}
           style={{ ...(cellColor ? { background: cellColor } : {}) }}
         >
           <div className={
             `calendar__date-cell
-             calendar__date-cell${(hoveredDate === calendarDate && !isValidHover) ? '--invalid-hover' : ''}
-             calendar__date-cell${isAdmin ? '--admin' : ''}
-             calendar__date-cell${state ? `--${state.toLowerCase()}` : ''}
-             calendar__date-cell${isPast ? '--is-past' : ''}
-             calendar__date-cell${
+            calendar__date-cell${isAdmin ? '--admin' : ''}
+            calendar__date-cell${state ? `--${state.toLowerCase()}` : ''}
+            calendar__date-cell${isPast ? '--is-past' : ''}
+            calendar__date-cell${
+        isStartOfUnavailableRange
+          ? '--is-start-of-unavailable-range'
+          : isEndOfUnavailableRange ? '--is-end-of-unavailable-range' : ''
+        }
+            calendar__date-cell${
         isSelected
           ? '--selected'
           : (
             (
-              isValidHover && !isPast && (
-                isHovered || (hoveredDate === calendarDate && state === EDateState.Available)
+              isAdmin
+              && (
+                isHovered
+                || hoveredDate === calendarDate
               )
             )
-            || (isHovered && isAdmin)
+            || (
+              !isPast
+              && isValidHover
+              && (
+                (isHovered && state === EDateState.Available) // In range of dates hovered, after 1 click
+                || (
+                  hoveredDate === calendarDate
+                  && (
+                    state === EDateState.Available
+                    || isStartOfUnavailableRange
+                    || isEndOfUnavailableRange
+                  )
+                )
+              )
+            )
           )
             ? '--hovered'
-            : ''}`
+            : ''}
+          calendar__date-cell${(hoveredDate === calendarDate && !isValidHover) ? '--invalid-hover' : ''}`
           }>
             {date}
 
