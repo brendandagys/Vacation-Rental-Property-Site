@@ -41,7 +41,7 @@ export const HomePage = () => {
       <Navbar />
       <div
         style={{
-          backgroundImage: `url(${mainPhoto})`,
+          backgroundImage: `url(${mainPhoto.src})`,
           backgroundSize: 'cover',
           backgroundPosition: 'center',
         }}
@@ -167,7 +167,7 @@ export const HomePage = () => {
           className='p-0 d-flex align-items-center'
           style={{ background: '#2a2d38', objectFit: 'cover' }}
         >
-          <img src={sunnyLunchView} width="100%" alt="sunny-lunch-view" />
+          <img src={sunnyLunchView.src} width="100%" alt={sunnyLunchView.alt} />
         </Col>
       </Row>
 
@@ -180,7 +180,7 @@ export const HomePage = () => {
           className='p-0 d-flex align-items-center'
           style={{ background: '#2a2d38', objectFit: 'cover' }}
         >
-          <img src={sunnyLunchView2} width="100%" alt="sunny-lunch-view-2"></img>
+          <img src={sunnyLunchView2.src} width="100%" alt={sunnyLunchView2.alt}></img>
         </Col>
 
         <Col xs={12} md={6} style={{ background: '#fabe00', minHeight: 300 }}>

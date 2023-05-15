@@ -7,7 +7,7 @@ import { FadeInImage } from './FadeInImage';
 import { useViewportWidth } from '../hooks/useViewportWidth';
 
 interface ImageGalleryProps {
-  images: string[];
+  images: { src: string; alt: string }[];
 }
 
 export const ImageGallery = ({ images }: ImageGalleryProps) => {
@@ -58,23 +58,25 @@ export const ImageGallery = ({ images }: ImageGalleryProps) => {
               }}
             />
 
-            <div className="fullscreen"><img src={images[slideNumber ?? 0]} alt='' /></div>
+            <div className="fullscreen">
+              <img src={images[slideNumber ?? 0].src} alt={images[slideNumber ?? 0].alt} />
+            </div>
           </div>
         )
       }
 
       <div className='gallery-wrap'>
         {
-          images.map((image, i) => (
+          images.map(({ src, alt }, i) => (
             <div
               className="single"
-              key={image}
+              key={src}
               onClick={() => {
                 setSlideNumber(i);
                 setShowModal(true);
               }}
             >
-              <FadeInImage src={image} alt='' />
+              <FadeInImage src={src} alt={alt} />
             </div>
           ))
         }
