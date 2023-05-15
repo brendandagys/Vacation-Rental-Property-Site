@@ -14,8 +14,7 @@ import { CalendarsContainer } from '../components/calendar-date/CalendarsContain
 import { BookingInquiryModal } from '../components/booking-inquiry/BookingInquiryModal';
 import { PostSubmissionModal } from '../components/booking-inquiry/PostSubmissionModal';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faEnvelope, faCopyright } from '@fortawesome/free-solid-svg-icons';
-import { ReactComponent as WhatsAppLogo } from '../static/icons/whatsapp.svg';
+import { faCopyright } from '@fortawesome/free-solid-svg-icons';
 import { Nullable } from '../types';
 import { getDatesInRange, mapCalendarDateToDate, mapCalendarDateToYmd } from '../api/calendarsContainer';
 import { Amenities } from '../components/Amenities';
@@ -23,7 +22,9 @@ import { ImageGallery } from '../components/ImageGallery';
 import { Navbar } from '../components/Navbar';
 import { TestimonialsContainer } from '../components/TestimonialsContainer';
 import { DescriptionModal } from '../components/DescriptionModal';
-import { useViewportWidth } from '../hooks/useViewportWidth';
+import { PointsOfInterestText } from '../components/PointsOfInterestText';
+import { MainLanding } from '../components/MainLanding';
+import { MainDetailsText } from '../components/MainDetailsText';
 
 export const HomePage = () => {
   const [ fromTo, setFromTo ] = useState<Nullable<string>>(null);
@@ -33,8 +34,6 @@ export const HomePage = () => {
   const [ showBookingInquiryModal, setShowBookingInquiryModal ] = useState(false);
   const [ showDescriptionModal, setShowDescriptionModal ] = useState(false);
   const [ showPostSubmissionModal, setShowPostSubmissionModal ] = useState(false);
-
-  const width = useViewportWidth();
 
   return (
     <div id="home" className='overflow-visible'>
@@ -46,71 +45,12 @@ export const HomePage = () => {
           backgroundPosition: 'center',
         }}
       >
-        <Container fluid='md'>
-          <Row className='flex-column justify-content-between pt-5' style={{ minHeight: 700 }}>
-            <Col xs={12} className='d-flex justify-content-center'>
-              <div className="app__welcome text-center">
-                <h1>Calaceite FRONTLINE Vistamar</h1>
-                <h2>Luxury Holiday on the Sea</h2>
-              </div>
-            </Col>
-
-            <Col xs={12} className='text-center mb-auto' style={{ marginTop: '4rem' }}>
-              <button onClick={() => setShowBookingInquiryModal(true)} className="button button--shadow">
-                Reserve Now
-              </button>
-            </Col>
-
-            <Col id='book' xs={12} className='d-flex mb-5 justify-content-center'>
-              <div className="app__contact-information">
-                <h4>Contact us for more information about your next Spain holiday!</h4>
-
-                <h5 className='mt-3'>
-                  <Row className='justify-content-between'>
-                    <Col sm={6} className='align-items-center text-center mt-3'>
-                      <FontAwesomeIcon icon={faEnvelope} size='lg' />
-                      <span style={{ marginLeft: 10, color: 'yellow' }}>
-                        <b>Email: </b>spainfrontline@gmail.com
-                      </span>
-                    </Col>
-
-                    <Col sm={6} className='text-center mt-3'>
-                      <WhatsAppLogo style={{ width: '2rem', height: '2rem' }} />
-                      <span style={{ marginLeft: 5, color: 'yellow' }}>
-                        <b>Whatsapp: </b>+1 (416) 779-6411
-                      </span>
-                    </Col>
-                  </Row>
-                </h5>
-              </div>
-            </Col>
-          </Row>
-        </Container>
+        <MainLanding setShowBookingInquiryModal={setShowBookingInquiryModal} />
       </div>
 
       <div className='app__description'>
         <Container className='px-5' style={{ paddingTop: '3.75rem', paddingBottom: '3.75rem' }}>
-          <p>
-            Indulge in luxury and serenity at our exquisite coastal retreat. Located in the Nerja and
-            Torrox-Costa region of <b>Costa del Sol, Spain</b>, our property offers an amazing <b>180°
-            first-line south-facing sea view</b> of the Alboran Sea and mountains. <b>Walk to the sandy
-            El Penoncillo Beach</b>, enjoy the fully equipped and well-maintained suite with <b>2 bedrooms,
-            2 bathrooms</b>, and a fully stocked kitchen. Relax by the <b>two large outdoor
-            pools</b> surrounded by lush green gardens. The sunny terrace allows you to watch the waves
-            during the day and sleep to their soothing sound at night.
-          </p>
-          <p>
-            Explore the exciting tourist attractions in the area and enjoy the guaranteed Spanish sunshine
-            all year round. Our property offers <b>free central air conditioning and heating</b>, <b>luxury
-            cotton linens</b>, and modern amenities such as a <b>washing machine, dryer, fast Wi-Fi</b>, and
-            a <b>65" 4K smart TV</b>. <b>Private parking</b> is also included.
-          </p>
-          <p id="availability">
-            Only a 40-minute drive from Malaga airport, this spot is perfect for a romantic, retirement,
-            or family holiday. Long-term rentals are welcome, allowing you to enjoy the sun during the
-            winter months. Check-in is made easy. Experience a truly remarkable getaway
-            - <b>get in touch now</b>!
-          </p>
+          <MainDetailsText />
 
           <div className='pt-5 mt-4 d-flex justify-content-center'>
             <button
@@ -171,7 +111,7 @@ export const HomePage = () => {
         </Col>
       </Row>
 
-      <Row className='d-md-none bg-black' style={{ minHeight: 15 }}></Row>
+      <Row className='d-md-none bg-black' style={{ minHeight: 15 }} />
 
       <Row className='mx-0'>
         <Col
@@ -185,61 +125,9 @@ export const HomePage = () => {
 
         <Col xs={12} md={6} style={{ background: '#fabe00', minHeight: 300 }}>
           <div className='app__neighborhood font-sm'>
-            <Container className='py-5 px-5'>
+            <Container className='py-5 px-4 px-lg-5'>
               <Col xs={12} className='text-center text-black mb-5'><h1>Points of Interest</h1></Col>
-              <p>There are plenty of nearby attractions to explore during your stay:</p>
-              <p>
-                The breathtaking town of <b>Nerja</b> and its famous <b>Balcony of Europe</b> offer stunning
-                views that will leave you in awe. Don't miss the chance to visit the <b>Nerja Crystal
-                Caves</b>, a must-see.
-              </p>
-              <p>
-                Take a leisurely stroll along the <b>Torrox-Costa Passeo</b>, a lovely promenade lined with
-                beach shops, bars, and restaurants. Experience the vibrant atmosphere of the <b>outdoor
-                street markets</b>, held in different villages every morning from 10am to 2pm. Torrox
-                hosts the market on Mondays, while Nerja is the place to be on Tuesdays.
-              </p>
-              <p>
-                For beach lovers, the best <b>sandy beaches stretch right in front of the complex</b>, from
-                Nerja to Torrox-Costa. <b>Burriana Beach in Nerja</b> is particularly popular and bustling
-                with tourists.
-              </p>
-              <p>
-                Adventurous souls can embark on the thrilling <b>Rio Chillar river walk</b> near Nerja. This
-                athletic and enjoyable activity is recommended with water-safe shoes and a walking stick,
-                although it can be done with rugged sandals or running shoes.
-              </p>
-              <p>
-                Take a short drive to <b>Torrox-Pueblo</b>, a unique old village nestled in the mountains.
-                For more picturesque beauty, head north to the stunning white-washed mountain village
-                of <b>Frigiliana</b>.
-              </p>
-              <p>
-                If you're up for a day trip, visit the <b>Alhambra Castle in Granada</b>, one of Spain's
-                main attractions. Make sure to order your tickets online in advance. For winter sports
-                enthusiasts, the <b>Sierra Nevada Mountain Ski Station</b> is a 90-minute drive north,
-                and offers excellent opportunities for winter sports. Visit the beach and mountain
-                on the same day!
-              </p>
-              <p>
-                <b>Ronda</b>, another charming mountain village to the north, boasts breathtaking views
-                from its iconic bridge spanning a deep gorge.
-              </p>
-              <p>
-                Explore <b>Malaga City</b>, where you'll find a combination of shopping opportunities
-                and the chance to hike the stunning <b>Caminito del Rey</b>. Remember to secure your
-                tickets online beforehand.
-              </p>
-              <p>
-                Nearby, you can enjoy family-friendly attractions such as the <b>Bioparc
-                Zoo</b>, <b>Aqualand</b>, <b>Tivoli World</b>, and <b>Aquavelis Water Parks</b>,
-                all conveniently located near Malaga.
-              </p>
-              <p id="gallery">
-                If you're up for a longer drive to the west, make a visit to <b>Marbella</b>
-                , <b>Puerto Banus</b>, <b>Cordoba</b>, <b>Seville</b>, and <b>Gibraltar</b>,
-                each offering its own distinct charm and attractions.
-              </p>
+              <PointsOfInterestText />
             </Container>
           </div>
         </Col>
