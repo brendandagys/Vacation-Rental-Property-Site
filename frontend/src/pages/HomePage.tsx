@@ -25,6 +25,7 @@ import { DescriptionModal } from '../components/DescriptionModal';
 import { PointsOfInterestText } from '../components/PointsOfInterestText';
 import { MainLanding } from '../components/MainLanding';
 import { MainDetailsText } from '../components/MainDetailsText';
+import { Video } from '../components/Video';
 
 export const HomePage = () => {
   const [ fromTo, setFromTo ] = useState<Nullable<string>>(null);
@@ -62,6 +63,8 @@ export const HomePage = () => {
           </div>
         </Container>
       </div>
+
+      <Video />
 
       <Container>
         {

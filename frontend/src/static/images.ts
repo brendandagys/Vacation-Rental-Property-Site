@@ -1,3 +1,5 @@
+export const tourVideo = 'https://spainluxury.holiday/images/tour.mov';
+
 // const balconySunset = { src: 'https://spainluxury.holiday/images/balcony-sunset.jpg', alt: 'balcony-sunset' };
 const lowerPool = { src: 'https://spainluxury.holiday/images/lower-pool.jpg', alt: 'lower-pool' };
 const secondBedroom = { src: 'https://spainluxury.holiday/images/second-bedroom.jpg', alt: 'second-bedroom' };
