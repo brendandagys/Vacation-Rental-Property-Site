@@ -24,7 +24,7 @@ export const MainLanding = ({ setShowBookingInquiryModal }: IMainLandingProps) =
         </button>
       </Col>
 
-      <Col id='book' xs={12} className='d-flex mb-5 justify-content-end'>
+      <Col id='book' xs={12} className='d-flex mb-5 justify-content-center'>
         <div className="app__contact-information">
           <h4>Contact us for more information about your next Spain holiday!</h4>
 
