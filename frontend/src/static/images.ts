@@ -6,16 +6,21 @@ const secondBedroom = { src: 'https://spainluxury.holiday/images/second-bedroom.
 const upperPoolAtNight = (
   { src: 'https://spainluxury.holiday/images/upper-pool-at-night.jpg', alt: 'upper-pool-at-night' }
 );
-export const terraceTableView = (
-  { src: 'https://spainluxury.holiday/images/terrace-table-view.jpeg', alt: 'terrace-table-view' }
-);
+// export const terraceTableView = (
+//   { src: 'https://spainluxury.holiday/images/terrace-table-view.jpeg', alt: 'terrace-table-view' }
+// );
 
-export const mainPhoto = terraceTableView;
-export const sunnyLunchView = (
-  { src: 'https://spainluxury.holiday/images/sunny-lunch-view.jpeg', alt: 'sunny-lunch-view' }
+export const mainImage = (
+  {
+    src: 'https://spainluxury.holiday/images/wide-view-from-terrace-table-cropped.jpg',
+    alt: 'wide-view-from-terrace-table',
+  }
 );
-export const sunnyLunchView2 = (
-  { src: 'https://spainluxury.holiday/images/sunny-lunch-view-2.jpeg', alt: 'sunny-lunch-view-2' }
+export const secondaryImage = (
+  { src: 'https://spainluxury.holiday/images/balcony-view-center.jpg', alt: 'balcony-view-center' }
+);
+export const tertiaryImage = (
+  { src: 'https://spainluxury.holiday/images/terrace-sunny-west-view.jpg', alt: 'terrace-sunny-west-view' }
 );
 
 export const images = [

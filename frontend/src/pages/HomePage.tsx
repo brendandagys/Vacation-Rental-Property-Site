@@ -5,10 +5,10 @@ import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 
 import {
-  mainPhoto,
   images,
-  sunnyLunchView,
-  sunnyLunchView2,
+  mainImage,
+  secondaryImage,
+  tertiaryImage,
 } from '../static/images';
 import { CalendarsContainer } from '../components/calendar-date/CalendarsContainer';
 import { BookingInquiryModal } from '../components/booking-inquiry/BookingInquiryModal';
@@ -25,7 +25,7 @@ import { DescriptionModal } from '../components/DescriptionModal';
 import { PointsOfInterestText } from '../components/PointsOfInterestText';
 import { MainLanding } from '../components/MainLanding';
 import { MainDetailsText } from '../components/MainDetailsText';
-import { Video } from '../components/Video';
+// import { Video } from '../components/Video';
 
 export const HomePage = () => {
   const [ fromTo, setFromTo ] = useState<Nullable<string>>(null);
@@ -41,7 +41,7 @@ export const HomePage = () => {
       <Navbar />
       <div
         style={{
-          backgroundImage: `url(${mainPhoto.src})`,
+          backgroundImage: `url(${mainImage.src})`,
           backgroundSize: 'cover',
           backgroundPosition: 'center',
         }}
@@ -64,7 +64,7 @@ export const HomePage = () => {
         </Container>
       </div>
 
-      <Video />
+      {/* <Video /> */}
 
       <Container>
         {
@@ -110,7 +110,7 @@ export const HomePage = () => {
           className='p-0 d-flex align-items-center'
           style={{ background: '#2a2d38', objectFit: 'cover' }}
         >
-          <img src={sunnyLunchView.src} width="100%" alt={sunnyLunchView.alt} />
+          <img src={secondaryImage.src} width="100%" alt={secondaryImage.alt} />
         </Col>
       </Row>
 
@@ -123,10 +123,15 @@ export const HomePage = () => {
           className='p-0 d-flex align-items-center'
           style={{ background: '#2a2d38', objectFit: 'cover' }}
         >
-          <img src={sunnyLunchView2.src} width="100%" alt={sunnyLunchView2.alt}></img>
+          <img src={tertiaryImage.src} width="100%" alt={tertiaryImage.alt}></img>
         </Col>
 
-        <Col xs={12} md={6} style={{ background: '#fabe00', minHeight: 300 }}>
+        <Col
+          xs={12}
+          md={6}
+          className="d-flex align-items-center"
+          style={{ background: '#fabe00', minHeight: 300 }}
+        >
           <div className='app__neighborhood font-sm'>
             <Container className='py-5 px-4 px-lg-5'>
               <Col xs={12} className='text-center text-black mb-5'><h1>Points of Interest</h1></Col>
