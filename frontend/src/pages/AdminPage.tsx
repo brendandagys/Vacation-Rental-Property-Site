@@ -25,7 +25,7 @@ export const AdminPage = () => {
             </Button>
 
             <Button
-              className='font-lg'
+              className='font-lg py-2 px-4'
               variant='danger'
               onClick={() => {
                 logOut();
