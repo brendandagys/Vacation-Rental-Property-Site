@@ -42,7 +42,7 @@ export const AdminPage = () => {
               <ManageCalendarDatesContainer />
             </Tab>
             <Tab eventKey="defaults" title="Defaults">
-              <ManageDefaultsContainer />
+              {/* <ManageDefaultsContainer /> */}
             </Tab>
           </Tabs>
         </Card>
