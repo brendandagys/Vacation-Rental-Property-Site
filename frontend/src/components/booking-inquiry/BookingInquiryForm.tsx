@@ -185,6 +185,7 @@ export const BookingInquiryForm = ({
 
                 setAdultCount(parseInt(value) || null);
               }}
+              style={{ fontSize: '16px' }}
             />
           </Col>
 
@@ -200,6 +201,7 @@ export const BookingInquiryForm = ({
 
                 setChildCount(parseInt(value) || null);
               }}
+              style={{ fontSize: '16px' }}
             />
           </Col>
         </Row>
