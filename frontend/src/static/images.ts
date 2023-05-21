@@ -16,6 +16,12 @@ export const mainImage = (
     alt: 'wide-view-from-terrace-table',
   }
 );
+export const mainImageMobile = (
+  {
+    src: 'https://spainluxury.holiday/images/wide-view-from-terrace-table-mobile.jpg',
+    alt: 'wide-view-from-terrace-table',
+  }
+);
 export const secondaryImage = (
   { src: 'https://spainluxury.holiday/images/balcony-view-center.jpg', alt: 'balcony-view-center' }
 );

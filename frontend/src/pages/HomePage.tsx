@@ -7,6 +7,7 @@ import Row from 'react-bootstrap/Row';
 import {
   images,
   mainImage,
+  mainImageMobile,
   secondaryImage,
   tertiaryImage,
 } from '../static/images';
@@ -25,6 +26,7 @@ import { DescriptionModal } from '../components/DescriptionModal';
 import { PointsOfInterestText } from '../components/PointsOfInterestText';
 import { MainLanding } from '../components/MainLanding';
 import { MainDetailsText } from '../components/MainDetailsText';
+import { useViewportWidth } from '../hooks/useViewportWidth';
 // import { Video } from '../components/Video';
 
 export const HomePage = () => {
@@ -36,12 +38,14 @@ export const HomePage = () => {
   const [ showDescriptionModal, setShowDescriptionModal ] = useState(false);
   const [ showPostSubmissionModal, setShowPostSubmissionModal ] = useState(false);
 
+  const width =  useViewportWidth();
+
   return (
     <div id="home" className='overflow-visible'>
       <Navbar />
       <div
         style={{
-          backgroundImage: `url(${mainImage.src})`,
+          backgroundImage: `url(${width >= 1100 ? mainImage.src : mainImageMobile.src})`,
           backgroundSize: 'cover',
           backgroundPosition: 'center',
         }}
