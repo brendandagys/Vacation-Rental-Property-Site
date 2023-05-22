@@ -6,15 +6,16 @@ import { ReactComponent as WhatsAppLogo } from '../static/icons/whatsapp.svg';
 
 interface IMainLandingProps {
   setShowBookingInquiryModal: Dispatch<SetStateAction<boolean>>;
+  width: number;
 }
 
-export const MainLanding = ({ setShowBookingInquiryModal }: IMainLandingProps) => (
+export const MainLanding = ({ setShowBookingInquiryModal, width }: IMainLandingProps) => (
   <Container fluid='md'>
     <Row className='flex-column justify-content-between pt-5' style={{ minHeight: 700 }}>
       <Col xs={12} className='d-flex justify-content-center'>
         <div className="app__welcome text-center">
           <h1>Calaceite FRONTLINE Vistamar</h1>
-          <h2>Luxury Holiday on the Sea</h2>
+          {width >= 1100 &&  <h2>Luxury Holiday on the Sea</h2>}
         </div>
       </Col>
 

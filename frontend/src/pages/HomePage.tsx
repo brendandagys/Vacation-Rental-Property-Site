@@ -50,7 +50,7 @@ export const HomePage = () => {
           backgroundPosition: 'center',
         }}
       >
-        <MainLanding setShowBookingInquiryModal={setShowBookingInquiryModal} />
+        <MainLanding setShowBookingInquiryModal={setShowBookingInquiryModal} width={width} />
       </div>
 
       <div className='app__description'>
@@ -118,7 +118,7 @@ export const HomePage = () => {
         </Col>
       </Row>
 
-      <Row className='d-md-none bg-black' style={{ minHeight: 15 }} />
+      <Row className='d-md-none bg-black mx-0' style={{ minHeight: 15 }} />
 
       <Row className='mx-0'>
         <Col
