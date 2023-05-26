@@ -27,7 +27,7 @@ import { PointsOfInterestText } from '../components/PointsOfInterestText';
 import { MainLanding } from '../components/MainLanding';
 import { MainDetailsText } from '../components/MainDetailsText';
 import { useViewportWidth } from '../hooks/useViewportWidth';
-// import { Video } from '../components/Video';
+import { Video } from '../components/Video';
 
 export const HomePage = () => {
   const [ fromTo, setFromTo ] = useState<Nullable<string>>(null);
@@ -38,7 +38,7 @@ export const HomePage = () => {
   const [ showDescriptionModal, setShowDescriptionModal ] = useState(false);
   const [ showPostSubmissionModal, setShowPostSubmissionModal ] = useState(false);
 
-  const width =  useViewportWidth();
+  const width = useViewportWidth();
 
   return (
     <div id="home" className='overflow-visible'>
@@ -68,7 +68,7 @@ export const HomePage = () => {
         </Container>
       </div>
 
-      {/* <Video /> */}
+      <Video />
 
       <Container>
         {

@@ -6,13 +6,14 @@ export const Video = () => {
 
   const setPlayback = () => {
     if (videoRef.current) {
-      (videoRef.current as { playbackRate: number }).playbackRate = 1.5;
+      (videoRef.current as { playbackRate: number }).playbackRate = 2;
     }
   };
 
   return (
     <div style={{ width: '100%', height: 450 }}>
       <video
+        controls
         autoPlay
         width="100%"
         height="100%"
