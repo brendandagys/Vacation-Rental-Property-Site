@@ -6,7 +6,7 @@ export const Video = () => {
 
   const setPlayback = () => {
     if (videoRef.current) {
-      (videoRef.current as { playbackRate: number }).playbackRate = 2;
+      (videoRef.current as { playbackRate: number }).playbackRate = 1.75;
     }
   };
 
