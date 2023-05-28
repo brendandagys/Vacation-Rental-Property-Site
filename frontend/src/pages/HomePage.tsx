@@ -30,13 +30,13 @@ import { useViewportWidth } from '../hooks/useViewportWidth';
 import { Video } from '../components/Video';
 
 export const HomePage = () => {
-  const [ fromTo, setFromTo ] = useState<Nullable<string>>(null);
-  const [ numDatesSelected, setNumDatesSelected ] = useState(0);
-  const [ subtotal, setSubtotal ] = useState<Nullable<number>>(null);
+  const [fromTo, setFromTo] = useState<Nullable<string>>(null);
+  const [numDatesSelected, setNumDatesSelected] = useState(0);
+  const [subtotal, setSubtotal] = useState<Nullable<number>>(null);
 
-  const [ showBookingInquiryModal, setShowBookingInquiryModal ] = useState(false);
-  const [ showDescriptionModal, setShowDescriptionModal ] = useState(false);
-  const [ showPostSubmissionModal, setShowPostSubmissionModal ] = useState(false);
+  const [showBookingInquiryModal, setShowBookingInquiryModal] = useState(false);
+  const [showDescriptionModal, setShowDescriptionModal] = useState(false);
+  const [showPostSubmissionModal, setShowPostSubmissionModal] = useState(false);
 
   const width = useViewportWidth();
 
@@ -127,7 +127,7 @@ export const HomePage = () => {
           className='p-0 d-flex align-items-center'
           style={{ background: '#2a2d38', objectFit: 'cover' }}
         >
-          <img src={tertiaryImage.src} width="100%" alt={tertiaryImage.alt}></img>
+          <img src={tertiaryImage.src} width="100%" alt={tertiaryImage.alt} />
         </Col>
 
         <Col
@@ -138,14 +138,16 @@ export const HomePage = () => {
         >
           <div className='app__neighborhood font-sm'>
             <Container className='py-5 px-4 px-lg-5'>
-              <Col xs={12} className='text-center text-black mb-5'><h1>More Details</h1></Col>
+              <Col xs={12} className='text-center mb-5'><h1>More Details</h1></Col>
               <PointsOfInterestText />
             </Container>
           </div>
         </Col>
       </Row>
 
-      <Row className='py-5 bg-black mx-0'><Col xs={12}><ImageGallery images={images} /></Col></Row>
+      <Row className="image-gallery-container py-5 mx-0">
+        <Col xs={12}><ImageGallery images={images} /></Col>
+      </Row>
 
       <Row id="testimonials" className='py-5 px-5 mx-0 justify-content-center testimonials-container'>
         <Col xs={12} className='text-center text-white mb-5'><h1>Testimonials</h1></Col>

@@ -18,7 +18,7 @@ export const ImageGallery = ({ images }: ImageGalleryProps) => {
 
   return (
     <div>
-      <Col xs={12} className='text-center text-white mb-5'><h1 className='font-5xl'>Gallery</h1></Col>
+      <Col xs={12} className='text-center text-black mb-5'><h1 className='font-5xl'>Gallery</h1></Col>
       <br />
       {
         showModal && (

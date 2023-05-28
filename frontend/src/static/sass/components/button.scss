@@ -37,12 +37,14 @@
 }
 
 .button--light {
-  background: #fff;
-  border: 2px solid #0b55a7;
+  background: $color-spain-yellow;
+  border: 2px solid $color-black;
   color: $color-black;
   transition: all 0.225s ease-in-out;
   
   &:hover {
-    border: 2px solid $color-white;
+    background: $color-spain-red;
+    border: 2px solid $color-black;
+    color: $color-white;
   }
 }
