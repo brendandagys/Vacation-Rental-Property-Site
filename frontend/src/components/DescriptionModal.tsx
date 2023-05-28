@@ -17,7 +17,7 @@ export const DescriptionModal = ({ show, setShow }: IDescriptionModalProps) => (
       <Container className="rounded px-4 description-modal">
         <Row>
           <div className='pl-2'>
-            <p><b>Welcome to Fuerte Calaceite FRONTLINE Vistamar! Luxury Holiday on the Sea!</b></p>
+            <p className="text-black font-2xl mb-4"><b>Welcome to Fuerte Calaceite FRONTLINE Vistamar! Luxury Holiday on the Sea!</b></p>
             <ul>
               <li>Torrox Costa - Nerja - located in the Costa del Sol near Malaga airport</li>
               <li>Beautiful newer build frontline 2 bedrooms, 2 bathrooms apartment located in a lovely Resort</li>

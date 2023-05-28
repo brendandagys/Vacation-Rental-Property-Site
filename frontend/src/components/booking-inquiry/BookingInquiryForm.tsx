@@ -1,5 +1,5 @@
 import { Dispatch, SetStateAction, useEffect, useMemo, useState } from 'react';
-import { Col, Form, Row } from 'react-bootstrap';
+import { Container, Col, Form, Row, Table } from 'react-bootstrap';
 import { Nullable } from '../../types';
 import { IBookingInquiryPutRequest } from '../../types/bookingInquiry';
 
@@ -78,7 +78,7 @@ export const BookingInquiryForm = ({
 
   return (
     <Form className='inquiry-form'>
-      {/* <Container>
+      <Container>
         {
           (fromTo && numDatesSelected && subtotal)
             ? (
@@ -97,26 +97,32 @@ export const BookingInquiryForm = ({
                       <td>{numDatesSelected} day{numDatesSelected === 1 ? '' : 's'}</td>
                       <td className="text-center">€{subtotal}</td>
                     </tr>
+                    <tr>
+                      <td>Cleaning fee</td>
+                      <td className="text-center">€100</td>
+                    </tr>
                     {
                       extraLinensCount > 0 &&
-                  <tr>
-                    <td>{extraLinensCount} additional linen package{extraLinensCount === 1 ? '' : 's'}</td>
-                    <td className="text-center">€{(-2 + adultAndChildrenTotal) * 16}</td>
-                  </tr>
+                      <tr>
+                        <td>
+                          {extraLinensCount} additional linen package{extraLinensCount === 1 ? '' : 's'}
+                        </td>
+                        <td className="text-center">€{(-2 + adultAndChildrenTotal) * 16}</td>
+                      </tr>
                     }
                   </tbody>
                   {
                     adultAndChildrenTotal > 2 &&
-                  <caption className='text-muted font-2xs'>
-                    Two linen packages are included free with every stay.
-                  </caption>
+                    <caption className='text-muted font-2xs'>
+                      Two linen packages are included free with every stay.
+                    </caption>
                   }
                 </Table>
               </>
             )
             : null
         }
-      </Container> */}
+      </Container>
 
       <Form.Group className="mb-4 pt-3">
         <Form.Label>*Email</Form.Label>
