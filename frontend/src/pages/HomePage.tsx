@@ -62,7 +62,7 @@ export const HomePage = () => {
               onClick={() => setShowDescriptionModal(true)}
               className="button button--light button--small"
             >
-              More details
+              Things to do on your trip
             </button>
           </div>
         </Container>
@@ -138,7 +138,7 @@ export const HomePage = () => {
         >
           <div className='app__neighborhood font-sm'>
             <Container className='py-5 px-4 px-lg-5'>
-              <Col xs={12} className='text-center text-black mb-5'><h1>Points of Interest</h1></Col>
+              <Col xs={12} className='text-center text-black mb-5'><h1>More Details</h1></Col>
               <PointsOfInterestText />
             </Container>
           </div>
