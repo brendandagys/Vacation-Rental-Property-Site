@@ -1,8 +1,8 @@
 export const MainDetailsText = () => (
   <>
     <p>
-      Indulge in luxury and serenity at our exquisite coastal retreat. Located in the Nerja and
-      Torrox-Costa region of <b>Costa del Sol, Spain</b>, our property offers an amazing <b>180°
+      Indulge in luxury and serenity at this exquisite coastal retreat. Located in the Nerja and
+      Torrox-Costa region of <b>Costa del Sol, Spain</b>, this property offers an amazing <b>180°
       first-line south-facing sea view</b> of the Alboran Sea and mountains. <b>Walk to the sandy
       El Penoncillo Beach</b>, enjoy the fully equipped and well-maintained suite with <b>2 bedrooms,
       2 bathrooms</b>, and a fully stocked kitchen. Relax by the <b>two large outdoor
@@ -11,7 +11,7 @@ export const MainDetailsText = () => (
     </p>
     <p>
       Explore the exciting tourist attractions in the area and enjoy the guaranteed Spanish sunshine
-      all year round. Our property offers <b>free central air conditioning and heating</b>, <b>luxury
+      all year round. This property offers <b>free central air conditioning and heating</b>, <b>luxury
       cotton linens</b>, and modern amenities such as a <b>washing machine, dryer, fast Wi-Fi</b>, and
       a <b>65" 4K smart TV</b>. <b>Private parking</b> is also included.
     </p>
