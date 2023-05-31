@@ -1,7 +1,7 @@
 .image-gallery-container {
   background: #87ceeb;
   border-top: 3px solid $color-black;
-  border-bottom: 3px solid slategray;
+  border-bottom: 3px solid $color-black;
 }
 
 .gallery-wrap {
@@ -20,7 +20,7 @@
 
     img {
       max-width: 100%;
-      border: 3px solid black;
+      border: 2px solid black;
     }
 
     img:hover {
