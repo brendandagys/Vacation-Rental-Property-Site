@@ -24,7 +24,7 @@ export const Video = () => {
         onCanPlay={setPlayback}
         ref={videoRef}
       >
-        <source src={tourVideo} type="video/quicktime" />
+        <source src={tourVideo} type="video/mp4" />
         Your browser does not support the video tag.
       </video>
     </div>
