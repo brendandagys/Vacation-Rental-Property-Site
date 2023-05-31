@@ -2,12 +2,12 @@
 import { Dispatch, SetStateAction } from 'react';
 import { Button, Container, Modal, Row } from 'react-bootstrap';
 
-interface IDescriptionModalProps {
+interface IPointsOfInterestModalProps {
   setShow: Dispatch<SetStateAction<boolean>>;
   show: boolean;
 }
 
-export const DescriptionModal = ({ show, setShow }: IDescriptionModalProps) => (
+export const PointsOfInterestModal = ({ show, setShow }: IPointsOfInterestModalProps) => (
   <Modal size='xl' show={show} onHide={() => setShow(false)}>
     <Modal.Header closeButton style={{ background: '#f0f0f0', paddingLeft: 22 }}>
       <Modal.Title><span className="text-black">Points of Interest</span></Modal.Title>

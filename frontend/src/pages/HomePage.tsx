@@ -22,12 +22,12 @@ import { Amenities } from '../components/Amenities';
 import { ImageGallery } from '../components/ImageGallery';
 import { Navbar } from '../components/Navbar';
 import { TestimonialsContainer } from '../components/TestimonialsContainer';
-import { DescriptionModal } from '../components/DescriptionModal';
-import { PointsOfInterestText } from '../components/PointsOfInterestText';
 import { MainLanding } from '../components/MainLanding';
 import { MainDetailsText } from '../components/MainDetailsText';
 import { useViewportWidth } from '../hooks/useViewportWidth';
 import { Video } from '../components/Video';
+import { MoreDetailsText } from '../components/MoreDetailsText';
+import { PointsOfInterestModal } from '../components/PointsOfInterestModal';
 
 export const HomePage = () => {
   const [fromTo, setFromTo] = useState<Nullable<string>>(null);
@@ -35,7 +35,7 @@ export const HomePage = () => {
   const [subtotal, setSubtotal] = useState<Nullable<number>>(null);
 
   const [showBookingInquiryModal, setShowBookingInquiryModal] = useState(false);
-  const [showDescriptionModal, setShowDescriptionModal] = useState(false);
+  const [showPointsOfInterestModal, setShowPointsOfInterestModal] = useState(false);
   const [showPostSubmissionModal, setShowPostSubmissionModal] = useState(false);
 
   const width = useViewportWidth();
@@ -59,7 +59,7 @@ export const HomePage = () => {
 
           <div className='pt-5 mt-4 d-flex justify-content-center'>
             <button
-              onClick={() => setShowDescriptionModal(true)}
+              onClick={() => setShowPointsOfInterestModal(true)}
               className="button button--light button--small"
             >
               Things to do on your trip
@@ -105,7 +105,11 @@ export const HomePage = () => {
           className='p-4 pt-5 p-lg-5 d-flex align-items-center'
           style={{ background: '#af0d12', minHeight: 300 }}
         >
-          <Amenities />
+
+          <div className='font-sm text-white'>
+            <Col xs={12} className='mb-5 text-center'><h1>More Details</h1></Col>
+            <MoreDetailsText />
+          </div>
         </Col>
 
         <Col
@@ -136,11 +140,8 @@ export const HomePage = () => {
           className="d-flex align-items-center"
           style={{ background: '#fabe00', minHeight: 300 }}
         >
-          <div className='app__neighborhood font-sm'>
-            <Container className='py-5 px-4 px-lg-5'>
-              <Col xs={12} className='text-center mb-5'><h1>More Details</h1></Col>
-              <PointsOfInterestText />
-            </Container>
+          <div className='app__neighborhood py-5 px-4 px-lg-5'>
+            <Amenities />
           </div>
         </Col>
       </Row>
@@ -179,7 +180,7 @@ export const HomePage = () => {
         subtotal={subtotal}
       />
 
-      <DescriptionModal show={showDescriptionModal} setShow={setShowDescriptionModal} />
+      <PointsOfInterestModal show={showPointsOfInterestModal} setShow={setShowPointsOfInterestModal} />
 
       <PostSubmissionModal
         setShow={setShowPostSubmissionModal}

@@ -1,4 +1,4 @@
-export const PointsOfInterestText = () => (
+export const MoreDetailsText = () => (
   <>
     <ul>
       <li>Torrox Costa - Nerja - located in the Costa del Sol near Malaga airport</li>
