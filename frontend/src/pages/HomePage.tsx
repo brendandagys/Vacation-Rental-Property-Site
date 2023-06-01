@@ -28,6 +28,7 @@ import { useViewportWidth } from '../hooks/useViewportWidth';
 import { Video } from '../components/Video';
 import { MoreDetailsText } from '../components/MoreDetailsText';
 import { PointsOfInterestModal } from '../components/PointsOfInterestModal';
+import { TextContainer } from '../components/TextContainer';
 
 export const HomePage = () => {
   const [fromTo, setFromTo] = useState<Nullable<string>>(null);
@@ -108,7 +109,9 @@ export const HomePage = () => {
 
           <div className='font-sm text-white'>
             <Col xs={12} className='mb-5 text-center'><h1>More Details</h1></Col>
-            <MoreDetailsText />
+            <TextContainer>
+              <MoreDetailsText />
+            </TextContainer>
           </div>
         </Col>
 
