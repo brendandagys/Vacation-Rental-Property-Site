@@ -29,12 +29,16 @@ export const tertiaryImage = (
   { src: 'https://spainluxury.holiday/images/terrace-sunny-west-view.jpg', alt: 'terrace-sunny-west-view' }
 );
 
+export const seaViewDaytime = (
+  { src: 'https://spainluxury.holiday/images/sea-view-daytime.jpg', alt: 'sea-view-daytime' }
+);
+
 export const images = [
   {
     src: 'https://spainluxury.holiday/images/balcony-west-view-captioned.jpg',
     alt: 'balcony-west-view-captioned',
   },
-  { src: 'https://spainluxury.holiday/images/sea-view-daytime.jpg', alt: 'sea-view-daytime' },
+  seaViewDaytime,
   { src: 'https://spainluxury.holiday/images/sea-view.webp', alt: 'sea-view' },
   { src: 'https://spainluxury.holiday/images/balcony-west-view.jpg', alt: 'balcony-west-view' },
   {

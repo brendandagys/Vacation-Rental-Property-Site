@@ -1,14 +1,14 @@
 .button {
-  background-color: #c60c30;
+  background: #c60c30;
   border-radius: 50px;
-  border: 2px solid #fff;
-  color: #fff;
+  border: 2px solid $color-white;
+  color: $color-white;
   font-size: 1.4rem;
   padding: 15px 30px;
   transition: all 0.2s ease-in-out;
   
   &:hover {
-    background-color: $theme-yellow;
+    background: $theme-yellow;
     color: $color-black;
   }
   
@@ -27,12 +27,29 @@
 }
 
 .button--blue {
-  background-color: dodgerblue;
+  background: dodgerblue;
   color: white;
 
   &:hover {
-    background-color: #61a9f0;
+    background: #61a9f0;
     color: #fff;
+  }
+}
+
+.button--green {
+  background: #9bdc9c;
+  border: 2px solid $color-black;
+  color: $color-black;
+}
+
+.button--yellow {
+  background: #ffd157;
+  border: 2px solid $color-black;
+  color: $color-black;
+
+  &:hover {
+    background: #c60c30; 
+    color: $color-white;
   }
 }
 

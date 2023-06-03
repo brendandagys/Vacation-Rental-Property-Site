@@ -40,7 +40,7 @@ export const Amenities = () => {
 
   return (
     <Container>
-      <Col xs={12} className='text-center text-white mb-5'><h1>Amenities</h1></Col>
+      <Col xs={12} className='text-center text-black mb-5'><h1>Amenities</h1></Col>
       <Row className="justify-content-start">
         {
           amenities.map((amenity, index) => (

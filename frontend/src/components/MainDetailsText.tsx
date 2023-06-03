@@ -1,25 +1,35 @@
 export const MainDetailsText = () => (
   <>
     <p>
-      Indulge in luxury and serenity at this exquisite coastal retreat. Located in the Nerja and
-      Torrox-Costa region of <b>Costa del Sol, Spain</b>, this property offers an amazing <b>180°
-      first-line south-facing sea view</b> of the Alboran Sea and mountains. <b>Walk to the sandy
-      El Penoncillo Beach</b>, enjoy the fully equipped and well-maintained suite with <b>2 bedrooms,
-      2 bathrooms</b>, and a fully stocked kitchen. Relax by the <b>two large outdoor
-      pools</b> surrounded by lush green gardens. The sunny terrace allows you to watch the waves
-      during the day and sleep to their soothing sound at night.
+      Indulge in luxury and serenity at this exquisite coastal retreat
+      located near Nerja and Torrox-Costa in the <b>Costa del Sol, Spain</b>.
+      This property offers a spectacular <b>180° FIRSTLINE southwest-facing
+      sea view</b> of the Alboran Sea and mountains. <b>Walk to
+      the sandy El Penoncillo Beach</b> and enjoy lunch at one of the many
+      chiringuitos. Enjoy this well-maintained modern <b>2-bedroom, 2-bathroom
+      apartment</b> with a gourmet fully-equipped kitchen with new Bosch
+      appliances. Relax by one of the <b>TWO beautiful large outdoor
+      pools</b> surrounded by lush green gardens. <b>Watch the waves</b> all
+      day from the sunny terrace with its fabulous view overlooking the sea,
+      and then sleep to their soothing sound at night.
     </p>
+
     <p>
-      Explore the exciting tourist attractions in the area and enjoy the guaranteed Spanish sunshine
-      all year round. This property offers <b>free central air conditioning and heating</b>, <b>luxury
-      cotton linens</b>, and modern amenities such as a <b>washing machine, dryer, fast Wi-Fi</b>, and
-      a <b>65" 4K smart TV</b>. <b>Private parking</b> is also included.
+      This property offers <b>FREE central air conditioning and heating,
+      100% cotton luxury linens packages</b>, and modern amenities such as
+      a <b>washing machine</b>, <b>dryer</b>, <b>dishwasher</b>, <b>FREE fast Wi-Fi</b>, and
+      a <b>65" 4K Smart Television with Netflix</b>. <b>Private
+      parking</b> very close to the entrance elevator, in a sheltered garage,
+      is also included.
     </p>
+
     <p id="availability">
-      Only a 40-minute drive from Malaga airport, this spot is perfect for a romantic, retirement,
-      or family holiday. Long-term rentals are welcome, allowing you to enjoy the sun during the
-      winter months. Check-in is made easy. Experience a truly remarkable getaway
-      - <b>get in touch now</b>!
+      Explore the exciting tourist attractions in the area and enjoy the
+      guaranteed Spanish sunshine all year round! Only a 40-minute drive
+      from Malaga airport, this spot is perfect for romantic, retirement,
+      or family holidays. <b>Long-term rentals are welcome</b>, allowing you
+      to enjoy the sun during the winter months. Check-in is fast and easy.
+      Experience a truly remarkable getaway!
     </p>
   </>
 );

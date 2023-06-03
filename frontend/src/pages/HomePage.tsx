@@ -8,6 +8,7 @@ import {
   images,
   mainImage,
   mainImageMobile,
+  seaViewDaytime,
   secondaryImage,
   tertiaryImage,
 } from '../static/images';
@@ -27,17 +28,16 @@ import { MainDetailsText } from '../components/MainDetailsText';
 import { useViewportWidth } from '../hooks/useViewportWidth';
 import { Video } from '../components/Video';
 import { MoreDetailsText } from '../components/MoreDetailsText';
-import { PointsOfInterestModal } from '../components/PointsOfInterestModal';
 import { TextContainer } from '../components/TextContainer';
+import { AttractionsText } from '../components/AttractionsText';
 
 export const HomePage = () => {
-  const [fromTo, setFromTo] = useState<Nullable<string>>(null);
-  const [numDatesSelected, setNumDatesSelected] = useState(0);
-  const [subtotal, setSubtotal] = useState<Nullable<number>>(null);
+  const [ fromTo, setFromTo ] = useState<Nullable<string>>(null);
+  const [ numDatesSelected, setNumDatesSelected ] = useState(0);
+  const [ subtotal, setSubtotal ] = useState<Nullable<number>>(null);
 
-  const [showBookingInquiryModal, setShowBookingInquiryModal] = useState(false);
-  const [showPointsOfInterestModal, setShowPointsOfInterestModal] = useState(false);
-  const [showPostSubmissionModal, setShowPostSubmissionModal] = useState(false);
+  const [ showBookingInquiryModal, setShowBookingInquiryModal ] = useState(false);
+  const [ showPostSubmissionModal, setShowPostSubmissionModal ] = useState(false);
 
   const width = useViewportWidth();
 
@@ -57,15 +57,6 @@ export const HomePage = () => {
       <div className='app__description'>
         <Container className='px-5' style={{ paddingTop: '3.75rem', paddingBottom: '3.75rem' }}>
           <MainDetailsText />
-
-          <div className='pt-5 mt-4 d-flex justify-content-center'>
-            <button
-              onClick={() => setShowPointsOfInterestModal(true)}
-              className="button button--light button--small"
-            >
-              Things to do on your trip
-            </button>
-          </div>
         </Container>
       </div>
 
@@ -104,11 +95,10 @@ export const HomePage = () => {
           xs={12}
           md={6}
           className='p-4 pt-5 p-lg-5 d-flex align-items-center'
-          style={{ background: '#af0d12', minHeight: 300 }}
+          style={{ background: '#af0d12' }}
         >
-
-          <div className='font-sm text-white'>
-            <Col xs={12} className='mb-5 text-center'><h1>More Details</h1></Col>
+          <div className='font-sm text-white more-details-container'>
+            <Col xs={12} className='mb-5 text-center'><h1>Details</h1></Col>
             <TextContainer>
               <MoreDetailsText />
             </TextContainer>
@@ -140,12 +130,41 @@ export const HomePage = () => {
         <Col
           xs={12}
           md={6}
-          className="d-flex align-items-center"
-          style={{ background: '#fabe00', minHeight: 300 }}
+          className="d-flex align-items-center justify-content-center"
+          style={{ background: '#ffd157' }}
         >
           <div className='app__neighborhood py-5 px-4 px-lg-5'>
-            <Amenities />
+            <TextContainer buttonColor='yellow'>
+              <Amenities />
+            </TextContainer>
           </div>
+        </Col>
+      </Row>
+
+      <Row className='d-md-none bg-black mx-0' style={{ minHeight: 15 }} />
+
+      <Row id="information" className='mx-0'>
+        <Col
+          xs={12}
+          md={6}
+          className='py-5 py-md-4 px-md-5 d-flex align-items-center'
+          style={{ background: '#9bdc9c' }}
+        >
+          <div className='font-sm text-black'>
+            <Col xs={12} className='mb-5 text-center'><h1>Attractions</h1></Col>
+            <TextContainer buttonColor='green'>
+              <AttractionsText />
+            </TextContainer>
+          </div>
+        </Col>
+
+        <Col
+          xs={12}
+          md={6}
+          className='p-0 d-flex align-items-center'
+          style={{ background: '#2a2d38', objectFit: 'cover' }}
+        >
+          <img src={seaViewDaytime.src} width="100%" alt={seaViewDaytime.alt} />
         </Col>
       </Row>
 
@@ -182,8 +201,6 @@ export const HomePage = () => {
         show={showBookingInquiryModal}
         subtotal={subtotal}
       />
-
-      <PointsOfInterestModal show={showPointsOfInterestModal} setShow={setShowPointsOfInterestModal} />
 
       <PostSubmissionModal
         setShow={setShowPostSubmissionModal}
