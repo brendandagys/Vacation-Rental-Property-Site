@@ -95,9 +95,9 @@ export const HomePage = () => {
           xs={12}
           md={6}
           className="d-flex align-items-center pb-4 pt-4 px-4 px-sm-5 px-md-3 px-lg-4 px-xl-5"
-          style={{ background: '#e3625c' }}
+          style={{ background: '#dc3830' }}
         >
-          <div className='font-sm text-white more-details-container'>
+          <div className='font-sm text-white more-details-container py-3 py-sm-0'>
             <Col xs={12} className='mb-5 text-center'><h1>Details</h1></Col>
             <TextContainer buttonColor='red'>
               <MoreDetailsText />
@@ -132,7 +132,7 @@ export const HomePage = () => {
             pb-4 pt-4 px-4 px-sm-5 px-md-3 px-lg-5"
           style={{ background: '#ffd157' }}
         >
-          <div className='app__neighborhood'>
+          <div className='app__neighborhood py-3 py-sm-0'>
             <TextContainer buttonColor='yellow' buttonText='See all'>
               <Amenities />
             </TextContainer>
@@ -147,7 +147,7 @@ export const HomePage = () => {
           className="d-flex align-items-center pb-4 pt-4 px-4 px-sm-5 px-md-4 px-lg-5"
           style={{ background: '#9bdc9c' }}
         >
-          <div className='font-sm text-black'>
+          <div className='font-sm text-black py-3 py-sm-0'>
             <Col xs={12} className='mb-5 text-center'><h1>Attractions</h1></Col>
             <TextContainer buttonColor='green' buttonText='More attractions'>
               <AttractionsText />
