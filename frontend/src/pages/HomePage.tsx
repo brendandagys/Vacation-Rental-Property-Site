@@ -94,12 +94,12 @@ export const HomePage = () => {
         <Col
           xs={12}
           md={6}
-          className='p-4 pt-5 p-lg-5 d-flex align-items-center'
-          style={{ background: '#af0d12' }}
+          className="d-flex align-items-center pb-4 pt-4 px-4 px-sm-5 px-md-3 px-lg-4 px-xl-5"
+          style={{ background: '#e3625c' }}
         >
           <div className='font-sm text-white more-details-container'>
             <Col xs={12} className='mb-5 text-center'><h1>Details</h1></Col>
-            <TextContainer>
+            <TextContainer buttonColor='red'>
               <MoreDetailsText />
             </TextContainer>
           </div>
@@ -115,9 +115,7 @@ export const HomePage = () => {
         </Col>
       </Row>
 
-      <Row className='d-md-none bg-black mx-0' style={{ minHeight: 15 }} />
-
-      <Row className='mx-0'>
+      <Row className='mx-0 flex-column-reverse flex-md-row'>
         <Col
           xs={12}
           md={6}
@@ -130,29 +128,28 @@ export const HomePage = () => {
         <Col
           xs={12}
           md={6}
-          className="d-flex align-items-center justify-content-center"
+          className="d-flex align-items-center justify-content-center
+            pb-4 pt-4 px-4 px-sm-5 px-md-3 px-lg-5"
           style={{ background: '#ffd157' }}
         >
-          <div className='app__neighborhood py-5 px-4 px-lg-5'>
-            <TextContainer buttonColor='yellow'>
+          <div className='app__neighborhood'>
+            <TextContainer buttonColor='yellow' buttonText='See all'>
               <Amenities />
             </TextContainer>
           </div>
         </Col>
       </Row>
 
-      <Row className='d-md-none bg-black mx-0' style={{ minHeight: 15 }} />
-
       <Row id="information" className='mx-0'>
         <Col
           xs={12}
           md={6}
-          className='py-5 py-md-4 px-md-5 d-flex align-items-center'
+          className="d-flex align-items-center pb-4 pt-4 px-4 px-sm-5 px-md-4 px-lg-5"
           style={{ background: '#9bdc9c' }}
         >
           <div className='font-sm text-black'>
             <Col xs={12} className='mb-5 text-center'><h1>Attractions</h1></Col>
-            <TextContainer buttonColor='green'>
+            <TextContainer buttonColor='green' buttonText='More attractions'>
               <AttractionsText />
             </TextContainer>
           </div>
