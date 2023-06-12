@@ -7,7 +7,7 @@ export const AttractionsText = () => (
         Caves</b>, a must-see.
     </p>
     <p>
-      Take a leisurely stroll along the <b>Torrox-Costa Passeo</b>, a lovely promenade lined with
+      Take a leisurely stroll along the <b>Torrox-Costa Paseo</b>, a lovely promenade lined with
       beach shops, bars, and restaurants. Experience the vibrant atmosphere of the <b>outdoor
         street markets</b>, held in different villages every morning from 10am to 2pm. Torrox
       hosts the market on Mondays, while Nerja is the place to be on Tuesdays.
