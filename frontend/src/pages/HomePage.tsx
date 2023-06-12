@@ -133,9 +133,7 @@ export const HomePage = () => {
           style={{ background: '#ffd157' }}
         >
           <div className='app__neighborhood py-3 py-sm-0'>
-            <TextContainer buttonColor='yellow' buttonText='See all'>
-              <Amenities />
-            </TextContainer>
+            <Amenities />
           </div>
         </Col>
       </Row>
