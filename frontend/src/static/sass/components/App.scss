@@ -19,6 +19,13 @@
     }
   }
 
+  &__calendar-headers {
+    p {
+      color: $color-white;
+      text-shadow: 1px 1px 1px #7393b3;
+    }
+  }
+
   &__contact-information {
     background: rgba(51, 51, 51, .85);
     border-radius: 11px;
@@ -45,7 +52,6 @@
   }
 
   &__description {
-    background: #87ceeb;
     color: $color-black;
     font-weight: 350;
     line-height: $line-height-lg;
@@ -66,7 +72,7 @@
   }
 
   &__footer {
-    background: #2a2d38;
+    background: #1f222a;
     height: 500px;
     padding: 4.5rem 0 3rem;
   }
@@ -88,8 +94,12 @@
   }
 }
 
-.more-details-container {
-  li {
-    margin-bottom: 4px;
+.details {
+  background: $theme-red-l;
+
+  &__container {
+    li {
+      margin-bottom: 4px;
+    }
   }
 }

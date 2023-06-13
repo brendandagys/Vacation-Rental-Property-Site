@@ -67,8 +67,8 @@ export const HomePage = () => {
           window.location.pathname !== '/admin' &&
           <Row className='mt-5'>
             <Col xs={12}>
-              <div className='text-center text-white mb-5'>
-                <h1>Calendar</h1>
+              <div className="app__calendar-headers text-center mb-5">
+                <h1 className="text-black font-4xl">Calendar</h1>
                 <p className='font-sm mt-4'>Select a date range below to begin an inquiry</p>
               </div>
 
@@ -90,14 +90,13 @@ export const HomePage = () => {
         }
       </Container>
 
-      <Row id="information" className='mx-0' style={{ marginTop: '5rem' }}>
+      <Row id="information" className='mx-0 details' style={{ marginTop: '5rem' }}>
         <Col
           xs={12}
           md={6}
           className="d-flex align-items-center pb-4 pt-4 px-4 px-sm-5 px-md-3 px-lg-4 px-xl-5"
-          style={{ background: '#dc3830' }}
         >
-          <div className='font-sm text-white more-details-container py-3 py-sm-0'>
+          <div className='font-sm text-white details__container py-3 py-sm-0'>
             <Col xs={12} className='mb-5 text-center'><h1>Details</h1></Col>
             <TextContainer buttonColor='red'>
               <MoreDetailsText />
@@ -168,7 +167,7 @@ export const HomePage = () => {
       </Row>
 
       <Row id="testimonials" className='py-5 px-5 mx-0 justify-content-center testimonials-container'>
-        <Col xs={12} className='text-center text-white mb-5'><h1>Testimonials</h1></Col>
+        <Col xs={12} className='text-center text-white mb-5'><h1 className="font-4xl">Testimonials</h1></Col>
 
         <TestimonialsContainer />
       </Row>
