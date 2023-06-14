@@ -32,12 +32,12 @@ import { TextContainer } from '../components/TextContainer';
 import { AttractionsText } from '../components/AttractionsText';
 
 export const HomePage = () => {
-  const [ fromTo, setFromTo ] = useState<Nullable<string>>(null);
-  const [ numDatesSelected, setNumDatesSelected ] = useState(0);
-  const [ subtotal, setSubtotal ] = useState<Nullable<number>>(null);
+  const [fromTo, setFromTo] = useState<Nullable<string>>(null);
+  const [numDatesSelected, setNumDatesSelected] = useState(0);
+  const [subtotal, setSubtotal] = useState<Nullable<number>>(null);
 
-  const [ showBookingInquiryModal, setShowBookingInquiryModal ] = useState(false);
-  const [ showPostSubmissionModal, setShowPostSubmissionModal ] = useState(false);
+  const [showBookingInquiryModal, setShowBookingInquiryModal] = useState(false);
+  const [showPostSubmissionModal, setShowPostSubmissionModal] = useState(false);
 
   const width = useViewportWidth();
 
@@ -55,8 +55,12 @@ export const HomePage = () => {
       </div>
 
       <div className='app__description'>
-        <Container className='px-5' style={{ paddingTop: '3.75rem', paddingBottom: '3.75rem' }}>
-          <MainDetailsText />
+        <Container>
+          <Row className="justify-content-center">
+            <Col lg={9}>
+              <MainDetailsText />
+            </Col>
+          </Row>
         </Container>
       </div>
 
