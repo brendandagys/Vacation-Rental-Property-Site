@@ -5,7 +5,7 @@
   color: $color-black;
   font-size: 1.4rem;
   padding: 15px 30px;
-  transition: all 0.2s ease-in-out;
+  transition: all 0.15s ease-in-out;
   
   &:hover {
     background: #c60c30;
@@ -49,9 +49,13 @@
 }
 
 .button--green {
-  background: #9bdc9c;
-  border: 2px solid $color-black;
-  color: $color-black;
+  background: #8bc68c;
+  border: 2px solid $color-white;
+  color: $color-white;
+
+  &:hover {
+    background: #7cb07c;
+  }
 }
 
 .button--yellow {

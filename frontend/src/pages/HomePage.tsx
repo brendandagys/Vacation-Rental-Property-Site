@@ -8,9 +8,9 @@ import {
   images,
   mainImage,
   mainImageMobile,
-  seaViewDaytime,
   secondaryImage,
   tertiaryImage,
+  upperPoolAtNightCropped,
 } from '../static/images';
 import { CalendarsContainer } from '../components/calendar-date/CalendarsContainer';
 import { BookingInquiryModal } from '../components/booking-inquiry/BookingInquiryModal';
@@ -146,9 +146,9 @@ export const HomePage = () => {
           xs={12}
           md={6}
           className="d-flex align-items-center pb-4 pt-4 px-4 px-sm-5 px-md-4 px-lg-5"
-          style={{ background: '#9bdc9c' }}
+          style={{ background: '#8bc68c', textShadow: '.5px .5px .5px gray' }}
         >
-          <div className='font-sm text-black py-3 py-sm-0'>
+          <div className='font-sm text-white py-3 py-sm-0'>
             <Col xs={12} className='mb-5 text-center'><h1>Attractions</h1></Col>
             <TextContainer buttonColor='green' buttonText='More attractions'>
               <AttractionsText />
@@ -162,7 +162,7 @@ export const HomePage = () => {
           className='p-0 d-flex align-items-center'
           style={{ background: '#2a2d38', objectFit: 'cover' }}
         >
-          <img src={seaViewDaytime.src} width="100%" alt={seaViewDaytime.alt} />
+          <img src={upperPoolAtNightCropped.src} width="100%" alt={upperPoolAtNightCropped.alt} />
         </Col>
       </Row>
 
