@@ -100,7 +100,7 @@ export const HomePage = () => {
           md={6}
           className="d-flex align-items-center pb-4 pt-4 px-4 px-sm-5 px-md-3 px-lg-4 px-xl-5"
         >
-          <div className='font-sm text-white details__container py-3 py-sm-0'>
+          <div className='font-sm text-black details__container py-3 py-sm-0'>
             <Col xs={12} className='mb-5 text-center'><h1>Details</h1></Col>
             <TextContainer buttonColor='red'>
               <MoreDetailsText />
@@ -146,9 +146,10 @@ export const HomePage = () => {
           xs={12}
           md={6}
           className="d-flex align-items-center pb-4 pt-4 px-4 px-sm-5 px-md-4 px-lg-5"
-          style={{ background: '#8bc68c', textShadow: '.5px .5px .5px gray' }}
+          style={{ background: '#8bc68c' }}
+          // style={{ background: '#8bc68c', textShadow: '.5px .5px .5px gray' }}
         >
-          <div className='font-sm text-white py-3 py-sm-0'>
+          <div className='font-sm text-black py-3 py-sm-0'>
             <Col xs={12} className='mb-5 text-center'><h1>Attractions</h1></Col>
             <TextContainer buttonColor='green' buttonText='More attractions'>
               <AttractionsText />

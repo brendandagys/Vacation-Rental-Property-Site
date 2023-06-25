@@ -42,8 +42,8 @@ export const Amenities = () => {
     <Container>
       <Col
         xs={12}
-        className='text-center text-white mb-5'
-        style={{ textShadow: '.5px .5px .5px gray' }}
+        className='text-center text-black mb-5'
+        // style={{ textShadow: '.5px .5px .5px gray' }}
       >
         <h1>Amenities</h1>
       </Col>

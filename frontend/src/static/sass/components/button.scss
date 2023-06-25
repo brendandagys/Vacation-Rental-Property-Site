@@ -1,5 +1,5 @@
 .button {
-  background: $theme-yellow;
+  background: $theme-yellow-light;
   border-radius: 50px;
   border: 2px solid $color-white;
   color: $color-black;
@@ -45,12 +45,17 @@
 
 .button--red {
   background: $theme-red-l;
+  border: 2px solid $color-black;
   color: $color-white;
+
+  &:hover {
+    color: $color-white;
+  }
 }
 
 .button--green {
   background: #8bc68c;
-  border: 2px solid $color-white;
+  border: 2px solid $color-black;
   color: $color-white;
 
   &:hover {
