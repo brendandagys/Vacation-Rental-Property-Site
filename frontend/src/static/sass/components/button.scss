@@ -32,14 +32,13 @@
 
 .button--blue {
   background: $color-blue-d;
+  border: 2px solid $color-black;
   color: $color-white;
-  text-shadow: 1px 1px .75px gray;
+  text-shadow: 1px 1px .75px black;
 
   &:hover {
-    //background: #4d8be1;
-    background: #6198e4;
-    color: $color-white;
-    text-shadow: 1px 1px .75px gray;
+    background: #3472c7;
+    text-shadow: 1px 1px .75px black;
   }
 }
 
