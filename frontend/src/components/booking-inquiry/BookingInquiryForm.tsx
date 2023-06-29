@@ -97,10 +97,10 @@ export const BookingInquiryForm = ({
                       <td>{numDatesSelected} day{numDatesSelected === 1 ? '' : 's'}</td>
                       <td className="text-center">€{subtotal}</td>
                     </tr>
-                    <tr>
+                    {/* <tr>
                       <td>Cleaning fee</td>
                       <td className="text-center">€100</td>
-                    </tr>
+                    </tr> */}
                     {
                       extraLinensCount > 0 &&
                       <tr>
