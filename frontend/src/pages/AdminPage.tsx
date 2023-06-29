@@ -37,12 +37,12 @@ export const AdminPage = () => {
           </Col>
         </Row>
         <Card className='p-3 pb-4'>
-          <Tabs defaultActiveKey="defaults" className="mb-3">
+          <Tabs defaultActiveKey="calendar-dates" className="mb-3">
             <Tab eventKey="calendar-dates" title="Calendar Dates">
               <ManageCalendarDatesContainer />
             </Tab>
             <Tab eventKey="defaults" title="Defaults">
-              {/* <ManageDefaultsContainer /> */}
+              <ManageDefaultsContainer />
             </Tab>
           </Tabs>
         </Card>
