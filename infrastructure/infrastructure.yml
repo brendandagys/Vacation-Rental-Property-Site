@@ -294,7 +294,7 @@ Resources:
       SubjectAlternativeNames:
         - !Sub www.${Domain}
         - !Sub api.${Domain}
-        - !Sub api.www.${Domain}
+        - !Sub test.${Domain}
       DomainValidationOptions:
         - DomainName: !Ref Domain
           HostedZoneId: !Ref HostedZoneId
@@ -302,7 +302,7 @@ Resources:
           HostedZoneId: !Ref HostedZoneId
         - DomainName: !Sub api.${Domain}
           HostedZoneId: !Ref HostedZoneId
-        - DomainName: !Sub api.www.${Domain}
+        - DomainName: !Sub test.${Domain}
           HostedZoneId: !Ref HostedZoneId
       ValidationMethod: DNS
 
