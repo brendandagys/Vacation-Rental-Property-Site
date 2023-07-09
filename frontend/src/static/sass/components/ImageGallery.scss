@@ -1,11 +1,10 @@
 .image-gallery-container {
-  background: #87ceeb;
-  // border-top: 3px solid $color-black;
-  // border-bottom: 3px solid $color-black;
+  // background: #87ceeb;
+  background: url("../../backgrounds/stacked-waves-haikei.svg");
+  padding-bottom: 3rem;
 }
 
 .gallery-wrap {
-  background: #87ceeb;
   display: flex;
   flex-wrap: wrap;
   gap: 12px;

@@ -32,12 +32,12 @@ import { TextContainer } from '../components/TextContainer';
 import { AttractionsText } from '../components/AttractionsText';
 
 export const HomePage = () => {
-  const [fromTo, setFromTo] = useState<Nullable<string>>(null);
-  const [numDatesSelected, setNumDatesSelected] = useState(0);
-  const [subtotal, setSubtotal] = useState<Nullable<number>>(null);
+  const [ fromTo, setFromTo ] = useState<Nullable<string>>(null);
+  const [ numDatesSelected, setNumDatesSelected ] = useState(0);
+  const [ subtotal, setSubtotal ] = useState<Nullable<number>>(null);
 
-  const [showBookingInquiryModal, setShowBookingInquiryModal] = useState(false);
-  const [showPostSubmissionModal, setShowPostSubmissionModal] = useState(false);
+  const [ showBookingInquiryModal, setShowBookingInquiryModal ] = useState(false);
+  const [ showPostSubmissionModal, setShowPostSubmissionModal ] = useState(false);
 
   const width = useViewportWidth();
 
@@ -72,7 +72,7 @@ export const HomePage = () => {
           <Row className='mt-5'>
             <Col xs={12}>
               <div className="app__calendar-headers text-center mb-5">
-                <h1 className="text-black font-4xl">Calendar</h1>
+                <h1 className="text-black font-5xl">Calendar</h1>
                 <p className='font-sm mt-4'>Select a date range below to begin an inquiry</p>
               </div>
 
@@ -102,7 +102,7 @@ export const HomePage = () => {
         >
           <div className='font-sm text-black details__container py-3 py-sm-0'>
             <Col xs={12} className='mb-5 text-center'><h1>Details</h1></Col>
-            <TextContainer buttonColor='red'>
+            <TextContainer buttonColor='yellow'>
               <MoreDetailsText />
             </TextContainer>
           </div>
@@ -133,7 +133,7 @@ export const HomePage = () => {
           md={6}
           className="d-flex align-items-center justify-content-center
             pb-4 pt-4 px-4 px-sm-5 px-md-3 px-lg-5"
-          style={{ background: '#ffd157' }}
+          style={{ background: '#dc3830' }}
         >
           <div className='app__neighborhood py-3 py-sm-0'>
             <Amenities />
@@ -146,12 +146,11 @@ export const HomePage = () => {
           xs={12}
           md={6}
           className="d-flex align-items-center pb-4 pt-4 px-4 px-sm-5 px-md-4 px-lg-5"
-          style={{ background: '#8bc68c' }}
-          // style={{ background: '#8bc68c', textShadow: '.5px .5px .5px gray' }}
+          style={{ background: '#ffd157' }}
         >
           <div className='font-sm text-black py-3 py-sm-0'>
             <Col xs={12} className='mb-5 text-center'><h1>Attractions</h1></Col>
-            <TextContainer buttonColor='green' buttonText='More attractions'>
+            <TextContainer buttonColor='yellow' buttonText='More attractions'>
               <AttractionsText />
             </TextContainer>
           </div>
@@ -167,12 +166,12 @@ export const HomePage = () => {
         </Col>
       </Row>
 
-      <Row className="image-gallery-container py-5 mx-0">
+      <Row className="image-gallery-container pt-5 mx-0">
         <Col xs={12}><ImageGallery images={images} /></Col>
       </Row>
 
       <Row id="testimonials" className='py-5 px-5 mx-0 justify-content-center testimonials-container'>
-        <Col xs={12} className='text-center text-white mb-5'><h1 className="font-4xl">Testimonials</h1></Col>
+        <Col xs={12} className='text-center text-white mb-5'><h1 className="font-5xl">Testimonials</h1></Col>
 
         <TestimonialsContainer />
       </Row>
