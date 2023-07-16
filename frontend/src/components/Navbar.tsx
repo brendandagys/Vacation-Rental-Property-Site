@@ -1,7 +1,7 @@
 import { Nav } from 'react-bootstrap';
 import { scroller } from 'react-scroll';
 
-const scrollTo = (to: string, offset = 0) => {
+export const scrollTo = (to: string, offset = 0) => {
   scroller.scrollTo(to, { smooth: true, spy: true, offset });
 };
 

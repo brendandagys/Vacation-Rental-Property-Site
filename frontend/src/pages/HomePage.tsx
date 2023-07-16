@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { scrollTo } from '../components/Navbar';
 
 import Col from 'react-bootstrap/Col';
 import Container from 'react-bootstrap/Container';
@@ -187,6 +188,11 @@ export const HomePage = () => {
           height="92%"
           loading="lazy"
         />
+
+        <button className="button button--small mb-1 mt-5" onClick={() => scrollTo('home')}>
+          Back to top
+        </button>
+
         <div className='mt-5 mb-5'>
           <p className='font-xs app__copyright'>
             <FontAwesomeIcon icon={faCopyright} /> 2023 All rights reserved
