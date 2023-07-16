@@ -15,7 +15,7 @@ export const MainLanding = ({ setShowBookingInquiryModal, width }: IMainLandingP
       <Col xs={12} className='d-flex justify-content-center'>
         <div className="app__welcome text-center">
           <h1>Calaceite FRONTLINE Vistamar</h1>
-          {width >= 1100 &&  <h2>Luxury Holiday on the Sea</h2>}
+          {width >= 1100 && <h2>Luxury Holiday on the Sea</h2>}
         </div>
       </Col>
 
@@ -25,7 +25,7 @@ export const MainLanding = ({ setShowBookingInquiryModal, width }: IMainLandingP
         </button>
       </Col>
 
-      <Col id='book' xs={12} className='d-flex mb-5 justify-content-center'>
+      <Col xs={12} className='d-flex mb-5 justify-content-center'>
         <div className="app__contact-information">
           <h4>Contact us for more information about your next Spain holiday!</h4>
 

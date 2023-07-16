@@ -48,7 +48,7 @@ export const AttractionsText = () => (
         Zoo</b>, <b>Aqualand</b>, <b>Tivoli World</b>, and <b>Aquavelis Water Parks</b>,
       all conveniently located near Malaga.
     </p>
-    <p id="gallery">
+    <p>
       If you're up for a longer drive to the west, make a visit to <b>Marbella</b>
       , <b>Puerto Banus</b>, <b>Cordoba</b>, <b>Seville</b>, and <b>Gibraltar</b>,
       each offering its own distinct charm and attractions.

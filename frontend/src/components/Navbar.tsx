@@ -1,29 +1,34 @@
 import { Nav } from 'react-bootstrap';
+import { scroller } from 'react-scroll';
+
+const scrollTo = (to: string, offset = 0) => {
+  scroller.scrollTo(to, { smooth: true, spy: true, offset });
+};
 
 export const Navbar = () => (
   <div className="nav-container">
-    <Nav className="navbar" justify>
-      <Nav.Item>
-        <Nav.Link href="#home">Home</Nav.Link>
-      </Nav.Item>
-      <Nav.Item>
-        <Nav.Link href="#book">Book</Nav.Link>
-      </Nav.Item>
-      <Nav.Item>
-        <Nav.Link href="#availability">Calendar</Nav.Link>
-      </Nav.Item>
-      <Nav.Item>
-        <Nav.Link href="#information">Information</Nav.Link>
-      </Nav.Item>
-      <Nav.Item>
-        <Nav.Link href="#gallery">Gallery</Nav.Link>
-      </Nav.Item>
-      <Nav.Item>
-        <Nav.Link href="#testimonials">Testimonials</Nav.Link>
-      </Nav.Item>
-      <Nav.Item>
-        <Nav.Link href="#map">Map</Nav.Link>
-      </Nav.Item>
+    <Nav className="navbar">
+      <div>
+        <p className="nav-link" onClick={() => scrollTo('home')}>Home</p>
+      </div>
+      <div>
+        <p className="nav-link" onClick={() => scrollTo('tour', -50)}>Tour</p>
+      </div>
+      <div>
+        <p className="nav-link" onClick={() => scrollTo('calendar', -80)}>Calendar</p>
+      </div>
+      <div>
+        <p className="nav-link" onClick={() => scrollTo('information', -35)}>Information</p>
+      </div>
+      <div>
+        <p className="nav-link" onClick={() => scrollTo('gallery', -50)}>Gallery</p>
+      </div>
+      <div>
+        <p className="nav-link" onClick={() => scrollTo('testimonials', -50)}>Testimonials</p>
+      </div>
+      <div>
+        <p className="nav-link" onClick={() => scrollTo('map')}>Map</p>
+      </div>
     </Nav>
   </div>
 );

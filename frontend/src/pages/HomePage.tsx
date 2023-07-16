@@ -32,12 +32,12 @@ import { TextContainer } from '../components/TextContainer';
 import { AttractionsText } from '../components/AttractionsText';
 
 export const HomePage = () => {
-  const [ fromTo, setFromTo ] = useState<Nullable<string>>(null);
-  const [ numDatesSelected, setNumDatesSelected ] = useState(0);
-  const [ subtotal, setSubtotal ] = useState<Nullable<number>>(null);
+  const [fromTo, setFromTo] = useState<Nullable<string>>(null);
+  const [numDatesSelected, setNumDatesSelected] = useState(0);
+  const [subtotal, setSubtotal] = useState<Nullable<number>>(null);
 
-  const [ showBookingInquiryModal, setShowBookingInquiryModal ] = useState(false);
-  const [ showPostSubmissionModal, setShowPostSubmissionModal ] = useState(false);
+  const [showBookingInquiryModal, setShowBookingInquiryModal] = useState(false);
+  const [showPostSubmissionModal, setShowPostSubmissionModal] = useState(false);
 
   const width = useViewportWidth();
 
@@ -64,33 +64,36 @@ export const HomePage = () => {
         </Container>
       </div>
 
-      <Video />
+      <div id="tour">
+        <Video />
+      </div>
 
       <Container>
         {
-          window.location.pathname !== '/admin' &&
-          <Row className='mt-5'>
-            <Col xs={12}>
-              <div className="app__calendar-headers text-center mb-5">
-                <h1 className="text-black font-5xl">Calendar</h1>
-                <p className='font-sm mt-4'>Select a date range below to begin an inquiry</p>
-              </div>
+          window.location.pathname !== '/admin' && (
+            <Row id="calendar" className='mt-5'>
+              <Col xs={12}>
+                <div className="app__calendar-headers text-center mb-5">
+                  <h1 className="text-black font-5xl">Calendar</h1>
+                  <p className='font-sm mt-4'>Select a date range below to begin an inquiry</p>
+                </div>
 
-              <CalendarsContainer
-                onDateRangeCleared={() => { setFromTo(null); setNumDatesSelected(0); }}
-                onDateRangeSelected={
-                  (from, to) => {
-                    setFromTo(`${mapCalendarDateToYmd(from)} - ${mapCalendarDateToYmd(to)}`);
-                    setNumDatesSelected(
-                      getDatesInRange(mapCalendarDateToDate(from), mapCalendarDateToDate(to)).length
-                    );
-                    setShowBookingInquiryModal(true);
+                <CalendarsContainer
+                  onDateRangeCleared={() => { setFromTo(null); setNumDatesSelected(0); }}
+                  onDateRangeSelected={
+                    (from, to) => {
+                      setFromTo(`${mapCalendarDateToYmd(from)} - ${mapCalendarDateToYmd(to)}`);
+                      setNumDatesSelected(
+                        getDatesInRange(mapCalendarDateToDate(from), mapCalendarDateToDate(to)).length
+                      );
+                      setShowBookingInquiryModal(true);
+                    }
                   }
-                }
-                setSubtotal={setSubtotal}
-              />
-            </Col>
-          </Row>
+                  setSubtotal={setSubtotal}
+                />
+              </Col>
+            </Row>
+          )
         }
       </Container>
 
@@ -166,7 +169,7 @@ export const HomePage = () => {
         </Col>
       </Row>
 
-      <Row className="image-gallery-container pt-5 mx-0">
+      <Row id="gallery" className="image-gallery-container pt-5 mx-0">
         <Col xs={12}><ImageGallery images={images} /></Col>
       </Row>
 
