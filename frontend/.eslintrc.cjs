@@ -23,7 +23,7 @@ module.exports = {
     "@typescript-eslint/no-unused-vars": "warn",
     "@typescript-eslint/semi": "warn",
     "@typescript-eslint/type-annotation-spacing": "warn",
-    "array-bracket-spacing": [ "warn", "always" ],
+    "array-bracket-spacing": [ "warn", "never" ],
     "brace-style": [ "warn", "1tbs", { allowSingleLine: true } ],
     "comma-dangle": [ "warn", "always-multiline" ],
     "comma-spacing": [ "warn", { before: false, after: true } ],
