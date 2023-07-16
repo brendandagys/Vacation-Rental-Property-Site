@@ -1,13 +1,10 @@
 import { useState, useEffect } from 'react';
 
 export const useViewportWidth = (): number => {
-  const [ width, setWidth ] = useState(window.innerWidth);
+  const [width, setWidth] = useState(window.innerWidth);
 
   useEffect(() => {
-    const handleResize = () => {
-      setWidth(window.innerWidth);
-    };
-
+    const handleResize = () => { setWidth(window.innerWidth); };
     window.addEventListener('resize', handleResize);
 
     // Clean up the event listener on unmount
