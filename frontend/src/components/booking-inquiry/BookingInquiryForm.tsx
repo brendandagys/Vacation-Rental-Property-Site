@@ -16,28 +16,29 @@ export const BookingInquiryForm = ({
   setPutRequest,
   subtotal,
 }: IBookingInquiryFormProps) => {
-  const [ email, setEmail ] = useState('');
-  const [ fromTo ] = useState<Nullable<string>>(_fromTo ?? null);
-  const [ last, setLast ] = useState('');
-  const [ first, setFirst ] = useState('');
-  const [ phone, setPhone ] = useState('');
-  const [ adultCount, setAdultCount ] = useState<Nullable<number>>(null);
-  const [ childCount, setChildCount ] = useState<Nullable<number>>(null);
-  const [ message, setMessage ] = (
+  const [email, setEmail] = useState('');
+  const [fromTo] = useState<Nullable<string>>(_fromTo ?? null);
+  const [last, setLast] = useState('');
+  const [first, setFirst] = useState('');
+  const [phone, setPhone] = useState('');
+  const [adultCount, setAdultCount] = useState<Nullable<number>>(null);
+  const [childCount, setChildCount] = useState<Nullable<number>>(null);
+  const [message, setMessage] = (
     useState(
-      `I am interested in booking this property${
-        fromTo ? ` from ${fromTo.split(' - ')[0]} to ${fromTo.split(' - ')[1]}` : ''
+      `I am interested in booking this property${fromTo
+        ? ` from ${fromTo.split(' - ')[0]} to ${fromTo.split(' - ')[1]}`
+        : ''
       }. Please contact me with some additional information.`
     )
   );
 
   const adultAndChildrenTotal = useMemo(() => (
     (adultCount ?? 0) + (childCount ?? 0)
-  ), [ adultCount, childCount ]);
+  ), [adultCount, childCount]);
 
   const extraLinensCount = useMemo(() => (
     adultAndChildrenTotal > 2 ? adultAndChildrenTotal - 2 : 0
-  ), [ adultAndChildrenTotal ]);
+  ), [adultAndChildrenTotal]);
 
   useEffect(() => {
     const hasMandatoryFields = email && last && first && message && adultCount && adultCount > 0;
@@ -125,12 +126,12 @@ export const BookingInquiryForm = ({
       </Container>
 
       <Form.Group className="mb-4 pt-3">
-        <Form.Label>*Email</Form.Label>
+        <Form.Label style={{ fontSize: 18 }}>*Email</Form.Label>
         <Form.Control
           required
           value={email}
           onChange={({ target: { value } }) => { setEmail(value); }}
-          style={{ fontSize: '16px' }}
+          style={{ fontSize: '18px', height: 40 }}
         />
         <Form.Text className="font-xs text-muted">
           We'll never share your information with anyone else.
@@ -140,26 +141,26 @@ export const BookingInquiryForm = ({
       <Form.Group className="mb-4">
         <Row>
           <Col xs={6}>
-            <Form.Label>*Last</Form.Label>
+            <Form.Label style={{ fontSize: 18 }}>*Last</Form.Label>
             <Form.Control
               required
               value={last}
               onChange={({ target: { value } }) => {
                 setLast(value);
               }}
-              style={{ fontSize: '16px' }}
+              style={{ fontSize: '18px', height: 40 }}
             />
           </Col>
 
           <Col xs={6}>
-            <Form.Label>*First</Form.Label>
+            <Form.Label style={{ fontSize: 18 }}>*First</Form.Label>
             <Form.Control
               required
               value={first}
               onChange={({ target: { value } }) => {
                 setFirst(value);
               }}
-              style={{ fontSize: '16px' }}
+              style={{ fontSize: '18px', height: 40 }}
             />
           </Col>
         </Row>
@@ -169,18 +170,18 @@ export const BookingInquiryForm = ({
       <Form.Group className="mb-4">
         <Row>
           <Col xs={6}>
-            <Form.Label>Phone</Form.Label>
+            <Form.Label style={{ fontSize: 18 }}>Phone</Form.Label>
             <Form.Control
               value={phone}
               onChange={({ target: { value } }) => {
                 setPhone(value);
               }}
-              style={{ fontSize: '16px' }}
+              style={{ fontSize: '18px', height: 40 }}
             />
           </Col>
 
           <Col xs={3}>
-            <Form.Label>Adults</Form.Label>
+            <Form.Label style={{ fontSize: 18 }}>Adults</Form.Label>
             <Form.Control
               type="number"
               value={adultCount ?? ''}
@@ -191,12 +192,12 @@ export const BookingInquiryForm = ({
 
                 setAdultCount(parseInt(value) || null);
               }}
-              style={{ fontSize: '16px' }}
+              style={{ fontSize: '18px', height: 40 }}
             />
           </Col>
 
           <Col xs={3}>
-            <Form.Label>Children</Form.Label>
+            <Form.Label style={{ fontSize: 18 }}>Children</Form.Label>
             <Form.Control
               type="number"
               value={childCount ?? ''}
@@ -207,7 +208,7 @@ export const BookingInquiryForm = ({
 
                 setChildCount(parseInt(value) || null);
               }}
-              style={{ fontSize: '16px' }}
+              style={{ fontSize: '18px', height: 40 }}
             />
           </Col>
         </Row>
@@ -215,7 +216,7 @@ export const BookingInquiryForm = ({
       </Form.Group>
 
       <Form.Group className="mb-4">
-        <Form.Label>*Message</Form.Label>
+        <Form.Label style={{ fontSize: 18 }}>*Message</Form.Label>
         <Form.Control
           required
           as="textarea"
@@ -224,7 +225,7 @@ export const BookingInquiryForm = ({
           }}
           rows={5}
           value={message}
-          style={{ fontSize: '16px' }}
+          style={{ fontSize: '18px' }}
         />
       </Form.Group>
     </Form>
