@@ -1,14 +1,18 @@
 .app {
   &__welcome {
     color: white;
-    // color: $color-spain-red;
     
     h1 {
       @extend .font-7xl;
       font-family: 'Handlee', arial;
       font-weight: 600;
       text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+      
+      @media screen and (min-width: 768px) {
+        font-size: 6.5rem;  
+      }
     }
+
     
     h2 {
       @extend .font-6xl;
