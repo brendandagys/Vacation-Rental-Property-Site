@@ -20,22 +20,22 @@ import {
 
 export const Amenities = () => {
   const amenities = [
-    { icon: faSun, label: 'Sunny south terrace' },
-    { icon: faWaterLadder, label: '2 outdoor pools' },
-    { icon: faParking, label: 'Private parking' },
-    { icon: faTv, label: '65" 4K smart TV' },
-    { icon: faUmbrellaBeach, label: 'Beach access' },
-    { icon: faWifi, label: 'Fast Wi-Fi Internet' },
-    { icon: faSnowflake, label: 'Air conditioning' },
-    { icon: faFire, label: 'Central heating' },
-    { icon: faSoap, label: 'Washing machine' },
-    { icon: faWind, label: 'Drying machine' },
-    { icon: faSpoon, label: 'Fully stocked kitchen' },
-    { icon: faFireBurner, label: 'Bosch appliances' },
-    { icon: faCoffee, label: 'Nespresso machine' },
-    { icon: faCoffee, label: 'Drip coffee machine' },
-    { icon: faBook, label: 'Reading materials' },
-    { icon: faUtensils, label: 'Dishes & cutlery' },
+    { icon: faSun, label: 'Sunny south terrace', color: '#ff851b' },
+    { icon: faWaterLadder, label: '2 outdoor pools', color: '#7fdbff' },
+    { icon: faParking, label: 'Private parking', color: '' },
+    { icon: faTv, label: '65" 4K smart TV', color: '' },
+    { icon: faUmbrellaBeach, label: 'Beach access', color: '#ff851b' },
+    { icon: faWifi, label: 'Fast Wi-Fi Internet', color: '#30aee3' },
+    { icon: faSnowflake, label: 'Air conditioning', color: 'blue' },
+    { icon: faFire, label: 'Central heating', color: 'red' },
+    { icon: faSoap, label: 'Washing machine', color: '#2ecc40' },
+    { icon: faWind, label: 'Drying machine', color: '' },
+    { icon: faSpoon, label: 'Fully stocked kitchen', color: '' },
+    { icon: faFireBurner, label: 'Bosch appliances', color: 'red' },
+    { icon: faCoffee, label: 'Nespresso machine', color: '#311a13' },
+    { icon: faCoffee, label: 'Drip coffee machine', color: '#311a13' },
+    { icon: faBook, label: 'Reading materials', color: '#001f3f' },
+    { icon: faUtensils, label: 'Dishes & cutlery', color: 'gray' },
   ];
 
   return (
@@ -48,12 +48,17 @@ export const Amenities = () => {
       </Col>
       <Row className="justify-content-start">
         {
-          amenities.map((amenity, index) => (
+          amenities.map(({ color, icon, label }, index) => (
             <Col key={index} xs={6} sm={4} md={6} lg={4} xxl={3} className="mb-4">
               <Card className="amenity-card">
                 <Card.Body className="d-flex align-items-center">
-                  <FontAwesomeIcon icon={amenity.icon} size="2x" className="mr-3 amenity-icon" />
-                  <span>{amenity.label}</span>
+                  <FontAwesomeIcon
+                    icon={icon}
+                    size="2x"
+                    className="mr-3 amenity-icon"
+                    style={{ color: color || 'black' }}
+                  />
+                  <span>{label}</span>
                 </Card.Body>
               </Card>
             </Col>
