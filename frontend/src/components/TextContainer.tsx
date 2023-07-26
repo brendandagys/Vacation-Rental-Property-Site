@@ -1,4 +1,5 @@
 import { ReactNode, useState } from 'react';
+import { getText } from '../static/text';
 
 interface ITextContainerProps {
   buttonColor?: 'blue' | 'green' | 'red' | 'yellow';
@@ -7,7 +8,7 @@ interface ITextContainerProps {
 }
 
 export const TextContainer = ({ buttonColor, buttonText, children }: ITextContainerProps) => {
-  const [ expanded, setExpanded ] = useState(false);
+  const [expanded, setExpanded] = useState(false);
 
   return (
     <>
@@ -22,7 +23,11 @@ export const TextContainer = ({ buttonColor, buttonText, children }: ITextContai
           className={`button button--small button--${buttonColor ?? ''}`}
           onClick={() => setExpanded((old) => !old)}
         >
-          {expanded ? 'Close' : buttonText ?? 'Read more'}
+          {
+            expanded
+              ? getText('text-container-close-button')
+              : buttonText ?? getText('text-container-read-more-button')
+          }
         </button>
       </div>
     </>

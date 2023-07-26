@@ -3,6 +3,7 @@ import { CalendarsContainer } from './CalendarsContainer';
 import { getDatesInRange, mapCalendarDateToDate, mapCalendarDateToYmd } from '../../api/calendarsContainer';
 import { Dispatch, SetStateAction } from 'react';
 import { Nullable } from '../../types';
+import { getText } from '../../static/text';
 
 interface CalendarsProps {
   setFromTo: Dispatch<SetStateAction<Nullable<string>>>;
@@ -24,8 +25,8 @@ export const Calendars = ({
           <Row id="calendar" className='mt-5'>
             <Col xs={12}>
               <div className="app__calendar-headers text-center mb-5">
-                <h1 className="text-black font-5xl">Calendar</h1>
-                <p className='font-sm mt-4'>Select a date range below to begin an inquiry</p>
+                <h1 className="text-black font-5xl">{getText('calendar-title')}</h1>
+                <p className='font-sm mt-4'>{getText('calendar-subtitle')}</p>
               </div>
 
               <CalendarsContainer

@@ -3,6 +3,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Dispatch, SetStateAction } from 'react';
 import { Container, Row, Col } from 'react-bootstrap';
 import { ReactComponent as WhatsAppLogo } from '../static/icons/whatsapp.svg';
+import { getText } from '../static/text';
 
 interface IMainLandingProps {
   setShowBookingInquiryModal: Dispatch<SetStateAction<boolean>>;
@@ -14,20 +15,20 @@ export const MainLandingForeground = ({ setShowBookingInquiryModal, width }: IMa
     <Row className='flex-column justify-content-between pt-5' style={{ minHeight: 700 }}>
       <Col xs={12} className='d-flex justify-content-center'>
         <div className="app__welcome text-center">
-          <h1>Calaceite FRONTLINE Vistamar</h1>
-          {width >= 1100 && <h2>Luxury Holiday on the Sea</h2>}
+          <h1>{getText('main-landing-title')}</h1>
+          {width >= 1100 && <h2>{getText('main-landing-subtitle')}</h2>}
         </div>
       </Col>
 
       <Col xs={12} className='text-center mb-auto' style={{ marginTop: '4rem' }}>
         <button onClick={() => setShowBookingInquiryModal(true)} className="button button--shadow">
-          Reserve Now
+          {getText('main-landing-button')}
         </button>
       </Col>
 
       <Col xs={12} className='d-flex mb-5 justify-content-center'>
         <div className="app__contact-information">
-          <h4>Contact us for more information about your next Spain holiday!</h4>
+          <h4>{getText('main-landing-call-to-action')}</h4>
 
           <h5 className='mt-3'>
             <Row className='justify-content-between'>

@@ -2,6 +2,7 @@ import { Dispatch, SetStateAction, useEffect, useMemo, useState } from 'react';
 import { Container, Col, Form, Row, Table } from 'react-bootstrap';
 import { Nullable } from '../../types';
 import { IBookingInquiryPutRequest } from '../../types/bookingInquiry';
+import { getText } from '../../static/text';
 
 interface IBookingInquiryFormProps {
   fromTo: Nullable<string>;
@@ -25,10 +26,14 @@ export const BookingInquiryForm = ({
   const [childCount, setChildCount] = useState<Nullable<number>>(null);
   const [message, setMessage] = (
     useState(
-      `I am interested in booking this property${fromTo
-        ? ` from ${fromTo.split(' - ')[0]} to ${fromTo.split(' - ')[1]}`
+      `${(getText('inquiry-modal-message-placeholder-1') || '').toString()}${fromTo
+        ? (
+          ` ${(getText('inquiry-modal-message-placeholder-from') || '').toString()
+          } ${fromTo.split(' - ')[0]} ${(getText('inquiry-modal-message-placeholder-to') || '').toString()
+          } ${fromTo.split(' - ')[1]}`
+        )
         : ''
-      }. Please contact me with some additional information.`
+      }. ${(getText('inquiry-modal-message-placeholder-2') || '').toString()}`
     )
   );
 
@@ -84,18 +89,22 @@ export const BookingInquiryForm = ({
           (fromTo && numDatesSelected && subtotal)
             ? (
               <>
-                <h5 className='text-center mb-2'><b>Booking Fees</b></h5>
+                <h5 className='text-center mb-2'><b>{getText('inquiry-modal-booking-fees')}</b></h5>
                 <Table striped bordered hover className='inquiry-fee-table mb-5 w-75 mx-auto'>
                   <thead>
                     <tr>
-                      <th>Item</th>
-                      <th className="text-center">Fee</th>
+                      <th>{getText('inquiry-modal-item')}</th>
+                      <th className="text-center">{getText('inquiry-modal-fee')}</th>
                     </tr>
                   </thead>
 
                   <tbody>
                     <tr>
-                      <td>{numDatesSelected} day{numDatesSelected === 1 ? '' : 's'}</td>
+                      <td>{numDatesSelected} {
+                        numDatesSelected === 1
+                          ? getText('inquiry-modal-day')
+                          : getText('inquiry-modal-days')
+                      }</td>
                       <td className="text-center">€{subtotal}</td>
                     </tr>
                     {/* <tr>
@@ -106,7 +115,11 @@ export const BookingInquiryForm = ({
                       extraLinensCount > 0 &&
                       <tr>
                         <td>
-                          {extraLinensCount} additional linen package{extraLinensCount === 1 ? '' : 's'}
+                          {extraLinensCount} {
+                            extraLinensCount === 1
+                              ? getText('inquiry-modal-additional-linen-package')
+                              : getText('inquiry-modal-additional-linen-package')
+                          }
                         </td>
                         <td className="text-center">€{(-2 + adultAndChildrenTotal) * 16}</td>
                       </tr>
@@ -115,7 +128,7 @@ export const BookingInquiryForm = ({
                   {
                     adultAndChildrenTotal > 2 &&
                     <caption className='text-muted font-2xs'>
-                      Two linen packages are included free with every stay.
+                      {getText('inquiry-modal-linens-disclaimer')}
                     </caption>
                   }
                 </Table>
@@ -126,7 +139,7 @@ export const BookingInquiryForm = ({
       </Container>
 
       <Form.Group className="mb-4 pt-3">
-        <Form.Label style={{ fontSize: 18 }}>*Email</Form.Label>
+        <Form.Label style={{ fontSize: 18 }}>*{getText('inquiry-modal-email-label')}</Form.Label>
         <Form.Control
           required
           value={email}
@@ -134,14 +147,14 @@ export const BookingInquiryForm = ({
           style={{ fontSize: '18px', height: 40 }}
         />
         <Form.Text className="font-xs text-muted">
-          We'll never share your information with anyone else.
+          {getText('inquiry-modal-email-helper-text')}
         </Form.Text>
       </Form.Group>
 
       <Form.Group className="mb-4">
         <Row>
           <Col xs={6}>
-            <Form.Label style={{ fontSize: 18 }}>*Last</Form.Label>
+            <Form.Label style={{ fontSize: 18 }}>*{getText('inquiry-modal-last-label')}</Form.Label>
             <Form.Control
               required
               value={last}
@@ -153,7 +166,7 @@ export const BookingInquiryForm = ({
           </Col>
 
           <Col xs={6}>
-            <Form.Label style={{ fontSize: 18 }}>*First</Form.Label>
+            <Form.Label style={{ fontSize: 18 }}>*{getText('inquiry-modal-first-label')}</Form.Label>
             <Form.Control
               required
               value={first}
@@ -170,7 +183,7 @@ export const BookingInquiryForm = ({
       <Form.Group className="mb-4">
         <Row>
           <Col xs={6}>
-            <Form.Label style={{ fontSize: 18 }}>Phone</Form.Label>
+            <Form.Label style={{ fontSize: 18 }}>{getText('inquiry-modal-phone-label')}</Form.Label>
             <Form.Control
               value={phone}
               onChange={({ target: { value } }) => {
@@ -181,7 +194,7 @@ export const BookingInquiryForm = ({
           </Col>
 
           <Col xs={3}>
-            <Form.Label style={{ fontSize: 18 }}>Adults</Form.Label>
+            <Form.Label style={{ fontSize: 18 }}>{getText('inquiry-modal-adults-label')}</Form.Label>
             <Form.Control
               type="number"
               value={adultCount ?? ''}
@@ -197,7 +210,7 @@ export const BookingInquiryForm = ({
           </Col>
 
           <Col xs={3}>
-            <Form.Label style={{ fontSize: 18 }}>Children</Form.Label>
+            <Form.Label style={{ fontSize: 18 }}>{getText('inquiry-modal-children-label')}</Form.Label>
             <Form.Control
               type="number"
               value={childCount ?? ''}
@@ -216,7 +229,7 @@ export const BookingInquiryForm = ({
       </Form.Group>
 
       <Form.Group className="mb-4">
-        <Form.Label style={{ fontSize: 18 }}>*Message</Form.Label>
+        <Form.Label style={{ fontSize: 18 }}>*{getText('inquiry-modal-message-label')}</Form.Label>
         <Form.Control
           required
           as="textarea"

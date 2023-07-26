@@ -1,4 +1,4 @@
-export const weekdayHeadersEnglish = [ 'Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat' ];
+export const weekdayHeadersEnglish = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
 
 export const monthsEnglish = [
   'January',

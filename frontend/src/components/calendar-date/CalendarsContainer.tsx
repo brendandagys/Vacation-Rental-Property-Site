@@ -13,6 +13,7 @@ import { Calendar } from './Calendar';
 import { EDateState, ICalendarDate } from '../../types/calendarDate';
 import { useViewportWidth } from '../../hooks/useViewportWidth';
 import { useCalendarsData } from '../../context/calendarsDataContext';
+import { getText } from '../../static/text';
 
 interface ICalendarsContainerProps {
   isAdmin?: boolean;
@@ -29,13 +30,13 @@ export const CalendarsContainer = ({
   providedCalendarsData,
   setSubtotal,
 }: ICalendarsContainerProps): JSX.Element => {
-  const [ firstClick, setFirstClick ] = useState<Nullable<ICalendarDate>>(null);
-  const [ secondClick, setSecondClick ] = useState<Nullable<ICalendarDate>>(null);
+  const [firstClick, setFirstClick] = useState<Nullable<ICalendarDate>>(null);
+  const [secondClick, setSecondClick] = useState<Nullable<ICalendarDate>>(null);
 
-  const [ selectedDates, setSelectedDates ] = useState<string[]>([]);
-  const [ hoveredDate, setHoveredDate ] = useState<Nullable<ICalendarDate>>(null);
+  const [selectedDates, setSelectedDates] = useState<string[]>([]);
+  const [hoveredDate, setHoveredDate] = useState<Nullable<ICalendarDate>>(null);
 
-  const [ showAllMonths, setShowAllMonths ] = useState(false);
+  const [showAllMonths, setShowAllMonths] = useState(false);
 
   const calendarsData = providedCalendarsData || useCalendarsData().calendarsData;
 
@@ -50,20 +51,20 @@ export const CalendarsContainer = ({
 
         return showAllMonths || i < numCalendarsToShow || isAdmin;
       })
-  ), [ calendarsData, isAdmin, showAllMonths, viewportWidth ]);
+  ), [calendarsData, isAdmin, showAllMonths, viewportWidth]);
 
   const getCalendarDateForYmd = (
     useCallback(
       (ymd: string): Nullable<ICalendarDate> => {
-        const [ year, month, date ] = ymd.split('-');
+        const [year, month, date] = ymd.split('-');
         return (
           calendarsData[`${year}-${month}`]
             ?.find(({ date: foundDate }) => (
               foundDate === parseInt(date)
             ))
-        ?? null
+          ?? null
         );
-      }, [ calendarsData ]
+      }, [calendarsData]
     )
   );
 
@@ -71,7 +72,7 @@ export const CalendarsContainer = ({
     useCallback(
       (ymd: string): boolean => (
         getCalendarDateForYmd(ymd)?.state === EDateState.Available
-      ), [ getCalendarDateForYmd ]
+      ), [getCalendarDateForYmd]
     )
   );
 
@@ -95,7 +96,7 @@ export const CalendarsContainer = ({
             .reduce((total, price) => total + price, 0)
         );
       }
-    }, [ getCalendarDateForYmd, selectedDates, setSubtotal ]
+    }, [getCalendarDateForYmd, selectedDates, setSubtotal]
   );
 
   const ymdsInHoverRange = (
@@ -111,7 +112,7 @@ export const CalendarsContainer = ({
         )
           .filter(() => isAdmin ? true : isYmdAvailable)
       );
-    }, [ firstClick, hoveredDate, isAdmin, isYmdAvailable, secondClick ])
+    }, [firstClick, hoveredDate, isAdmin, isYmdAvailable, secondClick])
   );
 
   // Contiguous date range must contain all `Available` calendar dates
@@ -123,10 +124,10 @@ export const CalendarsContainer = ({
         .slice(1, ymdsInHoverRange.length - 1)
         .every((ymd) => (
           getCalendarDateForYmd(ymd)?.state === EDateState.Available
-            && ymd >= (new Date()).toISOString().slice(0, 10)
+          && ymd >= (new Date()).toISOString().slice(0, 10)
         ))
     );
-  }, [ getCalendarDateForYmd, ymdsInHoverRange ]);
+  }, [getCalendarDateForYmd, ymdsInHoverRange]);
 
   const onDateClick = (calendarDate: ICalendarDate, isEdgeOfRange: boolean) => {
     if (secondClick) { // Already chose a range
@@ -164,7 +165,7 @@ export const CalendarsContainer = ({
 
       onDateRangeSelected?.(firstChronologicalDate, secondChronologicalDate);
 
-      const [ startDate, endDate ] = [ firstClick, calendarDate ].map(mapCalendarDateToDate);
+      const [startDate, endDate] = [firstClick, calendarDate].map(mapCalendarDateToDate);
       setSelectedDates(
         getDatesInRange(startDate, endDate)
           .filter(() => isAdmin ? true : isYmdAvailable)
@@ -174,7 +175,7 @@ export const CalendarsContainer = ({
 
     // Hasn't chosen anything
     setFirstClick(calendarDate);
-    setSelectedDates([ mapCalendarDateToYmd(calendarDate) ]);
+    setSelectedDates([mapCalendarDateToYmd(calendarDate)]);
   };
 
   return (
@@ -234,7 +235,7 @@ export const CalendarsContainer = ({
                 className='button button--blue mt-4'
                 onClick={() => setShowAllMonths((old) => !old)}
               >
-                {showAllMonths ? 'Show fewer months' : 'Show more months'}
+                {showAllMonths ? getText('calendar-show-fewer-button') : getText('calendar-show-more-button')}
               </button>
             </Col>
           </Row>

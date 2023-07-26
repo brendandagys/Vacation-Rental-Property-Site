@@ -17,25 +17,26 @@ import {
   faWifi,
   faWind,
 } from '@fortawesome/free-solid-svg-icons';
+import { getText } from '../static/text';
 
 export const Amenities = () => {
   const amenities = [
-    { icon: faSun, label: 'Sunny south terrace', color: '#ff851b' },
-    { icon: faWaterLadder, label: '2 outdoor pools', color: '#7fdbff' },
-    { icon: faParking, label: 'Private parking', color: '' },
-    { icon: faTv, label: '65" 4K smart TV', color: '' },
-    { icon: faUmbrellaBeach, label: 'Beach access', color: '#ff851b' },
-    { icon: faWifi, label: 'Fast Wi-Fi Internet', color: '#30aee3' },
-    { icon: faSnowflake, label: 'Air conditioning', color: 'blue' },
-    { icon: faFire, label: 'Central heating', color: 'red' },
-    { icon: faSoap, label: 'Washing machine', color: '#2ecc40' },
-    { icon: faWind, label: 'Drying machine', color: '' },
-    { icon: faSpoon, label: 'Fully stocked kitchen', color: '' },
-    { icon: faFireBurner, label: 'Bosch appliances', color: 'red' },
-    { icon: faCoffee, label: 'Nespresso machine', color: '#311a13' },
-    { icon: faCoffee, label: 'Drip coffee machine', color: '#311a13' },
-    { icon: faBook, label: 'Reading materials', color: '#001f3f' },
-    { icon: faUtensils, label: 'Dishes & cutlery', color: 'gray' },
+    { icon: faSun, label: getText('amenities-terrace'), color: '#ff851b' },
+    { icon: faWaterLadder, label: getText('amenities-pools'), color: '#7fdbff' },
+    { icon: faParking, label: getText('amenities-parking'), color: '' },
+    { icon: faTv, label: getText('amenities-smart-tv'), color: '' },
+    { icon: faUmbrellaBeach, label: getText('amenities-beach'), color: '#ff851b' },
+    { icon: faWifi, label: getText('amenities-internet'), color: '#30aee3' },
+    { icon: faSnowflake, label: getText('amenities-air-conditioning'), color: 'blue' },
+    { icon: faFire, label: getText('amenities-central-heating'), color: 'red' },
+    { icon: faSoap, label: getText('amenities-washing-machine'), color: '#2ecc40' },
+    { icon: faWind, label: getText('amenities-drying-machine'), color: '' },
+    { icon: faSpoon, label: getText('amenities-kitchen'), color: '' },
+    { icon: faFireBurner, label: getText('amenities-bosch-appliances'), color: 'red' },
+    { icon: faCoffee, label: getText('amenities-nespresso'), color: '#311a13' },
+    { icon: faCoffee, label: getText('amenities-coffee'), color: '#311a13' },
+    { icon: faBook, label: getText('amenities-reading-materials'), color: '#001f3f' },
+    { icon: faUtensils, label: getText('amenities-dishes-and-cutlery'), color: 'gray' },
   ];
 
   return (
@@ -44,7 +45,7 @@ export const Amenities = () => {
         xs={12}
         className='text-center text-black mb-5'
       >
-        <h1>Amenities</h1>
+        <h1>{getText('amenities-title')}</h1>
       </Col>
       <Row className="justify-content-start">
         {

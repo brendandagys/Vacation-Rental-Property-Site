@@ -4,6 +4,7 @@ import { Nullable } from '../../types';
 import { putBookingInquiry } from '../../api/bookingInquiry';
 import { BookingInquiryForm } from './BookingInquiryForm';
 import { IBookingInquiryPutRequest } from '../../types/bookingInquiry';
+import { getText } from '../../static/text';
 
 interface IBookingInquiryModalProps {
   fromTo: Nullable<string>;
@@ -22,7 +23,7 @@ export const BookingInquiryModal = ({
   show,
   subtotal,
 }: IBookingInquiryModalProps) => {
-  const [ putRequest, setPutRequest ] = useState<Nullable<IBookingInquiryPutRequest>>(null);
+  const [putRequest, setPutRequest] = useState<Nullable<IBookingInquiryPutRequest>>(null);
 
   const onSubmit = async () => {
     putRequest && await putBookingInquiry(putRequest);
@@ -33,7 +34,7 @@ export const BookingInquiryModal = ({
   return (
     <Modal centered show={show} onHide={() => setShow(false)}>
       <Modal.Header closeButton style={{ background: '#f0f0f0', paddingLeft: 22 }}>
-        <Modal.Title>Submit an Inquiry</Modal.Title>
+        <Modal.Title>{getText('inquiry-modal-title')}</Modal.Title>
       </Modal.Header>
 
       <Modal.Body style={{ background: '#fcfcfc' }}>
@@ -54,14 +55,18 @@ export const BookingInquiryModal = ({
           className='font-lg py-2 px-4'
           onClick={() => setShow(false)}
           variant="secondary"
-        >Cancel</Button>
+        >
+          {getText('inquiry-modal-cancel-button')}
+        </Button>
 
         <Button
           className='font-lg py-2 px-4'
           disabled={!putRequest}
           onClick={() => void onSubmit()}
           variant="primary"
-        >Send</Button>
+        >
+          {getText('inquiry-modal-send-button')}
+        </Button>
       </Modal.Footer>
     </Modal>
   );

@@ -5,6 +5,7 @@ import { MoreDetailsText } from './MoreDetailsText';
 import { secondaryImage, tertiaryImage, upperPoolAtNightCropped } from '../static/images';
 import { Amenities } from './Amenities';
 import { AttractionsText } from './AttractionsText';
+import { getText } from '../static/text';
 
 export const ContentTiles = () => {
   return (
@@ -16,7 +17,7 @@ export const ContentTiles = () => {
           className="d-flex align-items-center pb-4 pt-4 px-4 px-sm-5 px-md-3 px-lg-4 px-xl-5"
         >
           <div className='font-sm text-black details__container py-3 py-sm-0'>
-            <Col xs={12} className='mb-5 text-center'><h1>Details</h1></Col>
+            <Col xs={12} className='mb-5 text-center'><h1>{getText('details-title')}</h1></Col>
             <TextContainer buttonColor='yellow'>
               <MoreDetailsText />
             </TextContainer>
@@ -64,8 +65,11 @@ export const ContentTiles = () => {
           style={{ background: '#ffd157' }}
         >
           <div className='font-sm text-black py-3 py-sm-0'>
-            <Col xs={12} className='mb-5 text-center'><h1>Attractions</h1></Col>
-            <TextContainer buttonColor='yellow' buttonText='More attractions'>
+            <Col xs={12} className='mb-5 text-center'><h1>{getText('attractions-title')}</h1></Col>
+            <TextContainer
+              buttonColor='yellow'
+              buttonText={(getText('attractions-more-attractions-button') || '').toString()}
+            >
               <AttractionsText />
             </TextContainer>
           </div>

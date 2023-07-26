@@ -5,21 +5,22 @@ import { Nullable } from '../types';
 import { Col } from 'react-bootstrap';
 import { FadeInImage } from './FadeInImage';
 import { useViewportWidth } from '../hooks/useViewportWidth';
+import { getText } from '../static/text';
 
 interface ImageGalleryProps {
-  images: { src: string; alt: string }[];
+  images: { src: string; alt: string; }[];
 }
 
 export const ImageGallery = ({ images }: ImageGalleryProps) => {
-  const [ slideNumber, setSlideNumber ] = useState<Nullable<number>>(null);
-  const [ showModal, setShowModal ] = useState(false);
+  const [slideNumber, setSlideNumber] = useState<Nullable<number>>(null);
+  const [showModal, setShowModal] = useState(false);
 
   const width = useViewportWidth();
 
   return (
     <div>
       <Col xs={12} className='text-center text-black mb-5'>
-        <h1 className="font-5xl">Gallery</h1>
+        <h1 className="font-5xl">{getText('gallery-title')}</h1>
       </Col>
       <br />
       {
