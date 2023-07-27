@@ -13,7 +13,7 @@ import { Calendar } from './Calendar';
 import { EDateState, ICalendarDate } from '../../types/calendarDate';
 import { useViewportWidth } from '../../hooks/useViewportWidth';
 import { useCalendarsData } from '../../context/calendarsDataContext';
-import { getText } from '../../static/text';
+import { useLanguage } from '../../context/languageContext';
 
 interface ICalendarsContainerProps {
   isAdmin?: boolean;
@@ -30,6 +30,8 @@ export const CalendarsContainer = ({
   providedCalendarsData,
   setSubtotal,
 }: ICalendarsContainerProps): JSX.Element => {
+  const { getText } = useLanguage();
+
   const [firstClick, setFirstClick] = useState<Nullable<ICalendarDate>>(null);
   const [secondClick, setSecondClick] = useState<Nullable<ICalendarDate>>(null);
 

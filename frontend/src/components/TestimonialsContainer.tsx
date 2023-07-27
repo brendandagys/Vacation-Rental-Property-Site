@@ -1,32 +1,34 @@
 /* eslint-disable max-len */
 import { Col } from 'react-bootstrap';
 import { Testimonial } from './Testimonial';
-import { getText } from '../static/text';
-
-const testimonials = [
-  {
-    stars: 5,
-    name: 'A M',
-    content: (getText('testimonials-1') || '').toString(),
-  },
-  {
-    stars: 5,
-    name: 'M B',
-    content: (getText('testimonials-2') || '').toString(),
-  },
-  {
-    stars: 5,
-    name: 'M B',
-    content: (getText('testimonials-3') || '').toString(),
-  },
-  {
-    stars: 5,
-    name: 'J H',
-    content: (getText('testimonials-4') || '').toString(),
-  },
-];
+import { useLanguage } from '../context/languageContext';
 
 export const TestimonialsContainer = () => {
+  const { getText } = useLanguage();
+
+  const testimonials = [
+    {
+      stars: 5,
+      name: 'A M',
+      content: (getText('testimonials-1') || '').toString(),
+    },
+    {
+      stars: 5,
+      name: 'M B',
+      content: (getText('testimonials-2') || '').toString(),
+    },
+    {
+      stars: 5,
+      name: 'M B',
+      content: (getText('testimonials-3') || '').toString(),
+    },
+    {
+      stars: 5,
+      name: 'J H',
+      content: (getText('testimonials-4') || '').toString(),
+    },
+  ];
+
   return (
     <>
       {

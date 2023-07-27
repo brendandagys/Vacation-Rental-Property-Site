@@ -11,8 +11,8 @@ interface INavContext {
 
 const NavContext = createContext({} as INavContext);
 
-export const NavProvider = ({ children }: { children: ReactNode }) => {
-  const [ path, _setPath ] = useState(location.pathname);
+export const NavProvider = ({ children }: { children: ReactNode; }) => {
+  const [path, _setPath] = useState(location.pathname);
 
   // Update UI from browser navigation
   window.addEventListener('popstate', (e) => {

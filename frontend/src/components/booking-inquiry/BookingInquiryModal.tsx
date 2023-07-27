@@ -4,7 +4,7 @@ import { Nullable } from '../../types';
 import { putBookingInquiry } from '../../api/bookingInquiry';
 import { BookingInquiryForm } from './BookingInquiryForm';
 import { IBookingInquiryPutRequest } from '../../types/bookingInquiry';
-import { getText } from '../../static/text';
+import { useLanguage } from '../../context/languageContext';
 
 interface IBookingInquiryModalProps {
   fromTo: Nullable<string>;
@@ -23,6 +23,8 @@ export const BookingInquiryModal = ({
   show,
   subtotal,
 }: IBookingInquiryModalProps) => {
+  const { getText } = useLanguage();
+
   const [putRequest, setPutRequest] = useState<Nullable<IBookingInquiryPutRequest>>(null);
 
   const onSubmit = async () => {

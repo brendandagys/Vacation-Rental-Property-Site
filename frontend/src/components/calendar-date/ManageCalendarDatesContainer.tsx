@@ -15,8 +15,8 @@ const mapCalendarDateToYmd = ({ year, month, date }: ICalendarDate): string => (
 );
 
 export const ManageCalendarDatesContainer = () => {
-  const [ datesToUpdate, setDatesToUpdate ] = useState<ICalendarDate[]>([]);
-  const [ showModal, setShowModal ] = useState(false);
+  const [datesToUpdate, setDatesToUpdate] = useState<ICalendarDate[]>([]);
+  const [showModal, setShowModal] = useState(false);
 
   const { calendarsData, currentMonth, currentYear, fetchCalendarsData } = useCalendarsData();
 
@@ -34,7 +34,7 @@ export const ManageCalendarDatesContainer = () => {
 
   const updateCalendarDates = async () => {
     const result = await putCalendarDates(
-      datesToUpdate.map(({ state, price, cellColor, ymd, year, month, date }) =>  (
+      datesToUpdate.map(({ state, price, cellColor, ymd, year, month, date }) => (
         { ymd, state, price, year, month, date, cellColor }
       ))
     );

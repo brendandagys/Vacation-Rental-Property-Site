@@ -5,9 +5,11 @@ import { MoreDetailsText } from './MoreDetailsText';
 import { secondaryImage, tertiaryImage, upperPoolAtNightCropped } from '../static/images';
 import { Amenities } from './Amenities';
 import { AttractionsText } from './AttractionsText';
-import { getText } from '../static/text';
+import { useLanguage } from '../context/languageContext';
 
 export const ContentTiles = () => {
+  const { getText } = useLanguage();
+
   return (
     <>
       <Row id="information" className='mx-0 details' style={{ marginTop: '5rem' }}>

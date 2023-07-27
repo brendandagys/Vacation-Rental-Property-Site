@@ -13,15 +13,15 @@ interface IUpdateCalendarDateFormProps {
 }
 
 export const UpdateCalendarDateForm = ({ calendarDate, setDatesToUpdate }: IUpdateCalendarDateFormProps) => {
-  const [ cellColor, setCellColor ] = useState(calendarDate.cellColor);
-  const [ price, setPrice ] = useState(`${calendarDate.price}`);
-  const [ state, setState ] = useState(calendarDate.state);
+  const [cellColor, setCellColor] = useState(calendarDate.cellColor);
+  const [price, setPrice] = useState(`${calendarDate.price}`);
+  const [state, setState] = useState(calendarDate.state);
 
   useEffect(() => {
     setCellColor(calendarDate.cellColor);
     setPrice(`${calendarDate.price}`);
     setState(calendarDate.state);
-  }, [ calendarDate ]);
+  }, [calendarDate]);
 
   useEffect(() => {
     setDatesToUpdate((old) => [
@@ -34,7 +34,7 @@ export const UpdateCalendarDateForm = ({ calendarDate, setDatesToUpdate }: IUpda
       },
     ].sort((a, b) => a.ymd < b.ymd ? -1 : 1));
 
-  }, [ cellColor, price, setDatesToUpdate, state ]); // eslint-disable-line react-hooks/exhaustive-deps
+  }, [cellColor, price, setDatesToUpdate, state]); // eslint-disable-line react-hooks/exhaustive-deps
 
   return (
     <Col md={6} className="mt-5">

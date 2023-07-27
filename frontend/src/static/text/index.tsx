@@ -2,7 +2,7 @@
 /* eslint-disable max-len */
 import { ReactElement } from 'react';
 
-enum ELanguage {
+export enum ELanguage {
   Dutch = 'dutch',
   English = 'english',
   French = 'french',
@@ -12,14 +12,7 @@ enum ELanguage {
 
 type TextData = Record<string, Record<ELanguage, string | ReactElement>>;
 
-const language = ELanguage.English;
-
-/** Returns either a `string` or a `ReactNode` based on the current `language`. */
-export const getText = (name: string): string | ReactElement => (
-  data[name]?.[language] || data[name]?.[ELanguage.English]
-);
-
-const data: TextData = {
+export const textData: TextData = {
   'nav-home': {
     [ELanguage.Dutch]: '',
     [ELanguage.English]: 'Home',
@@ -65,6 +58,48 @@ const data: TextData = {
   'nav-map': {
     [ELanguage.Dutch]: '',
     [ELanguage.English]: 'Map',
+    [ELanguage.French]: '',
+    [ELanguage.German]: '',
+    [ELanguage.Spanish]: '',
+  },
+  'nav-language': {
+    [ELanguage.Dutch]: '',
+    [ELanguage.English]: 'Language',
+    [ELanguage.French]: '',
+    [ELanguage.German]: '',
+    [ELanguage.Spanish]: '',
+  },
+  'nav-dutch': {
+    [ELanguage.Dutch]: '',
+    [ELanguage.English]: 'Dutch',
+    [ELanguage.French]: '',
+    [ELanguage.German]: '',
+    [ELanguage.Spanish]: '',
+  },
+  'nav-english': {
+    [ELanguage.Dutch]: '',
+    [ELanguage.English]: 'English',
+    [ELanguage.French]: '',
+    [ELanguage.German]: '',
+    [ELanguage.Spanish]: '',
+  },
+  'nav-french': {
+    [ELanguage.Dutch]: '',
+    [ELanguage.English]: 'French',
+    [ELanguage.French]: '',
+    [ELanguage.German]: '',
+    [ELanguage.Spanish]: '',
+  },
+  'nav-german': {
+    [ELanguage.Dutch]: '',
+    [ELanguage.English]: 'German',
+    [ELanguage.French]: '',
+    [ELanguage.German]: '',
+    [ELanguage.Spanish]: '',
+  },
+  'nav-spanish': {
+    [ELanguage.Dutch]: '',
+    [ELanguage.English]: 'Spanish',
     [ELanguage.French]: '',
     [ELanguage.German]: '',
     [ELanguage.Spanish]: '',

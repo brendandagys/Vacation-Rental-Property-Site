@@ -2,7 +2,7 @@ import { Dispatch, SetStateAction, useEffect, useMemo, useState } from 'react';
 import { Container, Col, Form, Row, Table } from 'react-bootstrap';
 import { Nullable } from '../../types';
 import { IBookingInquiryPutRequest } from '../../types/bookingInquiry';
-import { getText } from '../../static/text';
+import { useLanguage } from '../../context/languageContext';
 
 interface IBookingInquiryFormProps {
   fromTo: Nullable<string>;
@@ -17,6 +17,8 @@ export const BookingInquiryForm = ({
   setPutRequest,
   subtotal,
 }: IBookingInquiryFormProps) => {
+  const { getText } = useLanguage();
+
   const [email, setEmail] = useState('');
   const [fromTo] = useState<Nullable<string>>(_fromTo ?? null);
   const [last, setLast] = useState('');
@@ -46,20 +48,27 @@ export const BookingInquiryForm = ({
   ), [adultAndChildrenTotal]);
 
   useEffect(() => {
-    const hasMandatoryFields = email && last && first && message && adultCount && adultCount > 0;
+    const hasMandatoryFields = (
+      email.trim()
+      && last.trim()
+      && first.trim()
+      && message.trim()
+      && adultCount
+      && adultCount > 0
+    );
 
     setPutRequest(
       hasMandatoryFields
         ? {
-          email,
+          email: email.trim(),
           fromTo: fromTo ?? undefined,
-          last,
-          first,
-          phone,
+          last: last.trim(),
+          first: first.trim(),
+          phone: phone.trim(),
           subtotal: subtotal ? `${subtotal}` : undefined,
           adultCount: adultCount ?? undefined,
           childCount: childCount ?? undefined,
-          message: message + (
+          message: message.trim() + (
             (numDatesSelected)
               ? ` | EXTRA LINENS CHARGE: €${extraLinensCount * 16} | NUMBER OF DAYS: ${numDatesSelected}`
               : ''

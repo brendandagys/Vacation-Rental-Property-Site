@@ -1,3 +1,7 @@
-import { getText } from '../static/text';
+import { useLanguage } from '../context/languageContext';
 
-export const AttractionsText = () => <>{getText('attractions-content')}</>;
+export const AttractionsText = () => {
+  const { getText } = useLanguage();
+
+  return <>{getText('attractions-content')}</>;
+};

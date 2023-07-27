@@ -1,5 +1,5 @@
 import { ReactNode, useState } from 'react';
-import { getText } from '../static/text';
+import { useLanguage } from '../context/languageContext';
 
 interface ITextContainerProps {
   buttonColor?: 'blue' | 'green' | 'red' | 'yellow';
@@ -8,6 +8,8 @@ interface ITextContainerProps {
 }
 
 export const TextContainer = ({ buttonColor, buttonText, children }: ITextContainerProps) => {
+  const { getText } = useLanguage();
+
   const [expanded, setExpanded] = useState(false);
 
   return (

@@ -15,8 +15,8 @@ const AuthContext = createContext({} as IAuthContext);
 
 let fetchedOnce = false;
 
-export const AuthProvider = ({ children }: { children: ReactNode}) => {
-  const [ decodedToken, setDecodedToken ] = useState<Nullable<IJwtToken>>(null);
+export const AuthProvider = ({ children }: { children: ReactNode; }) => {
+  const [decodedToken, setDecodedToken] = useState<Nullable<IJwtToken>>(null);
 
   const validateTokenAndSetDecodedToken = async (token: string): Promise<void> => {
     setDecodedToken(await validateToken(token));

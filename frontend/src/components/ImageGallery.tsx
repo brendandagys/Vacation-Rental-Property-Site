@@ -5,13 +5,15 @@ import { Nullable } from '../types';
 import { Col } from 'react-bootstrap';
 import { FadeInImage } from './FadeInImage';
 import { useViewportWidth } from '../hooks/useViewportWidth';
-import { getText } from '../static/text';
+import { useLanguage } from '../context/languageContext';
 
 interface ImageGalleryProps {
   images: { src: string; alt: string; }[];
 }
 
 export const ImageGallery = ({ images }: ImageGalleryProps) => {
+  const { getText } = useLanguage();
+
   const [slideNumber, setSlideNumber] = useState<Nullable<number>>(null);
   const [showModal, setShowModal] = useState(false);
 

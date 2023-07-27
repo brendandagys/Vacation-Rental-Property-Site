@@ -17,9 +17,11 @@ import {
   faWifi,
   faWind,
 } from '@fortawesome/free-solid-svg-icons';
-import { getText } from '../static/text';
+import { useLanguage } from '../context/languageContext';
 
 export const Amenities = () => {
+  const { getText } = useLanguage();
+
   const amenities = [
     { icon: faSun, label: getText('amenities-terrace'), color: '#ff851b' },
     { icon: faWaterLadder, label: getText('amenities-pools'), color: '#7fdbff' },

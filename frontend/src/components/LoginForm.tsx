@@ -7,12 +7,12 @@ import { useAuth } from '../context/authContext';
 import { useNav } from '../context/navContext';
 
 export const LogInForm = () => {
-  const [ username, setUsername ] = useState('');
-  const [ password, setPassword ] = useState('');
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
 
   const { validateTokenAndSetDecodedToken } = useAuth();
 
-  const [ errorMessage, setErrorMessage ] = useState<Nullable<string>>(null);
+  const [errorMessage, setErrorMessage] = useState<Nullable<string>>(null);
 
   const { setPath } = useNav();
 

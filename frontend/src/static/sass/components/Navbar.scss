@@ -21,3 +21,28 @@
   top: -2px;
   z-index: 888;
 }
+
+.nav-languages {
+  a {
+    transition: none;
+  }
+
+  svg {
+    margin-right: 1.25rem;
+  }
+  
+  .dropdown-menu {
+    background: #212529;
+    border: 1.5px solid #52565d;
+  }
+  
+  .dropdown-item {
+    color: #adb5bd;
+    font-size: 1.5rem;
+
+    &:hover {
+      background: $theme-yellow;
+      color: $color-black;
+    }
+  }
+}

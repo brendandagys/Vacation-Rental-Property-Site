@@ -6,7 +6,7 @@ interface IFadeInImageProps {
 }
 
 export const FadeInImage = ({ src, alt }: IFadeInImageProps) => {
-  const [ ref, inView ] = useInView({
+  const [ref, inView] = useInView({
     triggerOnce: true,
     threshold: 0.1,
   });

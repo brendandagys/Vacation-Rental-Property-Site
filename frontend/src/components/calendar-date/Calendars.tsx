@@ -3,7 +3,7 @@ import { CalendarsContainer } from './CalendarsContainer';
 import { getDatesInRange, mapCalendarDateToDate, mapCalendarDateToYmd } from '../../api/calendarsContainer';
 import { Dispatch, SetStateAction } from 'react';
 import { Nullable } from '../../types';
-import { getText } from '../../static/text';
+import { useLanguage } from '../../context/languageContext';
 
 interface CalendarsProps {
   setFromTo: Dispatch<SetStateAction<Nullable<string>>>;
@@ -18,6 +18,8 @@ export const Calendars = ({
   setShowBookingInquiryModal,
   setSubtotal,
 }: CalendarsProps) => {
+  const { getText } = useLanguage();
+
   return (
     <Container>
       {
