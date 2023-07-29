@@ -3,7 +3,7 @@ import { tourVideo } from '../static/images';
 import { useViewportWidth } from '../hooks/useViewportWidth';
 
 export const Video = () => {
-  const width = useViewportWidth();
+  const { width } = useViewportWidth();
 
   const videoRef = useRef(null);
 

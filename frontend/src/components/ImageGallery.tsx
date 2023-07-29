@@ -17,7 +17,7 @@ export const ImageGallery = ({ images }: ImageGalleryProps) => {
   const [slideNumber, setSlideNumber] = useState<Nullable<number>>(null);
   const [showModal, setShowModal] = useState(false);
 
-  const width = useViewportWidth();
+  const { width } = useViewportWidth();
 
   return (
     <div>

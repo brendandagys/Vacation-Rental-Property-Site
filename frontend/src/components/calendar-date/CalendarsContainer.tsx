@@ -33,8 +33,7 @@ export const CalendarsContainer = ({
 }: ICalendarsContainerProps): JSX.Element => {
   const { getText } = useLanguage();
 
-  const width = useViewportWidth();
-  const mobile = width < 579;
+  const { mobile, width } = useViewportWidth();
 
   const [firstClick, setFirstClick] = useState<Nullable<ICalendarDate>>(null);
   const [secondClick, setSecondClick] = useState<Nullable<ICalendarDate>>(null);
@@ -46,18 +45,16 @@ export const CalendarsContainer = ({
 
   const calendarsData = providedCalendarsData || useCalendarsData().calendarsData;
 
-  const viewportWidth = useViewportWidth();
-
   const yearMonthsToShow = useMemo(() => (
     Object.keys(calendarsData ?? {})
       .filter((_, i) => {
         const numCalendarsToShow = (
-          (viewportWidth >= 992 && viewportWidth < 1200) ? 3 : 4
+          (width >= 992 && width < 1200) ? 3 : 4
         );
 
         return showAllMonths || i < numCalendarsToShow || isAdmin;
       })
-  ), [calendarsData, isAdmin, showAllMonths, viewportWidth]);
+  ), [calendarsData, isAdmin, showAllMonths, width]);
 
   const getCalendarDateForYmd = (
     useCallback(

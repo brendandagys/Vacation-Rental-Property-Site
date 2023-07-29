@@ -13,8 +13,7 @@ import { ELanguage } from '../static/text';
 export const Navbar = () => {
   const { getText, language, setLanguage } = useLanguage();
 
-  const width = useViewportWidth();
-  const mobile = width < 579;
+  const { mobile } = useViewportWidth();
 
   const languageToFlagMap: Record<ELanguage, React.FunctionComponent<React.SVGProps<SVGSVGElement>>> = {
     [ELanguage.Dutch]: NetherlandsFlag,

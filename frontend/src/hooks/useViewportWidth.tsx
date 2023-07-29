@@ -1,7 +1,14 @@
 import { useState, useEffect } from 'react';
 
-export const useViewportWidth = (): number => {
+interface ViewportInformation {
+  mobile: boolean;
+  width: number;
+}
+
+export const useViewportWidth = (): ViewportInformation => {
   const [width, setWidth] = useState(window.innerWidth);
+
+  const mobile = width < 579;
 
   useEffect(() => {
     const handleResize = () => { setWidth(window.innerWidth); };
@@ -13,5 +20,5 @@ export const useViewportWidth = (): number => {
     };
   }, []);
 
-  return width;
+  return { mobile, width };
 };

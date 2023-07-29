@@ -9,7 +9,7 @@ interface MainLandingProps {
 }
 
 export const MainLanding = ({ setShowBookingInquiryModal }: MainLandingProps) => {
-  const width = useViewportWidth();
+  const { width } = useViewportWidth();
 
   return (
     <div
