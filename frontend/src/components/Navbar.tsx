@@ -3,7 +3,7 @@ import { Nav, NavDropdown } from 'react-bootstrap';
 import { scroller } from 'react-scroll';
 import { useViewportWidth } from '../hooks/useViewportWidth';
 import { ReactComponent as NetherlandsFlag } from '../static/icons/netherlands-flag.svg';
-import { ReactComponent as CanadaFlag } from '../static/icons/canada-flag.svg';
+import { ReactComponent as UnitedKingdomFlag } from '../static/icons/united-kingdom-flag.svg';
 import { ReactComponent as FranceFlag } from '../static/icons/france-flag.svg';
 import { ReactComponent as GermanyFlag } from '../static/icons/germany-flag.svg';
 import { ReactComponent as SpainFlag } from '../static/icons/spain-flag.svg';
@@ -22,7 +22,7 @@ export const Navbar = () => {
 
   const languageToFlagMap: Record<ELanguage, React.FunctionComponent<React.SVGProps<SVGSVGElement>>> = {
     [ELanguage.Dutch]: NetherlandsFlag,
-    [ELanguage.English]: CanadaFlag,
+    [ELanguage.English]: UnitedKingdomFlag,
     [ELanguage.French]: FranceFlag,
     [ELanguage.German]: GermanyFlag,
     [ELanguage.Spanish]: SpainFlag,
@@ -67,7 +67,7 @@ export const Navbar = () => {
         <NavDropdown
           title={
             <>
-              {<CurrentFlag style={{ width: '2rem', height: '2rem' }} />}
+              {<CurrentFlag style={{ height: '2rem', marginBottom: 2.4, width: '2rem' }} />}
               {getText('nav-language')}
             </>
           }
