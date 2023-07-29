@@ -1,5 +1,6 @@
 import { Dispatch, SetStateAction, useCallback, useEffect, useMemo, useState } from 'react';
 import { Col, Container, Row } from 'react-bootstrap';
+import { scrollTo } from '../../utils/scroll';
 import {
   getDatesInRange,
   mapCalendarDateToDate,
@@ -31,6 +32,9 @@ export const CalendarsContainer = ({
   setSubtotal,
 }: ICalendarsContainerProps): JSX.Element => {
   const { getText } = useLanguage();
+
+  const width = useViewportWidth();
+  const mobile = width < 579;
 
   const [firstClick, setFirstClick] = useState<Nullable<ICalendarDate>>(null);
   const [secondClick, setSecondClick] = useState<Nullable<ICalendarDate>>(null);
@@ -235,7 +239,10 @@ export const CalendarsContainer = ({
             <Col xs='auto'>
               <button
                 className='button button--blue mt-4'
-                onClick={() => setShowAllMonths((old) => !old)}
+                onClick={() => {
+                  setShowAllMonths((old) => !old);
+                  scrollTo('calendar', mobile ? -110 : -80, false);
+                }}
               >
                 {showAllMonths ? getText('calendar-show-fewer-button') : getText('calendar-show-more-button')}
               </button>
@@ -243,6 +250,6 @@ export const CalendarsContainer = ({
           </Row>
         )
       }
-    </Container>
+    </Container >
   );
 };

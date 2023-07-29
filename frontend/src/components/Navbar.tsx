@@ -1,6 +1,6 @@
 /* eslint-disable max-len */
+import { scrollTo } from '../utils/scroll';
 import { Nav, NavDropdown } from 'react-bootstrap';
-import { scroller } from 'react-scroll';
 import { useViewportWidth } from '../hooks/useViewportWidth';
 import { ReactComponent as NetherlandsFlag } from '../static/icons/netherlands-flag.svg';
 import { ReactComponent as UnitedKingdomFlag } from '../static/icons/united-kingdom-flag.svg';
@@ -9,10 +9,6 @@ import { ReactComponent as GermanyFlag } from '../static/icons/germany-flag.svg'
 import { ReactComponent as SpainFlag } from '../static/icons/spain-flag.svg';
 import { useLanguage } from '../context/languageContext';
 import { ELanguage } from '../static/text';
-
-export const scrollTo = (to: string, offset = 0) => {
-  scroller.scrollTo(to, { smooth: true, spy: true, offset });
-};
 
 export const Navbar = () => {
   const { getText, language, setLanguage } = useLanguage();

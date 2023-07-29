@@ -1,6 +1,6 @@
+import { scrollTo } from '../../utils/scroll';
 import { faCopyright } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { scrollTo } from '../Navbar';
 import { useLanguage } from '../../context/languageContext';
 
 export const FooterText = () => {
