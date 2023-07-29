@@ -70,7 +70,8 @@ export const BookingInquiryForm = ({
           childCount: childCount ?? undefined,
           message: message.trim() + (
             (numDatesSelected)
-              ? ` | EXTRA LINENS CHARGE: €${extraLinensCount * 16} | NUMBER OF DAYS: ${numDatesSelected}`
+              // ? ` | EXTRA LINENS CHARGE: €${extraLinensCount * 16} | NUMBER OF DAYS: ${numDatesSelected}`
+              ? ` | NUMBER OF DAYS: ${numDatesSelected}`
               : ''
           ),
         }
