@@ -77,7 +77,7 @@ export const Navbar = () => {
 
                 return (
                   <NavDropdown.Item onClick={() => setLanguage(languageVariant)}>
-                    <Flag style={{ width: '2rem', height: '2rem' }} />
+                    <Flag style={{ width: '2rem', marginBottom: 2, height: '2rem' }} />
                     {getText(`nav-${languageVariant}`)}
                   </NavDropdown.Item>
                 );
