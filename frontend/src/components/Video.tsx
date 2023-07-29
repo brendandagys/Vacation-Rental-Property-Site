@@ -1,7 +1,10 @@
 import { useRef } from 'react';
 import { tourVideo } from '../static/images';
+import { useViewportWidth } from '../hooks/useViewportWidth';
 
 export const Video = () => {
+  const width = useViewportWidth();
+
   const videoRef = useRef(null);
 
   const setPlayback = () => {
@@ -11,11 +14,11 @@ export const Video = () => {
   };
 
   return (
-    <div id="tour">
+    <div id="tour" className="d-flex justify-content-center bg-black">
       <video
         controls
         autoPlay
-        width="100%"
+        width={width < 1200 ? '100%' : '70%'}
         height="100%"
         id="video"
         loop

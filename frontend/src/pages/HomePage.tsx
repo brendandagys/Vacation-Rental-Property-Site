@@ -24,11 +24,8 @@ export const HomePage = () => {
   return (
     <div id="home" className="overflow-visible">
       <Navbar />
-
       <MainLanding setShowBookingInquiryModal={setShowBookingInquiryModal} />
-
       <MainDetails />
-
       <Video />
 
       <Calendars
@@ -39,11 +36,8 @@ export const HomePage = () => {
       />
 
       <ContentTiles />
-
       <Images />
-
       <Testimonials />
-
       <Footer />
 
       <BookingInquiryModal
