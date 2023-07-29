@@ -18,7 +18,7 @@ export const MainLandingForeground = ({ setShowBookingInquiryModal, width }: IMa
       <Row className='flex-column justify-content-between pt-5' style={{ minHeight: 700 }}>
         <Col xs={12} className='d-flex justify-content-center'>
           <div className="app__welcome text-center">
-            <h1>{getText('main-landing-title')}</h1>
+            <h1>Calaceite FRONTLINE Vistamar</h1>
             {width >= 1100 && <h2>{getText('main-landing-subtitle')}</h2>}
           </div>
         </Col>
