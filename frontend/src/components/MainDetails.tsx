@@ -1,14 +1,18 @@
+import { useLanguage } from '../context/languageContext';
 import { Container, Row, Col } from 'react-bootstrap';
-import { MainDetailsText } from './MainDetailsText';
 
-export const MainDetails = () => (
-  <div className="app__description">
-    <Container>
-      <Row className="justify-content-center">
-        <Col lg={9}>
-          <MainDetailsText />
-        </Col>
-      </Row>
-    </Container>
-  </div>
-);
+export const MainDetails = () => {
+  const { getText } = useLanguage();
+
+  return (
+    <div className="main-details">
+      <Container>
+        <Row className="justify-content-center">
+          <Col lg={9}>
+            {getText('main-details-text')}
+          </Col>
+        </Row>
+      </Container>
+    </div>
+  );
+};

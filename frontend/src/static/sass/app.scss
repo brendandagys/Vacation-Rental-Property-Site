@@ -11,18 +11,22 @@
 // @import 'base/utilities';
 
 // Components
-@import 'components/App';
+@import 'components/Amenities.scss';
 @import 'components/AttractionsText.scss';
-@import 'components/button.scss';
 @import 'components/BookingInquiryForm.scss';
 @import 'components/Calendar';
+@import 'components/Calendars';
 @import 'components/CalendarsContainer';
+@import 'components/ContentTiles';
 @import 'components/FadeInImage.scss';
+@import 'components/Footer.scss';
 @import 'components/ImageGallery';
 @import 'components/InformationCard';
 @import 'components/LoginForm.scss';
+@import 'components/MainDetails.scss';
+@import 'components/MainLanding.scss';
 @import 'components/Navbar.scss';
 @import 'components/Testimonial.scss';
 @import 'components/TextContainer.scss';
-@import 'components/Amenities.scss';
+@import 'components/button.scss';
 

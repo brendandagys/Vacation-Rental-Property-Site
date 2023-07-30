@@ -1,0 +1,21 @@
+.footer {
+  background: #1f222a;
+  height: 600px;
+  padding: 4.5rem 0 1rem;
+
+  &__copyright {
+    animation: glowing-blue 1.75s ease-in-out infinite;
+    
+    @keyframes glowing-blue {
+      0% {
+        text-shadow: 0 0 20px #00ccff;
+      }
+      50% {
+        text-shadow: 0 0 30px #00ccff;
+      }
+      100% {
+        text-shadow: 0 0 20px #00ccff;
+      }
+    }
+  }
+}

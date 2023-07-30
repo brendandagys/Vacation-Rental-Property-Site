@@ -12,13 +12,13 @@ export const ContentTiles = () => {
 
   return (
     <>
-      <Row id="information" className='mx-0 details' style={{ marginTop: '5rem' }}>
+      <Row id="information" className='mx-0 content-tiles' style={{ marginTop: '5rem' }}>
         <Col
           xs={12}
           md={6}
           className="d-flex align-items-center pb-4 pt-4 px-4 px-sm-5 px-md-3 px-lg-4 px-xl-5"
         >
-          <div className='font-sm text-black details__container py-3 py-sm-0'>
+          <div className='font-sm text-black content-tiles__container py-3 py-sm-0'>
             <Col xs={12} className='mb-5 text-center'><h1>{getText('details-title')}</h1></Col>
             <TextContainer buttonColor='yellow'>
               <MoreDetailsText />
@@ -53,7 +53,7 @@ export const ContentTiles = () => {
             pb-4 pt-4 px-4 px-sm-5 px-md-3 px-lg-5"
           style={{ background: '#dc3830' }}
         >
-          <div className='app__neighborhood py-3 py-sm-0'>
+          <div className='content-tiles__neighborhood py-3 py-sm-0'>
             <Amenities />
           </div>
         </Col>

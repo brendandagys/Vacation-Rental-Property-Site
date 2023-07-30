@@ -13,7 +13,7 @@ export const FooterText = () => {
       </button>
 
       <div className='mt-5 mb-5'>
-        <p className='font-xs app__copyright'>
+        <p className='font-xs footer__copyright'>
           <FontAwesomeIcon icon={faCopyright} /> {getText('trademark')}
         </p>
       </div>

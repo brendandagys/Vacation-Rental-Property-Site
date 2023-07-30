@@ -1,0 +1,18 @@
+.content-tiles {
+  background: #ffd157;
+
+  &__container {
+    li {
+      margin-bottom: 4px;
+    }
+  }
+
+  &__neighborhood {
+    color: $color-gray-dddd;
+    font-weight: 400;
+
+    p:not(:first-child) {
+      margin-top: 1.5rem;
+    }
+  }
+}
