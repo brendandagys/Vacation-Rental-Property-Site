@@ -17,7 +17,6 @@ module.exports = {
   root: true,
   rules: {
     "@typescript-eslint/comma-dangle": [ "warn", "always-multiline" ],
-    "@typescript-eslint/indent": [ "warn", 2 ],
     "@typescript-eslint/no-explicit-any": [ "warn", { ignoreRestArgs: true } ],
     "@typescript-eslint/no-unused-vars": "warn",
     "@typescript-eslint/semi": "warn",

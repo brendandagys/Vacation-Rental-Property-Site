@@ -39,7 +39,7 @@ export const ManageCalendarDatesContainer = () => {
       ))
     );
 
-    console.log('`updateCalendarDates()` result:', result);
+    console.info('`updateCalendarDates()` result:', result);
   };
 
   const onUpdateCalendarDates = async () => {

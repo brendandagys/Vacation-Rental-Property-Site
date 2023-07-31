@@ -28,14 +28,14 @@ export const UpdateDefaultForm = (
           value={_default.value}
           onChange={({ target: { value } }) => {
             (!decimalInput || value.match(/^\d*\.?\d*$/))
-            && [ setAllDefaults, setUpdatedDefaults ].forEach((fn) => {
-              fn(
-                (old) => [
-                  ...old.filter(({ defaultFor }) => defaultFor !== _default.defaultFor),
-                  { ..._default, value },
-                ]
-              );
-            });
+              && [setAllDefaults, setUpdatedDefaults].forEach((fn) => {
+                fn(
+                  (old) => [
+                    ...old.filter(({ defaultFor }) => defaultFor !== _default.defaultFor),
+                    { ..._default, value },
+                  ]
+                );
+              });
           }}
         />
       </Form.Group>

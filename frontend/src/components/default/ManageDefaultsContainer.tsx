@@ -19,9 +19,9 @@ const sortDefaults = (a: IDefault, b: IDefault) => {
 };
 
 export const ManageDefaultsContainer = () => {
-  const [ allDefaults, setAllDefaults ] = useState<IDefault[]>([]); // Needed for controlled inputs
-  const [ originalDefaults, setOriginalDefaults ] = useState<IDefault[]>([]); // Calculate field changes
-  const [ updatedDefaults, setUpdatedDefaults ] = useState<IDefault[]>([]);
+  const [allDefaults, setAllDefaults] = useState<IDefault[]>([]); // Needed for controlled inputs
+  const [originalDefaults, setOriginalDefaults] = useState<IDefault[]>([]); // Calculate field changes
+  const [updatedDefaults, setUpdatedDefaults] = useState<IDefault[]>([]);
 
   useEffect(() => {
     const fetch = async () => {
@@ -45,7 +45,7 @@ export const ManageDefaultsContainer = () => {
           value,
         }))
     );
-    defaultsToUpdate.length && void putDefaults(defaultsToUpdate    );
+    defaultsToUpdate.length && void putDefaults(defaultsToUpdate);
 
     setUpdatedDefaults([]);
   };

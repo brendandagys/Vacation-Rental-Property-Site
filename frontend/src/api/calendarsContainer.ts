@@ -18,7 +18,7 @@ export const getYearMonthForDate = (date: Date): IYearMonth => {
 
 export const getMonthsForRequest = (yearMonth: IYearMonth, numberAhead = 0): IYearMonth[] => {
   const { year, month } = yearMonth;
-  const months = [ yearMonth ];
+  const months = [yearMonth];
 
   for (let i = 1; i <= numberAhead; i++) {
     months.push(getYearMonthForDate(new Date(year, (month - 1 + i))));
@@ -28,7 +28,7 @@ export const getMonthsForRequest = (yearMonth: IYearMonth, numberAhead = 0): IYe
 
 export const fetchCalendarMonths = async (months: IYearMonth[]): Promise<TCalendarsData> => {
   const sortedMonths = (
-    [ ...months ].sort((a, b) => makeYm(a.year, a.month) > makeYm(b.year, b.month) ? 1 : -1)
+    [...months].sort((a, b) => makeYm(a.year, a.month) > makeYm(b.year, b.month) ? 1 : -1)
   );
 
   const firstMonth = sortedMonths[0];
@@ -58,7 +58,7 @@ export const fetchCalendarMonths = async (months: IYearMonth[]): Promise<TCalend
 
       return {
         ...acc,
-        [ym]: [ ...(acc[ym] ? acc[ym] : []), calendarDate ],
+        [ym]: [...(acc[ym] ? acc[ym] : []), calendarDate],
       };
     }, {})
   );
@@ -83,17 +83,14 @@ export const mapCalendarDateToYmd = ({ year, month, date }: ICalendarDate): stri
  * @param secondDate
  */
 export const getDatesInRange = (firstDate: Date, secondDate: Date): string[] => {
-  const [ start, end ] = [ firstDate, secondDate ].sort((a, b) => a.getTime() < b.getTime() ? -1 : 1);
+  const [start, end] = [firstDate, secondDate].sort((a, b) => a.getTime() < b.getTime() ? -1 : 1);
 
   const dates = [];
   while (start.toISOString() <= end.toISOString()) {
     dates.push(
-      `${
-        start.getFullYear()
-      }-${
-        `${start.getMonth() + 1}`.padStart(2, '0')
-      }-${
-        `${start.getDate()}`.padStart(2, '0')
+      `${start.getFullYear()
+      }-${`${start.getMonth() + 1}`.padStart(2, '0')
+      }-${`${start.getDate()}`.padStart(2, '0')
       }`
     );
 

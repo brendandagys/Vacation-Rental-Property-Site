@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { api, isApiResponse } from './index';
 import { EDefaultFor, IDefault, IDefaultPutRequest } from '../types/default';
 import { Nullable } from '../types';

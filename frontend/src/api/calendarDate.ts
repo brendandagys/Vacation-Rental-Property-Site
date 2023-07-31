@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { IYearMonthDate, Nullable } from '../types';
 import { EDateState, ICalendarDate, ICalendarDatePutRequest } from '../types/calendarDate';
 import { chunkArray, getYmdFromParts } from '../utils/helpers';
@@ -43,8 +44,7 @@ export const getCalendarDatesInDateRange = async (
 ): Promise<ICalendarDate[]> => {
   const { body, errorMessage } = (
     await api<ICalendarDate[]>(
-      `fetch?entity=CalendarDate&start_date=${
-        getYmdFromParts(startDate)}&end_date=${getYmdFromParts(endDate)}`,
+      `fetch?entity=CalendarDate&start_date=${getYmdFromParts(startDate)}&end_date=${getYmdFromParts(endDate)}`, // eslint-disable-line max-len
       'GET'
     )
   );

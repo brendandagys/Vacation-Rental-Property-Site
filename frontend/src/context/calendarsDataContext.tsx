@@ -20,8 +20,8 @@ let fetchedOnce = false;
 
 const CalendarsDataContext = createContext({} as ICalendarsDataContextProps);
 
-export const CalendarsDataProvider = ({ children }: { children: ReactNode }) => {
-  const [ calendarsData, setCalendarsData ] = useState<TCalendarsData>({});
+export const CalendarsDataProvider = ({ children }: { children: ReactNode; }) => {
+  const [calendarsData, setCalendarsData] = useState<TCalendarsData>({});
 
   const fetchData = useCallback(
     async (months: IYearMonth[]) => {
@@ -30,8 +30,8 @@ export const CalendarsDataProvider = ({ children }: { children: ReactNode }) => 
     }, []
   );
 
-  const [ currentYear ] = useState(() => (new Date()).getFullYear());
-  const [ currentMonth ] = (
+  const [currentYear] = useState(() => (new Date()).getFullYear());
+  const [currentMonth] = (
     useState<TMonthNumber>(() => (new Date()).getMonth() + 1 as TMonthNumber) // 1-based
   );
 
@@ -42,7 +42,7 @@ export const CalendarsDataProvider = ({ children }: { children: ReactNode }) => 
       const monthsToFetch = getMonthsForRequest({ year: currentYear, month: currentMonth }, 11);
       fetchData(monthsToFetch).catch(console.error);
     }
-  }, [ currentMonth, currentYear, fetchData ]);
+  }, [currentMonth, currentYear, fetchData]);
 
   return (
     <CalendarsDataContext.Provider

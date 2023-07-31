@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { api, isApiResponse } from './index';
 import { EBookingInquiryState, IBookingInquiry, IBookingInquiryPutRequest } from '../types/bookingInquiry';
 import { IYearMonthDate, Nullable } from '../types';
@@ -38,8 +39,7 @@ export const getBookingInquiriesInDateRange = async (
 ): Promise<IBookingInquiry[]> => {
   const { body, errorMessage } = (
     await api<IBookingInquiry[]>(
-      `fetch?entity=BookingInquiry&start_date=${
-        getYmdFromParts(startDate)}&end_date=${getYmdFromParts(endDate)}`,
+      `fetch?entity=BookingInquiry&start_date=${getYmdFromParts(startDate)}&end_date=${getYmdFromParts(endDate)}`, // eslint-disable-line max-len
       'GET'
     )
   );
