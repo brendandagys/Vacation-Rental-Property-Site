@@ -1,4 +1,3 @@
-/* eslint-disable max-len */
 import { scrollTo } from '../utils/scroll';
 import { Nav, NavDropdown } from 'react-bootstrap';
 import { useViewportWidth } from '../hooks/useViewportWidth';
@@ -76,7 +75,7 @@ export const Navbar = () => {
                 const Flag = languageToFlagMap[languageVariant];
 
                 return (
-                  <NavDropdown.Item onClick={() => setLanguage(languageVariant)}>
+                  <NavDropdown.Item key={key} onClick={() => setLanguage(languageVariant)}>
                     <Flag style={{ width: '2rem', marginBottom: 2, height: '2rem' }} />
                     {getText(`nav-${languageVariant}`)}
                   </NavDropdown.Item>
