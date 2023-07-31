@@ -238,7 +238,7 @@ export const CalendarsContainer = ({
                 className='button button--blue mt-4'
                 onClick={() => {
                   setShowAllMonths((old) => !old);
-                  scrollTo('calendar', mobile ? -110 : -80, false);
+                  !mobile && scrollTo('calendar', -80, false);
                 }}
               >
                 {showAllMonths ? getText('calendar-show-fewer-button') : getText('calendar-show-more-button')}
