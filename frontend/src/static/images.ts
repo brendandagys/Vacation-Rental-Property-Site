@@ -1,18 +1,27 @@
+import { Image as GridGalleryImage } from 'react-grid-gallery';
+
 export const tourVideo = 'https://spainluxury.holiday/images/video-tour.mov';
 
 // const balconySunset = { src: 'https://spainluxury.holiday/images/balcony-sunset.jpg', alt: 'balcony-sunset' };
-const lowerPool = { src: 'https://spainluxury.holiday/images/lower-pool.jpg', alt: 'lower-pool' };
-const secondBedroom = { src: 'https://spainluxury.holiday/images/second-bedroom.jpg', alt: 'second-bedroom' };
+
 export const upperPoolAtNight = (
-  { src: 'https://spainluxury.holiday/images/upper-pool-at-night.jpg', alt: 'upper-pool-at-night' }
+  {
+    src: 'https://spainluxury.holiday/images/upper-pool-at-night.jpg',
+    alt: 'upper-pool-at-night',
+    width: 1024,
+    height: 576,
+  }
 );
 
 export const upperPoolAtNightCropped = (
   {
     src: 'https://spainluxury.holiday/images/upper-pool-at-night-cropped.png',
     alt: 'upper-pool-at-night-cropped',
+    width: 892,
+    height: 565,
   }
 );
+
 // export const terraceTableView = (
 //   { src: 'https://spainluxury.holiday/images/terrace-table-view.jpeg', alt: 'terrace-table-view' }
 // );
@@ -23,93 +32,330 @@ export const mainImage = (
     alt: 'wide-view-from-terrace-table',
   }
 );
+
 export const mainImageMobile = (
   {
     src: 'https://spainluxury.holiday/images/wide-view-from-terrace-table-mobile.jpg',
     alt: 'wide-view-from-terrace-table',
   }
 );
-export const secondaryImage = (
-  { src: 'https://spainluxury.holiday/images/balcony-view-center.jpg', alt: 'balcony-view-center' }
-);
-export const tertiaryImage = (
-  { src: 'https://spainluxury.holiday/images/terrace-sunny-west-view.jpg', alt: 'terrace-sunny-west-view' }
-);
 
-const seaViewDaytime = (
-  { src: 'https://spainluxury.holiday/images/sea-view-daytime.jpg', alt: 'sea-view-daytime' }
-);
+export const secondaryImage = {
+  src: 'https://spainluxury.holiday/images/balcony-view-center.jpg',
+  alt: 'balcony-view-center',
+  width: 4032,
+  height: 2740,
+};
 
-export const images = [
+export const tertiaryImage = {
+  src: 'https://spainluxury.holiday/images/terrace-sunny-west-view.jpg',
+  alt: 'terrace-sunny-west-view',
+  width: 4032,
+  height: 2203,
+};
+
+export const images: GridGalleryImage[] = [
   {
     src: 'https://spainluxury.holiday/images/balcony-west-view-captioned.jpg',
     alt: 'balcony-west-view-captioned',
+    width: 3264,
+    height: 2448,
   },
-  seaViewDaytime,
-  { src: 'https://spainluxury.holiday/images/sea-view.webp', alt: 'sea-view' },
-  { src: 'https://spainluxury.holiday/images/balcony-west-view.jpg', alt: 'balcony-west-view' },
+  {
+    src: 'https://spainluxury.holiday/images/sea-view-daytime.jpg',
+    alt: 'sea-view-daytime',
+    width: 4032,
+    height: 3024,
+  },
+  {
+    src: 'https://spainluxury.holiday/images/sea-view.webp',
+    alt: 'sea-view',
+    width: 1024,
+    height: 768,
+  },
+  {
+    src: 'https://spainluxury.holiday/images/balcony-west-view.jpg',
+    alt: 'balcony-west-view',
+    width: 3264,
+    height: 2448,
+  },
   {
     src: 'https://spainluxury.holiday/images/terrace-west-view-with-table.jpg',
     alt: 'terrace-west-view-with-table',
+    width: 5152,
+    height: 3864,
   },
-  { src: 'https://spainluxury.holiday/images/balcony-view-night.webp', alt: 'balcony-view-night' },
-  { src: 'https://spainluxury.holiday/images/sunset.webp', alt: 'sunset' },
-  { src: 'https://spainluxury.holiday/images/front-balcony-view.jpg', alt: 'front-balcony-view' },
-  { src: 'https://spainluxury.holiday/images/front-door.jpg', alt: 'front-door' },
-  { src: 'https://spainluxury.holiday/images/kitchen-table.jpg', alt: 'kitchen-table' },
-  { src: 'https://spainluxury.holiday/images/kitchen-table-2.jpg', alt: 'kitchen-table-2' },
-  { src: 'https://spainluxury.holiday/images/kitchen.jpg', alt: 'kitchen' },
-  { src: 'https://spainluxury.holiday/images/nespresso.jpg', alt: 'nespresso' },
-  { src: 'https://spainluxury.holiday/images/kitchen-counter.jpg', alt: 'kitchen-counter' },
-  { src: 'https://spainluxury.holiday/images/kitchen-2.jpg', alt: 'kitchen-2' },
-  { src: 'https://spainluxury.holiday/images/living-room.webp', alt: 'living-room' },
-  { src: 'https://spainluxury.holiday/images/smart-tv.webp', alt: 'smart-tv' },
-  { src: 'https://spainluxury.holiday/images/living-room-2.webp', alt: 'living-room-2' },
-  { src: 'https://spainluxury.holiday/images/smart-tv-2.jpg', alt: 'smart-tv-2' },
-  { src: 'https://spainluxury.holiday/images/couch.jpg', alt: 'couch' },
-  { src: 'https://spainluxury.holiday/images/second-bathroom.jpg', alt: 'second-bathroom' },
-  { src: 'https://spainluxury.holiday/images/shower.jpg', alt: 'shower' },
-  { src: 'https://spainluxury.holiday/images/second-bedroom-2.jpg', alt: 'second-bedroom-2' },
-  { src: 'https://spainluxury.holiday/images/second-bedroom-window.webp', alt: 'second-bedroom-window' },
-  secondBedroom,
-  { src: 'https://spainluxury.holiday/images/second-bedroom-closet.jpg', alt: 'second-bedroom-closet' },
-  { src: 'https://spainluxury.holiday/images/bathroom-sinks.webp', alt: 'bathroom-sinks' },
-  { src: 'https://spainluxury.holiday/images/master-bathroom-2.jpg', alt: 'master-bathroom-2' },
-  { src: 'https://spainluxury.holiday/images/master-bathroom.jpg', alt: 'master-bathroom' },
-  { src: 'https://spainluxury.holiday/images/main-bedroom.jpg', alt: 'main-bedroom' },
-  { src: 'https://spainluxury.holiday/images/balcony-east-view.jpg', alt: 'balcony-east-view' },
-  { src: 'https://spainluxury.holiday/images/balcony-recliners.webp', alt: 'balcony-recliners' },
-  { src: 'https://spainluxury.holiday/images/sea-view-daytime-2.jpg', alt: 'sea-view-daytime-2' },
-  { src: 'https://spainluxury.holiday/images/beach-staircase.jpg', alt: 'beach-staircase' },
-  { src: 'https://spainluxury.holiday/images/pool-trees.webp', alt: 'pool-trees' },
-  { src: 'https://spainluxury.holiday/images/lower-pool-2.jpg', alt: 'lower-pool-2' },
+  {
+    src: 'https://spainluxury.holiday/images/balcony-view-night.webp',
+    alt: 'balcony-view-night',
+    width: 1024,
+    height: 768,
+  },
+  {
+    src: 'https://spainluxury.holiday/images/sunset.webp',
+    alt: 'sunset',
+    width: 576,
+    height: 768,
+  },
+  {
+    src: 'https://spainluxury.holiday/images/front-balcony-view.jpg',
+    alt: 'front-balcony-view',
+    width: 3264,
+    height: 2448,
+  },
+  {
+    src: 'https://spainluxury.holiday/images/front-door.jpg',
+    alt: 'front-door',
+    width: 600,
+    height: 800,
+  },
+  {
+    src: 'https://spainluxury.holiday/images/kitchen-table.jpg',
+    alt: 'kitchen-table',
+    width: 800,
+    height: 600,
+  },
+  {
+    src: 'https://spainluxury.holiday/images/kitchen-table-2.jpg',
+    alt: 'kitchen-table-2',
+    width: 720,
+    height: 960,
+  },
+  {
+    src: 'https://spainluxury.holiday/images/kitchen.jpg',
+    alt: 'kitchen',
+    width: 600,
+    height: 800,
+  },
+  {
+    src: 'https://spainluxury.holiday/images/nespresso.jpg',
+    alt: 'nespresso',
+    width: 1080,
+    height: 1080,
+  },
+  {
+    src: 'https://spainluxury.holiday/images/kitchen-counter.jpg',
+    alt: 'kitchen-counter',
+    width: 4032,
+    height: 3024,
+  },
+  {
+    src: 'https://spainluxury.holiday/images/kitchen-2.jpg',
+    alt: 'kitchen-2',
+    width: 600,
+    height: 800,
+  },
+  {
+    src: 'https://spainluxury.holiday/images/living-room.webp',
+    alt: 'living-room',
+    width: 1024,
+    height: 768,
+  },
+  {
+    src: 'https://spainluxury.holiday/images/smart-tv.webp',
+    alt: 'smart-tv',
+    width: 1024,
+    height: 764,
+  },
+  {
+    src: 'https://spainluxury.holiday/images/living-room-2.webp',
+    alt: 'living-room-2',
+    width: 1024,
+    height: 768,
+  },
+  {
+    src: 'https://spainluxury.holiday/images/smart-tv-2.jpg',
+    alt: 'smart-tv-2',
+    width: 1296,
+    height: 1124,
+  },
+  {
+    src: 'https://spainluxury.holiday/images/couch.jpg',
+    alt: 'couch',
+    width: 3264,
+    height: 2448,
+  },
+  {
+    src: 'https://spainluxury.holiday/images/second-bathroom.jpg',
+    alt: 'second-bathroom',
+    width: 320,
+    height: 240,
+  },
+  {
+    src: 'https://spainluxury.holiday/images/shower.jpg',
+    alt: 'shower',
+    width: 532,
+    height: 800,
+  },
+  {
+    src: 'https://spainluxury.holiday/images/second-bedroom-2.jpg',
+    alt: 'second-bedroom-2',
+    width: 3024,
+    height: 4032,
+  },
+  {
+    src: 'https://spainluxury.holiday/images/second-bedroom-window.webp',
+    alt: 'second-bedroom-window',
+    width: 1024,
+    height: 768,
+  },
+  {
+    src: 'https://spainluxury.holiday/images/second-bedroom.jpg',
+    alt: 'second-bedroom',
+    width: 4032,
+    height: 3024,
+  },
+  {
+    src: 'https://spainluxury.holiday/images/second-bedroom-closet.jpg',
+    alt: 'second-bedroom-closet',
+    width: 600,
+    height: 800,
+  },
+  {
+    src: 'https://spainluxury.holiday/images/bathroom-sinks.webp',
+    alt: 'bathroom-sinks',
+    width: 1024,
+    height: 768,
+  },
+  {
+    src: 'https://spainluxury.holiday/images/master-bathroom-2.jpg',
+    alt: 'master-bathroom-2',
+    width: 275,
+    height: 183,
+  },
+  {
+    src: 'https://spainluxury.holiday/images/master-bathroom.jpg',
+    alt: 'master-bathroom',
+    width: 800,
+    height: 532,
+  },
+  {
+    src: 'https://spainluxury.holiday/images/main-bedroom.jpg',
+    alt: 'main-bedroom',
+    width: 4032,
+    height: 3024,
+  },
+  {
+    src: 'https://spainluxury.holiday/images/balcony-east-view.jpg',
+    alt: 'balcony-east-view',
+    width: 4032,
+    height: 3024,
+  },
+  {
+    src: 'https://spainluxury.holiday/images/balcony-recliners.webp',
+    alt: 'balcony-recliners',
+    width: 1024,
+    height: 768,
+  },
+  {
+    src: 'https://spainluxury.holiday/images/sea-view-daytime-2.jpg',
+    alt: 'sea-view-daytime-2',
+    width: 3024,
+    height: 4032,
+  },
+  {
+    src: 'https://spainluxury.holiday/images/beach-staircase.jpg',
+    alt: 'beach-staircase',
+    width: 800,
+    height: 532,
+  },
+  {
+    src: 'https://spainluxury.holiday/images/pool-trees.webp',
+    alt: 'pool-trees',
+    width: 1440,
+    height: 1920,
+  },
+  {
+    src: 'https://spainluxury.holiday/images/lower-pool-2.jpg',
+    alt: 'lower-pool-2',
+    width: 902,
+    height: 600,
+  },
   {
     src: 'https://spainluxury.holiday/images/lower-pool-and-building-view.jpg',
     alt: 'lower-pool-and-building-view',
+    width: 1944,
+    height: 2592,
   },
-  lowerPool,
-  { src: 'https://spainluxury.holiday/images/pool-view-from-building.jpg', alt: 'pool-view-from-building' },
-  { src: 'https://spainluxury.holiday/images/pool-grass.jpg', alt: 'pool-grass' },
-  { src: 'https://spainluxury.holiday/images/pool-stairs.jpg', alt: 'pool-stairs' },
-  { src: 'https://spainluxury.holiday/images/lower-pool.webp', alt: 'lower-pool' },
+  {
+    src: 'https://spainluxury.holiday/images/lower-pool.jpg',
+    alt: 'lower-pool',
+    width: 1024,
+    height: 404,
+  },
+  {
+    src: 'https://spainluxury.holiday/images/pool-view-from-building.jpg',
+    alt: 'pool-view-from-building',
+    width: 2048,
+    height: 1152,
+  },
+  {
+    src: 'https://spainluxury.holiday/images/pool-grass.jpg',
+    alt: 'pool-grass',
+    width: 1440,
+    height: 648,
+  },
+  {
+    src: 'https://spainluxury.holiday/images/pool-stairs.jpg',
+    alt: 'pool-stairs',
+    width: 800,
+    height: 600,
+  },
+  {
+    src: 'https://spainluxury.holiday/images/lower-pool.webp',
+    alt: 'lower-pool',
+    width: 1024,
+    height: 768,
+  },
   {
     src: 'https://spainluxury.holiday/images/lower-pool-view-from-above.jpg',
     alt: 'lower-pool-view-from-above',
+    width: 1280,
+    height: 960,
   },
   upperPoolAtNight,
   {
     src: 'https://spainluxury.holiday/images/view-from-second-bedroom-window.jpg',
     alt: 'view-from-second-bedroom-window',
+    width: 3264,
+    height: 2448,
   },
-  { src: 'https://spainluxury.holiday/images/gate.webp', alt: 'gate' },
-  { src: 'https://spainluxury.holiday/images/community-walkway.avif', alt: 'community-walkway' },
+  {
+    src: 'https://spainluxury.holiday/images/gate.webp',
+    alt: 'gate',
+    width: 1024,
+    height: 683,
+  },
+  {
+    src: 'https://spainluxury.holiday/images/community-walkway.avif',
+    alt: 'community-walkway',
+    width: 1024,
+    height: 681,
+  },
   {
     src: 'https://spainluxury.holiday/images/other-building-from-below.jpg',
     alt: 'other-building-from-below',
+    width: 4896,
+    height: 3672,
   },
-  { src: 'https://spainluxury.holiday/images/buildings-view-from-side.jpg', alt: 'buildings-view-from-side' },
-  { src: 'https://spainluxury.holiday/images/community-walkway-2.jpg', alt: 'community-walkway-2' },
-  { src: 'https://spainluxury.holiday/images/beach-panoramic.png', alt: 'beach-panoramic' },
+  {
+    src: 'https://spainluxury.holiday/images/buildings-view-from-side.jpg',
+    alt: 'buildings-view-from-side',
+    width: 800,
+    height: 533,
+  },
+  {
+    src: 'https://spainluxury.holiday/images/community-walkway-2.jpg',
+    alt: 'community-walkway-2',
+    width: 3024,
+    height: 4032,
+  },
+  {
+    src: 'https://spainluxury.holiday/images/beach-panoramic.png',
+    alt: 'beach-panoramic',
+    width: 3462,
+    height: 1744,
+  },
 
   // balconySunset,
 ];
