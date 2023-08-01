@@ -2,17 +2,14 @@ import { useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCircleChevronLeft, faCircleChevronRight, faCircleXmark } from '@fortawesome/free-solid-svg-icons';
 import { Nullable } from '../types';
-import { Col } from 'react-bootstrap';
-import { FadeInImage } from './FadeInImage';
 import { useViewportWidth } from '../hooks/useViewportWidth';
-import { useLanguage } from '../context/languageContext';
+import { Gallery, Image as GridGalleryImage } from 'react-grid-gallery';
 
 interface ImageGalleryProps {
-  images: { src: string; alt: string; }[];
+  images: GridGalleryImage[];
 }
 
 export const ImageGallery = ({ images }: ImageGalleryProps) => {
-  const { getText } = useLanguage();
 
   const [slideNumber, setSlideNumber] = useState<Nullable<number>>(null);
   const [showModal, setShowModal] = useState(false);
@@ -21,10 +18,6 @@ export const ImageGallery = ({ images }: ImageGalleryProps) => {
 
   return (
     <div>
-      <Col xs={12} className='text-center text-black mb-5'>
-        <h1 className="font-5xl">{getText('gallery-title')}</h1>
-      </Col>
-      <br />
       {
         showModal && (
           <div className="slider-wrap" onClick={() => { setShowModal(false); }}>
@@ -70,22 +63,15 @@ export const ImageGallery = ({ images }: ImageGalleryProps) => {
         )
       }
 
-      <div className='gallery-wrap'>
-        {
-          images.map(({ src, alt }, i) => (
-            <div
-              className="single"
-              key={src}
-              onClick={() => {
-                setSlideNumber(i);
-                setShowModal(true);
-              }}
-            >
-              <FadeInImage src={src} alt={alt} />
-            </div>
-          ))
-        }
-      </div>
+      <Gallery
+        images={images}
+        enableImageSelection={false}
+        onClick={(indexClicked) => {
+          setSlideNumber(indexClicked);
+          setShowModal(true);
+        }}
+        rowHeight={300}
+      />
     </div>
   );
 };

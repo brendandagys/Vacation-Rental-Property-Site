@@ -1,11 +1,11 @@
 import { useInView } from 'react-intersection-observer';
 
-interface IFadeInImageProps {
+interface FadeInImageProps {
   src: string;
-  alt: string;
+  alt?: string;
 }
 
-export const FadeInImage = ({ src, alt }: IFadeInImageProps) => {
+export const FadeInImage = ({ src, alt }: FadeInImageProps) => {
   const [ref, inView] = useInView({
     triggerOnce: true,
     threshold: 0.1,
