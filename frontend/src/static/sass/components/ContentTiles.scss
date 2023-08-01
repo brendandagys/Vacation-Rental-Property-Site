@@ -1,10 +1,18 @@
-.content-tiles {
-  background: #ffd157;
-
-  &__container {
+.content-tiles-row {
+  &__details-list {
+    background: #ffd157;
+    border-radius: 20px;
+    box-shadow: $text-shadow-sm;
+    // box-shadow: 1px 1px 8px 2px slategray;
+    
     li {
       margin-bottom: 4px;
     }
+  }
+  
+  img {
+    border-radius: 20px;
+    box-shadow: $text-shadow-sm;
   }
 
   &__neighborhood {
@@ -14,5 +22,10 @@
     p:not(:first-child) {
       margin-top: 1.5rem;
     }
+  }
+  
+  &__amenities, &__attractions {
+    border-radius: 20px;
+    box-shadow: $text-shadow-sm;
   }
 }

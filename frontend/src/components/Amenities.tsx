@@ -12,7 +12,7 @@ import {
   faSun,
   faTv,
   faUmbrellaBeach,
-  faUtensils,
+  // faUtensils,
   faWaterLadder,
   faWifi,
   faWind,
@@ -38,7 +38,7 @@ export const Amenities = () => {
     { icon: faCoffee, label: getText('amenities-nespresso'), color: '#311a13' },
     { icon: faCoffee, label: getText('amenities-coffee'), color: '#311a13' },
     { icon: faBook, label: getText('amenities-reading-materials'), color: '#001f3f' },
-    { icon: faUtensils, label: getText('amenities-dishes-and-cutlery'), color: 'gray' },
+    // { icon: faUtensils, label: getText('amenities-dishes-and-cutlery'), color: 'gray' },
   ];
 
   return (
@@ -53,7 +53,7 @@ export const Amenities = () => {
         {
           amenities.map(({ color, icon, label }, index) => (
             <Col key={index} xs={6} sm={4} md={6} lg={4} xxl={3} className="mb-4">
-              <Card className="amenity-card">
+              <Card className="amenity-card shadow">
                 <Card.Body className="d-flex align-items-center">
                   <FontAwesomeIcon
                     icon={icon}
