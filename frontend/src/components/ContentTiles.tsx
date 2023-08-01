@@ -11,7 +11,7 @@ export const ContentTiles = () => {
   const { getText } = useLanguage();
 
   return (
-    <div style={{ marginTop: '5rem' }}>
+    <div style={{ marginTop: '5rem', paddingBottom: '3rem' }}>
       <Row id="information" className='mx-4 content-tiles-row justify-content-evenly'>
         <Col xs={12} md={6}
           className="d-flex align-items-center
@@ -40,11 +40,8 @@ export const ContentTiles = () => {
           className="d-flex align-items-center justify-content-center
           pb-4 pt-4 px-4 px-sm-5 px-md-3 px-lg-5 my-4
           content-tiles-row__amenities"
-          style={{ background: '#dc3830' }}
         >
-          <div className='content-tiles-row__neighborhood py-3 py-sm-0'>
-            <Amenities />
-          </div>
+          <div className='py-3 py-sm-0'><Amenities /></div>
         </Col>
 
         <Col xs={12} md={5}
