@@ -31,27 +31,27 @@ export const Navbar = () => {
           <p className="nav-link" onClick={() => scrollTo('home')}>{getText('nav-home')}</p>
         </div>
         <div>
-          <p className="nav-link" onClick={() => scrollTo('tour', mobile ? -80 : -50)}>
+          <p className="nav-link" onClick={() => scrollTo('tour', mobile ? -115 : -50)}>
             {getText('nav-tour')}
           </p>
         </div>
         <div>
-          <p className="nav-link" onClick={() => scrollTo('calendar', mobile ? -110 : -80)}>
+          <p className="nav-link" onClick={() => scrollTo('calendar', mobile ? -145 : -80)}>
             {getText('nav-calendar')}
           </p>
         </div>
         <div>
-          <p className="nav-link" onClick={() => scrollTo('information', mobile ? -80 : -50)}>
+          <p className="nav-link" onClick={() => scrollTo('information', mobile ? -115 : -50)}>
             {getText('nav-information')}
           </p>
         </div>
         <div>
-          <p className="nav-link" onClick={() => scrollTo('gallery', mobile ? -80 : -50)}>
+          <p className="nav-link" onClick={() => scrollTo('gallery', mobile ? -115 : -50)}>
             {getText('nav-gallery')}
           </p>
         </div>
         <div>
-          <p className="nav-link" onClick={() => scrollTo('testimonials', mobile ? -80 : -50)}>
+          <p className="nav-link" onClick={() => scrollTo('testimonials', mobile ? -115 : -50)}>
             {getText('nav-testimonials')}
           </p>
         </div>
