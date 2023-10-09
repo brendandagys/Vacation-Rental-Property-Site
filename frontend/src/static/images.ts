@@ -86,6 +86,18 @@ export const images: GridGalleryImage[] = [
     height: 3864,
   },
   {
+    src: 'https://spainluxury.holiday/images/terrace-east-view.jpg',
+    alt: 'terrace-east-view',
+    width: 3076,
+    height: 1814,
+  },
+  {
+    src: 'https://spainluxury.holiday/images/terrace-east-view-2.jpg',
+    alt: 'terrace-east-view',
+    width: 3149,
+    height: 1877,
+  },
+  {
     src: 'https://spainluxury.holiday/images/balcony-view-night.webp',
     alt: 'balcony-view-night',
     width: 1024,
@@ -96,6 +108,12 @@ export const images: GridGalleryImage[] = [
     alt: 'sunset',
     width: 576,
     height: 768,
+  },
+  {
+    src: 'https://spainluxury.holiday/images/table-view.jpg',
+    alt: 'table-view',
+    width: 4032,
+    height: 3024,
   },
   {
     src: 'https://spainluxury.holiday/images/front-balcony-view.jpg',
@@ -110,6 +128,12 @@ export const images: GridGalleryImage[] = [
     height: 800,
   },
   {
+    src: 'https://spainluxury.holiday/images/doorway.jpg',
+    alt: 'doorway',
+    width: 3885,
+    height: 2908,
+  },
+  {
     src: 'https://spainluxury.holiday/images/kitchen-table.jpg',
     alt: 'kitchen-table',
     width: 800,
@@ -122,10 +146,40 @@ export const images: GridGalleryImage[] = [
     height: 960,
   },
   {
+    src: 'https://spainluxury.holiday/images/kitchen-table-3.jpg',
+    alt: 'kitchen-table-3',
+    width: 4032,
+    height: 2817,
+  },
+  {
+    src: 'https://spainluxury.holiday/images/kitchen-table-4.jpg',
+    alt: 'kitchen-table-4',
+    width: 4032,
+    height: 3024,
+  },
+  {
     src: 'https://spainluxury.holiday/images/kitchen.jpg',
     alt: 'kitchen',
     width: 600,
     height: 800,
+  },
+  {
+    src: 'https://spainluxury.holiday/images/kitchen-view.jpg',
+    alt: 'kitchen-view',
+    width: 4032,
+    height: 3024,
+  },
+  {
+    src: 'https://spainluxury.holiday/images/kitchen-view-2.jpg',
+    alt: 'kitchen-view-2',
+    width: 4032,
+    height: 3024,
+  },
+  {
+    src: 'https://spainluxury.holiday/images/kitchen-view-3.jpg',
+    alt: 'kitchen-view-3',
+    width: 3801,
+    height: 3024,
   },
   {
     src: 'https://spainluxury.holiday/images/nespresso.jpg',
@@ -146,6 +200,18 @@ export const images: GridGalleryImage[] = [
     height: 800,
   },
   {
+    src: 'https://spainluxury.holiday/images/living-area.jpg',
+    alt: 'living-area',
+    width: 4032,
+    height: 3024,
+  },
+  {
+    src: 'https://spainluxury.holiday/images/living-area-2.jpg',
+    alt: 'living-area-2',
+    width: 4032,
+    height: 3024,
+  },
+  {
     src: 'https://spainluxury.holiday/images/living-room.webp',
     alt: 'living-room',
     width: 1024,
@@ -164,6 +230,12 @@ export const images: GridGalleryImage[] = [
     height: 768,
   },
   {
+    src: 'https://spainluxury.holiday/images/living-area-looking-out.jpg',
+    alt: 'living-area-looking-out',
+    width: 3786,
+    height: 2815,
+  },
+  {
     src: 'https://spainluxury.holiday/images/smart-tv-2.jpg',
     alt: 'smart-tv-2',
     width: 1296,
@@ -174,6 +246,12 @@ export const images: GridGalleryImage[] = [
     alt: 'couch',
     width: 3264,
     height: 2448,
+  },
+  {
+    src: 'https://spainluxury.holiday/images/couch-and-table.jpg',
+    alt: 'couch-and-table',
+    width: 4032,
+    height: 2581,
   },
   {
     src: 'https://spainluxury.holiday/images/second-bathroom.jpg',
@@ -230,8 +308,20 @@ export const images: GridGalleryImage[] = [
     height: 532,
   },
   {
+    src: 'https://spainluxury.holiday/images/master-bathroom-2.jpg',
+    alt: 'master-bathroom-2',
+    width: 4032,
+    height: 3024,
+  },
+  {
     src: 'https://spainluxury.holiday/images/main-bedroom.jpg',
     alt: 'main-bedroom',
+    width: 4032,
+    height: 3024,
+  },
+  {
+    src: 'https://spainluxury.holiday/images/bedroom-view-outside.jpg',
+    alt: 'bedroom-view-outside',
     width: 4032,
     height: 3024,
   },
