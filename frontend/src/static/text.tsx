@@ -449,6 +449,13 @@ export const textData: TextData = {
     [ELanguage.German]: 'Sam',
     [ELanguage.Spanish]: 'sáb',
   },
+  'calendar-booked': {
+    [ELanguage.Dutch]: 'GEBOEKT',
+    [ELanguage.English]: 'BOOKED',
+    [ELanguage.French]: 'RÉSERVÉ',
+    [ELanguage.German]: 'GEBUCHT',
+    [ELanguage.Spanish]: 'RESERVADO',
+  },
   'calendar-show-more-button': {
     [ELanguage.Dutch]: 'Toon meer maanden',
     [ELanguage.English]: 'Show more months',

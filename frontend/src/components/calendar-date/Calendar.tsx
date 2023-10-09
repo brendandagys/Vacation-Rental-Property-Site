@@ -176,7 +176,7 @@ export const Calendar = ({
                   :
                   state === EDateState.Available
                     ? `${currencySymbol}${price}`
-                    : <span className='font-6xs'>BOOKED</span>
+                    : <span className='font-6xs'>{getText('calendar-booked')}</span>
               }
             </p>
           </div>
