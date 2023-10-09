@@ -13,11 +13,7 @@ export const useViewportWidth = (): ViewportInformation => {
   useEffect(() => {
     const handleResize = () => { setWidth(window.innerWidth); };
     window.addEventListener('resize', handleResize);
-
-    // Clean up the event listener on unmount
-    return () => {
-      window.removeEventListener('resize', handleResize);
-    };
+    return () => { window.removeEventListener('resize', handleResize); };
   }, []);
 
   return { mobile, width };
