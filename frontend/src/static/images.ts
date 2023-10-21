@@ -411,12 +411,6 @@ export const images: GridGalleryImage[] = [
   },
   upperPoolAtNight,
   {
-    src: 'https://spainluxury.holiday/images/view-from-second-bedroom-window.jpg',
-    alt: 'view-from-second-bedroom-window',
-    width: 3264,
-    height: 2448,
-  },
-  {
     src: 'https://spainluxury.holiday/images/gate.webp',
     alt: 'gate',
     width: 1024,
