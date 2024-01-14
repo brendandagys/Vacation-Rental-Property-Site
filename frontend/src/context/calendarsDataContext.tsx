@@ -39,7 +39,7 @@ export const CalendarsDataProvider = ({ children }: { children: ReactNode; }) =>
     if (!fetchedOnce) {
       fetchedOnce = true;
 
-      const monthsToFetch = getMonthsForRequest({ year: currentYear, month: currentMonth }, 11);
+      const monthsToFetch = getMonthsForRequest({ year: currentYear, month: currentMonth }, 23);
       fetchData(monthsToFetch).catch(console.error);
     }
   }, [currentMonth, currentYear, fetchData]);
