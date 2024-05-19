@@ -1150,11 +1150,11 @@ export const textData: TextData = {
     [ELanguage.Spanish]: 'Volver arriba',
   },
   'trademark': {
-    [ELanguage.Dutch]: '2023 Alle rechten voorbehouden',
-    [ELanguage.English]: '2023 All rights reserved',
-    [ELanguage.French]: '2023 Tous droits réservés',
-    [ELanguage.German]: '2023 Alle Rechte vorbehalten',
-    [ELanguage.Spanish]: '2023 Todos los derechos reservados',
+    [ELanguage.Dutch]: '2024 Alle rechten voorbehouden',
+    [ELanguage.English]: '2024 All rights reserved',
+    [ELanguage.French]: '2024 Tous droits réservés',
+    [ELanguage.German]: '2024 Alle Rechte vorbehalten',
+    [ELanguage.Spanish]: '2024 Todos los derechos reservados',
   },
   'inquiry-modal-title': {
     [ELanguage.Dutch]: 'Dien een onderzoek in',
