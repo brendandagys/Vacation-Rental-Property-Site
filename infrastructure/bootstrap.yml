@@ -23,7 +23,7 @@ Parameters:
 
   Domain:
     Type: String
-    Default: spainluxury.holiday
+    Default: calaceite.holiday
     Description: Domain for the assets bucket
 
   HostedZoneId:

@@ -45,7 +45,7 @@ export const ManageCalendarDatesContainer = () => {
   const onUpdateCalendarDates = async () => {
     await updateCalendarDates();
 
-    const monthsToFetch = getMonthsForRequest({ year: currentYear, month: currentMonth }, 11);
+    const monthsToFetch = getMonthsForRequest({ year: currentYear, month: currentMonth }, 23);
     await fetchCalendarsData(monthsToFetch);
 
     setShowModal(false);
