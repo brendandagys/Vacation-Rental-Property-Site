@@ -82,10 +82,16 @@ export const CalendarsContainer = ({
   useEffect(
     () => {
       if (setSubtotal) {
-        const selectedDatesAsCalendarDates = (
+        let selectedDatesAsCalendarDates = (
           selectedDates
             .map(getCalendarDateForYmd)
         );
+
+        if (selectedDatesAsCalendarDates.length > 1) {
+          selectedDatesAsCalendarDates = (
+            selectedDatesAsCalendarDates.slice(0, selectedDatesAsCalendarDates.length - 1)
+          );
+        }
 
         for (const date of selectedDatesAsCalendarDates) {
           if (!date) {

@@ -37,7 +37,10 @@ export const Calendars = ({
                   (from, to) => {
                     setFromTo(`${mapCalendarDateToYmd(from)} - ${mapCalendarDateToYmd(to)}`);
                     setNumDatesSelected(
-                      getDatesInRange(mapCalendarDateToDate(from), mapCalendarDateToDate(to)).length
+                      Math.max(
+                        1,
+                        getDatesInRange(mapCalendarDateToDate(from), mapCalendarDateToDate(to)).length - 1
+                      )
                     );
                     setShowBookingInquiryModal(true);
                   }
