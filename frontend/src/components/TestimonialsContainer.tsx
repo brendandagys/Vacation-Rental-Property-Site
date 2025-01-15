@@ -43,9 +43,10 @@ export const TestimonialsContainer = () => {
         ))
       }
 
-      <div className='text-center pt-4'>
+      <div className='text-center pt-4 text-white'>
         <p>{getText('testimonials-read-more')}&nbsp;
           <a
+            className="text-white text-decoration-underline"
             href="https://www.tripadvisor.ca/VacationRentalReview-g656870-d10343031-Calaceite_FRONTLINE_Vistamar_Luxury_Penthouse_Front_Seaview_Torrox_Nerja_Malaga-Torro.html"
             rel="noreferrer"
             target="_blank"
@@ -53,6 +54,7 @@ export const TestimonialsContainer = () => {
             Tripadvisor
           </a> {getText('testimonials-read-more-and')}&nbsp;
           <a
+            className="text-white text-decoration-underline"
             href="https://www.vrbo.com/en-ca/cottage-rental/p4160411?uni_id=4562157&adultsCount=2&arrival=2023-06-12&departure=2023-06-23"
             rel="noreferrer"
             target="_blank"

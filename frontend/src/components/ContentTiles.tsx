@@ -18,7 +18,7 @@ export const ContentTiles = () => {
           pb-4 pt-4 px-4 px-sm-5 px-md-3 px-lg-4 px-xl-5 my-4
           content-tiles-row__details-list"
         >
-          <div className='font-sm text-black py-3 py-sm-0'>
+          <div className='text-black py-3 py-sm-0'>
             <Col xs={12} className='mb-5 text-center'><h1>{getText('details-title')}</h1></Col>
 
             <TextContainer buttonColor='yellow'>
@@ -59,7 +59,7 @@ export const ContentTiles = () => {
           content-tiles-row__attractions"
           style={{ background: '#ffd157' }}
         >
-          <div className='font-sm text-black py-3 py-sm-0'>
+          <div className='text-black py-3 py-sm-0'>
             <Col xs={12} className='mb-5 text-center'><h1>{getText('attractions-title')}</h1></Col>
 
             <TextContainer

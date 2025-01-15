@@ -768,7 +768,7 @@ export const textData: TextData = {
   },
   'amenities-coffee': {
     [ELanguage.Dutch]: 'Druppel koffiezetapparaat',
-    [ELanguage.English]: 'Drip coffee machine',
+    [ELanguage.English]: 'Coffee machine',
     [ELanguage.French]: 'Machine à café filtre',
     [ELanguage.German]: 'Filterkaffeemaschine',
     [ELanguage.Spanish]: 'Cafetera de goteo',

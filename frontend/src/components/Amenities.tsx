@@ -45,7 +45,7 @@ export const Amenities = () => {
     <Container>
       <Col
         xs={12}
-        className='text-center text-black mb-5'
+        className='text-center text-white mb-5'
       >
         <h1>{getText('amenities-title')}</h1>
       </Col>

@@ -32,13 +32,11 @@
 
 .button--blue {
   background: $color-blue-d;
-  border: 2px solid $color-black;
+  border: 2.5px solid $color-white;
   color: $color-white;
-  text-shadow: 1px 1px .75px black;
 
   &:hover {
     background: #3472c7;
-    text-shadow: 1px 1px .75px black;
   }
 }
 
