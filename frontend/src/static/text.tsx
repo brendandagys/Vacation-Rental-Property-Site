@@ -788,294 +788,71 @@ export const textData: TextData = {
     [ELanguage.Spanish]: 'Platos y cubiertos',
   },
   'attractions-title': {
-    [ELanguage.Dutch]: 'Attracties',
-    [ELanguage.English]: 'Attractions',
-    [ELanguage.French]: 'Attractions',
+    [ELanguage.Dutch]: 'Bezienswaardigheden in de buurt',
+    [ELanguage.English]: 'Nearby Attractions',
+    [ELanguage.French]: 'Attractions à proximité',
     [ELanguage.German]: 'Sehenswürdigkeiten',
-    [ELanguage.Spanish]: 'Atracciones',
+    [ELanguage.Spanish]: 'Atracciones cercanas',
   },
   'attractions-content': {
     [ELanguage.Dutch]: (
       <div className="attractions-text">
-        <p>Er zijn tal van bezienswaardigheden in de buurt om te verkennen tijdens uw verblijf!</p>
-        <p>
-          De adembenemende stad Nerja en het beroemde Balkon van Europa bieden verbluffende mogelijkheden
-          uitzichten waar je versteld van zult staan. Mis de kans niet om de Nerja Crystal te bezoeken
-          Grotten, een must-see.
-        </p>
-        <p>
-          Maak een ontspannen wandeling langs de Torrox-Costa Paseo, een mooie promenade omzoomd met
-          strandwinkels, bars en restaurants. Ervaar de levendige sfeer van het buitenleven
-          straatmarkten, die elke ochtend in verschillende dorpen worden gehouden van 10.00 tot 14.00 uur. Torrox
-          organiseert de markt op maandag, terwijl Nerja de place to be is op dinsdag.
-        </p>
-        <p>
-          Voor strandliefhebbers strekken de beste zandstranden zich recht voor het complex uit, vanaf
-          Nerja naar Torrox-Costa. Het Burriana-strand in Nerja is bijzonder populair en bruisend
-          met toeristen.
-        </p>
-        <p>
-          Avontuurlijke zielen kunnen aan boord gaan van de spannende rivierwandeling Rio Chillar in de buurt van Nerja. Dit
-          sportieve en plezierige activiteit wordt aanbevolen met waterbestendige schoenen en een wandelstok,
-          hoewel het kan worden gedaan met ruige sandalen of hardloopschoenen.
-        </p>
-        <p>
-          Maak een korte rit naar Torrox-Pueblo, een uniek oud dorp in de bergen.
-          Voor meer schilderachtige schoonheid, ga naar het noorden naar het prachtige witgekalkte bergdorp
-          van Frigiliana.
-        </p>
-        <p>
-          Als je zin hebt in een dagje uit, bezoek dan het Alhambra-kasteel in Granada, een van Spanje's
-          hoofd attracties. Zorg ervoor dat je je tickets vooraf online bestelt. Voor wintersport
-          liefhebbers, het Sierra Nevada Mountain Ski Station ligt op 90 minuten rijden naar het noorden,
-          en biedt uitstekende mogelijkheden voor wintersport. Bezoek het strand en de bergen
-          op dezelfde dag!
-        </p>
-        <p>
-          Ronda, een ander charmant bergdorp in het noorden, biedt adembenemende uitzichten
-          vanaf de iconische brug over een diepe kloof.
-        </p>
-        <p>
-          Verken de stad Malaga, waar u een combinatie van winkelmogelijkheden vindt
-          en de kans om de prachtige Caminito del Rey te wandelen. Vergeet niet om uw te beveiligen
-          kaartjes vooraf online.
-        </p>
-        <p>
-          In de buurt kunt u genieten van gezinsvriendelijke attracties zoals het Bioparc
-          Dierentuin, Aqualand, Tivoli World en Aquavelis Waterparken, allemaal gunstig gelegen nabij Malaga.
-        </p>
-        <p>
-          Als je zin hebt in een langere rit naar het westen, breng dan een bezoek aan Marbella,
-          Puerto Banus, Cordoba, Sevilla en Gibraltar, elk met zijn eigen charme en attracties.
-        </p>
+        <p><span className="font-xs star-alignment">★</span> Het dorp Nerja en het beroemde Balkon van Europa <span className="font-xs star-alignment">★</span></p>
+        <p><span className="font-xs star-alignment">★</span> De Nerja Kristalgrotten <span className="font-xs star-alignment">★</span></p>
+        <p><span className="font-xs star-alignment">★</span> De Torrox-Costa Paseo <span className="font-xs star-alignment">★</span></p>
+        <p><span className="font-xs star-alignment">★</span> De Buitenstraatmarkten - in verschillende dorpen elke ochtend van 10.00 tot 14.00 uur <span className="font-xs star-alignment">★</span></p>
+        <p><span className="font-xs star-alignment">★</span> De Rio Chillar Rivierwandeling <span className="font-xs star-alignment">★</span></p>
+        <p><span className="font-xs star-alignment">★</span> De dorpen Frigiliana en Competa <span className="font-xs star-alignment">★</span></p>
+        <p><span className="font-xs star-alignment">★</span> Het Alhambra Kasteel in Granada en het Sierra Nevada Bergskistation <span className="font-xs star-alignment">★</span></p>
+        <p><span className="font-xs star-alignment">★</span> De Oude Stad van Malaga en de Caminito del Rey Wandeling <span className="font-xs star-alignment">★</span></p>
       </div>
     ),
     [ELanguage.English]: (
       <div className="attractions-text">
-        <p>There are plenty of nearby attractions to explore during your stay!</p>
-        <p>
-          The breathtaking town of <b>Nerja</b> and its famous <b>Balcony of Europe</b> offer stunning
-          views that will leave you in awe. Don't miss the chance to visit the <b>Nerja Crystal
-            Caves</b>, a must-see.
-        </p>
-        <p>
-          Take a leisurely stroll along the <b>Torrox-Costa Paseo</b>, a lovely promenade lined with
-          beach shops, bars, and restaurants. Experience the vibrant atmosphere of the <b>outdoor
-            street markets</b>, held in different villages every morning from 10am to 2pm. Torrox
-          hosts the market on Mondays, while Nerja is the place to be on Tuesdays.
-        </p>
-        <p>
-          For beach lovers, the best <b>sandy beaches stretch right in front of the complex</b>, from
-          Nerja to Torrox-Costa. <b>Burriana Beach in Nerja</b> is particularly popular and bustling
-          with tourists.
-        </p>
-        <p>
-          Adventurous souls can embark on the thrilling <b>Rio Chillar river walk</b> near Nerja. This
-          athletic and enjoyable activity is recommended with water-safe shoes and a walking stick,
-          although it can be done with rugged sandals or running shoes.
-        </p>
-        <p>
-          Take a short drive to <b>Torrox-Pueblo</b>, a unique old village nestled in the mountains.
-          For more picturesque beauty, head north to the stunning white-washed mountain village
-          of <b>Frigiliana</b>.
-        </p>
-        <p>
-          If you're up for a day trip, visit the <b>Alhambra Castle in Granada</b>, one of Spain's
-          main attractions. Make sure to order your tickets online in advance. For winter sports
-          enthusiasts, the <b>Sierra Nevada Mountain Ski Station</b> is a 90-minute drive north,
-          and offers excellent opportunities for winter sports. Visit the beach and mountain
-          on the same day!
-        </p>
-        <p>
-          <b>Ronda</b>, another charming mountain village to the north, boasts breathtaking views
-          from its iconic bridge spanning a deep gorge.
-        </p>
-        <p>
-          Explore <b>Malaga City</b>, where you'll find a combination of shopping opportunities
-          and the chance to hike the stunning <b>Caminito del Rey</b>. Remember to secure your
-          tickets online beforehand.
-        </p>
-        <p>
-          Nearby, you can enjoy family-friendly attractions such as the <b>Bioparc
-            Zoo</b>, <b>Aqualand</b>, <b>Tivoli World</b>, and <b>Aquavelis Water Parks</b>,
-          all conveniently located near Malaga.
-        </p>
-        <p>
-          If you're up for a longer drive to the west, make a visit to <b>Marbella</b>
-          , <b>Puerto Banus</b>, <b>Cordoba</b>, <b>Seville</b>, and <b>Gibraltar</b>,
-          each offering its own distinct charm and attractions.
-        </p>
+        <p><span className="font-xs star-alignment">★</span> The <strong>Village</strong> of <strong>Nerja</strong> and the famous <strong>Balcony of Europe</strong> <span className="font-xs star-alignment">★</span></p>
+        <p><span className="font-xs star-alignment">★</span> The <strong>Nerja Crystal Caves</strong> <span className="font-xs star-alignment">★</span></p>
+        <p><span className="font-xs star-alignment">★</span> The <strong>Torrox-Costa Paseo</strong> <span className="font-xs star-alignment">★</span></p>
+        <p><span className="font-xs star-alignment">★</span> The <strong>Outdoor Street Markets</strong> - in different villages every morning from 10am to 2pm <span className="font-xs star-alignment">★</span></p>
+        <p><span className="font-xs star-alignment">★</span> The <strong>Rio Chillar River Walk</strong> <span className="font-xs star-alignment">★</span></p>
+        <p><span className="font-xs star-alignment">★</span> The <strong>Villages</strong> of <strong>Frigiliana</strong> and <strong>Competa</strong> <span className="font-xs star-alignment">★</span></p>
+        <p><span className="font-xs star-alignment">★</span> The <strong>Alhambra Castle in Granada</strong> and the <strong>Sierra Nevada Mountain Ski Station</strong> <span className="font-xs star-alignment">★</span></p>
+        <p><span className="font-xs star-alignment">★</span> The <strong>Old City of Malaga</strong> and the <strong>Caminito del Rey Hike</strong> <span className="font-xs star-alignment">★</span></p>
       </div>
     ),
     [ELanguage.French]: (
       <div className="attractions-text">
-        <p>Il y a beaucoup d'attractions à proximité à explorer pendant votre séjour !</p>
-        <p>
-          La ville à couper le souffle de Nerja et son célèbre Balcon de l'Europe offrent de superbes
-          des vues qui vous laisseront bouche bée. Ne manquez pas la chance de visiter le cristal de Nerja
-          Les grottes, un incontournable.
-        </p>
-        <p>
-          Promenez-vous tranquillement le long du Torrox-Costa Paseo, une belle promenade bordée de
-          boutiques de plage, bars et restaurants. Découvrez l'atmosphère vibrante de l'extérieur
-          marchés de rue, organisés dans différents villages tous les matins de 10h à 14h. Torrox
-          accueille le marché le lundi, tandis que Nerja est l'endroit où il faut être le mardi.
-        </p>
-        <p>
-          Pour les amoureux de la plage, les meilleures plages de sable s'étendent juste en face du complexe, de
-          Nerja à Torrox-Costa. La plage de Burriana à Nerja est particulièrement populaire et animée
-          avec les touristes.
-        </p>
-        <p>
-          Les âmes aventureuses peuvent se lancer dans la palpitante promenade du fleuve Rio Chillar près de Nerja. Ce
-          une activité sportive et agréable est recommandée avec des chaussures étanches et un bâton de marche,
-          bien que cela puisse être fait avec des sandales robustes ou des chaussures de course.
-        </p>
-        <p>
-          Faites un court trajet en voiture jusqu'à Torrox-Pueblo, un vieux village unique niché dans les montagnes.
-          Pour une beauté plus pittoresque, dirigez-vous vers le nord jusqu'au magnifique village de montagne blanchi à la chaux
-          de Frigiliana.
-        </p>
-        <p>
-          Si vous êtes partant pour une excursion d'une journée, visitez le château de l'Alhambra à Grenade, l'un des
-          attractions principales. Assurez-vous de commander vos billets en ligne à l'avance. Pour les sports d'hiver
-          passionnés, la station de ski Sierra Nevada Mountain est à 90 minutes de route vers le nord,
-          et offre d'excellentes opportunités pour les sports d'hiver. Visitez la plage et la montagne
-          le même jour!
-        </p>
-        <p>
-          Ronda, un autre charmant village de montagne au nord, offre des vues à couper le souffle
-          depuis son pont emblématique enjambant une gorge profonde.
-        </p>
-        <p>
-          Explorez la ville de Malaga, où vous trouverez une combinaison de possibilités de shopping
-          et la possibilité de faire une randonnée sur le magnifique Caminito del Rey. N'oubliez pas de sécuriser votre
-          billets en ligne au préalable.
-        </p>
-        <p>
-          A proximité, vous pourrez profiter d'attractions familiales telles que le Bioparc
-          Parcs aquatiques Zoo, Aqualand, Tivoli World et Aquavelis,
-          tous idéalement situés près de Malaga.
-        </p>
-        <p>
-          Si vous êtes partant pour un trajet plus long vers l'ouest, rendez-vous à Marbella
-          , Puerto Banus, Cordoue, Séville et Gibraltar,
-          chacune offrant son propre charme et ses attractions distinctes.
-        </p>
+        <p><span className="font-xs star-alignment">★</span> Le village de Nerja et le célèbre Balcon de l'Europe <span className="font-xs star-alignment">★</span></p>
+        <p><span className="font-xs star-alignment">★</span> Les grottes de cristal de Nerja <span className="font-xs star-alignment">★</span></p>
+        <p><span className="font-xs star-alignment">★</span> La promenade Torrox-Costa <span className="font-xs star-alignment">★</span></p>
+        <p><span className="font-xs star-alignment">★</span> Les marchés de rue en plein air - dans différents villages chaque matin de 10h à 14h <span className="font-xs star-alignment">★</span></p>
+        <p><span className="font-xs star-alignment">★</span> La promenade sur la rivière Rio Chillar <span className="font-xs star-alignment">★</span></p>
+        <p><span className="font-xs star-alignment">★</span> Les villages de Frigiliana et Competa <span className="font-xs star-alignment">★</span></p>
+        <p><span className="font-xs star-alignment">★</span> Le château de l'Alhambra à Grenade et la station de ski de la Sierra Nevada <span className="font-xs star-alignment">★</span></p>
+        <p><span className="font-xs star-alignment">★</span> La vieille ville de Malaga et la randonnée du Caminito del Rey <span className="font-xs star-alignment">★</span></p>
       </div>
     ),
     [ELanguage.German]: (
       <div className="attractions-text">
-        <p>Während Ihres Aufenthalts können Sie zahlreiche Sehenswürdigkeiten in der Nähe erkunden!</p>
-        <p>
-          La impresionante ciudad de Nerja y su famoso Balcón de Europa ofrecen impresionantes
-          vistas que te dejarán boquiabierto. No pierdas la oportunidad de visitar el Cristal de Nerja
-          Cuevas, visita obligada.
-        </p>
-        <p>
-          Machen Sie einen gemütlichen Spaziergang entlang des Torrox-Costa Paseo, einer schönen Promenade, die von vielen Stränden gesäumt ist
-          Strandläden, Bars und Restaurants. Erleben Sie die lebendige Atmosphäre im Freien
-          Straßenmärkte, die jeden Morgen von 10 bis 14 Uhr in verschiedenen Dörfern stattfinden. Torrox
-          montags findet der Markt statt, während Nerja dienstags der richtige Ort ist.
-        </p>
-        <p>
-          Für Strandliebhaber erstrecken sich die besten Sandstrände direkt vor der Anlage
-          Nerja nach Torrox-Costa. Besonders beliebt und belebt ist der Strand Burriana in Nerja
-          mit Touristen.
-        </p>
-        <p>
-          Abenteuerlustige können sich auf die aufregende Wanderung am Rio Chillar in der Nähe von Nerja begeben. Das
-          sportliche und genussvolle Betätigung wird mit wasserfesten Schuhen und einem Wanderstock empfohlen,
-          obwohl es mit robusten Sandalen oder Laufschuhen möglich ist.
-        </p>
-        <p>
-          Machen Sie eine kurze Fahrt nach Torrox-Pueblo, einem einzigartigen alten Dorf inmitten der Berge.
-          Für noch mehr malerische Schönheit fahren Sie nach Norden in das atemberaubende, weiß getünchte Bergdorf
-          von Frigiliana.
-        </p>
-        <p>
-          Wenn Sie Lust auf einen Tagesausflug haben, besuchen Sie die Burg Alhambra in Granada, eine der schönsten Burgen Spaniens
-          Hauptattraktion. Bestellen Sie Ihre Tickets unbedingt vorab online. Für den Wintersport
-          Für Enthusiasten ist die Sierra Nevada Mountain Ski Station eine 90-minütige Fahrt nördlich.
-          und bietet hervorragende Wintersportmöglichkeiten. Besuchen Sie den Strand und die Berge
-          am selben Tag!
-        </p>
-        <p>
-          Ronda, ein weiteres charmantes Bergdorf im Norden, bietet atemberaubende Ausblicke
-          von seiner ikonischen Brücke aus, die eine tiefe Schlucht überspannt.
-        </p>
-        <p>
-          Erkunden Sie die Stadt Málaga, wo Sie eine Kombination aus Einkaufsmöglichkeiten finden
-          und die Möglichkeit, den atemberaubenden Caminito del Rey zu wandern. Denken Sie daran, Ihre zu sichern
-          Tickets vorher online bestellen.
-        </p>
-        <p>
-          In der Nähe können Sie familienfreundliche Attraktionen wie den Bioparc genießen
-          Zoo, Aqualand, Tivoli World und Aquavelis Wasserparks,
-          alle günstig in der Nähe von Malaga gelegen.
-        </p>
-        <p>
-          Wenn Sie Lust auf eine längere Fahrt in den Westen haben, sollten Sie Marbella besuchen
-          , Puerto Banus, Cordoba, Sevilla und Gibraltar,
-          Jedes bietet seinen eigenen Charme und seine ganz eigenen Attraktionen.
-        </p>
+        <p><span className="font-xs star-alignment">★</span> Das Dorf Nerja und der berühmte Balkon Europas <span className="font-xs star-alignment">★</span></p>
+        <p><span className="font-xs star-alignment">★</span> Die Kristallhöhlen von Nerja <span className="font-xs star-alignment">★</span></p>
+        <p><span className="font-xs star-alignment">★</span> Der Torrox-Costa Paseo <span className="font-xs star-alignment">★</span></p>
+        <p><span className="font-xs star-alignment">★</span> Die Straßenmärkte im Freien – jeden Morgen von 10 bis 14 Uhr in verschiedenen Dörfern <span className="font-xs star-alignment">★</span></p>
+        <p><span className="font-xs star-alignment">★</span> Der Spaziergang am Fluss Rio Chillar <span className="font-xs star-alignment">★</span></p>
+        <p><span className="font-xs star-alignment">★</span> Die Dörfer Frigiliana und Competa <span className="font-xs star-alignment">★</span></p>
+        <p><span className="font-xs star-alignment">★</span> Die Alhambra in Granada und die Skistation im Gebirge Sierra Nevada <span className="font-xs star-alignment">★</span></p>
+        <p><span className="font-xs star-alignment">★</span> Die Altstadt von Malaga und die Wanderung auf dem Caminito del Rey <span className="font-xs star-alignment">★</span></p>
       </div>
     ),
     [ELanguage.Spanish]: (
       <div className="attractions-text">
-        <p>¡Hay muchas atracciones cercanas para explorar durante su estadía!</p>
-        <p>
-          La impresionante ciudad de Nerja y su famoso Balcón de Europa ofrecen impresionantes
-          vistas que te dejarán boquiabierto. No pierdas la oportunidad de visitar el Cristal de Nerja
-          Cuevas, visita obligada.
-        </p>
-        <p>
-          Pasea tranquilamente por el Paseo Torrox-Costa, un bonito paseo flanqueado por
-          tiendas de playa, bares y restaurantes. Experimente la atmósfera vibrante del aire libre.
-          mercadillos, que se celebran en diferentes pueblos cada mañana de 10 a 14 h. Torrox
-          alberga el mercado los lunes, mientras que Nerja es el lugar para estar los martes.
-        </p>
-        <p>
-          Para los amantes de la playa, las mejores playas de arena se extienden justo enfrente del complejo, desde
-          Nerja a Torrox-Costa. La playa de Burriana en Nerja es particularmente popular y bulliciosa.
-          con turistas.
-        </p>
-        <p>
-          Las almas aventureras pueden embarcarse en el emocionante paseo por el río Chillar cerca de Nerja. Este
-          se recomienda una actividad atlética y agradable con calzado resistente al agua y un bastón,
-          aunque se puede hacer con sandalias rugosas o zapatillas deportivas.
-        </p>
-        <p>
-          Tome un corto viaje a Torrox-Pueblo, un pueblo antiguo único enclavado en las montañas.
-          Para disfrutar de una belleza más pintoresca, diríjase hacia el norte hasta el impresionante pueblo de montaña encalado
-          de Frigiliana.
-        </p>
-        <p>
-          Si está preparado para una excursión de un día, visite el Castillo de la Alhambra en Granada, uno de los
-          atracciones principales. Asegúrese de pedir sus boletos en línea con anticipación. Para deportes de invierno
-          entusiastas, la estación de esquí de montaña de Sierra Nevada se encuentra a 90 minutos en auto hacia el norte,
-          y ofrece excelentes oportunidades para los deportes de invierno. Visita la playa y la montaña.
-          ¡En el mismo día!
-        </p>
-        <p>
-          Ronda, otro encantador pueblo de montaña al norte, cuenta con impresionantes vistas
-          desde su icónico puente sobre un profundo desfiladero.
-        </p>
-        <p>
-          Explore la ciudad de Málaga, donde encontrará una combinación de oportunidades de compras
-          y la oportunidad de caminar por el impresionante Caminito del Rey. Recuerde asegurar su
-          boletos en línea de antemano.
-        </p>
-        <p>
-          Muy cerca, puedes disfrutar de atracciones para toda la familia como el Bioparc
-          Parques acuáticos Zoo, Aqualand, Tivoli World y Aquavelis,
-          todo convenientemente ubicado cerca de Málaga.
-        </p>
-        <p>
-          Si te apetece un viaje más largo hacia el oeste, haz una visita a Marbella
-          , Puerto Banús, Córdoba, Sevilla y Gibraltar,
-          cada uno ofrece su propio encanto y atracciones distintas.
-        </p>
+        <p><span className="font-xs star-alignment">★</span> El pueblo de Nerja y el famoso Balcón de Europa <span className="font-xs star-alignment">★</span></p>
+        <p><span className="font-xs star-alignment">★</span> Las cuevas de cristal de Nerja <span className="font-xs star-alignment">★</span></p>
+        <p><span className="font-xs star-alignment">★</span> El paseo de Torrox-Costa <span className="font-xs star-alignment">★</span></p>
+        <p><span className="font-xs star-alignment">★</span> Los mercadillos al aire libre, en diferentes pueblos todas las mañanas de 10:00 a 14:00 horas <span className="font-xs star-alignment">★</span></p>
+        <p><span className="font-xs star-alignment">★</span> El paseo fluvial del río Chillar <span className="font-xs star-alignment">★</span></p>
+        <p><span className="font-xs star-alignment">★</span> Los pueblos de Frigiliana y Cómpeta <span className="font-xs star-alignment">★</span></p>
+        <p><span className="font-xs star-alignment">★</span> El castillo de la Alhambra en Granada y la estación de esquí de Sierra Nevada <span className="font-xs star-alignment">★</span></p>
+        <p><span className="font-xs star-alignment">★</span> El casco antiguo de Málaga y la ruta de senderismo del Caminito del Rey <span className="font-xs star-alignment">★</span></p>
       </div>
     ),
   },

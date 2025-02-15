@@ -1,6 +1,11 @@
 .attractions-text {
   p {
     margin-bottom: 1.5rem;
-    text-indent: 15px;
+    // text-indent: 15px;
+  }
+
+  .star-alignment {
+    position: relative;
+    bottom: 1.5px;
   }
 }

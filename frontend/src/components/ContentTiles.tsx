@@ -62,10 +62,12 @@ export const ContentTiles = () => {
           <div className='text-black py-3 py-sm-0'>
             <Col xs={12} className='mb-5 text-center'><h1>{getText('attractions-title')}</h1></Col>
 
-            <TextContainer
+            {/* <TextContainer
               buttonColor='yellow'
               buttonText={(getText('attractions-more-attractions-button') || '').toString()}
-            ><AttractionsText /></TextContainer>
+            > */}
+              <AttractionsText />
+            {/* </TextContainer> */}
           </div>
         </Col>
 
