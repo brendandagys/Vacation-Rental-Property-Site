@@ -345,179 +345,164 @@ export const textData: TextData = {
   },
   'details-content': {
     [ELanguage.Dutch]: (
-      <>
+      <div className="details-text">
+        <p><TextStar /> GRATIS - Inbegrepen in de prijs:</p>
         <ul>
-          <li>Torrox Costa - Nerja - gelegen aan de Costa del Sol nabij de luchthaven van Malaga</li>
-          <li>Mooi nieuw gebouwd eerstelijns appartement met 2 slaapkamers en 2 badkamers gelegen in een prachtig resort</li>
-          <li>Loop naar het strand. Geweldig FRONTLINE frontaal zeezicht</li>
-          <li>Spannende TOERISTISCHE ATTRACTIES om dagelijks in alle richtingen te bezoeken</li>
-          <li>Ga zonnebaden bij de twee luxe buitenzwembaden</li>
-          <li>Bekijk de golven vanaf het zonnige terras, slaap bij het geluid van rollende golven, loop naar een zandstrand of zwem in de 2 luxe zwembaden</li>
-          <li>LOCATIE, LOCATIE, LOCATIE - Nerja, Torrox-Costa, Costa del Sol, Spanje</li>
-          <li>GEWELDIG 180 ° eerstelijns zeezicht op het zuiden van de Alboranzee en de bergen</li>
-          <li>WANDEL naar het zandstrand EL PENONCILLO met veel populaire Chiringuitos (strand). El Penoncillo Playa ligt op 200 meter afstand en biedt dagelijks verse vis en zeevruchten</li>
-          <li>Gegarandeerd dat u het EXACTE appartement op de foto's krijgt met VOLLEDIG FRONTAAL UITZICHT OP ZEE</li>
-          <li>Dit is een zeer goed onderhouden en VOLLEDIG uitgeruste woning. Het heeft alles wat een gast nodig heeft voor een heerlijke vakantie</li>
-          <li>Nieuw gebouwd RESORT-complex met graniet, gepolijste marmeren vloeren, hoogwaardige armaturen en Bosch-apparaten. Het appartement heeft 2 slaapkamers, 2 badkamers en een volledig uitgeruste keuken. Het is op de bovenste verdieping (met lift)</li>
-          <li>TWEE grote luxe BUITENBADEN met prachtige weelderige groene tuinen. Er zijn ligstoelen, parasol en twee ondiepe zwembaden voor kinderen. De zwembaden zijn omheind en worden bewaakt met een beveiligingskaartsysteem om privacy en exclusiviteit te garanderen</li>
-          <li>GROOT ZONNIG TERRAS. Kijk overdag naar de golven en slaap 's nachts met het geluid van de golven</li>
-          <li>GRATIS CENTRALE AIRCONDITIONING en VERWARMING (GEEN muntautomaat)</li>
-          <li>Linnenpakketten zijn 100% LUXE KATOEN bedlakens, badlakens en strandlakens. Bij aankomst zijn de bedden voor u opgemaakt. Er zijn 2 pakketten inbegrepen</li>
-          <li>U zult genieten van uw vakantie in HETZELFDE appartement dat u ziet op de foto's op de website - Geen OOST zeezicht, geen ZIJ-zeezicht, geen 2e LIJN zeezicht</li>
-          <li>WASMACHINE EN DROGER bevinden zich voor uw gemak in het appartement</li>
-          <li>GRATIS SNELLE wifi</li>
-          <li>FLAT SCREEN 65-inch SMART-televisie met streamingdiensten en honderden kanalen</li>
-          <li>Privé PARKEERPLAATS voor uw auto in een overdekte garage die bij het appartement hoort met een lift op 10 meter afstand die u binnen enkele minuten rechtstreeks naar uw appartement brengt</li>
-          <li>40 minuten rijden van de luchthaven van Malaga</li>
-          <li>Perfect voor een romantische vakantie, pensioen of vakantie met het gezin. Gegarandeerd het hele jaar door Spaanse zon</li>
-          <li>Lange termijn verhuur is welkom. Geniet van je wintermaanden in de zon</li>
-          <li>Inchecken voor hoogseizoen verhuur is zaterdag/zondag. Niet meer dan een dag tussen verhuur. Enkele uitzonderingen zullen worden overwogen. Contacteer ons alsjeblieft</li>
+          <li>Koeling A/C & Verwarming - GEEN MUNTAUTOMAAT</li>
+          <li>Internet & Snelle Wi-Fi</li>
+          <li>100% Katoenen Luxe Beddengoed en Badhanddoeken (2 inbegrepen in de prijs - extra kosten 16 euro per stuk)</li>
+          <li>Eindschoonmaak</li>
+          <li>Garagepark binnen de poort</li>
+          <li>Beveiligingskaarttoegang tot 2 privézwembaden</li>
         </ul>
 
+        <br />
+
+        <p><TextStar /> 65" Flat SCREEN SMART-televisie met NETFLIX & 100's kanalen (Frans, Duits, Engels, Spaans) <TextStar /></p>
+        <p><TextStar /> LOP 5 minuten naar het privézandstrand EL PENONCILLO. Het El Penoncillo Playa ligt op 200 meter afstand en heeft strandrestaurants die dagelijks verse vis en zeevruchten serveren <TextStar /></p>
+        <p><TextStar /> TWEE grote luxe BUITENBADEN met prachtige groene tuinen. Er zijn ligstoelen, parasols en twee ondiepe zwembaden voor kinderen. Zwembaden zijn omheind en worden bewaakt met een beveiligingskaartsysteem om privacy en exclusiviteit te garanderen <TextStar /></p>
+        <p><TextStar /> WASMACHINE en DROGER bevinden zich in het appartement voor uw gemak <TextStar /></p>
+        <p><TextStar /> GRATIS Privé PARKEERPLAATS voor uw auto in een overdekte garage behorend bij het appartement met een lift op 10 meter afstand om u binnen enkele minuten rechtstreeks naar uw appartement te brengen <TextStar /></p>
+        <p><TextStar /> 40 minuten van de luchthaven van Malaga <TextStar /></p>
+        <p><TextStar /> Nieuw gebouwd RESORTcomplex met graniet, gepolijste marmeren vloeren, kwaliteitsfittingen en Bosch-apparatuur. Het appartement heeft 2 slaapkamers, 2 badkamers en een volledig uitgeruste keuken. Het bevindt zich op de bovenste verdieping (met lift) <TextStar /></p>
+        <p><TextStar /> Spannende TOERISTISCHE ATTRACTIES om dagelijks in elke richting te bezoeken <TextStar /></p>
+        <p><TextStar /> Dit is een zeer goed onderhouden en VOLLEDIG uitgeruste woning. Het heeft alles wat een gast ooit nodig zou kunnen hebben om een heerlijke vakantie te garanderen <TextStar /></p>
+        <p><TextStar /> Gebruik van een grote parasol en strandmatten <TextStar /></p>
+        <p><TextStar /> Perfect voor een romantische, pensioen- of familievakantie. Gegarandeerd het hele jaar door Spaanse zonneschijn <TextStar /></p>
+        <p><TextStar /> Langetermijnverhuur is welkom. Geniet van uw wintermaanden in de zon <TextStar /></p>
+
         <div className='text-center font-sm pt-5 pb-3'>
-          <p><i>Nog andere vragen? Neem dan contact met ons op en we helpen u graag verder.</i></p>
+          <p><i>Nog andere vragen? Neem contact met ons op en we helpen u graag verder.</i></p>
         </div>
-      </>
+      </div>
     ),
     [ELanguage.English]: (
-      <>
+      <div className="details-text">
+        <p><TextStar /> FREE - Included In The Price:</p>
         <ul>
-          <li>Torrox Costa - Nerja - located in the Costa del Sol near Malaga airport</li>
-          <li>Beautiful newer build frontline 2 bedrooms, 2 bathrooms apartment located in a lovely Resort</li>
-          <li>Walk to the beach. Amazing FRONTLINE frontal sea views</li>
-          <li>Exciting TOURIST ATTRACTIONS to visit daily in every direction</li>
-          <li>Sunbathe at the two luxurious outdoor pools</li>
-          <li>Watch the waves from the sunny terrace, sleep to the sound of rolling waves, walk to a sandy beach or swim in the 2 luxurious pools</li>
-          <li>LOCATION, LOCATION, LOCATION - Nerja, Torrox-Costa, Costa del Sol, Spain</li>
-          <li>AMAZING 180° firstline south-facing sea view of the Alboran Sea and Mountains</li>
-          <li>WALK to the sandy EL PENONCILLO BEACH which has many popular Chiringuitos (beach). The El Penoncillo Playa is 200 meters away and offers fresh fish and seafood cuisine daily</li>
-          <li>Guaranteed that you will get the EXACT apartment in the pictures with FULL FRONTAL SEA VIEWS</li>
-          <li>This is a very well-maintained and FULLY equipped property. It has everything a guest could ever need to ensure a wonderful holiday</li>
-          <li>Newly built RESORT Complex with granite, polished marble floors, quality fittings and Bosch appliances. The apartment has 2 bedrooms, 2 bathrooms, and a fully stocked kitchen. It is on a top floor (with a lift)</li>
-          <li>TWO large luxurious OUTDOOR POOLS with beautiful lush green gardens. There are Sun loungers, sunshade, and two shallow pools for children. Pools are gated and monitored with a security card pass system to ensure privacy and exclusivity</li>
-          <li>LARGE SUNNY TERRACE. Watch the waves during the day and sleep to the sound of the waves at night</li>
-          <li>FREE CENTRAL AIR CONDITIONING and HEATING (NO coin machine)</li>
-          <li>Linen packages are 100% LUXURY COTTON beds sheets, bath towels and beach towels. Beds will be made for you upon arrival. 2 packages are included</li>
-          <li>You will enjoy your holidays in the SAME apartment you see featured in the pictures on the website - Not EAST seaview, not SIDE seaview, not 2nd LINE seaview</li>
-          <li>WASHING MACHINE AND DRYER are inside the apartment for your convenience</li>
-          <li>FREE FAST Wi-Fi</li>
-          <li>FLAT SCREEN 65" SMART television with streaming services & 100's of channels</li>
-          <li>Private PARKING for your car in a covered garage belonging to the apartment with a lift 10 meters away to take you directly up to your apartment in minutes</li>
-          <li>40-minute drive from the Malaga airport</li>
-          <li>Perfect for a romantic, retirement, or family holiday vacation. Guaranteed Spanish sunshine all year</li>
-          <li>Long Term Rentals are welcome. Enjoy your winter months in the Sun</li>
-          <li>High-season rentals check-in is Saturday/Sunday. No more than one day between rentals. Some exceptions will be considered. Please contact us</li>
+          <li>Cooling A/C & Heating - NO COIN MACHINE</li>
+          <li>Internet & Fast Wi-Fi</li>
+          <li>100% Cotton Luxury Bed linens and Bath Towels (2 included in price - extra are 16 euros each)</li>
+          <li>Final cleaning</li>
+          <li>Garage Parking inside gate</li>
+          <li>Security card access to 2 private pools</li>
         </ul>
+
+        <br />
+
+        <p><TextStar /> 65" Flat SCREEN SMART television with NETFLIX & 100's of channels (French, German, English, Spanish) <TextStar /></p>
+        <p><TextStar /> WALK 5 minutes to the private sandy EL PENONCILLO BEACH. The El Penoncillo Playa is 200 meters away and it has beach restaurants that offer fresh fish and seafood cuisine daily <TextStar /></p>
+        <p><TextStar /> TWO large luxurious OUTDOOR POOLS with beautiful green gardens. There are sun loungers, sun shade and two shallow pools for children. Pools are gated and monitored with a security card pass system to ensure privacy and exclusivity <TextStar /></p>
+        <p><TextStar /> WASHING MACHINE and DRYER are inside the apartment for your convenience <TextStar /></p>
+        <p><TextStar /> FREE Private PARKING for your car in a covered garage belonging to the apartment with a lift 10 meters away to take you directly up to your apartment in minutes <TextStar /></p>
+        <p><TextStar /> 40 minutes from the Malaga airport <TextStar /></p>
+        <p><TextStar /> Newly built RESORT Complex with granite, polished marble floors, quality fittings and Bosch appliances. The apartment has 2 bedrooms, 2 bathrooms and a fully stocked kitchen. It is on a top floor (with a lift) <TextStar /></p>
+        <p><TextStar /> Exciting TOURIST ATTRACTIONS to visit daily in every direction <TextStar /></p>
+        <p><TextStar /> This is a very well maintained and FULLY equipped property. It has everything a guest could ever need to ensure a wonderful holiday <TextStar /></p>
+        <p><TextStar /> Use of a large beach umbrella & beach mats <TextStar /></p>
+        <p><TextStar /> Perfect for a romantic, retirement or family holiday vacation. Guaranteed Spanish sunshine all year <TextStar /></p>
+        <p><TextStar /> Long Term Rentals are welcome. Enjoy your winter months in the sun <TextStar /></p>
 
         <div className='text-center font-sm pt-5 pb-3'>
           <p><i>Any other questions? Please contact us and we'd be happy to help.</i></p>
         </div>
-      </>
+      </div>
     ),
     [ELanguage.French]: (
-      <>
+      <div className="details-text">
+        <p><TextStar /> GRATUIT - Inclus dans le prix :</p>
         <ul>
-          <li>Torrox Costa - Nerja - situé sur la Costa del Sol près de l'aéroport de Malaga</li>
-          <li>Bel appartement de première ligne de construction récente de 2 chambres et 2 salles de bains situé dans un charmant complexe</li>
-          <li>Marchez jusqu'à la plage. Vue imprenable sur la mer frontale FRONTLINE</li>
-          <li>ATTRACTIONS TOURISTIQUES passionnantes à visiter quotidiennement dans toutes les directions</li>
-          <li>Prenez un bain de soleil dans les deux luxueuses piscines extérieures</li>
-          <li>Regardez les vagues depuis la terrasse ensoleillée, dormez au son des vagues, marchez jusqu'à une plage de sable ou nagez dans les 2 piscines luxueuses</li>
-          <li>EMPLACEMENT, EMPLACEMENT, EMPLACEMENT - Nerja, Torrox-Costa, Costa del Sol, Espagne</li>
-          <li>INCROYABLE vue à 180 ° sur la mer et les montagnes d'Alboran en première ligne, face au sud</li>
-          <li>Marchez jusqu'à la plage de sable EL PENONCILLO qui compte de nombreux Chiringuitos (plage) populaires. Le El Penoncillo Playa est à 200 mètres et propose une cuisine de poisson frais et de fruits de mer tous les jours</li>
-          <li>Garanti que vous obtiendrez l'appartement EXACT sur les photos avec PLEIN VUE SUR LA MER FRONTALE</li>
-          <li>C'est une propriété très bien entretenue et entièrement équipée. Il a tout ce dont un client pourrait avoir besoin pour s'assurer de merveilleuses vacances</li>
-          <li>Complexe RESORT nouvellement construit avec des sols en granit, en marbre poli, des installations de qualité et des appareils Bosch. L'appartement dispose de 2 chambres, de 2 salles de bains et d'une cuisine entièrement équipée. Il est au dernier étage (avec ascenseur)</li>
-          <li>DEUX grandes PISCINES EXTÉRIEURES luxueuses avec de beaux jardins verdoyants. Il y a des chaises longues, un parasol et deux piscines peu profondes pour les enfants. Les piscines sont fermées et surveillées avec un système de carte de sécurité pour garantir la confidentialité et l'exclusivité</li>
-          <li>GRANDE TERRASSE ENSOLEILLÉE. Observez les vagues pendant la journée et dormez au son des vagues la nuit</li>
-          <li>CLIMATISATION CENTRALE et CHAUFFAGE GRATUITS (PAS de monnayeur)</li>
-          <li>Les paquets de linge sont des draps 100% COTON DE LUXE, des serviettes de bain et des serviettes de plage. Les lits seront faits pour vous à votre arrivée. 2 forfaits sont inclus</li>
-          <li>Vous profiterez de vos vacances dans le MÊME appartement que vous voyez sur les photos du site Web - Pas de vue sur la mer EST, pas de vue sur la mer LATÉRALE, pas de vue sur la mer 2ème LIGNE</li>
-          <li>LAVE-LINGE ET SECHE-LINGE sont à l'intérieur de l'appartement pour votre confort</li>
-          <li>Wi-Fi RAPIDE GRATUIT</li>
-          <li>ÉCRAN PLAT 65" SMART TV avec services de diffusion en continu et 100 chaînes</li>
-          <li>PARKING privé pour votre voiture dans un garage couvert appartenant à l'appartement avec un ascenseur à 10 mètres pour vous emmener directement à votre appartement en quelques minutes</li>
-          <li>40 minutes en voiture de l'aéroport de Malaga</li>
-          <li>Parfait pour des vacances romantiques, à la retraite ou en famille. Soleil espagnol garanti toute l'année</li>
-          <li>Les locations à long terme sont les bienvenues. Profitez de vos mois d'hiver au soleil</li>
-          <li>L'enregistrement des locations en haute saison s'effectue le samedi/dimanche. Pas plus d'un jour entre les locations. Certaines exceptions seront envisagées. Contactez nous s'il vous plait</li>
+          <li>Climatisation et chauffage - PAS DE MACHINE À PIÈCES</li>
+          <li>Internet et Wi-Fi rapide</li>
+          <li>Draps de lit et serviettes de bain de luxe 100 % coton (2 inclus dans le prix - les suppléments sont de 16 euros chacun)</li>
+          <li>Nettoyage final</li>
+          <li>Garage Parking à l'intérieur du portail</li>
+          <li>Accès par carte de sécurité à 2 piscines privées</li>
         </ul>
 
+        <br />
+
+        <p><TextStar /> Télévision SMART ÉCRAN PLAT 65" avec NETFLIX et des centaines de chaînes (françaises, allemandes, anglaises, espagnoles) <TextStar /></p>
+        <p><TextStar /> À 5 minutes à pied de la plage de sable privée EL PENONCILLO. La plage El Penoncillo est à 200 mètres et dispose de restaurants de plage qui proposent une cuisine de poisson frais et de fruits de mer tous les jours <TextStar /></p>
+        <p><TextStar /> DEUX grandes PISCINES EXTÉRIEURES luxueuses avec de beaux jardins verdoyants. Il y a des chaises longues, un parasol et deux piscines peu profondes pour les enfants. Les piscines sont fermées et surveillées par un système de carte de sécurité pour assurer l'intimité et l'exclusivité <TextStar /></p>
+        <p><TextStar /> LA MACHINE À LAVER et LA SÈCHE-LINGE sont à l'intérieur de l'appartement pour votre confort <TextStar /></p>
+        <p><TextStar /> PARKING privé GRATUIT pour votre voiture dans un parking couvert garage appartenant à l'appartement avec un ascenseur à 10 mètres pour vous emmener directement à votre appartement en quelques minutes <TextStar /></p>
+        <p><TextStar /> 40 minutes de l'aéroport de Malaga <TextStar /></p>
+        <p><TextStar /> Complexe RESORT récemment construit avec granit, sols en marbre poli, équipements de qualité et appareils Bosch. L'appartement dispose de 2 chambres, 2 salles de bains et une cuisine entièrement équipée. Il est au dernier étage (avec ascenseur) <TextStar /></p>
+        <p><TextStar /> ATTRIBUTIONS TOURISTIQUES passionnantes à visiter quotidiennement dans toutes les directions <TextStar /></p>
+        <p><TextStar /> C'est une propriété très bien entretenue et ENTIÈREMENT équipée. Elle a tout ce dont un client pourrait avoir besoin pour assurer de merveilleuses vacances <TextStar /></p>
+        <p><TextStar /> Utilisation d'un grand parasol et de tapis de plage <TextStar /></p>
+        <p><TextStar /> Parfait pour des vacances romantiques, de retraite ou en famille. Soleil espagnol garanti toute l'année <TextStar /></p>
+        <p><TextStar /> Les locations à long terme sont les bienvenues. Profitez de vos mois d'hiver au soleil <TextStar /></p>
+
         <div className='text-center font-sm pt-5 pb-3'>
-          <p><i>D'autres questions? Veuillez nous contacter et nous serons heureux de vous aider.</i></p>
+          <p><i>D'autres questions ? Veuillez nous contacter et nous serons heureux de vous aider.</i></p>
         </div>
-      </>
+      </div>
     ),
     [ELanguage.German]: (
-      <>
+      <div className="details-text">
+        <p><TextStar /> KOSTENLOS – Im Preis inbegriffen:</p>
         <ul>
-          <li>Torrox Costa – Nerja – liegt an der Costa del Sol in der Nähe des Flughafens Malaga</li>
-          <li>Schönes, neueres Apartment in erster Meereslinie mit 2 Schlafzimmern und 2 Bädern in einem schönen Resort</li>
-          <li>Gehen Sie zum Strand. Erstaunlicher Frontalblick auf das Meer</li>
-          <li>Spannende TOURISTISCHE ATTRAKTIONEN, die Sie täglich in alle Richtungen besuchen können</li>
-          <li>Nehmen Sie ein Sonnenbad an den beiden luxuriösen Außenpools</li>
-          <li>Beobachten Sie die Wellen von der sonnigen Terrasse aus, schlafen Sie beim Rauschen der Wellen, gehen Sie zu einem Sandstrand oder schwimmen Sie in den 2 luxuriösen Pools</li>
-          <li>LAGE, LAGE, LAGE - Nerja, Torrox-Costa, Costa del Sol, Spanien</li>
-          <li>FANTASTISCHER 180°-Blick in erster Meereslinie nach Süden auf das Alboran-Meer und die Berge</li>
-          <li>Gehen Sie zum Sandstrand EL PENONCILLO, an dem sich viele beliebte Chiringuitos (Strände) befinden. Das El Penoncillo Playa liegt 200 m entfernt und bietet täglich frische Fisch- und Meeresfrüchteküche</li>
-          <li>Garantiert, dass Sie GENAU die Wohnung auf den Bildern mit VOLLSTÄNDIGEM MEERBLICK erhalten</li>
-          <li>Dies ist eine sehr gepflegte und KOMPLETT ausgestattete Immobilie. Es verfügt über alles, was ein Gast für einen wunderschönen Urlaub benötigen könnte</li>
-          <li>Neu erbauter RESORT-Komplex mit Granit, polierten Marmorböden, hochwertiger Ausstattung und Bosch-Geräten. Das Apartment verfügt über 2 Schlafzimmer, 2 Badezimmer und eine voll ausgestattete Küche. Es befindet sich im obersten Stockwerk (mit Aufzug)</li>
-          <li>ZWEI große, luxuriöse AUSSENPOOLS mit wunderschönen üppigen grünen Gärten. Es gibt Sonnenliegen, Sonnenschirm und zwei flache Pools für Kinder. Die Pools sind eingezäunt und werden mit einem Sicherheitskartensystem überwacht, um Privatsphäre und Exklusivität zu gewährleisten</li>
-          <li>GROSSE SONNIGE TERRASSE. Beobachten Sie tagsüber die Wellen und schlafen Sie nachts beim Rauschen der Wellen</li>
-          <li>KOSTENLOSE ZENTRALE KLIMAANLAGE und HEIZUNG (KEIN Münzautomat)</li>
-          <li>Die Wäschepakete umfassen Bettwäsche, Badetücher und Strandtücher aus 100 % luxuriöser Baumwolle. Bei Ihrer Ankunft sind die Betten für Sie bezogen. Im Lieferumfang sind 2 Pakete enthalten</li>
-          <li>Sie werden Ihren Urlaub im GLEICHEN Apartment genießen, das Sie auf den Bildern auf der Website sehen – nicht mit Meerblick nach Osten, nicht mit seitlichem Meerblick, nicht mit Meerblick in der 2. Reihe</li>
-          <li>WASCHMASCHINE UND TROCKNER stehen Ihnen in der Wohnung zur Verfügung</li>
-          <li>KOSTENLOSES SCHNELLES WLAN</li>
-          <li>65-Zoll-SMART-Flachbildfernseher mit Streaming-Diensten und Hunderten von Kanälen</li>
-          <li>Privater PARKPLATZ für Ihr Auto in einer überdachten Garage, die zur Wohnung gehört, mit einem Aufzug in 10 Metern Entfernung, der Sie in wenigen Minuten direkt zu Ihrer Wohnung bringt</li>
-          <li>40-minütige Fahrt vom Flughafen Malaga entfernt</li>
-          <li>Perfekt für einen romantischen Urlaub, einen Ruhestand oder einen Familienurlaub. Garantiert spanischer Sonnenschein das ganze Jahr über</li>
-          <li>Langzeitmieten sind willkommen. Genießen Sie Ihre Wintermonate in der Sonne</li>
-          <li>Der Check-in für Mietobjekte in der Hochsaison erfolgt am Samstag/Sonntag. Zwischen den Anmietungen darf nicht mehr als ein Tag liegen. Einige Ausnahmen werden berücksichtigt. Bitte kontaktieren Sie uns</li>
+          <li>Kühlung, Klimaanlage und Heizung – KEIN MÜNZAUTOMATEN</li>
+          <li>Internet und schnelles WLAN</li>
+          <li>Luxusbettwäsche und Badetücher aus 100 % Baumwolle (2 im Preis inbegriffen – zusätzliche kosten jeweils 16 Euro)</li>
+          <li>Endreinigung</li>
+          <li>Garagenparkplatz hinter dem Tor</li>
+          <li>Zugang zu 2 privaten Pools mit Sicherheitskarte</li>
         </ul>
 
+        <br />
+
+        <p><TextStar /> 65-Zoll-Flachbildfernseher mit NETFLIX und Hunderten von Kanälen (Französisch, Deutsch, Englisch, Spanisch) <TextStar /></p>
+        <p><TextStar /> 5 Gehminuten zum privaten Sandstrand EL PENONCILLO. Der Strand El Penoncillo ist 200 Meter entfernt und bietet Strandrestaurants, die täglich frischen Fisch und Meeresfrüchte anbieten <TextStar /></p>
+        <p><TextStar /> ZWEI große, luxuriöse AUSSENPOOLS mit wunderschönen grünen Gärten. Es gibt Sonnenliegen, Sonnenschirme und zwei flache Pools für Kinder. Die Pools sind eingezäunt und werden mit einem Sicherheitskarten-Passsystem überwacht, um Privatsphäre und Exklusivität zu gewährleisten <TextStar /></p>
+        <p><TextStar /> WASCHMASCHINE und TROCKNER befinden sich für Ihre Bequemlichkeit im Apartment <TextStar /></p>
+        <p><TextStar /> KOSTENLOSER privater PARKPLATZ für Ihr Auto in einer überdachten Garage gehört zur Wohnung mit einem Aufzug in 10 Metern Entfernung, der Sie in wenigen Minuten direkt zu Ihrer Wohnung bringt <TextStar /></p>
+        <p><TextStar /> 40 Minuten vom Flughafen Malaga entfernt <TextStar /></p>
+        <p><TextStar /> Neu gebauter RESORT-Komplex mit Granit, polierten Marmorböden, hochwertigen Armaturen und Bosch-Geräten. Die Wohnung hat 2 Schlafzimmer, 2 Badezimmer und eine voll ausgestattete Küche. Sie befindet sich im obersten Stockwerk (mit Aufzug) <TextStar /></p>
+        <p><TextStar /> Spannende TOURISTENATTRAKTIONEN, die man täglich in alle Richtungen besuchen kann <TextStar /></p>
+        <p><TextStar /> Dies ist ein sehr gepflegtes und VOLL ausgestattetes Anwesen. Es hat alles, was ein Gast jemals brauchen könnte, um einen wundervollen Urlaub zu gewährleisten <TextStar /></p>
+        <p><TextStar /> Nutzung eines großen Sonnenschirms und Strandmatten <TextStar /></p>
+        <p><TextStar /> Perfekt für einen romantischen Urlaub, einen Ruhestand oder einen Familienurlaub. Garantierter spanischer Sonnenschein das ganze Jahr über <TextStar /></p>
+        <p><TextStar /> Langzeitmieten sind willkommen. Genießen Sie Ihre Wintermonate in der Sonne <TextStar /></p>
+
         <div className='text-center font-sm pt-5 pb-3'>
-          <p><i>Weitere Fragen? Bitte kontaktieren Sie uns, wir helfen Ihnen gerne weiter.</i></p>
+          <p><i>Noch Fragen? Bitte kontaktieren Sie uns und wir helfen Ihnen gerne weiter.</i></p>
         </div>
-      </>
+      </div>
     ),
     [ELanguage.Spanish]: (
-      <>
+      <div className="details-text">
+        <p><TextStar /> GRATIS - Incluido en el precio:</p>
         <ul>
-          <li>Torrox Costa - Nerja - ubicado en la Costa del Sol cerca del aeropuerto de Málaga</li>
-          <li>Hermoso apartamento de nueva construcción en primera línea de 2 dormitorios y 2 baños ubicado en un encantador Resort</li>
-          <li>Camina hasta la playa. Impresionantes vistas frontales al mar en PRIMERA LINEA</li>
-          <li>Emocionantes ATRACCIONES TURÍSTICAS para visitar diariamente en todas las direcciones</li>
-          <li>Toma el sol en las dos lujosas piscinas al aire libre</li>
-          <li>Contempla las olas desde la soleada terraza, duerme con el sonido de las olas, camina hasta una playa de arena o nada en las 2 lujosas piscinas</li>
-          <li>UBICACIÓN, UBICACIÓN, UBICACIÓN - Nerja, Torrox-Costa, Costa del Sol, España</li>
-          <li>INCREÍBLE vista al mar de 180 ° en primera línea orientada al sur del mar y las montañas de Alborán</li>
-          <li>PASEO hasta la playa de arena EL PENONCILLO que tiene muchos Chiringuitos (playa) populares. El Penoncillo Playa está a 200 metros y ofrece cocina de pescado y marisco fresco todos los días.</li>
-          <li>Garantizado que obtendrá el apartamento EXACTO en las fotos con VISTAS FRONTALES COMPLETAS AL MAR</li>
-          <li>Esta es una propiedad muy bien mantenida y TOTALMENTE equipada. Tiene todo lo que un huésped pueda necesitar para garantizar unas vacaciones maravillosas.</li>
-          <li>Complejo RESORT de nueva construcción con suelos de granito, mármol pulido, acabados de calidad y electrodomésticos Bosch. El apartamento tiene 2 dormitorios, 2 baños y una cocina completamente equipada. Está en una última planta (con ascensor)</li>
-          <li>DOS grandes y lujosas PISCINAS AL AIRE LIBRE con hermosos y exuberantes jardines. Hay tumbonas, sombrilla y dos piscinas de poca profundidad para niños. Las piscinas están cerradas y monitoreadas con un sistema de pase de tarjeta de seguridad para garantizar la privacidad y la exclusividad.</li>
-          <li>AMPLIA TERRAZA SOLEADA. Mira las olas durante el día y duerme con el sonido de las olas por la noche.</li>
-          <li>AIRE ACONDICIONADO CENTRAL y CALEFACCIÓN GRATUITO (NO máquina de monedas)</li>
-          <li>Los paquetes de ropa de cama son sábanas, toallas de baño y toallas de playa 100% ALGODÓN DE LUJO. Las camas estarán hechas para usted a su llegada. 2 paquetes están incluidos</li>
-          <li>Disfrutará de sus vacaciones en el MISMO apartamento que ve en las imágenes del sitio web: no tiene vista al mar ESTE, no tiene vista al mar LATERAL, no tiene vista al mar en 2ª LÍNEA</li>
-          <li>LAVADORA Y SECADORA están dentro del apartamento para su comodidad</li>
-          <li>WIFI RÁPIDO GRATIS</li>
-          <li>Televisor INTELIGENTE DE PANTALLA PLANA DE 65" con servicios de transmisión y cientos de canales</li>
-          <li>PARKING privado para tu coche en un garaje cubierto propio del apartamento con ascensor a 10 metros para llevarte directamente a tu apartamento en minutos</li>
-          <li>40 minutos en coche del aeropuerto de Málaga</li>
-          <li>Perfecto para unas vacaciones románticas, de jubilación o familiares. Sol español garantizado todo el año</li>
-          <li>Los alquileres a largo plazo son bienvenidos. Disfruta de tus meses de invierno al sol</li>
-          <li>El check-in de alquileres de temporada alta es sábado/domingo. No más de un día entre alquileres. Se considerarán algunas excepciones. Por favor contáctenos</li>
+          <li>Aire acondicionado y calefacción - NO HAY MÁQUINA DE MONEDAS</li>
+          <li>Internet y Wi-Fi rápido</li>
+          <li>Ropa de cama y toallas de baño de lujo 100 % algodón (2 incluidas en el precio; las adicionales cuestan 16 euros cada una)</li>
+          <li>Limpieza final</li>
+          <li>Estacionamiento en garaje dentro de la puerta</li>
+          <li>Acceso con tarjeta de seguridad a 2 piscinas privadas</li>
         </ul>
 
+        <br />
+
+        <p><TextStar /> Televisión SMART DE PANTALLA PLANA DE 65" con NETFLIX y cientos de canales (francés, alemán, inglés, español) <TextStar /></p>
+        <p><TextStar /> CAMINE 5 minutos hasta la PLAYA PRIVADA DE ARENA EL PENONCILLO. La Playa El Peñóncillo está a 200 metros y tiene restaurantes de playa que ofrecen pescado fresco y mariscos todos los días <TextStar /></p>
+        <p><TextStar /> DOS PISCINAS AL AIRE LIBRE grandes y lujosas con hermosos jardines verdes. Hay tumbonas, sombrillas y dos piscinas poco profundas para niños. Las piscinas están cerradas y monitoreadas con un sistema de pase de tarjeta de seguridad para garantizar la privacidad y la exclusividad <TextStar /></p>
+        <p><TextStar /> LA LAVADORA y la SECADORA están dentro del apartamento para su comodidad <TextStar /></p>
+        <p><TextStar /> ESTACIONAMIENTO privado GRATUITO para Su coche en un garaje cubierto perteneciente al apartamento con un ascensor a 10 metros de distancia para llevarlo directamente a su apartamento en minutos <TextStar /></p>
+        <p><TextStar /> A 40 minutos del aeropuerto de Málaga <TextStar /></p>
+        <p><TextStar /> Complejo RESORT de nueva construcción con granito, suelos de mármol pulido, accesorios de calidad y electrodomésticos Bosch. El apartamento tiene 2 dormitorios, 2 baños y una cocina completamente equipada. Está en un piso superior (con ascensor) <TextStar /></p>
+        <p><TextStar /> Atractivos turísticos emocionantes para visitar a diario en todas las direcciones <TextStar /></p>
+        <p><TextStar /> Esta es una propiedad muy bien mantenida y TOTALMENTE equipada. Tiene todo lo que un huésped pueda necesitar para garantizar unas maravillosas vacaciones <TextStar /></p>
+        <p><TextStar /> Uso de una gran sombrilla de playa y colchonetas de playa <TextStar /></p>
+        <p><TextStar /> Perfecto para unas vacaciones románticas, de jubilación o familiares. Sol español garantizado todo el año <TextStar /></p>
+        <p><TextStar /> Alquileres a largo plazo son bienvenidos. Disfrute de sus meses de invierno bajo el sol <TextStar /></p>
+
         <div className='text-center font-sm pt-5 pb-3'>
-          <p><i>¿Alguna otra pregunta? Póngase en contacto con nosotros y estaremos encantados de ayudarle.</i></p>
+          <p><i>¿Alguna otra pregunta? Por favor, póngase en contacto con nosotros y estaremos encantados de ayudarle.</i></p>
         </div>
-      </>
+      </div>
     ),
   },
   'text-container-read-more-button': {
