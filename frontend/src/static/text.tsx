@@ -1,6 +1,7 @@
 /* eslint-disable quotes */
 /* eslint-disable max-len */
 import { ReactElement } from 'react';
+import { TextStar } from '../components/TextStar';
 
 export enum ELanguage {
   Dutch = 'dutch',
@@ -128,177 +129,42 @@ export const textData: TextData = {
   'main-details-text': {
     [ELanguage.Dutch]: (
       <>
-        <p>
-          Geniet van luxe en sereniteit in dit prachtige toevluchtsoord aan de kust
-          gelegen nabij Nerja en Torrox-Costa aan de Costa del Sol, Spanje.
-          Deze woning biedt een spectaculaire 180° FIRSTLINE op het zuidwesten
-          uitzicht op zee van de Alboranzee en de bergen. Lopen naar
-          het zandstrand van El Penoncillo en geniet van een lunch bij een van de vele
-          chiringuitos. Geniet van deze goed onderhouden moderne 2-slaapkamer, 2-badkamer
-          appartement met een gastronomische volledig uitgeruste keuken met nieuwe Bosch
-          huishoudelijke apparaten. Ontspan bij een van de TWEE prachtige grote buitenruimtes
-          zwembaden omringd door weelderige groene tuinen. Bekijk de golven allemaal
-          dag vanaf het zonnige terras met zijn fabelachtige uitzicht over de zee,
-          en dan 's nachts slapen met hun rustgevende geluid.
-        </p>
-
-        <p>
-          Deze woning biedt GRATIS centrale airconditioning en verwarming,
-          Luxe beddengoedpakketten van 100% katoen en moderne voorzieningen zoals
-          een wasmachine, droger, vaatwasser, GRATIS snelle wifi en
-          een 65-inch 4K Smart-televisie met Netflix. Privé
-          parkeren zeer dicht bij de inkomlift, in een overdekte garage,
-          zit er ook bij.
-        </p>
-
-        <p>
-          Verken de spannende toeristische attracties in de omgeving en geniet van de
-          gegarandeerd het hele jaar door Spaanse zon! Slechts 40 minuten rijden
-          vanaf de luchthaven van Malaga is deze plek perfect voor romantiek, pensioen,
-          of gezinsvakanties. Lange termijn verhuur is welkom, zodat u
-          om tijdens de wintermaanden van de zon te genieten. Inchecken gaat snel en gemakkelijk.
-          Ervaar een werkelijk opmerkelijke vakantie!
-        </p>
+        <p><TextStar /> Welkom op de website van Calaceite FRONTLINE Vistamar! <TextStar /></p>
+        <p><TextStar /> LOCATIE, LOCATIE, LOCATIE - Nerja en Torrox-Costa in de Costa <TextStar /></p>
+        <p><TextStar /> Dit is appartement #6132 in het eerste blok van het strand met een VOLLEDIG FRONTAAL 180° zuid/west gericht uitzicht op de Alboran Zee <TextStar /></p>
+        <p><TextStar /> KIJK DE GOLVEN overdag vanaf het grote zonnige terras en slaap 's nachts met het geluid van de golven <TextStar /></p>
       </>
     ),
     [ELanguage.English]: (
       <>
-        <p>
-          Indulge in luxury and serenity at this exquisite coastal retreat
-          located near Nerja and Torrox-Costa in the <b>Costa del Sol, Spain</b>.
-          This property offers a spectacular <b>180° FIRSTLINE southwest-facing
-            sea view</b> of the Alboran Sea and mountains. <b>Walk to
-              the sandy El Penoncillo Beach</b> and enjoy lunch at one of the many
-          chiringuitos. Enjoy this well-maintained modern <b>2-bedroom, 2-bathroom
-            apartment</b> with a gourmet fully-equipped kitchen with new Bosch
-          appliances. Relax by one of the <b>TWO beautiful large outdoor
-            pools</b> surrounded by lush green gardens. <b>Watch the waves</b> all
-          day from the sunny terrace with its fabulous view overlooking the sea,
-          and then sleep to their soothing sound at night.
-        </p>
-
-        <p>
-          This property offers <b>FREE central air conditioning and heating,
-            100% cotton luxury linens packages</b>, and modern amenities such as
-          a <b>washing machine</b>, <b>dryer</b>, <b>dishwasher</b>, <b>FREE fast Wi-Fi</b>, and
-          a <b>65" 4K Smart Television with Netflix</b>. <b>Private
-            parking</b> very close to the entrance elevator, in a sheltered garage,
-          is also included.
-        </p>
-
-        <p>
-          Explore the exciting tourist attractions in the area and enjoy the
-          guaranteed Spanish sunshine all year round! Only a 40-minute drive
-          from Malaga airport, this spot is perfect for romantic, retirement,
-          or family holidays. <b>Long-term rentals are welcome</b>, allowing you
-          to enjoy the sun during the winter months. Check-in is fast and easy.
-          Experience a truly remarkable getaway!
-        </p>
+        <p><TextStar /> Welcome to the Calaceite FRONTLINE Vistamar website! <TextStar /></p>
+        <p><TextStar /> LOCATION, LOCATION, LOCATION - Nerja and Torrox-Costa in the Costa del Sol <TextStar /></p>
+        <p><TextStar /> This is Apartment #6132 in the first block to the beach with a FULLY FRONTAL 180° south/west facing seaview of the Alboran Sea <TextStar /></p>
+        <p><TextStar /> WATCH THE WAVES during the day from the large sunny terrace and sleep to the sound of the waves at night <TextStar /></p>
       </>
     ),
     [ELanguage.French]: (
       <>
-        <p>
-          Offrez-vous le luxe et la sérénité dans cette retraite côtière exquise
-          situé près de Nerja et Torrox-Costa sur la Costa del Sol, en Espagne.
-          Cette propriété offre un spectaculaire 180° FIRSTLINE orienté sud-ouest
-          vue mer sur la mer d'Alboran et les montagnes. Marche jusqu'à
-          la plage de sable d'El Penoncillo et déjeunez dans l'un des nombreux
-          chiringuitos. Profitez de ce 2 chambres et 2 salles de bains moderne et bien entretenu
-          appartement avec une cuisine gastronomique entièrement équipée avec le nouveau Bosch
-          appareils électroménagers. Détendez-vous par l'un des DEUX beaux grands extérieurs
-          piscines entourées de jardins verdoyants. Regardez les vagues tous
-          jour depuis la terrasse ensoleillée avec sa vue imprenable sur la mer,
-          puis dormir à leur son apaisant la nuit.
-        </p>
-
-        <p>
-          Cette propriété offre la climatisation et le chauffage central GRATUITS,
-          Ensembles de draps de luxe 100% coton et équipements modernes tels que
-          une machine à laver, un sèche-linge, un lave-vaisselle, une connexion Wi-Fi rapide GRATUITE et
-          un téléviseur intelligent 4K de 65 po avec Netflix. Privé
-          parking très proche de l'ascenseur d'entrée, dans un garage abrité,
-          est également inclus.
-        </p>
-
-        <p>
-          Explorez les attractions touristiques passionnantes de la région et profitez de la
-          Soleil espagnol garanti toute l'année ! À seulement 40 minutes en voiture
-          de l'aéroport de Malaga, cet endroit est parfait pour les romantiques, la retraite,
-          ou des vacances en famille. Les locations à long terme sont les bienvenues, vous permettant
-          pour profiter du soleil pendant les mois d'hiver. L'enregistrement est rapide et facile.
-          Vivez une escapade vraiment remarquable!
-        </p>
+        <p><TextStar /> Bienvenue sur le site Web de Calaceite FRONTLINE Vistamar ! <TextStar /></p>
+        <p><TextStar /> EMPLACEMENT, EMPLACEMENT, EMPLACEMENT - Nerja et Torrox-Costa sur la Costa <TextStar /></p>
+        <p><TextStar /> Il s'agit de l'appartement n° 6132 dans le premier bloc de la plage avec une vue frontale à 180° sud/ouest sur la mer d'Alboran <TextStar /></p>
+        <p><TextStar /> REGARDEZ LES VAGUES pendant la journée depuis la grande terrasse ensoleillée et dormez au son des vagues la nuit <TextStar /></p>
       </>
     ),
     [ELanguage.German]: (
       <>
-        <p>
-          Gönnen Sie sich Luxus und Ruhe in diesem exquisiten Rückzugsort an der Küste
-          liegt in der Nähe von Nerja und Torrox-Costa an der Costa del Sol, Spanien.
-          Dieses Anwesen bietet eine spektakuläre 180°-FIRSTLINE-Ausrichtung nach Südwesten
-          Meerblick auf das Alboran-Meer und die Berge. Gehen zu
-          Besuchen Sie den Sandstrand El Penoncillo und genießen Sie Ihr Mittagessen an einem der vielen Strände
-          Chiringuitos. Genießen Sie dieses gepflegte, moderne Apartment mit 2 Schlafzimmern und 2 Badezimmern
-          Apartment mit einer voll ausgestatteten Gourmetküche mit neuem Bosch
-          Haushaltsgeräte. Entspannen Sie sich in einem der ZWEI schönen großen Außenbereiche
-          Pools, umgeben von üppigen grünen Gärten. Beobachtet alle die Wellen
-          Tag von der sonnigen Terrasse mit herrlichem Blick auf das Meer,
-          und dann nachts zu ihrem beruhigenden Klang einschlafen.
-        </p>
-
-        <p>
-          Diese Unterkunft bietet KOSTENLOSE zentrale Klimaanlage und Heizung.
-          Luxuriöse Bettwäschepakete aus 100 % Baumwolle und moderne Annehmlichkeiten wie
-          eine Waschmaschine, Trockner, Geschirrspüler, KOSTENLOSES schnelles WLAN und
-          ein 65-Zoll-4K-Smart-Fernseher mit Netflix. Privat
-          Parkplatz ganz in der Nähe des Eingangsaufzugs, in einer überdachten Garage,
-          ist ebenfalls enthalten.
-        </p>
-
-        <p>
-          Erkunden Sie die aufregenden Touristenattraktionen in der Umgebung und genießen Sie die
-          Garantiert spanischer Sonnenschein das ganze Jahr über! Nur eine 40-minütige Fahrt
-          Vom Flughafen Málaga aus ist dieser Ort perfekt für Romantik, Ruhestand,
-          oder Familienurlaub. Langzeitmieten sind bei uns herzlich willkommen
-          um in den Wintermonaten die Sonne zu genießen. Der Check-in ist schnell und einfach.
-          Erleben Sie einen wirklich außergewöhnlichen Kurzurlaub!
-        </p>
+        <p><TextStar /> Willkommen auf der Calaceite FRONTLINE Vistamar-Website! <TextStar /></p>
+        <p><TextStar /> LAGE, LAGE, LAGE – Nerja und Torrox-Costa an der Costa <TextStar /></p>
+        <p><TextStar /> Dies ist Apartment Nr. 6132 im ersten Block zum Strand mit VOLLSTÄNDIGEM FRONTALEN 180°-Meerblick nach Süd/West auf das Alboran-Meer <TextStar /></p>
+        <p><TextStar /> Beobachten Sie tagsüber die Wellen von der großen, sonnigen Terrasse aus und schlafen Sie nachts beim Rauschen der Wellen ein <TextStar /></p>
       </>
     ),
     [ELanguage.Spanish]: (
       <>
-        <p>
-          Disfrute del lujo y la serenidad en este exquisito retiro costero
-          ubicado cerca de Nerja y Torrox-Costa en la Costa del Sol, España.
-          Esta propiedad ofrece una espectacular PRIMERA LÍNEA de 180° con orientación suroeste
-          vistas al mar del mar de Alborán y las montañas. Caminar hasta
-          la playa de arena El Penoncillo y disfrute de un almuerzo en uno de los muchos
-          chiringuitos. Disfrute de este moderno y bien mantenido apartamento de 2 dormitorios y 2 baños.
-          apartamento con una cocina gourmet totalmente equipada con Bosch nuevo
-          accesorios. Relájese junto a uno de los DOS hermosos y grandes espacios al aire libre.
-          piscinas rodeadas de exuberantes jardines verdes. Mira las olas todos
-          día desde la soleada terraza con su fabulosa vista al mar,
-          y luego dormir con su relajante sonido por la noche.
-        </p>
-
-        <p>
-          Esta propiedad ofrece aire acondicionado y calefacción central GRATIS,
-          Paquetes de sábanas de lujo 100% algodón y amenidades modernas como
-          una lavadora, secadora, lavavajillas, WIFI rápido GRATIS, y
-          un televisor inteligente 4K de 65 "con Netflix. Privado
-          parking muy cerca del ascensor de entrada, en garaje cubierto,
-          también está incluido.
-        </p>
-
-        <p>
-          Explore las emocionantes atracciones turísticas de la zona y disfrute de la
-          sol español garantizado todo el año! Solo 40 minutos en coche
-          del aeropuerto de Málaga, este lugar es perfecto para una escapada romántica,
-          o vacaciones en familia. Los alquileres a largo plazo son bienvenidos, lo que le permite
-          para disfrutar del sol durante los meses de invierno. El registro es rápido y fácil.
-          ¡Vive una escapada verdaderamente extraordinaria!
-        </p>
+        <p><TextStar /> ¡Bienvenidos al sitio web de Vistamar en PRIMERA LÍNEA de Calaceite! <TextStar /></p>
+        <p><TextStar /> UBICACIÓN, UBICACIÓN, UBICACIÓN - Nerja y Torrox-Costa en la Costa <TextStar /></p>
+        <p><TextStar /> Este es el apartamento n.° 6132 en el primer bloque de la playa con una vista frontal de 180° al mar de Alborán orientada al sur/oeste <TextStar /></p>
+        <p><TextStar /> OBSERVE LAS OLAS durante el día desde la gran terraza soleada y duerma con el sonido de las olas por la noche <TextStar /></p>
       </>
     ),
   },
@@ -797,62 +663,62 @@ export const textData: TextData = {
   'attractions-content': {
     [ELanguage.Dutch]: (
       <div className="attractions-text">
-        <p><span className="font-xs star-alignment">★</span> Het dorp Nerja en het beroemde Balkon van Europa <span className="font-xs star-alignment">★</span></p>
-        <p><span className="font-xs star-alignment">★</span> De Nerja Kristalgrotten <span className="font-xs star-alignment">★</span></p>
-        <p><span className="font-xs star-alignment">★</span> De Torrox-Costa Paseo <span className="font-xs star-alignment">★</span></p>
-        <p><span className="font-xs star-alignment">★</span> De Buitenstraatmarkten - in verschillende dorpen elke ochtend van 10.00 tot 14.00 uur <span className="font-xs star-alignment">★</span></p>
-        <p><span className="font-xs star-alignment">★</span> De Rio Chillar Rivierwandeling <span className="font-xs star-alignment">★</span></p>
-        <p><span className="font-xs star-alignment">★</span> De dorpen Frigiliana en Competa <span className="font-xs star-alignment">★</span></p>
-        <p><span className="font-xs star-alignment">★</span> Het Alhambra Kasteel in Granada en het Sierra Nevada Bergskistation <span className="font-xs star-alignment">★</span></p>
-        <p><span className="font-xs star-alignment">★</span> De Oude Stad van Malaga en de Caminito del Rey Wandeling <span className="font-xs star-alignment">★</span></p>
+        <p><TextStar /> Het dorp Nerja en het beroemde Balkon van Europa <TextStar /></p>
+        <p><TextStar /> De Nerja Kristalgrotten <TextStar /></p>
+        <p><TextStar /> De Torrox-Costa Paseo <TextStar /></p>
+        <p><TextStar /> De Buitenstraatmarkten - in verschillende dorpen elke ochtend van 10.00 tot 14.00 uur <TextStar /></p>
+        <p><TextStar /> De Rio Chillar Rivierwandeling <TextStar /></p>
+        <p><TextStar /> De dorpen Frigiliana en Competa <TextStar /></p>
+        <p><TextStar /> Het Alhambra Kasteel in Granada en het Sierra Nevada Bergskistation <TextStar /></p>
+        <p><TextStar /> De Oude Stad van Malaga en de Caminito del Rey Wandeling <TextStar /></p>
       </div>
     ),
     [ELanguage.English]: (
       <div className="attractions-text">
-        <p><span className="font-xs star-alignment">★</span> The <strong>Village</strong> of <strong>Nerja</strong> and the famous <strong>Balcony of Europe</strong> <span className="font-xs star-alignment">★</span></p>
-        <p><span className="font-xs star-alignment">★</span> The <strong>Nerja Crystal Caves</strong> <span className="font-xs star-alignment">★</span></p>
-        <p><span className="font-xs star-alignment">★</span> The <strong>Torrox-Costa Paseo</strong> <span className="font-xs star-alignment">★</span></p>
-        <p><span className="font-xs star-alignment">★</span> The <strong>Outdoor Street Markets</strong> - in different villages every morning from 10am to 2pm <span className="font-xs star-alignment">★</span></p>
-        <p><span className="font-xs star-alignment">★</span> The <strong>Rio Chillar River Walk</strong> <span className="font-xs star-alignment">★</span></p>
-        <p><span className="font-xs star-alignment">★</span> The <strong>Villages</strong> of <strong>Frigiliana</strong> and <strong>Competa</strong> <span className="font-xs star-alignment">★</span></p>
-        <p><span className="font-xs star-alignment">★</span> The <strong>Alhambra Castle in Granada</strong> and the <strong>Sierra Nevada Mountain Ski Station</strong> <span className="font-xs star-alignment">★</span></p>
-        <p><span className="font-xs star-alignment">★</span> The <strong>Old City of Malaga</strong> and the <strong>Caminito del Rey Hike</strong> <span className="font-xs star-alignment">★</span></p>
+        <p><TextStar /> The <strong>Village</strong> of <strong>Nerja</strong> and the famous <strong>Balcony of Europe</strong> <TextStar /></p>
+        <p><TextStar /> The <strong>Nerja Crystal Caves</strong> <TextStar /></p>
+        <p><TextStar /> The <strong>Torrox-Costa Paseo</strong> <TextStar /></p>
+        <p><TextStar /> The <strong>Outdoor Street Markets</strong> - in different villages every morning from 10am to 2pm <TextStar /></p>
+        <p><TextStar /> The <strong>Rio Chillar River Walk</strong> <TextStar /></p>
+        <p><TextStar /> The <strong>Villages</strong> of <strong>Frigiliana</strong> and <strong>Competa</strong> <TextStar /></p>
+        <p><TextStar /> The <strong>Alhambra Castle in Granada</strong> and the <strong>Sierra Nevada Mountain Ski Station</strong> <TextStar /></p>
+        <p><TextStar /> The <strong>Old City of Malaga</strong> and the <strong>Caminito del Rey Hike</strong> <TextStar /></p>
       </div>
     ),
     [ELanguage.French]: (
       <div className="attractions-text">
-        <p><span className="font-xs star-alignment">★</span> Le village de Nerja et le célèbre Balcon de l'Europe <span className="font-xs star-alignment">★</span></p>
-        <p><span className="font-xs star-alignment">★</span> Les grottes de cristal de Nerja <span className="font-xs star-alignment">★</span></p>
-        <p><span className="font-xs star-alignment">★</span> La promenade Torrox-Costa <span className="font-xs star-alignment">★</span></p>
-        <p><span className="font-xs star-alignment">★</span> Les marchés de rue en plein air - dans différents villages chaque matin de 10h à 14h <span className="font-xs star-alignment">★</span></p>
-        <p><span className="font-xs star-alignment">★</span> La promenade sur la rivière Rio Chillar <span className="font-xs star-alignment">★</span></p>
-        <p><span className="font-xs star-alignment">★</span> Les villages de Frigiliana et Competa <span className="font-xs star-alignment">★</span></p>
-        <p><span className="font-xs star-alignment">★</span> Le château de l'Alhambra à Grenade et la station de ski de la Sierra Nevada <span className="font-xs star-alignment">★</span></p>
-        <p><span className="font-xs star-alignment">★</span> La vieille ville de Malaga et la randonnée du Caminito del Rey <span className="font-xs star-alignment">★</span></p>
+        <p><TextStar /> Le village de Nerja et le célèbre Balcon de l'Europe <TextStar /></p>
+        <p><TextStar /> Les grottes de cristal de Nerja <TextStar /></p>
+        <p><TextStar /> La promenade Torrox-Costa <TextStar /></p>
+        <p><TextStar /> Les marchés de rue en plein air - dans différents villages chaque matin de 10h à 14h <TextStar /></p>
+        <p><TextStar /> La promenade sur la rivière Rio Chillar <TextStar /></p>
+        <p><TextStar /> Les villages de Frigiliana et Competa <TextStar /></p>
+        <p><TextStar /> Le château de l'Alhambra à Grenade et la station de ski de la Sierra Nevada <TextStar /></p>
+        <p><TextStar /> La vieille ville de Malaga et la randonnée du Caminito del Rey <TextStar /></p>
       </div>
     ),
     [ELanguage.German]: (
       <div className="attractions-text">
-        <p><span className="font-xs star-alignment">★</span> Das Dorf Nerja und der berühmte Balkon Europas <span className="font-xs star-alignment">★</span></p>
-        <p><span className="font-xs star-alignment">★</span> Die Kristallhöhlen von Nerja <span className="font-xs star-alignment">★</span></p>
-        <p><span className="font-xs star-alignment">★</span> Der Torrox-Costa Paseo <span className="font-xs star-alignment">★</span></p>
-        <p><span className="font-xs star-alignment">★</span> Die Straßenmärkte im Freien – jeden Morgen von 10 bis 14 Uhr in verschiedenen Dörfern <span className="font-xs star-alignment">★</span></p>
-        <p><span className="font-xs star-alignment">★</span> Der Spaziergang am Fluss Rio Chillar <span className="font-xs star-alignment">★</span></p>
-        <p><span className="font-xs star-alignment">★</span> Die Dörfer Frigiliana und Competa <span className="font-xs star-alignment">★</span></p>
-        <p><span className="font-xs star-alignment">★</span> Die Alhambra in Granada und die Skistation im Gebirge Sierra Nevada <span className="font-xs star-alignment">★</span></p>
-        <p><span className="font-xs star-alignment">★</span> Die Altstadt von Malaga und die Wanderung auf dem Caminito del Rey <span className="font-xs star-alignment">★</span></p>
+        <p><TextStar /> Das Dorf Nerja und der berühmte Balkon Europas <TextStar /></p>
+        <p><TextStar /> Die Kristallhöhlen von Nerja <TextStar /></p>
+        <p><TextStar /> Der Torrox-Costa Paseo <TextStar /></p>
+        <p><TextStar /> Die Straßenmärkte im Freien – jeden Morgen von 10 bis 14 Uhr in verschiedenen Dörfern <TextStar /></p>
+        <p><TextStar /> Der Spaziergang am Fluss Rio Chillar <TextStar /></p>
+        <p><TextStar /> Die Dörfer Frigiliana und Competa <TextStar /></p>
+        <p><TextStar /> Die Alhambra in Granada und die Skistation im Gebirge Sierra Nevada <TextStar /></p>
+        <p><TextStar /> Die Altstadt von Malaga und die Wanderung auf dem Caminito del Rey <TextStar /></p>
       </div>
     ),
     [ELanguage.Spanish]: (
       <div className="attractions-text">
-        <p><span className="font-xs star-alignment">★</span> El pueblo de Nerja y el famoso Balcón de Europa <span className="font-xs star-alignment">★</span></p>
-        <p><span className="font-xs star-alignment">★</span> Las cuevas de cristal de Nerja <span className="font-xs star-alignment">★</span></p>
-        <p><span className="font-xs star-alignment">★</span> El paseo de Torrox-Costa <span className="font-xs star-alignment">★</span></p>
-        <p><span className="font-xs star-alignment">★</span> Los mercadillos al aire libre, en diferentes pueblos todas las mañanas de 10:00 a 14:00 horas <span className="font-xs star-alignment">★</span></p>
-        <p><span className="font-xs star-alignment">★</span> El paseo fluvial del río Chillar <span className="font-xs star-alignment">★</span></p>
-        <p><span className="font-xs star-alignment">★</span> Los pueblos de Frigiliana y Cómpeta <span className="font-xs star-alignment">★</span></p>
-        <p><span className="font-xs star-alignment">★</span> El castillo de la Alhambra en Granada y la estación de esquí de Sierra Nevada <span className="font-xs star-alignment">★</span></p>
-        <p><span className="font-xs star-alignment">★</span> El casco antiguo de Málaga y la ruta de senderismo del Caminito del Rey <span className="font-xs star-alignment">★</span></p>
+        <p><TextStar /> El pueblo de Nerja y el famoso Balcón de Europa <TextStar /></p>
+        <p><TextStar /> Las cuevas de cristal de Nerja <TextStar /></p>
+        <p><TextStar /> El paseo de Torrox-Costa <TextStar /></p>
+        <p><TextStar /> Los mercadillos al aire libre, en diferentes pueblos todas las mañanas de 10:00 a 14:00 horas <TextStar /></p>
+        <p><TextStar /> El paseo fluvial del río Chillar <TextStar /></p>
+        <p><TextStar /> Los pueblos de Frigiliana y Cómpeta <TextStar /></p>
+        <p><TextStar /> El castillo de la Alhambra en Granada y la estación de esquí de Sierra Nevada <TextStar /></p>
+        <p><TextStar /> El casco antiguo de Málaga y la ruta de senderismo del Caminito del Rey <TextStar /></p>
       </div>
     ),
   },
