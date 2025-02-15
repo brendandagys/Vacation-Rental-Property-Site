@@ -45,7 +45,7 @@ export const MainLandingForeground = ({ setShowBookingInquiryModal, width }: IMa
                 <Col sm={6} className='text-center mt-3'>
                   <WhatsAppLogo style={{ width: '2rem', height: '2rem' }} />
                   <span style={{ marginLeft: 5 }}>
-                    <b>Whatsapp: </b>+1 (416) 779-6411
+                    <b>WhatsApp: </b>+1 (416) 779-6411
                   </span>
                 </Col>
               </Row>
