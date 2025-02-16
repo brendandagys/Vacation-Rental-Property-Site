@@ -1,5 +1,11 @@
-import { ReactElement, ReactNode, createContext, useContext, useState } from 'react';
-import { ELanguage, textData as data } from '../static/text';
+import {
+  ReactElement,
+  ReactNode,
+  createContext,
+  useContext,
+  useState,
+} from "react";
+import { ELanguage, textData as data } from "../static/text";
 
 interface LanguageContext {
   language: ELanguage;
@@ -9,19 +15,20 @@ interface LanguageContext {
 
 const LanguageContext = createContext({} as LanguageContext);
 
-export const LanguageProvider = ({ children }: { children: ReactNode; }) => {
+export const LanguageProvider = ({ children }: { children: ReactNode }) => {
   const [language, setLanguage] = useState<ELanguage>(ELanguage.English);
 
-  const getText = (name: string): string | ReactElement => (
-    data[name]?.[language] || data[name]?.[ELanguage.English]
-  );
+  const getText = (name: string): string | ReactElement =>
+    data[name]?.[language] || data[name]?.[ELanguage.English];
 
   return (
-    <LanguageContext.Provider value={{
-      language,
-      getText,
-      setLanguage,
-    }}>
+    <LanguageContext.Provider
+      value={{
+        language,
+        getText,
+        setLanguage,
+      }}
+    >
       {children}
     </LanguageContext.Provider>
   );
