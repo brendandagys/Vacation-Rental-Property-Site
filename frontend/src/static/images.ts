@@ -56,7 +56,7 @@ export const tertiaryImage = {
 
 export const testimonialBook1 = (
   {
-    src: "https://calaceite.holiday/images/testimonial-book-1.jpg",
+    src: "https://calaceite.holiday/images/testimonial-book-2.jpg",
     alt: "testimonial-book-1",
     width: 3769,
     height: 3024,
@@ -64,49 +64,25 @@ export const testimonialBook1 = (
 );
 export const testimonialBook2 = (
   {
-    src: "https://calaceite.holiday/images/testimonial-book-2.jpg",
-    alt: "testimonial",
+    src: "https://calaceite.holiday/images/testimonial-book-3.jpg",
+    alt: "testimonial-book-2",
     width: 4032,
     height: 3024,
   }
 );
 export const testimonialBook3 = (
   {
-    src: "https://calaceite.holiday/images/testimonial-book-3.jpg",
-    alt: "testimonial",
+    src: "https://calaceite.holiday/images/testimonial-book-4.jpg",
+    alt: "testimonial-book-3",
     width: 5712,
     height: 4284,
   }
 );
 export const testimonialBook4 = (
   {
-    src: "https://calaceite.holiday/images/testimonial-book-4.jpg",
-    alt: "testimonial",
-    width: 5712,
-    height: 4284,
-  }
-);
-export const testimonialBook5 = (
-  {
-    src: "https://calaceite.holiday/images/testimonial-book-5.jpg",
-    alt: "testimonial",
-    width: 4032,
-    height: 3024,
-  }
-);
-export const testimonialBook6 = (
-  {
-    src: "https://calaceite.holiday/images/testimonial-book-6.jpg",
-    alt: "testimonial",
-    width: 4032,
-    height: 3024,
-  }
-);
-export const testimonialBook7 = (
-  {
     src: "https://calaceite.holiday/images/testimonial-book-7.jpg",
-    alt: "testimonial",
-    width: 5436,
+    alt: "testimonial-book-4",
+    width: 5712,
     height: 4284,
   }
 );
