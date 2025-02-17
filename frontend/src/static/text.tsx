@@ -156,20 +156,20 @@ export const textData: TextData = {
     [ELanguage.English]: (
       <>
         <p>
-          <TextStar /> Welcome to the Calaceite FRONTLINE Vistamar website!{" "}
-          <TextStar />
+          <TextStar /> Welcome to the Calaceite FRONTLINE Vistamar
+          direct-booking website! <TextStar />
         </p>
         <p>
           <TextStar /> LOCATION, LOCATION, LOCATION - Nerja and Torrox-Costa in
           the Costa del Sol <TextStar />
         </p>
         <p>
-          <TextStar /> This is Apartment #6132 in the first block to the beach
-          with a FULLY FRONTAL 180° south/west facing seaview of the Alboran Sea{" "}
+          <TextStar /> This luxury apartment is in the FIRSTLINE TO THE BEACH
+          with a FULLY FRONTAL 180° south/west-facing seaview of the Alboran Sea{" "}
           <TextStar />
         </p>
         <p>
-          <TextStar /> WATCH THE WAVES during the day from the large sunny
+          <TextStar /> LISTEN TO THE WAVES during the day from the large sunny
           terrace and sleep to the sound of the waves at night <TextStar />
         </p>
       </>
@@ -511,31 +511,30 @@ export const textData: TextData = {
     [ELanguage.English]: (
       <div className="details-text">
         <p>
-          <TextStar /> FREE - Included In The Price:
+          <TextStar /> FREE - Included In The Price: <TextStar />
         </p>
         <ul>
-          <li>Cooling A/C & Heating - NO COIN MACHINE</li>
-          <li>Internet & Fast Wi-Fi</li>
+          <li>Air-Conditioning & Heating - NO COIN MACHINE</li>
+          <li>Internet & fast Wi-Fi</li>
           <li>
-            100% Cotton Luxury Bed linens and Bath Towels (2 included in price -
-            extra are 16 euros each)
+            100% cotton luxury bed linens & bath towels (2 included in the price
+            - extras are 16 euros each)
           </li>
           <li>Final cleaning</li>
-          <li>Garage Parking inside gate</li>
-          <li>Security card access to 2 private pools</li>
+          <li>Garage parking spot inside the gate</li>
+          <li>Security cards for access to the 2 private pools</li>
         </ul>
 
         <br />
 
         <p>
-          <TextStar /> 65" Flat SCREEN SMART television with NETFLIX & 100's of
+          <TextStar /> 65" FLAT SCREEN SMART television with NETFLIX & 100's of
           channels (French, German, English, Spanish) <TextStar />
         </p>
         <p>
           <TextStar /> WALK 5 minutes to the private sandy EL PENONCILLO BEACH.
-          The El Penoncillo Playa is 200 meters away and it has beach
-          restaurants that offer fresh fish and seafood cuisine daily{" "}
-          <TextStar />
+          The beach is 200 metres away and has beach restaurants that offer
+          fresh fish and seafood cuisine daily <TextStar />
         </p>
         <p>
           <TextStar /> TWO large luxurious OUTDOOR POOLS with beautiful green
@@ -544,19 +543,19 @@ export const textData: TextData = {
           system to ensure privacy and exclusivity <TextStar />
         </p>
         <p>
-          <TextStar /> WASHING MACHINE and DRYER are inside the apartment for
-          your convenience <TextStar />
+          <TextStar /> WASHING MACHINE & DRYER are inside the apartment for your
+          convenience <TextStar />
         </p>
         <p>
-          <TextStar /> FREE Private PARKING for your car in a covered garage
-          belonging to the apartment with a lift 10 meters away to take you
+          <TextStar /> FREE PRIVATE PARKING for your car in a covered garage
+          belonging to the apartment with a lift 10 metres away to take you
           directly up to your apartment in minutes <TextStar />
         </p>
         <p>
-          <TextStar /> 40 minutes from the Malaga airport <TextStar />
+          <TextStar /> 40 minutes drive from the Malaga airport <TextStar />
         </p>
         <p>
-          <TextStar /> Newly built RESORT Complex with granite, polished marble
+          <TextStar /> Newly built RESORT COMPLEX with granite, polished marble
           floors, quality fittings and Bosch appliances. The apartment has 2
           bedrooms, 2 bathrooms and a fully stocked kitchen. It is on a top
           floor (with a lift) <TextStar />
@@ -566,7 +565,7 @@ export const textData: TextData = {
           direction <TextStar />
         </p>
         <p>
-          <TextStar /> This is a very well maintained and FULLY equipped
+          <TextStar /> This is a FULLY EQUIPPED and very well maintained
           property. It has everything a guest could ever need to ensure a
           wonderful holiday <TextStar />
         </p>
@@ -575,11 +574,11 @@ export const textData: TextData = {
         </p>
         <p>
           <TextStar /> Perfect for a romantic, retirement or family holiday
-          vacation. Guaranteed Spanish sunshine all year <TextStar />
+          vacation with guaranteed spanish sunshine all year <TextStar />
         </p>
         <p>
-          <TextStar /> Long Term Rentals are welcome. Enjoy your winter months
-          in the sun <TextStar />
+          <TextStar /> Long term rentals are welcome. Enjoy your winter months
+          in the sun! <TextStar />
         </p>
 
         <div className="text-center font-sm pt-5 pb-3">
