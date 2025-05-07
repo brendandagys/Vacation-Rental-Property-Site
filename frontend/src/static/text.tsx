@@ -351,7 +351,6 @@ export const textData: TextData = {
           <li>Koeling A/C & Verwarming - GEEN MUNTAUTOMAAT</li>
           <li>Internet & Snelle Wi-Fi</li>
           <li>100% Katoenen Luxe Beddengoed en Badhanddoeken (2 inbegrepen in de prijs - extra kosten 16 euro per stuk)</li>
-          <li>Eindschoonmaak</li>
           <li>Garagepark binnen de poort</li>
           <li>Beveiligingskaarttoegang tot 2 privézwembaden</li>
         </ul>
@@ -383,7 +382,6 @@ export const textData: TextData = {
           <li>Cooling A/C & Heating - NO COIN MACHINE</li>
           <li>Internet & Fast Wi-Fi</li>
           <li>100% Cotton Luxury Bed linens and Bath Towels (2 included in price - extra are 16 euros each)</li>
-          <li>Final cleaning</li>
           <li>Garage Parking inside gate</li>
           <li>Security card access to 2 private pools</li>
         </ul>
@@ -415,7 +413,6 @@ export const textData: TextData = {
           <li>Climatisation et chauffage - PAS DE MACHINE À PIÈCES</li>
           <li>Internet et Wi-Fi rapide</li>
           <li>Draps de lit et serviettes de bain de luxe 100 % coton (2 inclus dans le prix - les suppléments sont de 16 euros chacun)</li>
-          <li>Nettoyage final</li>
           <li>Garage Parking à l'intérieur du portail</li>
           <li>Accès par carte de sécurité à 2 piscines privées</li>
         </ul>
@@ -447,7 +444,6 @@ export const textData: TextData = {
           <li>Kühlung, Klimaanlage und Heizung – KEIN MÜNZAUTOMATEN</li>
           <li>Internet und schnelles WLAN</li>
           <li>Luxusbettwäsche und Badetücher aus 100 % Baumwolle (2 im Preis inbegriffen – zusätzliche kosten jeweils 16 Euro)</li>
-          <li>Endreinigung</li>
           <li>Garagenparkplatz hinter dem Tor</li>
           <li>Zugang zu 2 privaten Pools mit Sicherheitskarte</li>
         </ul>
@@ -479,7 +475,6 @@ export const textData: TextData = {
           <li>Aire acondicionado y calefacción - NO HAY MÁQUINA DE MONEDAS</li>
           <li>Internet y Wi-Fi rápido</li>
           <li>Ropa de cama y toallas de baño de lujo 100 % algodón (2 incluidas en el precio; las adicionales cuestan 16 euros cada una)</li>
-          <li>Limpieza final</li>
           <li>Estacionamiento en garaje dentro de la puerta</li>
           <li>Acceso con tarjeta de seguridad a 2 piscinas privadas</li>
         </ul>
@@ -981,3 +976,4 @@ export const textData: TextData = {
     [ELanguage.Spanish]: 'Cerca',
   },
 };
+
