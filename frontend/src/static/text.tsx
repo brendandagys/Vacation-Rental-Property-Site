@@ -428,8 +428,8 @@ export const textData: TextData = {
           <li>Koeling A/C & Verwarming - GEEN MUNTAUTOMAAT</li>
           <li>Internet & Snelle Wi-Fi</li>
           <li>
-            100% Katoenen Luxe Beddengoed en Badhanddoeken (2 inbegrepen in de
-            prijs - extra kosten 16 euro per stuk)
+            100% Katoenen Luxe Beddengoed en Badhanddoeken (Er zijn 2 pakketten
+            inbegrepen voor twee personen, extra's zijn € 16 per gast)
           </li>
           <li>Garagepark binnen de poort</li>
           <li>Beveiligingskaarttoegang tot 2 privézwembaden</li>
@@ -516,8 +516,8 @@ export const textData: TextData = {
           <li>Air-Conditioning & Heating - NO COIN MACHINE</li>
           <li>Internet & fast Wi-Fi</li>
           <li>
-            100% cotton luxury bed linens & bath towels (2 included in the price
-            - extras are 16 euros each)
+            100% cotton luxury bed linens & bath towels (2 packages are included
+            for two persons, extras are €16 per guest)
           </li>
           <li>Garage parking spot inside the gate</li>
           <li>Security cards for access to the 2 private pools</li>
@@ -597,8 +597,9 @@ export const textData: TextData = {
           <li>Climatisation et chauffage - PAS DE MACHINE À PIÈCES</li>
           <li>Internet et Wi-Fi rapide</li>
           <li>
-            Draps de lit et serviettes de bain de luxe 100 % coton (2 inclus
-            dans le prix - les suppléments sont de 16 euros chacun)
+            Draps de lit et serviettes de bain de luxe 100 % coton (2 forfaits
+            sont inclus pour deux personnes, les extras sont de 16€ par
+            personne)
           </li>
           <li>Garage Parking à l'intérieur du portail</li>
           <li>Accès par carte de sécurité à 2 piscines privées</li>
@@ -684,8 +685,8 @@ export const textData: TextData = {
           <li>Kühlung, Klimaanlage und Heizung – KEIN MÜNZAUTOMATEN</li>
           <li>Internet und schnelles WLAN</li>
           <li>
-            Luxusbettwäsche und Badetücher aus 100 % Baumwolle (2 im Preis
-            inbegriffen – zusätzliche kosten jeweils 16 Euro)
+            Luxusbettwäsche und Badetücher aus 100 % Baumwolle (2 Pakete sind
+            für zwei Personen enthalten, Extras kosten 16 € pro Gast)
           </li>
           <li>Garagenparkplatz hinter dem Tor</li>
           <li>Zugang zu 2 privaten Pools mit Sicherheitskarte</li>
@@ -771,8 +772,8 @@ export const textData: TextData = {
           <li>Aire acondicionado y calefacción - NO HAY MÁQUINA DE MONEDAS</li>
           <li>Internet y Wi-Fi rápido</li>
           <li>
-            Ropa de cama y toallas de baño de lujo 100 % algodón (2 incluidas en
-            el precio; las adicionales cuestan 16 euros cada una)
+            Ropa de cama y toallas de baño de lujo 100 % algodón (Se incluyen 2
+            paquetes para dos personas, los extras son 16€ por persona.)
           </li>
           <li>Estacionamiento en garaje dentro de la puerta</li>
           <li>Acceso con tarjeta de seguridad a 2 piscinas privadas</li>
