@@ -1,19 +1,19 @@
-import { IApiErrorResponse, IApiParsedResponse, IApiResponse, THttpMethod } from '../types/api';
+import { IApiErrorResponse, IApiParsedResponse, IApiResponse, THttpMethod } from "../types/api";
 
 const API = (
-  process.env.NODE_ENV === 'production' ? 'https://api.calaceite.holiday' : 'http://localhost:3000'
+  process.env.NODE_ENV === "production" ? "https://api.calaceite.holiday" : "http://localhost:3000"
 );
 
 export const isApiResponse = <T>(
   responseBody: IApiResponse<T> | IApiErrorResponse
 ): responseBody is IApiResponse<T> => {
-  return Object.hasOwn(responseBody, 'data') && Object.hasOwn(responseBody, 'meta');
+  return Object.hasOwn(responseBody, "data") && Object.hasOwn(responseBody, "meta");
 };
 
 const isApiErrorResponse = <T>(
   responseBody: IApiResponse<T> | IApiErrorResponse
 ): responseBody is IApiErrorResponse => {
-  return Object.hasOwn(responseBody, 'message');
+  return Object.hasOwn(responseBody, "message");
 };
 
 /**
@@ -29,15 +29,15 @@ export const api = async <T = unknown>(
   requestBody?: object,
   ...args: unknown[]
 ): Promise<IApiParsedResponse<T>> => {
-  const token = localStorage.getItem('token');
+  const token = localStorage.getItem("token");
 
   const headers: Record<string, string> = {
-    'Content-Type': 'application/json',
+    "Content-Type": "application/json",
     // Accept: 'application/json',
   };
 
   if (token) {
-    headers['Authorization'] = token;
+    headers["Authorization"] = token;
   }
 
   const finalRequestBody = (

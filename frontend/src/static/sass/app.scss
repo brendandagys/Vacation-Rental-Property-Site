@@ -1,35 +1,36 @@
 // Abstracts
-@import 'abstracts/functions';
-@import 'abstracts/mixins';
-@import 'abstracts/variables';
+@import "abstracts/functions";
+@import "abstracts/mixins";
+@import "abstracts/variables";
 
 // Base
-@import 'base/reset';
-@import 'base/typography';
+@import "base/reset";
+@import "base/typography";
 // @import 'base/animations';
 // @import 'base/custom';
 // @import 'base/utilities';
 
 // Components
-@import 'components/Amenities.scss';
-@import 'components/AttractionsText.scss';
-@import 'components/BookingInquiryForm.scss';
-@import 'components/Calendar';
-@import 'components/Calendars';
-@import 'components/CalendarsContainer';
-@import 'components/ContentTiles';
-@import 'components/DetailsText';
-@import 'components/FadeInImage.scss';
-@import 'components/Footer.scss';
-@import 'components/ImageGallery';
-@import 'components/InformationCard';
-@import 'components/LoginForm.scss';
-@import 'components/MainDetails.scss';
-@import 'components/MainLanding.scss';
-@import 'components/Navbar.scss';
-@import 'components/Testimonial.scss';
-@import 'components/TestimonialsGallery.scss';
-@import 'components/TextContainer.scss';
-@import 'components/TextStar.scss';
-@import 'components/button.scss';
-
+@import "components/Amenities.scss";
+@import "components/AttractionsText.scss";
+@import "components/BookingInquiryForm.scss";
+@import "components/Calendar";
+@import "components/Calendars";
+@import "components/CalendarsContainer";
+@import "components/ContentTiles";
+@import "components/DetailsText";
+@import "components/FadeInImage.scss";
+@import "components/Footer.scss";
+@import "components/ImageGallery";
+@import "components/InformationCard";
+@import "components/LoginForm.scss";
+@import "components/MainDetails.scss";
+@import "components/MainLanding.scss";
+@import "components/Navbar.scss";
+@import "components/Testimonial.scss";
+@import "components/TestimonialsGallery.scss";
+@import "components/TestimonialsForm.scss";
+@import "components/TestimonialsList.scss";
+@import "components/TextContainer.scss";
+@import "components/TextStar.scss";
+@import "components/button.scss";

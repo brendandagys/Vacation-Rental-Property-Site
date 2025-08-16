@@ -1,11 +1,12 @@
-import { api, isApiResponse } from '.';
-import { IYearMonthDate, Nullable } from '../types';
-import { EStars, ITestimonial, ITestimonialPutRequest } from '../types/testimonial';
-import { getYmdFromParts } from '../utils/helpers';
+import { api, isApiResponse } from ".";
+import { IYearMonthDate, Nullable } from "../types";
+import { EStars, ITestimonial, ITestimonialPutRequest } from "../types/testimonial";
+import { IMandatoryDynamodbFields } from "../types";
+import { getYmdFromParts } from "../utils/helpers";
 
 export const getAllTestimonials = async (): Promise<ITestimonial[]> => {
-  const { body, errorMessage } = (
-    await api<ITestimonial[]>('fetch?entity=Testimonial', 'GET')
+  const { body } = (
+    await api<ITestimonial[]>("fetch?entity=Testimonial", "GET")
   );
 
   if (body && isApiResponse(body)) {
@@ -18,8 +19,8 @@ export const getAllTestimonials = async (): Promise<ITestimonial[]> => {
 };
 
 export const getTestimonialsByStars = async (stars: EStars): Promise<ITestimonial[]> => {
-  const { body, errorMessage } = (
-    await api<ITestimonial[]>(`fetch?entity=Testimonial&stars=${stars}`, 'GET')
+  const { body } = (
+    await api<ITestimonial[]>(`fetch?entity=Testimonial&stars=${stars}`, "GET")
   );
 
   if (body && isApiResponse(body)) {
@@ -32,8 +33,8 @@ export const getTestimonialsByStars = async (stars: EStars): Promise<ITestimonia
 };
 
 export const getTestimonialsByActive = async (active: boolean): Promise<ITestimonial[]> => {
-  const { body, errorMessage } = (
-    await api<ITestimonial[]>(`fetch?entity=Testimonial&active=${active ? 'true' : 'false'}`, 'GET')
+  const { body } = (
+    await api<ITestimonial[]>(`fetch?entity=Testimonial&active=${active ? "true" : "false"}`, "GET")
   );
 
   if (body && isApiResponse(body)) {
@@ -50,11 +51,11 @@ export const getTestimonialsByActiveAndInDateRange = async (
   startDate: IYearMonthDate,
   endDate: IYearMonthDate
 ): Promise<ITestimonial[]> => {
-  const { body, errorMessage } = (
+  const { body } = (
     await api<ITestimonial[]>(
-      `fetch?entity=Testimonial&active=${active ? 'true' : 'false'
+      `fetch?entity=Testimonial&active=${active ? "true" : "false"
       }&start_date=${getYmdFromParts(startDate)}&end_date=${getYmdFromParts(endDate)}`,
-      'GET'
+      "GET"
     )
   );
 
@@ -68,14 +69,34 @@ export const getTestimonialsByActiveAndInDateRange = async (
 };
 
 export const putTestimonial = async (testimonial: ITestimonialPutRequest): Promise<Nullable<string>> => {
-  const { body, errorMessage } = (
-    await api<string>('put', 'PUT', testimonial)
+  const { body } = (
+    await api<string>("put", "PUT", testimonial)
   );
 
   if (body && isApiResponse(body)) {
     const { data: putItemOutput } = body;
     // console.info('PUT testimonial output:', putItemOutput);
     return putItemOutput;
+  }
+
+  return null;
+};
+
+export const toggleTestimonialActive = async (
+  item: Pick<IMandatoryDynamodbFields, "PK" | "SK"> & { active: boolean; }
+): Promise<Nullable<string>> => {
+  const payload = {
+    PK: item.PK,
+    SK: item.SK,
+    active: item.active,
+  } as const;
+
+  const { body } = (
+    await api<string>("put", "PUT", payload)
+  );
+
+  if (body && isApiResponse(body)) {
+    return body.data;
   }
 
   return null;

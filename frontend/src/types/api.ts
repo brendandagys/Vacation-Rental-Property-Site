@@ -1,10 +1,10 @@
-import { Nullable } from '.';
+import { Nullable } from ".";
 
 export type THttpMethod =
-  | 'GET'
-  | 'POST'
-  | 'PUT'
-  | 'DELETE';
+  | "GET"
+  | "POST"
+  | "PUT"
+  | "DELETE";
 
 export interface IApiResponse<T> {
   data: T;

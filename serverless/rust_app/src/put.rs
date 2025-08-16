@@ -32,6 +32,11 @@ async fn put(request: Request, client: &dynamodb::Client) -> Result<Response<Bod
                     .await;
                 }
 
+                if let types::PutRequestEntity::TestimonialRequest(testimonial) = put_request_entity
+                {
+                    return put_handlers::testimonial::put_testimonial(client, testimonial).await;
+                }
+
                 let token = match request.headers().get("Authorization") {
                     Some(token) => token,
                     None => {
@@ -61,11 +66,14 @@ async fn put(request: Request, client: &dynamodb::Client) -> Result<Response<Bod
                     types::PutRequestEntity::DefaultRequest(default) => {
                         put_handlers::default::put_default(client, default).await
                     }
-                    types::PutRequestEntity::TestimonialRequest(testimonial) => {
-                        put_handlers::testimonial::put_testimonial(client, testimonial).await
-                    }
                     types::PutRequestEntity::UserRequest(user) => {
                         put_handlers::user::put_user(client, user).await
+                    }
+                    types::PutRequestEntity::TestimonialToggleRequest(toggle_req) => {
+                        put_handlers::testimonial_toggle::toggle_testimonial_active(
+                            client, toggle_req,
+                        )
+                        .await
                     }
 
                     types::PutRequestEntity::CalendarDatesRequest(calendar_dates) => {

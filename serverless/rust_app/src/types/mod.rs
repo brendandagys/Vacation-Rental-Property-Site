@@ -34,6 +34,7 @@ pub enum PutRequestEntity {
     ContentRequest(content::ContentPutRequest),
     DefaultRequest(default::DefaultPutRequest),
     TestimonialRequest(testimonial::TestimonialPutRequest),
+    TestimonialToggleRequest(testimonial::TestimonialToggleRequest),
     UserRequest(user::UserPutRequest),
 
     CalendarDatesRequest(Vec<calendar_date::CalendarDatePutRequest>),

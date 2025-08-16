@@ -1,69 +1,45 @@
-/* eslint-disable max-len */
-import { Col } from "react-bootstrap";
-import { Testimonial } from "./Testimonial";
-import { useLanguage } from "../context/languageContext";
+import { useEffect, useMemo } from "react";
+import useTestimonials from "../hooks/useTestimonials";
 import { TestimonialsGallery } from "./TestimonialsGallery";
+import { TestimonialForm } from "./TestimonialForm";
+import { TestimonialsList } from "./TestimonialsList";
+import { scrollTo } from "../utils/scroll";
+
+const TOKEN_VALUE = "guest-review";
 
 export const TestimonialsContainer = () => {
-  const { getText } = useLanguage();
+  const { data, loading, error, submit } = useTestimonials({
+    activeOnly: true,
+  });
 
-  const testimonials = [
-    {
-      stars: 5,
-      name: "A M",
-      content: (getText("testimonials-1") || "").toString(),
-    },
-    {
-      stars: 5,
-      name: "M B",
-      content: (getText("testimonials-2") || "").toString(),
-    },
-    {
-      stars: 5,
-      name: "M B",
-      content: (getText("testimonials-3") || "").toString(),
-    },
-    {
-      stars: 5,
-      name: "J H",
-      content: (getText("testimonials-4") || "").toString(),
-    },
-  ];
+  const formVisible = useMemo(() => {
+    return new URL(window.location.href).pathname.endsWith(`${TOKEN_VALUE}`);
+  }, []);
+
+  // Auto scroll to the form when it becomes visible
+  useEffect(() => {
+    if (formVisible) {
+      const t = setTimeout(() => {
+        scrollTo("testimonials", -60, true);
+      }, 500);
+
+      return () => clearTimeout(t);
+    }
+  }, [formVisible]);
 
   return (
     <>
-      <div className="mb-5 mt-3 pb-3">
-        <TestimonialsGallery />
+      <TestimonialForm visible={formVisible} onSubmit={submit} />
+
+      {error && <div className="text-danger mb-3">{error}</div>}
+
+      <div className="mb-5 w-100">
+        <TestimonialsList testimonials={data} loading={loading} />
       </div>
 
-      {testimonials.map(({ stars, name, content }, i) => (
-        <Col key={i} xs={12} md={6} xl={4} className="mx-3 mt-4">
-          <Testimonial stars={stars} name={name} content={content} />
-        </Col>
-      ))}
-
-      {/* <div className="text-center pt-4 text-white">
-        <p>
-          {getText("testimonials-read-more")}&nbsp;
-          <a
-            className="text-white text-decoration-underline"
-            href="https://www.tripadvisor.ca/VacationRentalReview-g656870-d10343031-Calaceite_FRONTLINE_Vistamar_Luxury_Penthouse_Front_Seaview_Torrox_Nerja_Malaga-Torro.html"
-            rel="noreferrer"
-            target="_blank"
-          >
-            Tripadvisor
-          </a>{" "}
-          {getText("testimonials-read-more-and")}&nbsp;
-          <a
-            className="text-white text-decoration-underline"
-            href="https://www.vrbo.com/en-ca/cottage-rental/p4160411?uni_id=4562157&adultsCount=2&arrival=2023-06-12&departure=2023-06-23"
-            rel="noreferrer"
-            target="_blank"
-          >
-            Vrbo
-          </a>
-        </p>
-      </div> */}
+      <div className="mb-5 mt-3 pb-3 w-100">
+        <TestimonialsGallery />
+      </div>
     </>
   );
 };

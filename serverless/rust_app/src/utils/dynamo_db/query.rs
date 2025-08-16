@@ -61,7 +61,6 @@ pub async fn query<'a, T: Deserialize<'a> + Serialize + std::fmt::Debug>(
             ))
         }
     }
-    .clone()
     .to_vec();
 
     // Get typed entities, derived from the DynamoDB response
@@ -113,6 +112,7 @@ pub async fn query_http<'a, T: Deserialize<'a> + Serialize + std::fmt::Debug + C
                 } else {
                     types::http::ApiResponseData::NoneMultiple(Vec::new())
                 };
+
                 return utils::http::send_response(
                     data_type,
                     Some(querymap),

@@ -14,7 +14,7 @@ pub fn build_testimonial_item(
     now: DateTime<Utc>,
 ) -> PutItemFluentBuilder {
     let types::testimonial::TestimonialPutRequest {
-        email,
+        name,
         stars,
         title,
         comment,
@@ -34,7 +34,7 @@ pub fn build_testimonial_item(
         .item("SK", AttributeValue::S(now.to_string()))
         .item("GSI-PK", AttributeValue::S("TESTIMONIAL".into()))
         .item("GSI-SK", AttributeValue::S(stars_num.to_string()))
-        .item("email", AttributeValue::S(email))
+        .item("name", AttributeValue::S(name))
         .item("stars", AttributeValue::N(stars_num.to_string()))
         .item("title", AttributeValue::S(title))
         .item("comment", AttributeValue::S(comment))
@@ -62,13 +62,13 @@ pub async fn put_testimonial(
     testimonial: types::testimonial::TestimonialPutRequest,
 ) -> Result<lambda_http::Response<Body>, Error> {
     let types::testimonial::TestimonialPutRequest {
-        email,
+        name,
         title,
         comment,
         ..
     } = &testimonial;
 
-    if email.trim() == "" || title.trim() == "" || comment.trim() == "" {
+    if name.trim() == "" || title.trim() == "" || comment.trim() == "" {
         return utils::http::send_error(StatusCode::BAD_REQUEST, "Please provide all fields.");
     }
 

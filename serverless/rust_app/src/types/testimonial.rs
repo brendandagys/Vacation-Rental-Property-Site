@@ -25,7 +25,7 @@ pub struct Testimonial {
     pub gsi_primary_key: String,
     #[serde(rename = "GSI-SK")]
     pub gsi_sort_key: String,
-    pub email: String,
+    pub name: Option<String>, // Backwards compatibility, locally
     pub stars: f32,
     pub title: String,
     pub comment: String,
@@ -36,9 +36,18 @@ pub struct Testimonial {
 
 #[derive(Deserialize)]
 pub struct TestimonialPutRequest {
-    pub email: String,
+    pub name: String,
     pub stars: Stars,
     pub title: String,
     pub comment: String,
+    pub active: bool,
+}
+
+#[derive(Deserialize)]
+pub struct TestimonialToggleRequest {
+    #[serde(rename = "PK")]
+    pub primary_key: String,
+    #[serde(rename = "SK")]
+    pub sort_key: String,
     pub active: bool,
 }
