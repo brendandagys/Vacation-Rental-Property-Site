@@ -1,9 +1,12 @@
+use std::env;
+
 use crate::{
     types::{self, BuildFunction},
     utils,
 };
 
 use aws_sdk_dynamodb as dynamodb;
+use aws_sdk_sns as sns;
 use chrono::{DateTime, Utc};
 use dynamodb::{operation::put_item::builders::PutItemFluentBuilder, types::AttributeValue};
 use lambda_http::{http::StatusCode, Body, Error};
@@ -73,6 +76,38 @@ pub async fn put_testimonial(
     }
 
     let testimonial_builder = BuildTestimonial {};
+
+    let topic_arn = env::var("SNS_TOPIC_ARN").unwrap_or("".into());
+
+    if topic_arn != "" {
+        let message = serde_json::to_string(&testimonial)?;
+
+        match utils::sns::get_sns_client()
+            .await
+            .publish()
+            .topic_arn(&topic_arn)
+            .message(&message)
+            .send()
+            .await
+        {
+            Ok(res) => {
+                println!(
+                    "Published message (ID: {:?}) to SNS Topic ARN: {:?} | MESSAGE: {:?}",
+                    res.message_id(),
+                    topic_arn,
+                    message
+                )
+            }
+            Err(error) => match error {
+                sns::error::SdkError::ServiceError(service_error) => {
+                    println!("SNS ServiceError: {:?}", service_error);
+                }
+                _ => {
+                    println!("SdkError<PublishError>: {error}");
+                }
+            },
+        };
+    }
 
     utils::dynamo_db::put_item_http::<types::testimonial::TestimonialPutRequest>(
         client,

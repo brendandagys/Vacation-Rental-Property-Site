@@ -34,7 +34,7 @@ pub struct Testimonial {
     pub modified: Option<String>,
 }
 
-#[derive(Deserialize)]
+#[derive(Deserialize, Serialize)]
 pub struct TestimonialPutRequest {
     pub name: String,
     pub stars: Stars,
