@@ -94,7 +94,7 @@ export const useTestimonials = (opts: UseTestimonialsOptions = {}): UseTestimoni
           PK: "PENDING",
           "GSI-PK": "TESTIMONIAL",
           SK: new Date().toISOString(),
-          stars: starsEnumToNumeric(payload.stars).toString(),
+          stars: starsEnumToNumeric(payload.stars),
           created: new Date().toISOString(),
           modified: null,
         } as unknown as ITestimonial,
