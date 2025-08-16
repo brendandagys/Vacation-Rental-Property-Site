@@ -1,17 +1,17 @@
-import { useState } from 'react';
+import { useState } from "react";
 
-import { BookingInquiryModal } from '../components/booking-inquiry/BookingInquiryModal';
-import { PostSubmissionModal } from '../components/booking-inquiry/PostSubmissionModal';
-import { Nullable } from '../types';
-import { Navbar } from '../components/Navbar';
-import { Video } from '../components/Video';
-import { ContentTiles } from '../components/ContentTiles';
-import { Calendars } from '../components/calendar-date/Calendars';
-import { Footer } from '../components/footer/Footer';
-import { Testimonials } from '../components/Testimonials';
-import { Images } from '../components/Images';
-import { MainDetails } from '../components/MainDetails';
-import { MainLanding } from '../components/MainLanding';
+import { BookingInquiryModal } from "../components/booking-inquiry/BookingInquiryModal";
+import { PostSubmissionModal } from "../components/booking-inquiry/PostSubmissionModal";
+import { Nullable } from "../types";
+import { Navbar } from "../components/Navbar";
+import { Video } from "../components/Video";
+import { ContentTiles } from "../components/ContentTiles";
+import { Calendars } from "../components/calendar-date/Calendars";
+import { Footer } from "../components/footer/Footer";
+import { Testimonials } from "../components/Testimonials";
+import { Images } from "../components/Images";
+import { MainDetails } from "../components/MainDetails";
+import { MainLanding } from "../components/MainLanding";
 
 export const HomePage = () => {
   const [fromTo, setFromTo] = useState<Nullable<string>>(null);

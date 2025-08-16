@@ -4,6 +4,7 @@ import { TestimonialsGallery } from "./TestimonialsGallery";
 import { TestimonialForm } from "./TestimonialForm";
 import { TestimonialsList } from "./TestimonialsList";
 import { scrollTo } from "../utils/scroll";
+import { useViewportWidth } from "../hooks/useViewportWidth";
 
 const TOKEN_VALUE = "guest-review";
 
@@ -16,15 +17,18 @@ export const TestimonialsContainer = () => {
     return new URL(window.location.href).pathname.endsWith(`${TOKEN_VALUE}`);
   }, []);
 
+  const { mobile } = useViewportWidth();
+
   // Auto scroll to the form when it becomes visible
   useEffect(() => {
     if (formVisible) {
       const t = setTimeout(() => {
-        scrollTo("testimonials", -60, true);
+        scrollTo("testimonials", mobile ? -115 : -50);
       }, 500);
 
       return () => clearTimeout(t);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [formVisible]);
 
   return (
