@@ -63,7 +63,9 @@ export const ManageTestimonialsContainer = () => {
   const onDelete = useCallback(
     async (item: ITestimonial) => {
       const guestName = (item as unknown as { name?: string }).name || "Guest";
-      const confirmMessage = `Are you sure you want to permanently delete this testimonial?\n\n"${item.title}" by ${guestName}`;
+      const confirmMessage =
+        `Are you sure you want to permanently delete this testimonial?\n\n` +
+        `"${item.title}" by ${guestName}`;
 
       if (!window.confirm(confirmMessage)) {
         return;
@@ -136,9 +138,7 @@ export const ManageTestimonialsContainer = () => {
                   </div>
                   <div className="small">
                     ⭐{" "}
-                    {Math.round(
-                      (t as unknown as { stars?: number }).stars || 0
-                    )}
+                    {((t as unknown as { stars?: number }).stars || 0).toFixed(1)}
                   </div>
                 </div>
                 <div

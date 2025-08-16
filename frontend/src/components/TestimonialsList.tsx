@@ -8,7 +8,7 @@ interface TestimonialsListProps {
   loading: boolean;
 }
 
-const starBuckets = [5, 4, 3, 2, 1, 0];
+const starBuckets = [5, 4.5, 4, 3.5, 3, 2.5, 2, 1.5, 1, 0.5, 0];
 
 export const TestimonialsList: React.FC<TestimonialsListProps> = ({
   testimonials,
@@ -27,13 +27,13 @@ export const TestimonialsList: React.FC<TestimonialsListProps> = ({
           ? (t as unknown as { stars: number }).stars
           : 0;
 
-      const starsInt = Math.round(starsVal);
+      const starsExact = starsVal;
 
-      if (!map[starsInt]) {
-        map[starsInt] = [];
+      if (!map[starsExact]) {
+        map[starsExact] = [];
       }
 
-      map[starsInt].push(t);
+      map[starsExact].push(t);
     });
 
     return map;
@@ -72,9 +72,7 @@ export const TestimonialsList: React.FC<TestimonialsListProps> = ({
                     <Testimonial
                       content={t.comment || t.title}
                       name={(t as unknown as { name?: string }).name || "Guest"}
-                      stars={Math.round(
-                        (t as unknown as { stars?: number }).stars || 0
-                      )}
+                      stars={(t as unknown as { stars?: number }).stars || 0}
                     />
                   </Col>
                 ))}
