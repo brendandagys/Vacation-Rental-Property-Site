@@ -1,4 +1,4 @@
-import React, { useCallback, useMemo } from "react";
+import React, { useCallback, useMemo, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faStar as solidStar,
@@ -37,6 +37,7 @@ export const StarRating: React.FC<StarRatingProps> = ({
   disabled,
 }) => {
   const idx = order.indexOf(value);
+  const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
 
   const displayStars = useMemo(() => {
     // We want to show 5 star glyphs. Each click zone (10) corresponds to half increments.
@@ -63,54 +64,88 @@ export const StarRating: React.FC<StarRatingProps> = ({
         // Determine the two indices representing half steps for this star
         const leftIdx = starIndex * 2 + 1; // half
         const fullIdx = starIndex * 2 + 2; // full
-        const isFull = idx >= fullIdx;
-        const isHalf = !isFull && idx === leftIdx;
+
+        // Use hover state if available, otherwise use actual value
+        const displayIdx = hoveredIndex !== null ? hoveredIndex : idx;
+        const isFull = displayIdx >= fullIdx;
+        const isHalf = !isFull && displayIdx === leftIdx;
 
         return (
           <div
             key={starIndex}
             className="star-wrapper position-relative d-inline-block"
+            style={{
+              width: "2.4rem",
+              textAlign: "center",
+            }}
           >
+            {/* Single star icon */}
+            <FontAwesomeIcon
+              icon={
+                isFull ? solidStar : isHalf ? faStarHalfStroke : regularStar
+              }
+              style={{ color: "#ffc93c", fontSize: "2.2rem" }}
+            />
+
+            {/* Invisible left half button */}
             <button
               type="button"
-              className="star-button star-button-half"
+              className="star-button star-button-half position-absolute"
               aria-label={`${starIndex + 0.5} stars`}
               aria-checked={idx === leftIdx}
               role="radio"
               onClick={() => handleClick(leftIdx)}
+              onMouseEnter={() => !disabled && setHoveredIndex(leftIdx)}
+              onMouseLeave={() => !disabled && setHoveredIndex(null)}
               disabled={disabled}
-            >
-              <FontAwesomeIcon
-                icon={
-                  isFull || isHalf
-                    ? isHalf
-                      ? faStarHalfStroke
-                      : solidStar
-                    : regularStar
-                }
-              />
-            </button>
+              style={{
+                top: 0,
+                left: 0,
+                width: "50%",
+                height: "100%",
+                background: "transparent",
+                border: "none",
+                cursor: disabled ? "not-allowed" : "pointer",
+                padding: 0,
+              }}
+            />
 
+            {/* Invisible right half button */}
             <button
               type="button"
-              className="star-button star-button-full"
+              className="star-button star-button-full position-absolute"
               aria-label={`${starIndex + 1} stars`}
               aria-checked={idx === fullIdx}
               role="radio"
               onClick={() => handleClick(fullIdx)}
+              onMouseEnter={() => !disabled && setHoveredIndex(fullIdx)}
+              onMouseLeave={() => !disabled && setHoveredIndex(null)}
               disabled={disabled}
-            >
-              <FontAwesomeIcon
-                icon={
-                  isFull ? solidStar : isHalf ? faStarHalfStroke : regularStar
-                }
-              />
-            </button>
+              style={{
+                top: 0,
+                right: 0,
+                width: "50%",
+                height: "100%",
+                background: "transparent",
+                border: "none",
+                cursor: disabled ? "not-allowed" : "pointer",
+                padding: 0,
+              }}
+            />
           </div>
         );
       })}
 
-      <span className="ms-2 small">{(idx * 0.5).toFixed(1)} / 5</span>
+      <span
+        className="ms-2 small"
+        style={{
+          minWidth: "3.5rem",
+          display: "inline-block",
+          textAlign: "left",
+        }}
+      >
+        {((hoveredIndex !== null ? hoveredIndex : idx) * 0.5).toFixed(1)} / 5
+      </span>
     </div>
   );
 };

@@ -97,7 +97,6 @@ export const TestimonialForm = forwardRef<HTMLDivElement, TestimonialFormProps>(
             }}
             className="testimonial-form p-4 border rounded-4 shadow-lg"
           >
-            <h3 className="mb-4">Share Your Experience</h3>
             {error && (
               <Alert variant="danger" className="py-2 my-2">
                 {error}
@@ -108,7 +107,7 @@ export const TestimonialForm = forwardRef<HTMLDivElement, TestimonialFormProps>(
                 Thank you! Your review was submitted.
               </Alert>
             )}
-            <Form.Group controlId="testimonialName" className="mb-3">
+            <Form.Group controlId="testimonialName" className="mb-5">
               <Form.Label>Name or initials</Form.Label>
               <Form.Control
                 type="text"
