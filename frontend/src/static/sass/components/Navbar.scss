@@ -1,17 +1,27 @@
 .navbar {
   background-color: $color-black;
-  padding: 10px;
   display: flex;
-  justify-content: space-evenly;
-  
+  justify-content: center;
+
+  .nav-item {
+    padding: 4px 2rem;
+    border-radius: 4px;
+    transition: background-color 0.3s ease;
+    cursor: pointer;
+    user-select: none;
+
+    &:hover {
+      background-color: rgba(255, 255, 255, 0.1);
+    }
+  }
+
   .nav-link {
     color: $theme-yellow;
     transition: color 0.3s ease;
-    user-select: none;
-    
+    margin: 0;
+
     &:hover {
       color: #f0f0f0;
-      cursor: pointer;
     }
   }
 }
@@ -30,12 +40,12 @@
   svg {
     margin-right: 1.25rem;
   }
-  
+
   .dropdown-menu {
     background: #212529;
     border: 1.5px solid #52565d;
   }
-  
+
   .dropdown-item {
     color: #adb5bd;
     font-size: 1.5rem;

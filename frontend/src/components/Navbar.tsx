@@ -30,56 +30,46 @@ export const Navbar = () => {
   return (
     <div className="nav-container">
       <Nav className="navbar">
-        <div>
-          <p className="nav-link" onClick={() => scrollTo("home")}>
-            {getText("nav-home")}
-          </p>
-        </div>
-        <div>
-          <p
-            className="nav-link"
-            onClick={() => scrollTo("tour", mobile ? -115 : -50)}
-          >
-            {getText("nav-tour")}
-          </p>
-        </div>
-        <div>
-          <p
-            className="nav-link"
-            onClick={() => scrollTo("calendar", mobile ? -145 : -80)}
-          >
-            {getText("nav-calendar")}
-          </p>
-        </div>
-        <div>
-          <p
-            className="nav-link"
-            onClick={() => scrollTo("information", mobile ? -115 : -50)}
-          >
-            {getText("nav-information")}
-          </p>
-        </div>
-        <div>
-          <p
-            className="nav-link"
-            onClick={() => scrollTo("gallery", mobile ? -115 : -50)}
-          >
-            {getText("nav-gallery")}
-          </p>
-        </div>
-        <div>
-          <p
-            className="nav-link"
-            onClick={() => scrollTo("testimonials", mobile ? -115 : -50)}
-          >
-            {getText("nav-testimonials")}
-          </p>
-        </div>
-        <div>
-          <p className="nav-link" onClick={() => scrollTo("map")}>
-            {getText("nav-map")}
-          </p>
-        </div>
+        {!mobile && (
+          <>
+            <div className="nav-item" onClick={() => scrollTo("home")}>
+              <p className="nav-link">{getText("nav-home")}</p>
+            </div>
+            <div
+              className="nav-item"
+              onClick={() => scrollTo("tour", mobile ? -115 : -50)}
+            >
+              <p className="nav-link">{getText("nav-tour")}</p>
+            </div>
+            <div
+              className="nav-item"
+              onClick={() => scrollTo("calendar", mobile ? -145 : -80)}
+            >
+              <p className="nav-link">{getText("nav-calendar")}</p>
+            </div>
+            <div
+              className="nav-item"
+              onClick={() => scrollTo("information", mobile ? -115 : -50)}
+            >
+              <p className="nav-link">{getText("nav-information")}</p>
+            </div>
+            <div
+              className="nav-item"
+              onClick={() => scrollTo("gallery", mobile ? -115 : -50)}
+            >
+              <p className="nav-link">{getText("nav-gallery")}</p>
+            </div>
+            <div
+              className="nav-item"
+              onClick={() => scrollTo("testimonials", mobile ? -115 : -50)}
+            >
+              <p className="nav-link">{getText("nav-testimonials")}</p>
+            </div>
+            <div className="nav-item" onClick={() => scrollTo("map")}>
+              <p className="nav-link">{getText("nav-map")}</p>
+            </div>
+          </>
+        )}
         <NavDropdown
           title={
             <>
