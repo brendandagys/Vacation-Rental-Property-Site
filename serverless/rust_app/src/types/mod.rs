@@ -42,6 +42,12 @@ pub enum PutRequestEntity {
     DefaultsRequest(Vec<default::DefaultPutRequest>),
 }
 
+#[derive(Deserialize)]
+#[serde(untagged)]
+pub enum DeleteRequestEntity {
+    TestimonialDeleteRequest(testimonial::TestimonialDeleteRequest),
+}
+
 pub trait Buildable {
     fn item(self, k: impl Into<String>, v: AttributeValue) -> Self;
 }

@@ -3,6 +3,7 @@ import { Button, Card, Col, Container, Row, Spinner } from "react-bootstrap";
 import {
   getTestimonialsByActive,
   toggleTestimonialActive,
+  deleteTestimonial,
 } from "../../api/testimonial";
 import { ITestimonial } from "../../types/testimonial";
 
@@ -12,6 +13,7 @@ export const ManageTestimonialsContainer = () => {
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
   const [toggling, setToggling] = useState<string | null>(null);
+  const [deleting, setDeleting] = useState<string | null>(null);
 
   const refresh = useCallback(async () => {
     setLoading(true);
@@ -58,6 +60,36 @@ export const ManageTestimonialsContainer = () => {
     [refresh]
   );
 
+  const onDelete = useCallback(
+    async (item: ITestimonial) => {
+      const guestName = (item as unknown as { name?: string }).name || "Guest";
+      const confirmMessage = `Are you sure you want to permanently delete this testimonial?\n\n"${item.title}" by ${guestName}`;
+
+      if (!window.confirm(confirmMessage)) {
+        return;
+      }
+
+      setDeleting(`${item.PK}#${item.SK}`);
+
+      try {
+        await deleteTestimonial({
+          PK: item.PK,
+          SK: item.SK,
+        });
+
+        await refresh();
+      } catch (error) {
+        setError(
+          (error as { message?: string }).message ||
+            "Failed to delete testimonial"
+        );
+      } finally {
+        setDeleting(null);
+      }
+    },
+    [refresh]
+  );
+
   const loadingView = useMemo(
     () => (
       <div className="text-center w-100 py-4">
@@ -73,12 +105,18 @@ export const ManageTestimonialsContainer = () => {
     actionLabel,
     action,
     variant,
+    secondaryActionLabel,
+    secondaryAction,
+    secondaryVariant,
   }: {
     items: ITestimonial[];
     emptyText: string;
     actionLabel: string;
     action: (t: ITestimonial) => void;
     variant: "success" | "secondary";
+    secondaryActionLabel?: string;
+    secondaryAction?: (t: ITestimonial) => void;
+    secondaryVariant?: "danger" | "warning";
   }) => (
     <>
       {items.length === 0 ? (
@@ -113,13 +151,32 @@ export const ManageTestimonialsContainer = () => {
                   <Button
                     size="sm"
                     variant={variant}
-                    disabled={toggling === `${t.PK}#${t.SK}`}
+                    disabled={
+                      toggling === `${t.PK}#${t.SK}` ||
+                      deleting === `${t.PK}#${t.SK}`
+                    }
                     onClick={() => action(t)}
+                    className={secondaryAction ? "me-2" : ""}
                   >
                     {toggling === `${t.PK}#${t.SK}`
                       ? "Updating..."
                       : actionLabel}
                   </Button>
+                  {secondaryAction && secondaryActionLabel && (
+                    <Button
+                      size="sm"
+                      variant={secondaryVariant || "secondary"}
+                      disabled={
+                        toggling === `${t.PK}#${t.SK}` ||
+                        deleting === `${t.PK}#${t.SK}`
+                      }
+                      onClick={() => secondaryAction(t)}
+                    >
+                      {deleting === `${t.PK}#${t.SK}`
+                        ? "Deleting..."
+                        : secondaryActionLabel}
+                    </Button>
+                  )}
                 </div>
               </Card>
             </Col>
@@ -144,6 +201,9 @@ export const ManageTestimonialsContainer = () => {
               actionLabel="Enable"
               variant="success"
               action={(t) => void onToggle(t, true)}
+              secondaryActionLabel="Delete"
+              secondaryAction={(t) => void onDelete(t)}
+              secondaryVariant="danger"
             />
           </Col>
           <Col xs={12} lg={6} className="mb-4">

@@ -51,3 +51,11 @@ pub struct TestimonialToggleRequest {
     pub sort_key: String,
     pub active: bool,
 }
+
+#[derive(Deserialize)]
+pub struct TestimonialDeleteRequest {
+    #[serde(rename = "PK")]
+    pub primary_key: String,
+    #[serde(rename = "SK")]
+    pub sort_key: String,
+}

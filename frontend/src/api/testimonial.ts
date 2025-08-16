@@ -101,3 +101,22 @@ export const toggleTestimonialActive = async (
 
   return null;
 };
+
+export const deleteTestimonial = async (
+  item: Pick<IMandatoryDynamodbFields, "PK" | "SK">
+): Promise<Nullable<string>> => {
+  const payload = {
+    PK: item.PK,
+    SK: item.SK,
+  } as const;
+
+  const { body } = (
+    await api<string>("delete", "DELETE", payload)
+  );
+
+  if (body && isApiResponse(body)) {
+    return body.data;
+  }
+
+  return null;
+};

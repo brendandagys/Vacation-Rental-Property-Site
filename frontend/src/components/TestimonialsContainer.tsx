@@ -24,7 +24,7 @@ export const TestimonialsContainer = () => {
     if (formVisible) {
       const t = setTimeout(() => {
         scrollTo("testimonials", mobile ? -115 : -50);
-      }, 500);
+      }, 1000);
 
       return () => clearTimeout(t);
     }
