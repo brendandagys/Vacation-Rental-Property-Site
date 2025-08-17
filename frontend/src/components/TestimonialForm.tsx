@@ -9,6 +9,7 @@ import React, {
 import { Alert, Button, Col, Form, Row, Spinner } from "react-bootstrap";
 import { EStars, ITestimonialPutRequest } from "../types/testimonial";
 import { StarRating } from "./StarRating";
+import { useLanguage } from "../context/languageContext";
 
 export interface TestimonialFormProps {
   visible: boolean;
@@ -21,6 +22,8 @@ const defaultStars = EStars.Five;
 
 export const TestimonialForm = forwardRef<HTMLDivElement, TestimonialFormProps>(
   ({ visible, onSubmit }, ref) => {
+    const { getText } = useLanguage();
+
     const [name, setName] = useState("");
     const [title, setTitle] = useState("");
     const [comment, setComment] = useState("");
@@ -30,6 +33,7 @@ export const TestimonialForm = forwardRef<HTMLDivElement, TestimonialFormProps>(
     const [success, setSuccess] = useState(false);
     const [dismissed, setDismissed] = useState(false);
     const [honeypot, setHoneypot] = useState("");
+
     const wrapperRef = useRef<HTMLDivElement | null>(null);
 
     useImperativeHandle(ref, () => wrapperRef.current as HTMLDivElement, []);
@@ -63,14 +67,24 @@ export const TestimonialForm = forwardRef<HTMLDivElement, TestimonialFormProps>(
         setSubmitting(false);
 
         if (!res.ok) {
-          setError(res.error || "Failed to submit");
+          setError(res.error || (getText("testimonial-form-error") as string));
         } else {
           setSuccess(true);
           setComment("");
           setTitle("");
         }
       },
-      [canSubmit, honeypot, name, title, comment, stars, onSubmit, active]
+      [
+        canSubmit,
+        honeypot,
+        name,
+        title,
+        comment,
+        stars,
+        onSubmit,
+        active,
+        getText,
+      ]
     );
 
     // After success, hide form with delay
@@ -104,11 +118,11 @@ export const TestimonialForm = forwardRef<HTMLDivElement, TestimonialFormProps>(
             )}
             {success && (
               <Alert variant="success" className="py-2 my-2">
-                Thank you! Your review was submitted.
+                {getText("testimonial-form-success")}
               </Alert>
             )}
             <Form.Group controlId="testimonialName" className="mb-5">
-              <Form.Label>Name or initials</Form.Label>
+              <Form.Label>{getText("testimonial-form-name")}</Form.Label>
               <Form.Control
                 type="text"
                 required
@@ -116,11 +130,13 @@ export const TestimonialForm = forwardRef<HTMLDivElement, TestimonialFormProps>(
                 disabled={submitting}
                 onChange={(e) => setName(e.target.value)}
                 className="form-control-lg"
-                placeholder="e.g. Jane D. or JD"
+                placeholder={
+                  getText("testimonial-form-name-placeholder") as string
+                }
               />
             </Form.Group>
             <Form.Group controlId="testimonialTitle" className="mb-3">
-              <Form.Label>Title</Form.Label>
+              <Form.Label>{getText("testimonial-form-title")}</Form.Label>
               <Form.Control
                 maxLength={120}
                 required
@@ -132,7 +148,7 @@ export const TestimonialForm = forwardRef<HTMLDivElement, TestimonialFormProps>(
               <div className="form-hint small text-end">{title.length}/120</div>
             </Form.Group>
             <Form.Group controlId="testimonialComment" className="mb-3">
-              <Form.Label>Comment</Form.Label>
+              <Form.Label>{getText("testimonial-form-comment")}</Form.Label>
               <Form.Control
                 as="textarea"
                 rows={5}
@@ -144,11 +160,11 @@ export const TestimonialForm = forwardRef<HTMLDivElement, TestimonialFormProps>(
                 className="form-control-lg"
               />
               <div className="form-hint small text-end">
-                {remaining} characters left
+                {remaining} {getText("testimonial-form-characters-left")}
               </div>
             </Form.Group>
             <Form.Group controlId="testimonialStars" className="mb-4">
-              <Form.Label>Rating</Form.Label>
+              <Form.Label>{getText("testimonial-form-rating")}</Form.Label>
               <div>
                 <StarRating
                   value={stars}
@@ -189,7 +205,7 @@ export const TestimonialForm = forwardRef<HTMLDivElement, TestimonialFormProps>(
                 {submitting ? (
                   <Spinner animation="border" size="sm" />
                 ) : (
-                  "Submit"
+                  getText("testimonial-form-submit")
                 )}
               </Button>
             </div>

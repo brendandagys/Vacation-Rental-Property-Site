@@ -2,6 +2,7 @@ import React, { useMemo } from "react";
 import { Accordion, Col, Row, Spinner } from "react-bootstrap";
 import { ITestimonial } from "../types/testimonial";
 import { Testimonial } from "./Testimonial";
+import { useLanguage } from "../context/languageContext";
 
 interface TestimonialsListProps {
   testimonials: ITestimonial[];
@@ -14,6 +15,8 @@ export const TestimonialsList: React.FC<TestimonialsListProps> = ({
   testimonials,
   loading,
 }) => {
+  const { getText } = useLanguage();
+
   const grouped = useMemo(() => {
     const map: Record<number, ITestimonial[]> = {};
 
@@ -63,7 +66,11 @@ export const TestimonialsList: React.FC<TestimonialsListProps> = ({
         return (
           <Accordion.Item eventKey={bucket.toString()} key={bucket}>
             <Accordion.Header>
-              {bucket} Star{bucket !== 1 ? "s" : ""} ({items.length})
+              {bucket}{" "}
+              {bucket !== 1
+                ? getText("testimonials-stars")
+                : getText("testimonials-star")}{" "}
+              ({items.length})
             </Accordion.Header>
             <Accordion.Body>
               <Row>
@@ -71,7 +78,10 @@ export const TestimonialsList: React.FC<TestimonialsListProps> = ({
                   <Col key={i} xs={12} md={6} xl={4} className="mb-4">
                     <Testimonial
                       content={t.comment || t.title}
-                      name={(t as unknown as { name?: string }).name || "Guest"}
+                      name={
+                        (t as unknown as { name?: string }).name ||
+                        (getText("testimonials-guest") as string)
+                      }
                       stars={(t as unknown as { stars?: number }).stars || 0}
                     />
                   </Col>
