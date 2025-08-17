@@ -49,13 +49,6 @@ export const textData: TextData = {
     [ELanguage.German]: "Galerie",
     [ELanguage.Spanish]: "Galería",
   },
-  "nav-testimonials": {
-    [ELanguage.Dutch]: "Getuigenissen",
-    [ELanguage.English]: "Testimonials",
-    [ELanguage.French]: "Témoignages",
-    [ELanguage.German]: "Referenzen",
-    [ELanguage.Spanish]: "Testimonios",
-  },
   "nav-map": {
     [ELanguage.Dutch]: "Kaart",
     [ELanguage.English]: "Map",
@@ -1167,12 +1160,12 @@ export const textData: TextData = {
     [ELanguage.German]: "Galerie",
     [ELanguage.Spanish]: "Galería",
   },
-  "testimonials-title": {
-    [ELanguage.Dutch]: "Getuigenissen",
-    [ELanguage.English]: "Testimonials",
-    [ELanguage.French]: "Témoignages",
-    [ELanguage.German]: "Referenzen",
-    [ELanguage.Spanish]: "Testimonios",
+  "reviews-title": {
+    [ELanguage.Dutch]: "Beoordelingen",
+    [ELanguage.English]: "Reviews",
+    [ELanguage.French]: "Avis",
+    [ELanguage.German]: "Bewertungen",
+    [ELanguage.Spanish]: "Reseñas",
   },
   "testimonials-1": {
     [ELanguage.Dutch]:

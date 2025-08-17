@@ -63,7 +63,7 @@ export const Navbar = () => {
               className="nav-item"
               onClick={() => scrollTo("testimonials", mobile ? -115 : -50)}
             >
-              <p className="nav-link">{getText("nav-testimonials")}</p>
+              <p className="nav-link">{getText("reviews-title")}</p>
             </div>
             <div className="nav-item" onClick={() => scrollTo("map")}>
               <p className="nav-link">{getText("nav-map")}</p>
