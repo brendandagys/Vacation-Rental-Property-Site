@@ -6,7 +6,7 @@ import { TestimonialsList } from "./TestimonialsList";
 import { scrollTo } from "../utils/scroll";
 import { useViewportWidth } from "../hooks/useViewportWidth";
 
-const TOKEN_VALUE = "guest-review";
+const TOKEN_VALUE = "guest-reviews";
 
 export const TestimonialsContainer = () => {
   const { data, loading, error, submit } = useTestimonials({
