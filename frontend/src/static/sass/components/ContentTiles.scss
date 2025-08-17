@@ -1,31 +1,72 @@
 .content-tiles-row {
   &__details-list {
-    background: #ffd157;
+    background: linear-gradient(
+      180deg,
+      $color-yellow-llll 0%,
+      $color-yellow-ll 100%
+    );
     border-radius: 20px;
-    box-shadow: $text-shadow-sm;
-    
+    box-shadow: $box-shadow-xs;
+    border: 1px solid rgba(0, 0, 0, 0.06);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+
+    &:hover {
+      box-shadow: 0 0.8rem 2rem rgba(0, 0, 0, 0.14);
+      border-color: rgba(0, 0, 0, 0.1);
+      filter: brightness(1.02);
+    }
+
     li {
       margin-bottom: 4px;
     }
   }
-  
+
   img {
     border-radius: 20px;
-    box-shadow: $text-shadow-sm;
+    box-shadow: $box-shadow-xs;
   }
 
   &__amenities {
-    background: #4682b4;
-    color: $color-gray-dddd;
+    background: linear-gradient(
+      180deg,
+      rgba(70, 130, 180, 0.96) 0%,
+      rgba(70, 130, 180, 0.9) 100%
+    );
+    color: $color-gray-lllll;
     font-weight: 400;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+
+    &:hover {
+      box-shadow: 0 0.8rem 2rem rgba(0, 0, 0, 0.22);
+      border-color: rgba(255, 255, 255, 0.2);
+      filter: brightness(1.03);
+    }
 
     p:not(:first-child) {
       margin-top: 1.5rem;
     }
   }
-  
-  &__amenities, &__attractions {
+
+  &__amenities,
+  &__attractions {
     border-radius: 20px;
-    box-shadow: $text-shadow-sm;
+    box-shadow: $box-shadow-xs;
+  }
+
+  &__attractions {
+    background: linear-gradient(
+      180deg,
+      $color-yellow-llll 0%,
+      $color-yellow-l 100%
+    );
+    border: 1px solid rgba(0, 0, 0, 0.06);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+
+    &:hover {
+      box-shadow: 0 0.8rem 2rem rgba(0, 0, 0, 0.14);
+      border-color: rgba(0, 0, 0, 0.1);
+      filter: brightness(1.02);
+    }
   }
 }

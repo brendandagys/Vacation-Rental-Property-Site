@@ -81,7 +81,6 @@ export const ContentTiles = () => {
           className="d-flex align-items-center
           pb-4 pt-4 px-4 px-sm-5 px-md-4 px-lg-5 my-4
           content-tiles-row__attractions"
-          style={{ background: "#ffd157" }}
         >
           <div className="text-black py-3 py-sm-0 w-100">
             <Col xs={12} className="mb-5 text-center">
