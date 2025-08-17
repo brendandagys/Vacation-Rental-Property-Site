@@ -1,22 +1,21 @@
 .main-landing {
   &__titles {
     color: white;
-    
+
     h1 {
       @extend .font-7xl;
-      font-family: 'Handlee', arial;
+      font-family: "Handlee", arial;
       font-weight: 600;
       text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
-      
+
       @media screen and (min-width: 768px) {
-        font-size: 6.5rem;  
+        font-size: 6.5rem;
       }
     }
 
-    
     h2 {
       @extend .font-6xl;
-      font-family: 'Tangerine', cursive;
+      font-family: "Tangerine", cursive;
       margin-top: 1rem;
       color: $theme-yellow;
       text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
@@ -24,7 +23,7 @@
   }
 
   &__contact-information {
-    background: rgba(51, 51, 51, .85);
+    background: rgba(51, 51, 51, 0.85);
     border-radius: 11px;
     span {
       color: $color-yellow;
@@ -32,7 +31,7 @@
     h4 {
       color: $color-white;
     }
-    
+
     max-width: 800px;
     padding: 1.2rem 2.5rem;
 
@@ -40,5 +39,62 @@
       @extend .font-6xl;
       text-align: center;
     }
+  }
+}
+
+// Simple slide-in animations used on the landing screen
+@keyframes slide-in-up {
+  from {
+    opacity: 0;
+    transform: translateY(22px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slide-in-right {
+  from {
+    opacity: 0;
+    transform: translateX(-22px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.slide-in-up {
+  opacity: 0;
+  animation: slide-in-up 680ms ease-out forwards;
+}
+
+.slide-in-right {
+  opacity: 0;
+  animation: slide-in-right 700ms ease-out forwards;
+}
+
+// Small utility delays so elements cascade in
+.delay-1 {
+  animation-delay: 200ms;
+}
+.delay-2 {
+  animation-delay: 300ms;
+}
+.delay-3 {
+  animation-delay: 520ms;
+}
+.delay-4 {
+  animation-delay: 700ms;
+}
+
+// Respect users who prefer reduced motion
+@media (prefers-reduced-motion: reduce) {
+  .slide-in-up,
+  .slide-in-right {
+    animation: none !important;
+    opacity: 1 !important;
+    transform: none !important;
   }
 }

@@ -29,9 +29,14 @@
   &__amenities {
     background: linear-gradient(
       180deg,
-      rgba(70, 130, 180, 0.96) 0%,
-      rgba(70, 130, 180, 0.9) 100%
+      rgba(107, 165, 212, 0.96) 0%,
+      rgba(77, 141, 193, 0.9) 100%
     );
+    // background: linear-gradient(
+    //   180deg,
+    //   rgba(70, 130, 180, 0.96) 0%,
+    //   rgba(70, 130, 180, 0.9) 100%
+    // );
     color: $color-gray-lllll;
     font-weight: 400;
     border: 1px solid rgba(255, 255, 255, 0.08);
