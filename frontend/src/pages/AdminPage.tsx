@@ -47,7 +47,7 @@ export const AdminPage = () => {
             <Tab eventKey="defaults" title="Defaults">
               <ManageDefaultsContainer />
             </Tab>
-            <Tab eventKey="testimonials" title="Testimonials">
+            <Tab eventKey="testimonials" title="Reviews">
               <ManageTestimonialsContainer />
             </Tab>
           </Tabs>

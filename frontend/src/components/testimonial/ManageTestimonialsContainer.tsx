@@ -138,12 +138,18 @@ export const ManageTestimonialsContainer = () => {
                   </div>
                   <div className="small">
                     ⭐{" "}
-                    {((t as unknown as { stars?: number }).stars || 0).toFixed(1)}
+                    {((t as unknown as { stars?: number }).stars || 0).toFixed(
+                      1
+                    )}
                   </div>
                 </div>
                 <div
                   className="mb-3"
-                  style={{ maxHeight: 120, overflow: "auto" }}
+                  style={{
+                    maxHeight: 170,
+                    fontSize: "1.2rem",
+                    overflow: "auto",
+                  }}
                 >
                   {t.comment}
                 </div>
